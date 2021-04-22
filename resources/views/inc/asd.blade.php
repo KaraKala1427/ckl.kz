@@ -1,0 +1,1 @@
+id, orderid, raz, razid, dat, pubdat, fromm, too, name_ru, head_ru, keywords_ru, description_ru, img_ru, tex_ru, name_en, head_en, keywords_en, description_en, img_en, tex_en, name_kz, head_kz, keywords_kz, description_kz, img_kz, tex_kz
