@@ -4,10 +4,10 @@
 
             <section class="hero" style="background-image: url({{ asset('images/osb.jpg')}}); position: relative;">
                 <div class="hero__content">
-                    <h1 class="hero__title">{{ __('osns_tit')}}</h1>
+                    <h1 class="hero__title">{{ __('navbar.osns_tit')}}</h1>
                     {{--                <h1 class="hero__title"> {{ __('auth.failed') }} </h1> --}}
                     <div class="hero__maintext hero__maintext--bigger">
-                        <p>{{ __('osns_text')}}</p>
+                        <p>{{ __('navbar.osns_text')}}</p>
                     </div>
                     <div class="hero__helptext">
                         <p></p>
@@ -17,14 +17,14 @@
                     <div class="carousel__tabs" style="bottom: 0px; position: absolute;">
                         <nav class="nav nav--tabs nav--hero nav--carousel" id="hidemenu">
                             <ul class="nav__list product_list" data-tabs="">
-                                <li><a href="{{ route('product', app()->getLocale())}}" data-link="hcp_page"
-                                       class="link nav__item nav__item--tab active">{{ __('mf15')}}</a></li>
-                                <li><a href="{{ route('annuitet', app()->getLocale()) }}" data-link="ann_page"
-                                       class="link nav__item nav__item--tab">{{ __('mf16')}}</a></li>
-                                <li><a href="{{ route('live', app()->getLocale()) }}" data-link="live_page"
-                                       class="link nav__item nav__item--tab live">{{ __('mf17')}}</a></li>
-                                <li><a href="{{ route('retirementinsurance', app()->getLocale()) }}" data-link="live_page"
-                                       class="link nav__item nav__item--tab">{{ __('mf18')}}</a></li>
+                                <li><a href="{{ route('product')}}" data-link="hcp_page"
+                                       class="link nav__item nav__item--tab active">{{ __('navbar.mf15')}}</a></li>
+                                <li><a href="{{ route('annuitet') }}" data-link="ann_page"
+                                       class="link nav__item nav__item--tab">{{ __('navbar.mf16')}}</a></li>
+                                <li><a href="{{ route('live') }}" data-link="live_page"
+                                       class="link nav__item nav__item--tab live">{{ __('navbar.mf17')}}</a></li>
+                                <li><a href="{{ route('retirementinsurance') }}" data-link="live_page"
+                                       class="link nav__item nav__item--tab">{{ __('navbar.mf18')}}</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -79,7 +79,7 @@
                 <div id="hcp_page" class="blocker">
 
                     <section class="faq">
-                        <h2 class="faq__title">{{ __('faq')}}</h2>
+                        <h2 class="faq__title">{{ __('navbar.faq')}}</h2>
                         <div class="faq__list grid">
                             @foreach($questions as $question)
                             <div class="faq__item"><h4 class="faq__question">{{ $question->{'name_'.App::getLocale()} }}</h4>
@@ -97,24 +97,24 @@
                 <!-- .contacts__mails -->
                 <div class="contacts__feedback">
                     <section class="feedback">
-                        <h3 class="feedback__title">{{ __('callb')}}</h3>
+                        <h3 class="feedback__title">{{ __('navbar.callb')}}</h3>
 
                         <form action="/contacts" id="formdata">
                             <div class="grid">
 
                                 <fieldset class="field-set col col--full" style="false">
-                                    <label class="field-set__label">{{ __('bc4')}}</label>
+                                    <label class="field-set__label">{{ __('navbar.bc4')}}</label>
                                     <input type="text" class="field" name="name" id="name" value="" placeholder=""
                                            onclick="$(this).css('border-color', '#ccc')"/>
                                 </fieldset>
 
                                 <fieldset class="field-set col col--1-2" style="false">
-                                    <label class="field-set__label">{{ __('mf19')}}</label>
+                                    <label class="field-set__label">{{ __('navbar.mf19')}}</label>
                                     <input type="tel" class="field tel-masked" name="phone" id="phone" value=""
                                            placeholder="+7" onclick="$(this).css('border-color','#ccc')"/></fieldset>
 
                                 <fieldset class="field-set col col--1-2" style="false">
-                                    <label class="field-set__label">{{ __('mf20')}}</label>
+                                    <label class="field-set__label">{{ __('navbar.mf20')}}</label>
                                     <input type="email" class="field" name="email" id="email"
                                            onclick="$(this).css('border-color','#ccc')"/></fieldset>
 
@@ -123,7 +123,7 @@
                                               placeholder="Ваш вопрос" rows="5"></textarea></fieldset>
 
                                 <div class="col col--full">
-                                    <input type="submit" value='{{ __('bc8')}}' class="button button--prime" id="submit">
+                                    <input type="submit" value='{{ __('navbar.bc8')}}' class="button button--prime" id="submit">
 
                                 </div>
                             </div>

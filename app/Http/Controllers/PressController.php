@@ -21,7 +21,7 @@ class PressController extends Controller
 
 
 
-    public function press_detail($language, $year, $id, $alias ){
+    public function press_detail( $year, $id, $alias ){
 //        dd($language, $year, $id, $alias);
         $id_years = Menu::where('level', 22)->orderBy('id')->get()->pluck('id');
         $other_articles = Article::whereIn('razid',$id_years)
@@ -35,15 +35,16 @@ class PressController extends Controller
         return view('pages.press_detail',compact("article" , 'other_articles') );
     }
 
-    public function press_by_year($language, $year ){
+    public function press_by_year($year ){
 //        dd($language, $year);
         $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
         $id_years = Menu::where('level', 22)->where('name_ru',$year)->get()->pluck('id');
         $articles = Article::whereIn('razid',$id_years)
             ->orderBy('id','desc')
             ->with('year')
-            ->paginate(10);
+            ->paginate(12);
 //        dd($other_articles);
         return view('pages.press_by_year',compact('years',"articles" ) );
     }
+
 }

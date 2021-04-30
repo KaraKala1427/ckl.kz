@@ -4,7 +4,7 @@
 
       <div class="article-wrapper">
                 <article class="article">
-                    <h1 class="article__title">{{ __('finance') }}</h1>
+                    <h1 class="article__title">{{ __('navbar.finance') }}</h1>
                     <dl>
                         <ul class="accordion collapse__content">
                     @foreach($articles as $article)

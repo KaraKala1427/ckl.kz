@@ -42,7 +42,7 @@
             <ul class="pagination__list">
                 @foreach($years as $year)
                     <li>
-                        <a href="{{route('press_by_year', [app()->getLocale() ,$year]) }}" class="link pagination__link" >
+                        <a href="{{route('press_by_year', [$year]) }}" class="link pagination__link" >
                             {{$year}}
                         </a>
                     </li>

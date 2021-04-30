@@ -53,7 +53,7 @@
 
 
     <section class="content" data-tab-component>
-        <h1 class="content__title">{{ __('team')}}</h1>
+        <h1 class="content__title">{{ __('navbar.team')}}</h1>
         <!-- end .about-intro__title -->
         <div class="grid">
 
@@ -61,21 +61,21 @@
                 <nav class="nav nav--arrows">
                     <div class="nav__select">
                         <select class="field" name="selecter" data-tab-select>
-                            <option value="team#headOffice" selected data-id="29">{{ __('bod') }}</option>
-                            <option value="team#board" data-id="30">{{ __('prav') }}</option>
-                            <option value="team#other" data-id="31">{{ __('od') }}</option>
+                            <option value="team#headOffice" selected data-id="29">{{ __('navbar.bod') }}</option>
+                            <option value="team#board" data-id="30">{{ __('navbar.prav') }}</option>
+                            <option value="team#other" data-id="31">{{ __('navbar.od') }}</option>
                         </select>
                     </div>
                     <ul class="nav__list teamSelect" data-tabs>
                         <li>
                             <a href="team#headOffice" data-tab class="link nav__item active"
-                               data-id="29">{{ __('bod') }}</a>
+                               data-id="29">{{ __('navbar.bod') }}</a>
                         </li>
                         <li>
-                            <a href="team#board" data-tab class="link nav__item" data-id="30">{{ __('prav') }}</a>
+                            <a href="team#board" data-tab class="link nav__item" data-id="30">{{ __('navbar.prav') }}</a>
                         </li>
                         <li>
-                            <a href="team#other" data-tab class="link nav__item" data-id="31">{{ __('od') }}</a>
+                            <a href="team#other" data-tab class="link nav__item" data-id="31">{{ __('navbar.od') }}</a>
                         </li>
                     </ul>
                 </nav>
@@ -93,10 +93,11 @@
                                     <div class="person">
                                         <div class="person__wrapper">
 
-                                            <figure class="person-photo"><img src="{{ $value->{'img_ru'} }}"
-                                                                              class="person-photo__image" alt="{{ $value->{'name'} }}">
+                                            <figure class="person-photo"><img src="{{ $value->img_ru }}"
+                                                                              class="person-photo__image" alt="{{ $value->{'name_ru'} }}">
                                                 <div class="person-photo__back"></div>
                                             </figure>
+
                                             <div class="person-info"><h3
                                                     class="person__title">{{ $value->{'name_'.App::getLocale() } }}</h3>
                                                 <p class="person__desc">{{ $value->{'head_'.App::getLocale() } }}</p>

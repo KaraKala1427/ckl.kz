@@ -16,12 +16,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username',50);
-            $table->string('fio',50);
-            $table->string('password',50);
-            $table->set('active', ['y', 'n'])->default('y');
-            $table->date('dat');
-            $table->integer('sid')->default(1);
-            $table->set('grup', ['a', 'u'])->default('a');
+            $table->string('password',200);
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->rememberToken();
+            $table->timestamps();
 
         });
     }

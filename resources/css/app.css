@@ -5800,8 +5800,8 @@ a.close.disabled {
 
     .modal-dialog-centered::before {
         height: calc(100vh - 3.5rem);
-        height: -webkit-min-content;
-        height: -moz-min-content;
+        /*height: -webkit-min-content;*/
+        /*height: -moz-min-content;*/
         height: min-content
     }
 
@@ -17241,7 +17241,7 @@ input:checked ~ .gifts__title {
 
 /* Slider */
 .slick-loading .slick-list {
-    background: #fff url(/images/ajax-loader.gif?1345465c60fc9309e4583e7f3a531444) center center no-repeat;
+    /*background: #fff url(/images/ajax-loader.gif) center center no-repeat;*/
 }
 
 
@@ -18511,6 +18511,7 @@ iframe {
 }
 
 .thumb__box {
+    /*display: none;*/
     position: relative;
     z-index: 0;
     background: #fff;
@@ -18520,7 +18521,7 @@ iframe {
     transition: max-height .3s ease-out, z-index .3s ease-out;
     max-height: 100%;
     overflow: hidden;
-    float: left;
+
 }
 
 .buffer {
@@ -18593,5 +18594,35 @@ iframe {
 strong {
     font-weight: bold;
 }
+
+#container.container{
+    padding-left: 0;
+}
+.pagination > li > a,
+.pagination > li > span {
+    color: black;
+    border: white;
+
+}
+.pagination{
+    margin-top: 0;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: black;
+    background-color: white;
+    border-color: #cbd5e0;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: white;
+    border-color: white;
+    color: black;
+}
+
 
 

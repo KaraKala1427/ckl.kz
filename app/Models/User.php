@@ -18,8 +18,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function isSuperAdmin(){
+        return $this->role_id == Role::SUPER_ADMIN;
+    }
+    public function isAdmin(){
+        return $this->role_id == Role::SUPER_ADMIN||$this->role_id == Role::ADMIN;
+    }
 }

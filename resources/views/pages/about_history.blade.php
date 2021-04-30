@@ -4,7 +4,7 @@
 
 
     <section class="history content">
-        <h1 class="content__title">{{ __('history') }}</h1>
+        <h1 class="content__title">{{ __('navbar.history') }}</h1>
         <div class="history__wrap">
             <div class="frame frame--over">
                 <div class="slidee grid">

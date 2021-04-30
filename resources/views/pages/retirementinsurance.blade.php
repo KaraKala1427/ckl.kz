@@ -15,14 +15,14 @@
                     <div class="carousel__tabs" style="bottom: 0px; position: absolute;">
                         <nav class="nav nav--tabs nav--hero nav--carousel" id="hidemenu">
                             <ul class="nav__list product_list" data-tabs="">
-                                <li><a href="{{ route('product', app()->getLocale())}}" data-link="hcp_page"
-                                       class="link nav__item nav__item--tab ">{{ __('mf15')}}</a></li>
-                                <li><a href="{{ route('annuitet', app()->getLocale()) }}" data-link="ann_page"
-                                       class="link nav__item nav__item--tab">{{ __('mf16')}}</a></li>
-                                <li><a href="{{ route('live', app()->getLocale()) }}" data-link="live_page"
-                                       class="link nav__item nav__item--tab live ">{{ __('mf17')}}</a></li>
-                                <li><a href="{{ route('retirementinsurance', app()->getLocale()) }}" data-link="live_page"
-                                       class="link nav__item nav__item--tab active">{{ __('mf18')}}</a></li>
+                                <li><a href="{{ route('product')}}" data-link="hcp_page"
+                                       class="link nav__item nav__item--tab ">{{ __('navbar.mf15')}}</a></li>
+                                <li><a href="{{ route('annuitet') }}" data-link="ann_page"
+                                       class="link nav__item nav__item--tab">{{ __('navbar.mf16')}}</a></li>
+                                <li><a href="{{ route('live') }}" data-link="live_page"
+                                       class="link nav__item nav__item--tab live ">{{ __('navbar.mf17')}}</a></li>
+                                <li><a href="{{ route('retirementinsurance') }}" data-link="live_page"
+                                       class="link nav__item nav__item--tab active">{{ __('navbar.mf18')}}</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -72,7 +72,7 @@
             <div id="ann_page" class="blocker">
 
                 <section class="faq">
-                    <h2 class="faq__title">{{ __('faq')}}</h2>
+                    <h2 class="faq__title">{{ __('navbar.faq')}}</h2>
                     <div class="faq__list grid">
                         @foreach($questions as $question)
                             <div class="faq__item"><h4 class="faq__question">{{ $question->{'name_'.App::getLocale()} }}</h4>

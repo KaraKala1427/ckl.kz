@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\App;
 
 class Article extends Model
 {
+    public $timestamps = false;
+
     public function year(){
         return $this->belongsTo(Menu::class,'raz' , 'link');
     }
 
     public function route(){
-        return route('press_detail', ['id'=>$this->id, "language" => App::getLocale() , "year" => $this->year->name_ru , "alias"=>str_slug($this->name_ru, '-' )]) ;
+        return route('press_detail', ['id'=>$this->id, "year" => $this->year->name_ru , "alias"=>str_slug($this->name_ru, '-' )]) ;
     }
     use HasFactory;
 }

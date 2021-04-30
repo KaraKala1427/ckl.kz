@@ -45,7 +45,7 @@
                 <!-- Текстовое составляющие блока конец-->
 
                 <div class="mobile_other_news">
-                    <h3 class="aside__title">{{__('sm')}}</h3>
+                    <h3 class="aside__title">{{__('navbar.sm')}}</h3>
 
                     <!-- .card card--promo -->
                     @foreach($other_articles as $other_article)
@@ -78,7 +78,7 @@
 
             <div class="other_news">
 
-                <h3 class="aside__title">{{ __('sm') }}</h3>
+                <h3 class="aside__title">{{ __('navbar.sm') }}</h3>
 
                 <!-- .card card--promo -->
                 @foreach($other_articles as $other_article)

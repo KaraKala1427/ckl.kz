@@ -253,54 +253,54 @@
                             <ul class="nav__list nav__list--prime">
                                 <ul class="nav__list nav__list--second">
                                     <li style="margin-bottom: 0; padding-top: 5px;">
-                                        <a href="{{ route('product', app()->getLocale())}}"
+                                        <a href="{{ route('product' )}}"
                                            class="link nav__item nav__item--tab "
-                                           style="font-size: 21px">{{ __('mf1')}}</a>
+                                           style="font-size: 21px">{{ __('navbar.mf1')}}</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('about.history', app()->getLocale())}}"
+                                        <a href="{{ route('about.history')}}"
                                            class="link nav__link nav__fold ">
                                             <span class="nav__arrow"></span>
-                                            Компания
+                                            {{ __('navbar.mf2')}}
                                         </a>
                                         <ul class="nav__list">
-                                            <li><a href="{{ route('about.history', app()->getLocale()) }}"
-                                                   class="link nav__item">{{ __('mf5')}}</a></li>
-                                            <li><a href="{{ route('about.team', app()->getLocale()) }}"
-                                                   class="link nav__item">{{ __('mf6')}}</a></li>
-                                            <li><a href="{{ route('about.license', app()->getLocale()) }}"
-                                                   class="link nav__item ">{{ __('mf7')}}</a></li>
-                                            <li><a href="{{ route('about.financial_statements', app()->getLocale()) }}"
-                                                   class="link nav__item ">{{ __('mf8')}}</a></li>
-                                            <li><a href="{{ route('about.corporate_events', app()->getLocale()) }}"
-                                                   class="link nav__item ">Корпоративные события</a></li>
-                                            <li><a href="{{ route('about.akcioneram', app()->getLocale()) }}"
-                                                   class="link nav__item ">Акционерам</a></li>
-                                            <li><a href="{{ route('about.compliance_controller', app()->getLocale()) }}"
-                                                   class="link nav__item ">Комплаенс-контролер</a></li>
+                                            <li><a href="{{ route('about.history') }}"
+                                                   class="link nav__item">{{ __('navbar.mf5')}}</a></li>
+                                            <li><a href="{{ route('about.team') }}"
+                                                   class="link nav__item">{{ __('navbar.mf6')}}</a></li>
+                                            <li><a href="{{ route('about.license') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf7')}}</a></li>
+                                            <li><a href="{{ route('about.financial_statements') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf8')}}</a></li>
+                                            <li><a href="{{ route('about.corporate_events') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf9')}}</a></li>
+                                            <li><a href="{{ route('about.akcioneram') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf10')}}</a></li>
+                                            <li><a href="{{ route('about.compliance_controller') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf11')}}</a></li>
                                             <li>
-                                                <a href="{{ route('about.informaciya_dlya_insayderov', app()->getLocale()) }}"
-                                                   class="link nav__item ">Инсайдерам</a></li>
-                                            <li><a href="{{ route('about.tarify', app()->getLocale()) }}"
-                                                   class="link nav__item ">Правила и тарифы</a></li>
-                                            <li><a href="{{ route('about.agents', app()->getLocale()) }}"
-                                                   class="link  nav__item">Агенты</a></li>
+                                                <a href="{{ route('about.informaciya_dlya_insayderov') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf12')}}</a></li>
+                                            <li><a href="{{ route('about.tarify') }}"
+                                                   class="link nav__item ">{{ __('navbar.mf13')}}</a></li>
+                                            <li><a href="{{ route('about.agents') }}"
+                                                   class="link  nav__item">{{ __('navbar.mf21')}}</a></li>
                                             <!--<li><a href="/about/association_participation" class="link  nav__item">Участие в ассоциациях</a></li>-->
-                                            <li><a href="{{ route('about.requisites', app()->getLocale()) }}"
-                                                   class="link  nav__item">Реквизиты</a></li>
+                                            <li><a href="{{ route('about.requisites') }}"
+                                                   class="link  nav__item">{{ __('navbar.mf14')}}</a></li>
                                         </ul>
                                         <!-- .nav__list -->
                                     </li>
 
                                     <li>
-                                        <a href="{{ route('press', app()->getLocale())}}"
-                                           class="link nav__item nav__item--tab">{{ __('mf3')}}</a>
+                                        <a href="{{ route('press')}}"
+                                           class="link nav__item nav__item--tab">{{ __('navbar.mf3')}}</a>
                                     </li>
 
 
                                     <li>
-                                        <a href="{{ route('contacts', app()->getLocale())}}"
-                                           class="link nav__item nav__item--tab">{{ __('mf4')}}</a>
+                                        <a href="{{ route('contacts')}}"
+                                           class="link nav__item nav__item--tab">{{ __('navbar.mf4')}}</a>
                                     </li>
 
                                 </ul>
@@ -315,8 +315,8 @@
                                 <!-- <li><a class='nav__link link active' href="?lang=ru">Ру</a></li>
                                  <li><a class='nav__link link ' href="?lang=kk">Кз</a></li>
                                  <li><a class='nav__link link ' href="?lang=en">En</a></li> -->
-                                <li><a class='nav__link link active' href="/">Ру</a></li>
-                                <li><a class='nav__link link ' href="/kz/">Кз</a></li>
+{{--                                <li><a class='nav__link link active' href="/">Ру</a></li>--}}
+{{--                                <li><a class='nav__link link ' href="/kz/">Кз</a></li>--}}
                             </ul>
                             <!-- .nav__list -->
                         </nav>
@@ -386,39 +386,46 @@
 
         <nav class="nav nav--tabs adaptive_menu">
             <ul class="nav__list " id="nav__list">
-                <li><a href="{{ route('product', app()->getLocale()) }}" class="link nav__item nav__item--tab "
-                       id='product'>{{ __('mf1')}}</a></li>
-                <li><a href="{{ route('about.history', app()->getLocale()) }}"
-                       class="link nav__item nav__item--tab" id='aboutt'>{{ __('mf2')}}</a></li>
-                <li><a href="{{ route('press', app()->getLocale()) }}"
-                       class="link nav__item nav__item--tab " id='presst'>{{ __('mf3')}}</a></li>
-                <li><a href="{{ route('contacts', app()->getLocale()) }}"
-                       class="link nav__item nav__item--tab" id='contactst'>{{ __('mf4')}}</a></li>
+                <li><a href="{{ route('product') }}" class="link nav__item nav__item--tab "
+                       id='product'>{{ __('navbar.mf1')}}</a></li>
+                <li><a href="{{ route('about.history') }}"
+                       class="link nav__item nav__item--tab" id='aboutt'>{{ __('navbar.mf2')}}</a></li>
+                <li><a href="{{ route('press') }}"
+                       class="link nav__item nav__item--tab " id='presst'>{{ __('navbar.mf3')}}</a></li>
+                <li><a href="{{ route('contacts') }}"
+                       class="link nav__item nav__item--tab" id='contactst'>{{ __('navbar.mf4')}}</a></li>
             </ul>
         </nav>
 
         <section class="nav-section" id="nav__list">
             <nav class="nav nav--sub nav--multiline removejust">
                 <ul class="nav__list remind" id="nav__list" style="margin-left: 10px">
-                    <li><a href="{{ route('about.history', app()->getLocale()) }}" class="link nav__item" id="history">{{ __('mf5')}}</a>
+                    <li><a href="{{ route('about.history') }}" class="link nav__item"
+                           id="history">{{ __('navbar.mf5')}}</a>
                     </li>
-                    <li><a href="{{ route('about.team', app()->getLocale()) }}" class="link nav__item" id="team">{{ __('mf6')}}</a></li>
-                    <li><a href="{{ route('about.license', app()->getLocale()) }}" class="link nav__item " id="license">{{ __('mf7')}}</a>
+                    <li><a href="{{ route('about.team') }}" class="link nav__item"
+                           id="team">{{ __('navbar.mf6')}}</a></li>
+                    <li><a href="{{ route('about.license') }}" class="link nav__item "
+                           id="license">{{ __('navbar.mf7')}}</a>
                     </li>
-                    <li><a href="{{ route('about.financial_statements', app()->getLocale()) }}" class="link nav__item " id="financial_statements">{{ __('mf8')}}</a></li>
-                    <li><a href="{{ route('about.corporate_events', app()->getLocale()) }}" class="link nav__item " id="corporate_events">{{ __('mf9')}}</a></li>
-                    <li><a href="{{ route('about.akcioneram', app()->getLocale()) }}"
-                           class="link nav__item " id="akcioneram">{{ __('mf10')}}</a></li>
-                    <li><a href="{{ route('about.compliance_controller', app()->getLocale()) }}"
-                           class="link nav__item " id="compliance_controller">{{ __('mf11')}}</a></li>
-                    <li><a href="{{ route('about.informaciya_dlya_insayderov', app()->getLocale()) }}"
-                           class="link nav__item " id="informaciya_dlya_insayderov">{{ __('mf12')}}</a></li>
-                    <li><a href="{{ route('about.tarify', app()->getLocale()) }}" class="link nav__item " id="tarify">{{ __('mf13')}}</a></li>
-                    <li><a href="{{ route('about.agents', app()->getLocale()) }}" class="link  nav__item" id="agents">{{ __('mf21')}}</a>
+                    <li><a href="{{ route('about.financial_statements') }}" class="link nav__item "
+                           id="financial_statements">{{ __('navbar.mf8')}}</a></li>
+                    <li><a href="{{ route('about.corporate_events') }}" class="link nav__item "
+                           id="corporate_events">{{ __('navbar.mf9')}}</a></li>
+                    <li><a href="{{ route('about.akcioneram') }}"
+                           class="link nav__item " id="akcioneram">{{ __('navbar.mf10')}}</a></li>
+                    <li><a href="{{ route('about.compliance_controller') }}"
+                           class="link nav__item " id="compliance_controller">{{ __('navbar.mf11')}}</a></li>
+                    <li><a href="{{ route('about.informaciya_dlya_insayderov') }}"
+                           class="link nav__item " id="informaciya_dlya_insayderov">{{ __('navbar.mf12')}}</a></li>
+                    <li><a href="{{ route('about.tarify') }}" class="link nav__item "
+                           id="tarify">{{ __('navbar.mf13')}}</a></li>
+                    <li><a href="{{ route('about.agents') }}" class="link  nav__item"
+                           id="agents">{{ __('navbar.mf21')}}</a>
                     </li>
                     <!--<li><a href="/about/association_participation" class="link  nav__item">Участие в ассоциациях</a></li>-->
-                    <li><a href="{{ route('about.requisites', app()->getLocale()) }}"
-                           class="link  nav__item" id="requisites">{{ __('mf14')}}</a></li>
+                    <li><a href="{{ route('about.requisites') }}"
+                           class="link  nav__item" id="requisites">{{ __('navbar.mf14')}}</a></li>
                 </ul>
             </nav>
         </section>
@@ -430,7 +437,7 @@
                 <div class="iziModal-content" style="padding: 0px;">
                     <button data-izimodal-close="" class="modal__close">
                         <svg class="icon icon-close">
-                            <use xlink:href="/templates/assets/images/sprite.svg#icon-close"></use>
+                            <use xlink:href="{{ asset('images/sprite.svg#icon-close')}}"></use>
                         </svg>
                     </button>
 

@@ -6,7 +6,7 @@
             <ul class="dropdown__list">
 
                 @foreach ($params as $lang =>  $data)
-                    <li><a href="{{ route(request()->route()->getName(),$data ) }}">
+                    <li><a href="{{ route('setlocale',$data) }}">
                             {{ $lang }}
                         </a></li>
                 @endforeach

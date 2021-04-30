@@ -23,11 +23,11 @@ class Language extends Component
      */
     public function render()
     {
-        $params['kz'] = request()->route()->parameters;
         $params['ru'] = request()->route()->parameters;
+        $params['kz'] = request()->route()->parameters;
 
-        $params['ru']['language'] = 'ru';
-        $params['kz']['language'] = 'kz';
+        $params['ru']['lang'] = 'ru';
+        $params['kz']['lang'] = 'kz';
 
         return view('components.language-component', compact('params'));
     }

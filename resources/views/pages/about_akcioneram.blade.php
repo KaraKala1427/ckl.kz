@@ -21,7 +21,7 @@
                     <nav class="pagination" id="nav__list">
                         <ul class="pagination__list">
                             <li>
-                                <a href="{{ route('about.akcioneram', app()->getLocale()) }}" class="link pagination__link">
+                                <a href="{{ route('about.akcioneram') }}" class="link pagination__link">
                                     1
                                 </a>
                             </li>

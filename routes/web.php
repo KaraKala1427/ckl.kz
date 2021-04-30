@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -8,11 +10,54 @@ use App\Http\Controllers\PressController;
 
 Route::redirect('/','/ru');
 
+Auth::routes();
+
+//Route::group([
+//    'prefix' => '{language?}',
+//    'where' => ['language' => 'ru|kz']
+//
+//], function (){
+
+Route::get(
+    'setlocale/{lang}',
+    function ($lang){
+
+        $referer = Redirect::back()->getTargetUrl();
+        $parse_url = parse_url($referer, PHP_URL_PATH);
+
+        $segments = explode('/',  $parse_url);
+
+        if (in_array($segments[1], App\Http\Middleware\Locale::$languages)){
+
+            unset($segments[1]);
+        }
+
+        if ($lang != App\Http\Middleware\Locale::$mainLanguage){
+
+            array_splice($segments, 1, 0, $lang);
+        }
+
+        $url = Request::root() .implode("/", $segments);
+
+        if(parse_url($referer, PHP_URL_QUERY)){
+                $url = $url . '?' . parse_url($referer, PHP_URL_QUERY);
+
+        }
+
+        $url =  str_replace(env('APP_URL'), "", $url);
+
+        return  redirect($url);
+
+    }
+)->name('setlocale');
+
 Route::group([
-    'prefix' => '{language}'
+    'prefix' => App\Http\Middleware\Locale::getLocale(),
+
 
 ], function (){
-    Route::get('/', [HomeController::class, 'index'])->name('index_page');
+
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/product', [ProductController::class, 'index'])->name('product');
 
@@ -55,6 +100,26 @@ Route::group([
     Route::get('/press', [PressController::class, 'press'])->name('press');
     Route::get('/press/{year}/{id}-{alias}', [PressController::class, 'press_detail'])->name('press_detail');
     Route::get('/press/{year}', [PressController::class, 'press_by_year'])->name('press_by_year');
+
+});
+
+Route::group([
+    "as"=>"admin.",
+    "middleware"=>"admin",
+    "prefix"=>"/admin"
+],function (){
+
+
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
+
+
+    Route::get('/{link}/list', [App\Http\Controllers\AdminController::class, 'getLink'])->name('one.menu');
+    Route::get('/{link}/edd/{id}', [App\Http\Controllers\AdminController::class, 'getArticle'])->name('one.menu.edit');
+
+    Route::get('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordEdit'])->name('password.edit');
+    Route::post('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordUpdate'])->name('password.update');
+    Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
+
 
 });
 

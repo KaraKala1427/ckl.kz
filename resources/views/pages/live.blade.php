@@ -13,14 +13,14 @@
                 <div class="carousel__tabs" style="bottom: 0px; position: absolute;">
                     <nav class="nav nav--tabs nav--hero nav--carousel" id="hidemenu">
                         <ul class="nav__list product_list" data-tabs="">
-                            <li><a href="{{ route('product', app()->getLocale())}}" data-link="hcp_page"
-                                   class="link nav__item nav__item--tab ">{{ __('mf15')}}</a></li>
-                            <li><a href="{{ route('annuitet', app()->getLocale()) }}" data-link="ann_page"
-                                   class="link nav__item nav__item--tab">{{ __('mf16')}}</a></li>
-                            <li><a href="{{ route('live', app()->getLocale()) }}" data-link="live_page"
-                                   class="link nav__item nav__item--tab live active">{{ __('mf17')}}</a></li>
-                            <li><a href="{{ route('retirementinsurance', app()->getLocale()) }}" data-link="live_page"
-                                   class="link nav__item nav__item--tab">{{ __('mf18')}}</a></li>
+                            <li><a href="{{ route('product')}}" data-link="hcp_page"
+                                   class="link nav__item nav__item--tab ">{{ __('navbar.mf15')}}</a></li>
+                            <li><a href="{{ route('annuitet') }}" data-link="ann_page"
+                                   class="link nav__item nav__item--tab">{{ __('navbar.mf16')}}</a></li>
+                            <li><a href="{{ route('live') }}" data-link="live_page"
+                                   class="link nav__item nav__item--tab live active">{{ __('navbar.mf17')}}</a></li>
+                            <li><a href="{{ route('retirementinsurance') }}" data-link="live_page"
+                                   class="link nav__item nav__item--tab">{{ __('navbar.mf18')}}</a></li>
                         </ul>
                     </nav>
                 </div>

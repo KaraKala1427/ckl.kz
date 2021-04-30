@@ -3,31 +3,31 @@
         <div class="grid">
             <div class="col col--3-12">
                 <nav class="nav nav--footer">
-                    <h3 class="nav__title">{{ __('insur')}}</h3>
+                    <h3 class="nav__title">{{ __('navbar.insur')}}</h3>
                     <ul class="nav__list">
-                        <li><a href="{{ route('product', app()->getLocale())}}" class="link nav__item">{{ __('mf15')}}</a></li>
-                        <li><a href="{{ route('annuitet', app()->getLocale())}}" class="link nav__item"> {{ __('mf16')}} </a></li>
-                        <li><a href="{{ route('live', app()->getLocale())}}" class="link nav__item">{{ __('mf17')}}</a></li>
-                        <li><a href="{{ route('retirementinsurance', app()->getLocale())}}" class="link nav__item">{{ __('mf18')}}</a></li>
+                        <li><a href="{{ route('product')}}" class="link nav__item">{{ __('navbar.mf15')}}</a></li>
+                        <li><a href="{{ route('annuitet')}}" class="link nav__item"> {{ __('navbar.mf16')}} </a></li>
+                        <li><a href="{{ route('live')}}" class="link nav__item">{{ __('navbar.mf17')}}</a></li>
+                        <li><a href="{{ route('retirementinsurance')}}" class="link nav__item">{{ __('navbar.mf18')}}</a></li>
 
                     </ul>
                 </nav>
             </div>
             <div class="col col--3-12">
                 <nav class="nav nav--footer">
-                    <h3 class="nav__title">{{ __('aboutus')}}</h3>
+                    <h3 class="nav__title">{{ __('navbar.aboutus')}}</h3>
                     <ul class="nav__list">
-                        <li><a href="{{ route('about.history', app()->getLocale()) }}" class="link nav__item">{{ __('mf5')}}</a></li>
-                        <li><a href="{{ route('about.team', app()->getLocale()) }}" class="link nav__item">{{ __('mf6')}}</a></li>
-                        <li><a href="{{ route('about.akcioneram', app()->getLocale()) }}" class="link nav__item">{{ __('mf10')}}</a></li>
-                        <li><a href="{{ route('about.license', app()->getLocale()) }}" class="link nav__item">{{ __('mf7')}}</a></li>
-                        <li><a href="{{ route('about.compliance_controller', app()->getLocale()) }}" class="link nav__item">{{ __('mf11')}}</a></li>
+                        <li><a href="{{ route('about.history') }}" class="link nav__item">{{ __('navbar.mf5')}}</a></li>
+                        <li><a href="{{ route('about.team') }}" class="link nav__item">{{ __('navbar.mf6')}}</a></li>
+                        <li><a href="{{ route('about.akcioneram') }}" class="link nav__item">{{ __('navbar.mf10')}}</a></li>
+                        <li><a href="{{ route('about.license',) }}" class="link nav__item">{{ __('navbar.mf7')}}</a></li>
+                        <li><a href="{{ route('about.compliance_controller') }}" class="link nav__item">{{ __('navbar.mf11')}}</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col col--6-12">
                 <nav class="nav nav--footer">
-                    <h3 class="nav__title">{{ __('mf4')}}</h3>
+                    <h3 class="nav__title">{{ __('navbar.mf4')}}</h3>
                     <div class="grid">
                         <div class="col col--6-12">
                             <ul class="nav__list">
@@ -46,9 +46,9 @@
                                 </li>
                                 <li><a href="mailto:call-center@kommesk-omir.kz" class="link nav__item footer__mail">call-center@kommesk-omir.kz</a>
                                 </li>
-                                <li><a href="{{ route('contacts', app()->getLocale()) }}" class="link nav__item">{{ __('ho')}}</a></li>
-                                <li><a href="{{ route('contacts', app()->getLocale()) }}" class="link nav__item">{{ __('fil')}}</a></li>
-                                <li><a href="{{ route('contacts', app()->getLocale()) }}" class="link nav__item">{{ __('callb')}}</a></li>
+                                <li><a href="{{ route('contacts') }}" class="link nav__item">{{ __('navbar.ho')}}</a></li>
+                                <li><a href="{{ route('contacts') }}" class="link nav__item">{{ __('navbar.fil')}}</a></li>
+                                <li><a href="{{ route('contacts') }}" class="link nav__item">{{ __('navbar.callb')}}</a></li>
                             </ul>
                         </div>
                         <div class="col col--6-12 footer__lastcol">
