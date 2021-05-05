@@ -21,15 +21,21 @@ class AdminController extends Controller
 
     }
     public function getLink($link){
+
         $menus = Menu::orderBy('orderid')->orderBy('level')->get();
         $articles = Article::where('raz',$link)->get();
         return view('admin.index', compact('articles','menus'));
+
     }
 
     public function getArticle($link, $id){
+
+
         $menus = Menu::orderBy('orderid')->orderBy('level')->get();
         $article = Article::where('id',$id)->get()->first();
         return view('admin.edit',compact('article','menus'));
+
+
     }
 
     public function update(Request $request, $id){

@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
+
+    public function children(){
+        return $this->hasMany(Menu::class , 'level','id');
+    }
     use HasFactory;
 }

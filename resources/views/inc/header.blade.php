@@ -305,7 +305,7 @@
 
                                 </ul>
                                 <!-- .nav__list -->
-                                </li>
+
                             </ul>
                             <!-- .nav__list -->
                         </nav>
@@ -368,7 +368,7 @@
                     </section>
                 </div>
                 <!-- .phones__buttons -->
-                </section>
+
             </div>
         </div>
         <!-- .header__mobile -->
@@ -376,7 +376,6 @@
     </div>
     <!-- end header wrapper -->
 
-    </div>
 </header>
 
 
@@ -650,7 +649,6 @@
                 </div>
             </div>
         </div>
-
 
 
 
