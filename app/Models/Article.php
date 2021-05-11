@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\App;
 class Article extends Model
 {
     public $timestamps = false;
+    use HasFactory;
+
+    protected $fillable = [
+      'name_ru',
+      'dat',
+      'description_ru',
+      'head_ru',
+      'text_ru'
+    ];
+
+    protected $dates = [
+        'dat',
+        'pubdat'
+    ];
 
     public function year(){
         return $this->belongsTo(Menu::class,'raz' , 'link');
@@ -17,5 +31,6 @@ class Article extends Model
     public function route(){
         return route('press_detail', ['id'=>$this->id, "year" => $this->year->name_ru , "alias"=>str_slug($this->name_ru, '-' )]) ;
     }
-    use HasFactory;
+
+
 }

@@ -1,51 +1,48 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
-
     <div class="row" style="float: right; width: 85%;">
         <div class="col-lg-12 col-md-12">
-            @if(session('success'))
-                <div class="text-center alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="card ">
                 <div class="card-header">
-                    <h4 class="card-title">Table</h4>
+                    <h4 class="card-title">Таблица добавления</h4>
                 </div>
                 <div class="card-body">
-                    <div class="" id="updateItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="" id="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="" role="document">
                             <div class="">
-                                <form action="{{ route('admin.itemUpdate', $article->id) }}" method="post">
-                                    {{method_field('put')}}
-                                    <div class="">
-                                        <label for="exampleFormControlInput1">Id</label>
-                                        <h5 class="" id="exampleModalLabel">
-                                            <input value="{{$article->id}}" disabled class="form-control" id="exampleFormControlInput1" placeholder="item name" name="id" style="width: 80px">
-                                        </h5>
-
-                                    </div>
-
+                                <form action="{{route('admin.itemInsert')}}" method="post">
+                                    {{method_field('post')}}
                                     <div class="">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Name</label>
-                                            <input value="{{$article->name_ru}}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="name_ru">
+                                            <label for="exampleFormControlInput1">Имя</label>
+                                            <input value="" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" name="name_ru">
+                                            @error('name_ru')
+                                            <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Дата</label>
-                                            <input value="{{(new \Illuminate\Support\Carbon($article->dat))->format('Y-m-d')}}" type="date" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
+                                            <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
+                                            @error('dat')
+                                            <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
+                                            @enderror
+                                        </div>
+
+
+
+                                        <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
+
+
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Описание</label>
+                                            <input  class="form-control" id="descc" name="description_ru" rows="3"></input>
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Description</label>
-                                            <input value="{{$article->description_ru}}" class="form-control" id="descc" name="description_ru" rows="3">
-                                        </div>
-                                        <div class="form-group">
                                             <label for="exampleFormControlTextarea1">Заголовок</label>
-                                            <input value="{{$article->head_ru}}" class="form-control" id="headerr" name="head_ru" rows="3">
+                                            <input  class="form-control" id="headerr" name="head_ru" rows="3"></input>
 
                                         </div>
                                         <div class="form-group">
@@ -74,7 +71,7 @@
 
                                                 };
                                             </script>
-                                            <textarea  class="form-control" id="textt" name="tex_ru" rows="3">{{$article->tex_ru}}</textarea>
+                                            <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>
 
                                         </div>
 
@@ -86,7 +83,7 @@
                                         <button type="submit" class="btn btn-"      style="   background: #0098f0;
                                         background: linear-gradient(
                                         0deg
-                                        ,#0098f0,#00f2c3);"  >Сохранить изменения</button>
+                                        ,#0098f0,#00f2c3);">Добавить запись</button>
 
 
 
@@ -107,3 +104,4 @@
 
 
 @endsection
+

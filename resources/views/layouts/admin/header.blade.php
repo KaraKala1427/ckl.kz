@@ -8,7 +8,7 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Админ панель</a>
+            <a class="navbar-brand" href="{{route('admin.index')}}">Админ панель</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -61,7 +61,7 @@
                             {{ Auth::user()->username }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a href="{{route('admin.password.edit')}}" class="nav-item dropdown-item"> Profile</a>
+                            <a href="{{route('admin.password.edit')}}" class="nav-item dropdown-item"> Смена пароля</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

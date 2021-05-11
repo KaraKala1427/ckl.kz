@@ -115,9 +115,14 @@ Route::group([
 
     Route::get('/{link}/list', [App\Http\Controllers\AdminController::class, 'getLink'])->name('one.menu');
     Route::get('/{link}/edd/{id}', [App\Http\Controllers\AdminController::class, 'getArticle'])->name('one.menu.edit');
+    Route::get('/{link}/add', [App\Http\Controllers\AdminController::class, 'getAdd'])->name('one.menu.add');
 
     Route::get('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordEdit'])->name('password.edit');
     Route::post('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordUpdate'])->name('password.update');
+
+    Route::post('/insert', [App\Http\Controllers\AdminController::class, 'store'])->name('itemInsert');
+    Route::delete('/{link}/{id}/', [App\Http\Controllers\AdminController::class, 'destroy'])->name('Del');
+
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
 
 

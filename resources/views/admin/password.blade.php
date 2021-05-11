@@ -20,8 +20,8 @@
                         </div>
                     @endif
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Old password</label>
-                        <input id="oldPassword" type="password""  placeholder="old password" class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword" required autocomplete="new-password">
+                        <label for="exampleInputEmail1">Cтарый пароль</label>
+                        <input id="oldPassword" type="password"  placeholder="Cтарый пароль" class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword" required autocomplete="new-password">
 
                         @error('oldPassword')
                         <span class="invalid-feedback" role="alert">
@@ -31,8 +31,8 @@
                         <small id="emailHelp" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1"> New Password</label>
-                        <input id="password" type="password" placeholder="new password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <label for="exampleInputPassword1">Новый пароль</label>
+                        <input id="password" type="password" placeholder="Новый пароль" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -46,8 +46,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                         @enderror
-                        <label for="exampleInputPassword1"> Confirm Password</label>
-                        <input id="password-confirm" type="password"  placeholder="confirm password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        <label for="exampleInputPassword1">Повторно новый пароль</label>
+                        <input id="password-confirm" type="password"  placeholder="Повторно новый пароль" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </div>
                     <button type="submit" class="btn btn-"   style="   background: #0098f0;
                                         background: linear-gradient(
