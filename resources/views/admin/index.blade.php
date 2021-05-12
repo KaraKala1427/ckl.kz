@@ -17,7 +17,6 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="text-right">
-                            {{--                            {{route('admin.one.menu.add')}}--}}
                             @if(!empty($link1))
                                 <a href="{{route('admin.one.menu.add',["link" => $link1])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                     <i class="tim-icons icon-simple-add"></i>
