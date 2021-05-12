@@ -13,4 +13,6 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .copy('resources/sass/vendor/black-dashboard.min.css', 'public/css')
+    .copy('resources/sass/vendor/nucleo-icons.css', 'public/css');
