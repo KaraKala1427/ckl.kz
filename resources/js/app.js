@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./dopTOP');
 
 window.Vue = require('vue').default;
 
