@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="container">
-        <div class="grid">
+        <div class="grid m-90">
             <div class="col col--3-12">
                 <nav class="nav nav--footer">
                     <h3 class="nav__title">{{ __('navbar.insur')}}</h3>
@@ -25,9 +25,9 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col col--6-12">
+            <div class="col col--6-12 mrs-40">
                 <nav class="nav nav--footer">
-                    <h3 class="nav__title">{{ __('navbar.mf4')}}</h3>
+                    <h3 class="nav__title" style="margin-left: 20px;">{{ __('navbar.mf4')}}</h3>
                     <div class="grid">
                         <div class="col col--6-12">
                             <ul class="nav__list">
@@ -107,3 +107,5 @@
         <!-- end grid -->
     </div>
 </footer>
+
+

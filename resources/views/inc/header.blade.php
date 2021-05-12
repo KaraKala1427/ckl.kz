@@ -17,7 +17,7 @@
 
             <!-- end header logo -->
             <div class="header__menu">
-                <x-language></x-language>
+                <x-language type="desktop"></x-language>
                 <div class="header__menu-item">
                     <div class="phones dropdown" tabindex="0">
                         <div class="dropdown__toggle button button--hollow">
@@ -305,18 +305,14 @@
 
                                 </ul>
                                 <!-- .nav__list -->
-
+                                </li>
                             </ul>
                             <!-- .nav__list -->
                         </nav>
                         <!-- .nav nav--menu -->
                         <nav class="nav nav--lang">
                             <ul class="nav__list">
-                                <!-- <li><a class='nav__link link active' href="?lang=ru">Ру</a></li>
-                                 <li><a class='nav__link link ' href="?lang=kk">Кз</a></li>
-                                 <li><a class='nav__link link ' href="?lang=en">En</a></li> -->
-{{--                                <li><a class='nav__link link active' href="/">Ру</a></li>--}}
-{{--                                <li><a class='nav__link link ' href="/kz/">Кз</a></li>--}}
+                                <x-language type="mobile"></x-language>
                             </ul>
                             <!-- .nav__list -->
                         </nav>
@@ -368,7 +364,7 @@
                     </section>
                 </div>
                 <!-- .phones__buttons -->
-
+                </section>
             </div>
         </div>
         <!-- .header__mobile -->
@@ -376,6 +372,7 @@
     </div>
     <!-- end header wrapper -->
 
+    </div>
 </header>
 
 
@@ -397,7 +394,7 @@
         </nav>
 
         <section class="nav-section" id="nav__list">
-            <nav class="nav nav--sub nav--multiline removejust">
+            <nav class="nav nav--sub nav--multiline removejust adaptive_menu">
                 <ul class="nav__list remind" id="nav__list" style="margin-left: 10px">
                     <li><a href="{{ route('about.history') }}" class="link nav__item"
                            id="history">{{ __('navbar.mf5')}}</a>
@@ -428,6 +425,7 @@
                 </ul>
             </nav>
         </section>
+
 
         <div id="feedbackModal" class="modal feedback__modal iziModal visibility" data-modal="" aria-hidden="false"
              aria-labelledby="feedbackModal" role="dialog"
@@ -649,6 +647,7 @@
                 </div>
             </div>
         </div>
+
 
 
 

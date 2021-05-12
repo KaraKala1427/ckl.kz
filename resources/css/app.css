@@ -15074,6 +15074,13 @@ li + .nav__separate {
         margin-bottom: 10px;
         margin-bottom: 20px;
     }
+    .footer .grid.m-90 {
+        margin-right: 90px;
+    }
+
+    .footer .col--6-12.mrs-40 {
+        margin-left: -25px;
+    }
 
     .footer .col--6-12 {
         flex: 1 1 calc(100% - 10px);
