@@ -24,7 +24,7 @@ return [
     */
 
     // If true, private folders will be created for each signed-in user.
-    'allow_multi_user' => true,
+    'allow_multi_user' => false,
     // If true, share folder will be created when allow_multi_user is true.
     'allow_share_folder' => true,
 
@@ -123,7 +123,11 @@ return [
         'image/gif',
         'image/svg+xml',
         'application/pdf',
+        'application/docx',
         'text/plain',
+        'image/vnd.microsoft.icon',
+        'image/x-icon',
+        'application/vnd.ms-excel',
     ],
 
     /*

@@ -6,6 +6,10 @@
 
 require('./bootstrap');
 require('./dopTOP');
+require('./scripts/main.min');
+require('./scripts/regionCT');
+require('./scripts/polyfills.min');
+require('./scripts/calc');
 
 window.Vue = require('vue').default;
 

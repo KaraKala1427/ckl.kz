@@ -23,11 +23,7 @@
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
-    <script src="{{asset('scripts/polyfills.min.js@v=1531217620')}}"></script>
     <script src="{{ asset('scripts/jquery.min.js@v=1531217620') }}"></script>
-
-    <script src="{{ asset('scripts/main.min.js@v=1531217618') }}"></script>
-    <script src="{{ asset('scripts/calc.js@v=1523936077') }}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180583027-1"></script>
 

@@ -51,12 +51,21 @@ class AdminController extends Controller
             ]);
 
             $article = Article::find($id);
-            $article->name_ru = $request->get('name_ru');
+            $article->name_ru = $request->get('name_ru') ?? '';
+            $article->name_kz = $request->get('name_kz') ?? '';
+            $article->name_en = $request->get('name_en') ?? '';
             $article->pubdat = $request->get('dat');
             $article->dat = $request->get('dat');
             $article->description_ru = $request->get('description_ru');
+            $article->description_kz = $request->get('description_kz');
+            $article->description_en = $request->get('description_en');
             $article->head_ru = $request->get('head_ru');
+            $article->head_kz = $request->get('head_kz');
+            $article->head_en = $request->get('head_en');
             $article->tex_ru = $request->get('tex_ru');
+            $article->tex_kz = $request->get('tex_kz');
+            $article->tex_en = $request->get('tex_en');
+
             $article->save();
         return redirect()->route('admin.one.menu.edit', ["link"=>$article->raz,'id'=>$article->id])->with('success','Успешно изменено');
 
