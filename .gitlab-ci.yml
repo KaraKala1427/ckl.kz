@@ -4,6 +4,8 @@ services:
   - mysql:5.7
 
 variables:
+  NODE_VERSION: 12
+
   MYSQL_ROOT_PASSWORD: password
   MYSQL_DATABASE: ckl_test
   MYSQL_ROOT_HOST: mysql
