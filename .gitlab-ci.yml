@@ -27,6 +27,7 @@ before_script:
   
   - echo "Installing Node v${NODE_VERSION}..."
   - curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
+  - apt-get install -y nodejs
   
   - apt-get clean
   
