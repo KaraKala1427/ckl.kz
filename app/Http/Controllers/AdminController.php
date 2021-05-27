@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ProductController;
 
 class AdminController extends Controller
 {
@@ -18,7 +20,6 @@ class AdminController extends Controller
         $menus = Menu::orderBy('orderid')->orderBy('level')->get();
         $articles = Article::where('raz',8)->get();
 
-
         return view('admin.index', compact('menus','articles'));
 
     }
@@ -29,6 +30,17 @@ class AdminController extends Controller
         $link1 = $link;
         return view('admin.index', compact('articles','menus','link1'));
 
+    }
+    public function getParentMenu($link){
+        $menus = Menu::where('link',$link)->with('children')->get()->first();
+        $child_menus = $menus->children;
+        $link1 = $link;
+        return view('admin.menuParent', compact('child_menus','link1'));
+    }
+
+    public function getMenuAdd($link){
+        $menus = Menu::orderBy('orderid')->orderBy('level')->get();
+        return view('admin.insertMenu', compact('menus','link'));
     }
 
     public function getArticle($link, $id){
@@ -76,6 +88,7 @@ class AdminController extends Controller
         return view('admin.insert', compact('menus','link'));
     }
 
+
     public function store(Request $request){
         $request->validate([
             'name_ru'=>'required',
@@ -98,11 +111,37 @@ class AdminController extends Controller
         return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success','Успешно создано');
 
     }
+    public function postMenu(Request $request){
+        $request->validate([
+            'name_ru'=>'required',
+        ]);
+        $menu = new Menu();
+        $menu->name_ru = $request->input('name_ru');
+        $menu->name_kz = $request->get('name_kz') ?? '';
+        $menu->name_en = $request->get('name_en') ?? '';
+        $link = $request->input('link');
+        $menuParent = Menu::where('link',$link)->first();
+        $id = $menuParent->id;
+        $menu->level = $id; // привязал сына к отцу
+        $menu->link = '';
+        $menu->save();
+        $menu->update(['orderid' => $menu->id,'link' => "link$menu->id"]);
+//            dd($menu);
+
+        return redirect()->route('admin.menus', ["link" => $link])->with('success','Успешно создано');
+
+
+    }
 
     public function destroy(Request $request,$link,$id){
         $article = Article::find($id);
         $article->delete($id);
         return redirect()->route('admin.one.menu',["link" => $article->raz])->with('success','Успешно удалено');
+    }
+
+    public function deleteMenu(Request $request,$link,$id){
+        Menu::find($id)->delete();
+        return redirect()->route('admin.menus',["link" => $link])->with('success','Успешно удалено');
     }
 
 

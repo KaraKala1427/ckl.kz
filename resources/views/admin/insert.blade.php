@@ -13,67 +13,193 @@
                             <div class="">
                                 <form action="{{route('admin.itemInsert')}}" method="post">
                                     {{method_field('post')}}
-                                    <div class="">
+                                    <div >
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li role="presentation" class="nav-item"><a href="#ru" aria-controls="ru" role="tab" data-toggle="tab" class="nav-link active">Русский</a></li>
+                                            <li role="presentation" class="nav-item"><a href="#kz" aria-controls="kz" role="tab" data-toggle="tab" class="nav-link">Казахский</a></li>
+                                            <li role="presentation" class="nav-item"><a href="#en" aria-controls="en" role="tab" data-toggle="tab" class="nav-link">Английский</a></li>
+                                        </ul>
+                                        <br>
+
                                         @csrf
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Имя</label>
-                                            <input value="" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" name="name_ru">
-                                            @error('name_ru')
-                                            <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
-                                            @enderror
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="ru">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Название</label>
+                                                    <input value="" type="text" class="form-control" id="exampleFormControlInput1"  name="name_ru">
+                                                    @error('name_ru')
+                                                    <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlSelect1">Дата</label>
+                                                    <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
+                                                    @error('dat')
+                                                    <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
+                                                    @enderror
+                                                </div>
+                                                <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Описание</label>
+                                                    <input value="" class="form-control" id="descc" name="description_ru" rows="3">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                    <input value="" class="form-control" id="headerr" name="head_ru" rows="3">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Текст</label>
+                                                    <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>
+
+                                                    <script src="https://cdn.tiny.cloud/1/o65lxpcmzh1b9m7amf72e0rvw485mdj8m5y6reaoe65r8z35/tinymce/5/tinymce.min.js"  referrerpolicy="origin"></script>
+                                                    {{--                                                    <script src="//cdn.tinymce.com/4/tinymce.min.js" ></script>--}}
+                                                    <script>
+                                                        window.onload = function () {
+
+                                                            tinymce.init({
+                                                                height: 300,
+                                                                mode : "textareas",
+                                                                plugins: "link image",
+                                                                menubar: 'insert',
+                                                                toolbar: 'bold italic underline | link | image',
+                                                                image_caption: true,
+                                                                file_browser_callback_types: 'file image media',
+                                                                file_picker_callback: filemanager.tinyMceCallback,
+                                                            });
+                                                        };
+
+                                                    </script>
+
+
+                                                </div>
+
+                                            </div>
+                                        <div role="tabpanel" class="tab-pane" id="kz">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Название</label>
+                                                <input value="" type="text" class="form-control" id="exampleFormControlInput1"  name="name_kz">
+                                                @error('name_kz')
+                                                <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Дата</label>
+                                                <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
+                                                @error('dat')
+                                                <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
+                                                @enderror
+                                            </div>
+                                            <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Описание</label>
+                                                <input value="" class="form-control" id="descc" name="description_kz" rows="3">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                <input value="" class="form-control" id="headerr" name="head_kz" rows="3">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Текст</label>
+                                                <textarea  class="form-control" id="textt" name="tex_kz" rows="3"></textarea>
+
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Дата</label>
-                                            <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
-                                            @error('dat')
-                                            <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
-                                            @enderror
+                                        <div role="tabpanel" class="tab-pane" id="en">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Название</label>
+                                                <input value="" type="text" class="form-control" id="exampleFormControlInput1"  name="name_en">
+                                                @error('name_en')
+                                                <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Дата</label>
+                                                <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
+                                                @error('dat')
+                                                <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
+                                                @enderror
+                                            </div>
+                                            <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Описание</label>
+                                                <input value="" class="form-control" id="descc" name="description_en" rows="3">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                <input value="" class="form-control" id="headerr" name="head_en" rows="3">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Текст</label>
+                                                <textarea  class="form-control" id="textt" name="tex_en" rows="3"></textarea>
+                                            </div>
                                         </div>
-
-
-
-                                        <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
-
-
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Описание</label>
-                                            <input  class="form-control" id="descc" name="description_ru" rows="3"></input>
-
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Заголовок</label>
-                                            <input  class="form-control" id="headerr" name="head_ru" rows="3"></input>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Текст</label>
-                                            <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-                                            <script>
-                                                window.onload = function () {
-
-                                                    tinymce.init({
-
-                                                        selector: '#textt',
-                                                        height: 300,
-                                                        plugins: 'image',
-                                                        menubar: 'insert',
-                                                        toolbar: 'bold italic underline | image',
-                                                        image_caption: true,
-                                                        file_browser_callback_types: 'file image media',
-                                                        file_picker_callback: filemanager.tinyMceCallback,
-                                                    });
-                                                    // tinymce.init({
-                                                    //     selector: 'textarea',  // change this value according to your HTML
-                                                    //     file_browser_callback_types: 'file image media'
-                                                    // });
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="exampleFormControlInput1">Имя</label>--}}
+{{--                                            <input value="" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" name="name_ru">--}}
+{{--                                            @error('name_ru')--}}
+{{--                                            <small id="emailHelp" class="form-text text-danger">Укажите имя</small>--}}
+{{--                                            @enderror--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="exampleFormControlSelect1">Дата</label>--}}
+{{--                                            <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">--}}
+{{--                                            @error('dat')--}}
+{{--                                            <small id="emailHelp" class="form-text text-danger">Выберите дату</small>--}}
+{{--                                            @enderror--}}
+{{--                                        </div>--}}
 
 
 
-                                                };
-                                            </script>
-                                            <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>
+{{--                                        <input type="hidden"  class="form-control" value="{{$link}}" name="link" >--}}
 
-                                        </div>
+
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="exampleFormControlTextarea1">Описание</label>--}}
+{{--                                            <input  class="form-control" id="descc" name="description_ru" rows="3"></input>--}}
+
+{{--                                        </div>--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="exampleFormControlTextarea1">Заголовок</label>--}}
+{{--                                            <input  class="form-control" id="headerr" name="head_ru" rows="3"></input>--}}
+
+{{--                                        </div>--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="exampleFormControlTextarea1">Текст</label>--}}
+{{--                                            <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+{{--                                            <script>--}}
+{{--                                                window.onload = function () {--}}
+
+{{--                                                    tinymce.init({--}}
+
+{{--                                                        selector: '#textt',--}}
+{{--                                                        height: 300,--}}
+{{--                                                        plugins: 'image',--}}
+{{--                                                        menubar: 'insert',--}}
+{{--                                                        toolbar: 'bold italic underline | image',--}}
+{{--                                                        image_caption: true,--}}
+{{--                                                        file_browser_callback_types: 'file image media',--}}
+{{--                                                        file_picker_callback: filemanager.tinyMceCallback,--}}
+{{--                                                    });--}}
+{{--                                                    // tinymce.init({--}}
+{{--                                                    //     selector: 'textarea',  // change this value according to your HTML--}}
+{{--                                                    //     file_browser_callback_types: 'file image media'--}}
+{{--                                                    // });--}}
+
+
+
+{{--                                                };--}}
+{{--                                            </script>--}}
+{{--                                            <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>--}}
+
+{{--                                        </div>--}}
 
 
 

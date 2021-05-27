@@ -111,7 +111,10 @@ Route::group([
 
 
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
-
+    Route::get('/menu/{link}', [App\Http\Controllers\AdminController::class, 'getParentMenu'])->name('menus');
+    Route::get('/menu/{link}/add', [App\Http\Controllers\AdminController::class, 'getMenuAdd'])->name('menu.add');
+    Route::post('/menu/create/', [App\Http\Controllers\AdminController::class, 'postMenu'])->name('menuCreate');
+    Route::get('/menu/{link}/delete/{id}', [App\Http\Controllers\AdminController::class, 'deleteMenu'])->name('menu.delete');
 
     Route::get('/{link}/list', [App\Http\Controllers\AdminController::class, 'getLink'])->name('one.menu');
     Route::get('/{link}/edd/{id}', [App\Http\Controllers\AdminController::class, 'getArticle'])->name('one.menu.edit');

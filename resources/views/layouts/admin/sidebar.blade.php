@@ -5,9 +5,6 @@
       -->
         <div class="sidebar-wrapper ps" style="   background: #0098f0; ">
 
-
-
-
             <div class="logo">
                 <a href="javascript:void(0)" class="simple-text logo-mini">
 
@@ -19,16 +16,6 @@
           <x-sidebar-component>
 
           </x-sidebar-component>
-{{--                @endforeach--}}
-{{--                @foreach($menus as $menu)--}}
-{{--                <li class="">--}}
-{{--                    <a href="{{ route('admin.one.menu', ["link" =>$menu->link ]) }}">--}}
-{{--                        <i class="tim-icons icon-chart-pie-36"></i>--}}
-{{--                        <p>{{$menu->name_ru}}</p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                @endforeach--}}
-
         </div>
     </div>
 @endauth

@@ -29,6 +29,7 @@
                                             <li role="presentation" class="nav-item"><a href="#kz" aria-controls="kz" role="tab" data-toggle="tab" class="nav-link">Казахский</a></li>
                                             <li role="presentation" class="nav-item"><a href="#en" aria-controls="en" role="tab" data-toggle="tab" class="nav-link">Английский</a></li>
                                         </ul>
+                                        <br>
 
                                         <!-- Tab panes -->
                                         <div class="tab-content">
@@ -54,26 +55,25 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
-                                                    <script src="https://cdn.tiny.cloud/1/o65lxpcmzh1b9m7amf72e0rvw485mdj8m5y6reaoe65r8z35/tinymce/5/tinymce.min.js"  referrerpolicy="origin"></script>
-{{--                                                    <script src="//cdn.tinymce.com/4/tinymce.min.js" ></script>--}}
+                                                    <textarea  class="form-control" id="textt" name="tex_ru" rows="3">{{$article->tex_ru}}</textarea>
+
+{{--                                                    <script src="https://cdn.tiny.cloud/1/o65lxpcmzh1b9m7amf72e0rvw485mdj8m5y6reaoe65r8z35/tinymce/5/tinymce.min.js"  referrerpolicy="origin"></script>--}}
+                                                    <script src="{{asset('filemanager2/js/tinymce/tinymce.min.js')}}" ></script>
                                                     <script>
                                                         window.onload = function () {
-
                                                             tinymce.init({
-                                                                height: 300,
+                                                                height: 250,
                                                                 mode : "textareas",
-                                                                plugins: 'link image ',
-                                                                menubar: 'insert',
-                                                                toolbar: 'bold italic underline |link  | image',
+                                                                plugins: "link image code",
+                                                                menubar: 'insert tools',
+                                                                toolbar: 'bold italic underline | link | image code | copy aligncenter alignjustify alignleft alignnone alignright',
                                                                 image_caption: true,
                                                                 file_browser_callback_types: 'file image media',
                                                                 file_picker_callback: filemanager.tinyMceCallback,
                                                             });
-
                                                         };
-
                                                     </script>
-                                                    <textarea  class="form-control" id="textt" name="tex_ru" rows="3">{{$article->tex_ru}}</textarea>
+
 
                                                 </div>
 
@@ -100,23 +100,6 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
-{{--                                                    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
-                                                    <script>
-                                                        // window.onload = function () {
-                                                        //
-                                                        //     tinymce.init({
-                                                        //         height: 300,
-                                                        //         mode : "textareas",
-                                                        //         plugins: 'image',
-                                                        //         menubar: 'insert',
-                                                        //         toolbar: 'bold italic underline | image',
-                                                        //         image_caption: true,
-                                                        //         file_browser_callback_types: 'file image media',
-                                                        //         file_picker_callback: filemanager.tinyMceCallback,
-                                                        //     });
-                                                        //
-                                                        // };
-                                                    </script>
                                                     <textarea  class="form-control" id="" name="tex_kz" rows="3">{{$article->tex_kz}}</textarea>
 
                                                 </div>
@@ -143,23 +126,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
-{{--                                                    <script src="https://cdn.tiny.cloud/1/o65lxpcmzh1b9m7amf72e0rvw485mdj8m5y6reaoe65r8z35/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
-                                                    <script>
-                                                        // window.onload = function () {
-                                                        //
-                                                        //     tinymce.init({
-                                                        //         height: 300,
-                                                        //         mode : "textareas",
-                                                        //         plugins: 'image imagetools, jbimages, code, table, paste, link',
-                                                        //         menubar: 'insert',
-                                                        //         toolbar: 'bold italic underline | image',
-                                                        //         image_caption: true,
-                                                        //         file_browser_callback_types: 'file image media',
-                                                        //         file_picker_callback: filemanager.tinyMceCallback,
-                                                        //     });
-                                                        //
-                                                        // };
-                                                    </script>
+
                                                     <textarea  class="form-control" id="" name="tex_en" rows="3">{{$article->tex_en}}</textarea>
 
                                                 </div>

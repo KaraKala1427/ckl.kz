@@ -9,7 +9,7 @@
 
                     <div class="card__body">
                             @if($article->{'pubdat'} != '')
-                                <div class="card__period"><span class="period">{{ $article-> {'pubdat'} }}</span></div>
+                                <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span></div>
                             @else
                                 {{ null }}
                             @endif
