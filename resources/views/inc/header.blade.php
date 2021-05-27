@@ -370,11 +370,11 @@
                                class="button button--hollow button--round">Обратный звонок
                             </a>
                         </div>
-                           <div class="phones__buttons"> <a href="https://api.whatsapp.com/send?phone=77777447400" class="button button--hollow button--round">
-           <svg class="icon icon-whatsapp phone__icon"><use xlink:href="/templates/assets/images/sprite.svg#icon-whatsapp"></use></svg>
-            Написать в WhatsApp</a>
-                          .button button--hollow <a href="history.html#feedbackModal" data-izimodal-open="#feedbackModal" data-izimodal-close class="button button--hollow button--round">Обратная связь</a>-->
-                         .button button--hollow
+{{--                           <div class="phones__buttons"> <a href="https://api.whatsapp.com/send?phone=77777447400" class="button button--hollow button--round">--}}
+{{--           <svg class="icon icon-whatsapp phone__icon"><use xlink:href="/templates/assets/images/sprite.svg#icon-whatsapp"></use></svg>--}}
+{{--            Написать в WhatsApp</a>--}}
+{{--                          .button button--hollow <a href="history.html#feedbackModal" data-izimodal-open="#feedbackModal" data-izimodal-close class="button button--hollow button--round">Обратная связь</a>-->--}}
+{{--                         .button button--hollow--}}
                     </section>
                 </div>
                 <!-- .phones__buttons -->
