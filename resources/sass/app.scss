@@ -71,6 +71,17 @@ body {
     background-color: #fff
 }
 
+
+
+@media (max-width: 667px){
+    .card--border {
+        width: auto !important;
+
+    }
+}
+
+
+
 [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important
 }
@@ -11014,6 +11025,8 @@ li {
 
 .button--round {
     border-radius: 60px;
+    width: 100%;
+    margin-left: 10px;
 }
 
 .button--square {
@@ -14813,6 +14826,10 @@ li + .nav__separate {
 .nav--footer .nav__list {
     display: block;
 }
+.nav--footer .nav__list.mr-30 {
+
+    width: 100%;
+}
 
 .nav--footer .nav__list > li:not(:last-child) {
     margin-bottom: .5em;
@@ -18523,7 +18540,8 @@ iframe {
 }
 
 .error, #errorResult, .product__form__error, .notification_error {
-    color: red;
+    color: crimson;
+    font-weight: bolder;
 }
 
 .thumb__box {

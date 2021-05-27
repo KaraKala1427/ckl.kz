@@ -8,17 +8,42 @@ use Illuminate\Routing\Route;
 
 class PressController extends Controller
 {
-    public function press(){
+//    public function press($page=1){
+//        $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
+////        dd($years);
+//        $id_years = Menu::where('level', 22)->orderBy('id')->get()->pluck('id');
+//        $articles = Article::whereIn('razid',$id_years)->orderBy('id','desc')
+//            ->with('year')
+//            ->paginate(8,['*'], 'page', $page);
+//
+////        dd($articles);
+//        return view('pages.press', compact('years','articles', ));
+//    }
+
+    public function press($page=1){
         $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
 //        dd($years);
-        $id_years = Menu::where('level', 22)->orderBy('id')->get()->pluck('id');
-        $articles = Article::whereIn('razid',$id_years)->orderBy('id','desc')
-            ->with('year')
-            ->paginate(10);
-//        dd($articles);
-        return view('pages.press', compact('years','articles'));
-    }
+        if($page >= 2019 and $page <= date("Y")){
+            $year = $page;
+//            $id_years = Menu::where('level', 22)->orderBy('id')->get()->pluck('id');
+//            $articles = Article::whereIn('razid',$id_years)
+//                ->where('YEAR', $year)
+//                ->orderBy('id','desc')
+//                ->with('year')
+//                ->get();
+            return self::press_by_year($year);
 
+        }else{
+            $id_years = Menu::where('level', 22)->orderBy('id')->get()->pluck('id');
+            $articles = Article::whereIn('razid',$id_years)
+                ->orderBy('id','desc')
+                ->with('year')
+                ->paginate(10,['*'], 'page', $page);
+        }
+
+//        dd($articles);
+        return view('pages.press', compact('years','articles', ));
+    }
 
 
     public function press_detail( $year, $id, $alias ){
@@ -36,13 +61,14 @@ class PressController extends Controller
     }
 
     public function press_by_year($year ){
+//        dd($year);
 //        dd($language, $year);
         $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
         $id_years = Menu::where('level', 22)->where('name_ru',$year)->get()->pluck('id');
         $articles = Article::whereIn('razid',$id_years)
             ->orderBy('id','desc')
             ->with('year')
-            ->paginate(12);
+            ->paginate(10);
 //        dd($other_articles);
         return view('pages.press_by_year',compact('years',"articles" ) );
     }

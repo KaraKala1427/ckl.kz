@@ -48,10 +48,11 @@
                     </li>
                 @endforeach
             </ul>
-            <div >
-                {{$articles->links()}}
-            </div>
+
         </nav>
+        <div >
+            {{$articles->links()}}
+        </div>
     </div>
 
 

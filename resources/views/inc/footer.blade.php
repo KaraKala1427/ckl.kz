@@ -13,10 +13,10 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col col--3-12">
+            <div class="col col--3-12 m-30">
                 <nav class="nav nav--footer">
                     <h3 class="nav__title">{{ __('navbar.aboutus')}}</h3>
-                    <ul class="nav__list">
+                    <ul class="nav__list mr-30">
                         <li><a href="{{ route('about.history') }}" class="link nav__item">{{ __('navbar.mf5')}}</a></li>
                         <li><a href="{{ route('about.team') }}" class="link nav__item">{{ __('navbar.mf6')}}</a></li>
                         <li><a href="{{ route('about.akcioneram') }}" class="link nav__item">{{ __('navbar.mf10')}}</a></li>
@@ -38,7 +38,7 @@
 
 <svg class="icon icon-mobile phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-mobile')}}"></use></svg>
 
-      <span>{{ __('cit')}}</span> </span> <span class="phone__number ctcg2 usure">+7 727 244 74 00</span> </span>
+        <span>{{ __('cit')}}</span> </span> <a href="tel:+77272447400"><span class="phone__number ctcg2 usure">+7 727 244 74 00</span></a> </span>
                                         </div>
 
                                     </div>
@@ -101,8 +101,6 @@
                 </nav>
             </div>
         </div>
-        <script src="{{ asset('js/dopTOP.js')}}" type="text/javascript"></script>
-        <script src="{{ asset('js/dr.php')}}" type="text/javascript"></script>
 
         <!-- end grid -->
     </div>

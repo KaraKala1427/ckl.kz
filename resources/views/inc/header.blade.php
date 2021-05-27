@@ -45,6 +45,7 @@
                                           </span>
                                         </a>
                                     </li>
+
                                     <li class="phones__item">
                                         <a href="tel:+77272447400">
                                           <span class="phone">
@@ -66,10 +67,12 @@
                     <!-- end phones-->
                 </div>
 
-                <div class="header__menu-item" style="display: none;"><a href="#feedbackModal"
-                                                                         data-izimodal-open="#feedbackModal"
-                                                                         data-izimodal-transitionin="fadeInDown"
-                                                                         class="link">Обратный звонок</a></div>
+                <div class="header__menu-item" style="display: block;">
+                    <a href="#feedbackModal" data-izimodal-open="#feedbackModal" data-izimodal-transitionin="fadeInDown"
+                       class="link">Обратный звонок
+                    </a>
+                </div>
+
                 <div class="header__menu-item">
                     <div class="dropdown dropdown--light dropdown--right  city">
                         <!-- В диве ниже стоит временный атрибут style, чтобы решить проблему ширины блока. В будущем, возможно, придется убрать.-->
@@ -249,7 +252,7 @@
 
                     <!-- .menu-mobile__top -->
                     <div class="menu-mobile__body">
-                        <nav class="nav nav--menu" id="nav__list">
+                        <nav class="nav nav--menu " id="nav__list">
                             <ul class="nav__list nav__list--prime">
                                 <ul class="nav__list nav__list--second">
                                     <li style="margin-bottom: 0; padding-top: 5px;">
@@ -303,6 +306,7 @@
                                            class="link nav__item nav__item--tab">{{ __('navbar.mf4')}}</a>
                                     </li>
 
+
                                 </ul>
                                 <!-- .nav__list -->
                                 </li>
@@ -321,12 +325,14 @@
                     <!-- .menu-mobile__body -->
                 </div>
                 <!-- .menu-mobile -->
+
                 <div id="phonesModal" class="modal phones__modal" data-modal>
                     <button data-izimodal-close="" class="modal__close">
                         <svg class="icon icon-close">
                             <use xlink:href="{{ asset('images/sprite.svg#icon-close')}}"></use>
                         </svg>
                     </button>
+
                     <section class="phones phones__block">
                         <h3 class="phones__title">Связаться с нами</h3>
                         <ul class="phones__list">
@@ -346,21 +352,29 @@
   <span class="phone">
     <span class="phone__type">
 
+
 <svg class="icon icon-landline phone__icon"><use
         xlink:href="{{ asset('images/sprite.svg#icon-landline')}}"></use></svg>
 
       <span>Call-центр</span>
     </span>
     <span class="phone__number">+7 727 244 74 00</span>
+
   </span>
-                                </a></li>
+                                </a>
+                            </li>
 
                         </ul>
-                        <!--   <div class="phones__buttons"> <a href="https://api.whatsapp.com/send?phone=77777447400" class="button button--hollow button--round">
+                        <div class="header__menu-item" style="display: block;">
+                            <a href="#feedbackModal" data-izimodal-open="#feedbackModal" data-izimodal-transitionin="fadeInDown"
+                               class="button button--hollow button--round">Обратный звонок
+                            </a>
+                        </div>
+                           <div class="phones__buttons"> <a href="https://api.whatsapp.com/send?phone=77777447400" class="button button--hollow button--round">
            <svg class="icon icon-whatsapp phone__icon"><use xlink:href="/templates/assets/images/sprite.svg#icon-whatsapp"></use></svg>
             Написать в WhatsApp</a>
                           .button button--hollow <a href="history.html#feedbackModal" data-izimodal-open="#feedbackModal" data-izimodal-close class="button button--hollow button--round">Обратная связь</a>-->
-                        <!-- .button button--hollow -->
+                         .button button--hollow
                     </section>
                 </div>
                 <!-- .phones__buttons -->
@@ -386,7 +400,7 @@
                        id='product'>{{ __('navbar.mf1')}}</a></li>
                 <li><a href="{{ route('about.history') }}"
                        class="link nav__item nav__item--tab" id='aboutt'>{{ __('navbar.mf2')}}</a></li>
-                <li><a href="{{ route('press') }}"
+                <li><a href="{{ route('press', [1]) }}"
                        class="link nav__item nav__item--tab " id='presst'>{{ __('navbar.mf3')}}</a></li>
                 <li><a href="{{ route('contacts') }}"
                        class="link nav__item nav__item--tab" id='contactst'>{{ __('navbar.mf4')}}</a></li>
@@ -437,40 +451,55 @@
                             <use xlink:href="{{ asset('images/sprite.svg#icon-close')}}"></use>
                         </svg>
                     </button>
-
                     <section class="feedback callb" id="callb">
-                        <h3 class="feedback__title">{bc3}</h3>
-                        <form action="#" id="call-popup">
+                        <h3 class="feedback__title">{{ __('navbar.bc3')}}</h3>
+                        <form action="#" method="" id="call-popup">
+
                             <div class="grid">
 
-                                <fieldset class="field-set col col--full" style="false">
-                                    <label class="field-set__label">{bc4}</label> <input type="text" class="field"
-                                                                                         id="fullname" name="fullname">
+                                <fieldset class="field-set col col--full" style="">
+                                    <label class="field-set__label">{{ __('navbar.bc4')}}</label>
+                                    <input  type="text" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
+
+                                    <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Поле ФИО должно быть заполнено!</small></strong>
+
+
                                 </fieldset>
 
-                                <fieldset class="field-set col col--1-2" style="false">
-                                    <label class="field-set__label">{bc5}</label>
-                                    <input type="tel" class="field tel-masked" id="phone-input" name="phone"
-                                           placeholder="Номер мобильного или городского">
+                                <fieldset class="field-set col col--1-2" style="">
+                                    <label class="field-set__label">{{ __('navbar.bc5')}}</label>
+                                    <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="Номер мобильного или городского" >
+
+                                    <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
+
+
                                 </fieldset>
 
 
                                 <fieldset class="field-set col col--1-2 has-success" style="false">
-                                    <label class="field-set__label">{bc6}</label>
+                                    <label class="field-set__label">{{ __('navbar.bc6')}}</label>
                                     <input type="text" class="field field--date" value="" id="call-popup-call-date"
                                            name="call_date" data-timepicker="true" data-time-format="hh:ii"
                                            data-callback-time="" readonly="">
+
                                 </fieldset>
+
 
                                 <div class="field-set col col--1-2">
                                     <label class="checkbox">
                                         <input type="checkbox" name="call_now" value="0" id="call-popup-call-now"
                                                class="new-styler">
-                                        <span class="checkbox__label">{bc7}</span>
+                                        <span class="checkbox__label">{{ __('navbar.bc7')}}</span>
                                     </label>
                                 </div>
 
+
                                 <script>
+
+                                    function showOrHideBlock(errorBlock,manipulationBlock){
+                                        $('#'+errorBlock).hide();
+                                    }
+
 
                                     //начало скрипта для раздела О компании под меню
                                     $(document).ready(function () {
@@ -546,7 +575,8 @@
                                         }
 
                                         var $callNow = $('#call-popup-call-now'),
-                                            $callDate = $('#call-popup-call-date'), $loading = $("#loading");
+                                            $callDate = $('#call-popup-call-date'),
+                                            $loading = $("#loading");
                                         /* Подсветка Фио зеленым при заполнении */
                                         $('input[name="fullname"]').keyup(function () {
                                             if ($(this).val().length > 1) {
@@ -591,8 +621,8 @@
                                             var call_now = $callNow.val();
                                             var call_date = $callDate.val();
                                             $.ajax({
-                                                url: "/contacts/callout",
-                                                type: 'POST',
+                                                url: "/sendhtmlemail",
+                                                type: 'get',
                                                 data: {
                                                     fullname: fullname,
                                                     phone: phone,
@@ -600,8 +630,22 @@
                                                     call_now: call_now
                                                 },
                                                 beforeSend: function () {
+                                                    let a = false;
+                                                    if(fullname=='') {
+                                                        // alert('Поле ФИО у нас обязательное для заполнения!');
+                                                        // $("#fullname").val("ошибка");
+                                                        $("#fullname_error").show();
+                                                        a = true;
+                                                    }
+                                                    if(phone==''){
+                                                        $("#phone_error").show();
+                                                        a = true;
+                                                    }
+                                                    if(a) return false;
 
                                                     $loading.show();
+                                                    $("#fullname_error").hide();
+                                                    $("#phone_error").hide();
                                                     $('#submitcallback').hide();
 
                                                 },
@@ -612,7 +656,7 @@
                                                 },
                                                 success: function (data) {
                                                     if (data == 'true') {
-                                                        $(".callb").html('<h3>Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong>+7' + phone + '</strong> в указанное в заявке время.');
+                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
                                                         dataLayer.push({'event': 'callback_sent'});
 
                                                         $('#feedbackModal').css('max-height', '155px');
@@ -623,21 +667,21 @@
                                                         $('#phone-input').css("border-color", "#f7b4b4");
                                                     }
 
-                                                }
+                                                },
+
 
 
                                             });
                                         });
                                     });
 
-
                                 </script>
                                 <div class="col col--full">
                                     <button type="submit" class="button button--prime"
-                                            id="submitcallback">{bc8}
+                                            id="submitcallback">{{ __('navbar.bc8')}}
                                     </button>
                                     <button style="display: none;" class="button button--prime" id="loading"
-                                            disabled="">{bc9}
+                                            disabled="">{{ __('navbar.bc9')}}
                                     </button>
                                 </div>
                                 <div class="field-set col col--1-2" id="cberror" style="display: none;"><br><br></div>

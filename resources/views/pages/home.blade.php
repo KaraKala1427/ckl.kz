@@ -60,7 +60,7 @@
                         @foreach($articles as $article)
                         <div class="col col--3-12">
                             <div class="news__item">
-                                <div class=" blockblock card--border">
+                                <div class=" blockblock card--border " >
                                     @if($article->img_ru != '')
                                     <a href="{{route('press_detail', ['id'=>$article->id, "language" => App::getLocale() ]) }}-{{str_slug($article->name_ru, '-' )}}" >
                                         <figure class="card__image">
@@ -117,5 +117,7 @@
                 }
             </style>
     </main>
+
+
 
 @endsection

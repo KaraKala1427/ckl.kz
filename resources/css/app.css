@@ -15082,6 +15082,7 @@ li + .nav__separate {
         margin-left: -25px;
     }
 
+
     .footer .col--6-12 {
         flex: 1 1 calc(100% - 10px);
         max-width: calc(100% - 10px);
@@ -16593,6 +16594,7 @@ input:checked ~ .gifts__title {
     padding: 26px 20px 30px;
     width: 242.5px;
 }
+
 
 .card__desc {
     color: #868992;
@@ -18514,7 +18516,7 @@ iframe {
 }
 
 .error, #errorResult, .product__form__error, .notification_error {
-    color: red;
+    color: crimson;
 }
 
 .thumb__box {

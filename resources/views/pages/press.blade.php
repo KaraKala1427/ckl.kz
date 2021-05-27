@@ -2,6 +2,7 @@
 
 @section('content')
 
+
             <div class="tiles">
 
                     @foreach($articles as $article)
@@ -36,7 +37,7 @@
                 </div>
                         @endforeach
 
-            </div>
+
                 <div class="container" id="container">
                     <nav class="pagination">
                         <ul class="pagination__list">
@@ -52,7 +53,16 @@
                     </nav>
                 </div>
             <div >
-                {{$articles->links()}}
+                <ul class="pagination__list">
+                    @for($page = 1; $page <= $articles->lastPage(); $page++)
+
+                        <li>
+                            <a href="{{route('press', [$page]) }}" class="link pagination__link" >
+                                {{$page}}
+                            </a>
+                        </li>
+                    @endfor
+                </ul>
             </div>
 
 

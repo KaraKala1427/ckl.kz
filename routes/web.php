@@ -10,6 +10,16 @@ use App\Http\Controllers\PressController;
 
 Route::redirect('/','/ru');
 
+Route::get('sendbasicemail',[\App\Http\Controllers\MailController::class, 'basic_email']);
+Route::get('sendhtmlemail',[\App\Http\Controllers\MailController::class, 'html_email']);
+Route::get('sendattachmentemail',[\App\Http\Controllers\MailController::class, 'attachment_email']);
+
+Route::get('sendbasicmail',[\App\Http\Controllers\MailController::class, 'basic_mail']);
+Route::get('sendhtmlmail',[\App\Http\Controllers\MailController::class, 'html_mail'])->name('lol');
+Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'attachment_mail']);
+
+
+
 Auth::routes();
 
 //Route::group([
@@ -68,6 +78,7 @@ Route::group([
     Route::get('/retirementinsurance', [ProductController::class, 'retirementinsurance'])->name('retirementinsurance');
 
 
+
     Route::group(['prefix' => '/about', 'as' => 'about'], function () {
         Route::get('/history',[AboutController::class, 'get_history'])->name('.history');
 
@@ -93,13 +104,13 @@ Route::group([
     });
 
 
-    Route::get('/contacts/contacts', function () {
+    Route::get('/contacts', function () {
         return view('pages.contacts');
     })->name('contacts');
 
-    Route::get('/press', [PressController::class, 'press'])->name('press');
+    Route::get('/press/page/{page?}', [PressController::class, 'press'])->name('press');
     Route::get('/press/{year}/{id}-{alias}', [PressController::class, 'press_detail'])->name('press_detail');
-    Route::get('/press/{year}', [PressController::class, 'press_by_year'])->name('press_by_year');
+    Route::get('/press/{year?}', [PressController::class, 'press_by_year'])->name('press_by_year');
 
 });
 

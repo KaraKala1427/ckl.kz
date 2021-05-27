@@ -2,6 +2,14 @@
 
 @section('content')
 
+    <div class="card-body">
+        @if($message = Session::get('success'))
+            <div class="alert alert-success">
+                <strong>{{$message}}</strong>
+            </div>
+        @endif
+    </div>
+
             <section class="hero" style="background-image: url({{ asset('images/osb.jpg')}}); position: relative;">
                 <div class="hero__content">
                     <h1 class="hero__title">{{ __('navbar.osns_tit')}}</h1>
@@ -96,135 +104,252 @@
 
                 <!-- .contacts__mails -->
                 <div class="contacts__feedback">
-                    <section class="feedback">
-                        <h3 class="feedback__title">{{ __('navbar.callb')}}</h3>
 
-                        <form action="/contacts" id="formdata">
+                    <section class="feedback callb1" id="callb1">
+                        <h3 class="feedback__title">{{ __('navbar.bc3')}}</h3>
+                        <form action="#" method="" id="call-popup">
                             <div class="grid">
-
-                                <fieldset class="field-set col col--full" style="false">
+                                <input type="hidden" id="frompage" class="field" name="frompage" value="OCPHC https://ckl.kz/product">
+                                <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc4')}}</label>
-                                    <input type="text" class="field" name="name" id="name" value="" placeholder=""
-                                           onclick="$(this).css('border-color', '#ccc')"/>
+                                    <input  type="text" class="field" onkeyup="showOrHideBlock('fullname_error1','fullname1')" id="fullname1" name="fullname" >
+
+                                    <strong><small id="fullname_error1" class="form-text text-" style="display: none;  color: crimson">Поле ФИО должно быть заполнено!</small></strong>
+                                </fieldset>
+
+                                <fieldset class="field-set col col--1-2" style="">
+                                    <label class="field-set__label">{{ __('navbar.bc5')}}</label>
+                                    <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="Номер мобильного или городского" >
+                                    <strong> <small id="phone_error1" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
                                 </fieldset>
 
                                 <fieldset class="field-set col col--1-2" style="false">
-                                    <label class="field-set__label">{{ __('navbar.mf19')}}</label>
-                                    <input type="tel" class="field tel-masked" name="phone" id="phone" value=""
-                                           placeholder="+7" onclick="$(this).css('border-color','#ccc')"/></fieldset>
-
-                                <fieldset class="field-set col col--1-2" style="false">
-                                    <label class="field-set__label">{{ __('navbar.mf20')}}</label>
-                                    <input type="email" class="field" name="email" id="email"
+                                    <label class="field-set__label">Эл. почта</label>
+                                    <input type="email" class="field" name="email" id="email1"
                                            onclick="$(this).css('border-color','#ccc')"/></fieldset>
 
                                 <fieldset class="field-set col col--full" style="false">
-                                    <textarea class="field" name="message" value="" id="message"
-                                              placeholder="Ваш вопрос" rows="5"></textarea></fieldset>
+                                    <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea></fieldset>
 
+                                <style>
+                                    .localgrid {
+                                        width: 100%;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+
+                                    .localgrid section {
+                                        width: 77%;
+                                        margin: 10px auto;
+                                    }
+
+                                    .removejust {
+                                        display: none;
+                                    }
+
+                                    .card__image {
+                                        width: 80%;
+                                        height: 400px;
+                                    }
+
+                                    .card__image img {
+                                        width: 100%;
+                                    }
+
+                                    @media (max-width: 991px) {
+                                        .card__image {
+                                            width: 80%;
+                                            height: 150px;
+                                        }
+
+                                    }
+
+                                </style>
+
+
+                                <script>
+
+                                    function showOrHideBlock(errorBlock,manipulationBlock){
+                                        $('#'+errorBlock).hide();
+                                    }
+
+                                    //начало скрипта для раздела О компании под меню
+                                    $(document).ready(function () {
+                                        var pageName = new URL(window.location.href).pathname.split('/')[1];
+                                        $.each($('.upper_nav > li > a'), function (k, v) {
+                                            var linkName = $(this).attr('href').split('/')[1];
+                                            if (linkName == pageName)
+                                                $(this).addClass('active');
+                                        });
+                                        if (pageName == 'annuitet' || pageName == 'live' || pageName == 'retirementinsurance') {
+                                            $("#product").addClass('active');
+                                        }
+
+                                    });
+                                    //конец скрипта для раздела О компании под меню
+
+                                    //начало скрипта для обратного звонка
+                                    $(document).ready(function () {
+                                        function calldate2312() {
+
+                                            $("#call-popup-call-date").val('2020-02-03 11:18');
+                                            $("#call-popup-call-date").closest('fieldset').addClass('has-success');
+
+                                        }
+
+                                        setTimeout(calldate2312, 2000);
+
+                                        /* Скрипты для формы Обратного звонка */
+                                        window.onload = function () {
+                                            // Зададим стартовую дату
+                                            var start = new Date(),
+                                                prevDay,
+                                                startHours = 9;
+                                            // 09:00
+                                            start.setHours(9);
+                                            start.setMinutes(0);
+                                            // Если сегодня суббота или воскресенье - 10:00
+                                            if ([6, 0].indexOf(start.getDay()) != -1) {
+                                                start.setHours(10);
+                                                startHours = 10
+                                            }
+                                            var dp = $('.modal [data-callback-time]').data('datepicker');
+                                            dp.update({
+                                                minDate: start,
+                                                startDate: start,
+                                                minHours: startHours,
+                                                maxHours: 18,
+                                                autoClose: true,
+                                                onSelect: function (fd, d, picker) {
+                                                    // Ничего не делаем если выделение было снято
+                                                    if (!d) return;
+                                                    var day = d.getDay();
+                                                    // Обновляем состояние календаря только если была изменена дата
+                                                    if (prevDay != undefined && prevDay == day) return;
+                                                    prevDay = day;
+                                                    // Если выбранный день суббота или воскресенье, то устанавливаем
+                                                    // часы для выходных, в противном случае восстанавливаем начальные значения
+                                                    if (day == 6 || day == 0) {
+                                                        picker.update({
+                                                            minHours: 10,
+                                                            maxHours: 16
+                                                        })
+                                                    } else {
+                                                        picker.update({
+                                                            minHours: 9,
+                                                            maxHours: 18
+                                                        })
+                                                    }
+                                                }
+                                            })
+
+
+                                        }
+                                        $loading = $("#loading1");
+                                        /* Подсветка Фио зеленым при заполнении */
+                                        $('input[name="fullname"]').keyup(function () {
+                                            if ($(this).val().length > 1) {
+                                                $(this).closest('fieldset').addClass('has-success');
+                                                $(this).closest('fieldset').removeClass('has-error');
+                                            } else {
+                                                $(this).closest('fieldset').removeClass('has-success');
+                                            }
+                                        });
+                                        $('input[name="phone"]').keyup(function () {
+                                            if ($(this).val().length == 10) {
+                                                $(this).closest('fieldset').addClass('has-success');
+                                                $(this).closest('fieldset').removeClass('has-error');
+                                            } else {
+                                                $(this).closest('fieldset').removeClass('has-success');
+                                            }
+                                        });
+
+                                        /*Post запрос Обратного звонка с условиями*/
+                                        $('#submitcallback1').click(function (event) {
+                                            event.preventDefault();
+                                            // alert('контактный аяах');
+                                            var fullname = $("#fullname1").val();
+                                            var phone = $("#phone-input1").val();
+                                            var email = $('#email1').val();
+                                            var frompage = $('#frompage').val();
+                                            var qst = $('#qst').val();
+
+                                            $.ajax({
+                                                url: "/sendhtmlmail",
+                                                type: 'get',
+                                                data: {
+                                                    fullname: fullname,
+                                                    phone: phone,
+                                                    email: email,
+                                                    qst: qst,
+                                                    frompage: frompage
+
+                                                },
+                                                beforeSend: function () {
+                                                    let a = false;
+                                                    if(fullname=='') {
+                                                        // alert('Поле ФИО у нас обязательное для заполнения!');
+                                                        // $("#fullname").val("ошибка");
+                                                        $("#fullname_error1").show();
+                                                        a = true;
+                                                    }
+                                                    if(phone==''){
+                                                        $("#phone_error1").show();
+                                                        a = true;
+                                                    }
+                                                    if(a) return false;
+
+                                                    $loading.show();
+                                                    $("#fullname_error1").hide();
+                                                    $("#phone_error1").hide();
+                                                    $('#submitcallback1').hide();
+
+                                                },
+                                                complete: function () {
+                                                    console.log('ушло сообщение')
+                                                    $loading.hide();
+                                                    $('#submitcallback1').show();
+
+                                                },
+                                                success: function (data) {
+                                                    if (data == 'true') {
+                                                        $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
+                                                        dataLayer.push({'event': 'callback_sent'});
+
+                                                        $('#feedbackModal1').css('max-height', '155px');
+                                                    } else {
+                                                        $("#cberror").html(data);
+                                                        $("#cberror").fadeIn(1500);
+                                                        $('#fullname').css("border-color", "#f7b4b4");
+                                                        $('#phone-input').css("border-color", "#f7b4b4");
+                                                    }
+
+                                                },
+
+
+
+                                            });
+                                        });
+                                    });
+
+
+                                </script>
                                 <div class="col col--full">
-                                    <input type="submit" value='{{ __('navbar.bc8')}}' class="button button--prime" id="submit">
-
+                                    <button type="submit" class="button button--prime"
+                                            id="submitcallback1">{{ __('navbar.bc8')}}
+                                    </button>
+                                    <button style="display: none;" class="button button--prime" id="loading1"
+                                            disabled="">{{ __('navbar.bc9')}}
+                                    </button>
                                 </div>
-                            </div>
-                            <div id="contnote">
-
+                                <div class="field-set col col--1-2" id="cberror" style="display: none;"><br><br></div>
                             </div>
                         </form>
                     </section>
                 </div>
             </div>
-            <style>
-                .localgrid {
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
 
-                .localgrid section {
-                    width: 77%;
-                    margin: 10px auto;
-                }
-
-                .removejust {
-                    display: none;
-                }
-
-                .card__image {
-                    width: 80%;
-                    height: 400px;
-                }
-
-                .card__image img {
-                    width: 100%;
-                }
-
-                @media (max-width: 991px) {
-                    .card__image {
-                        width: 80%;
-                        height: 150px;
-                    }
-
-                }
-
-            </style>
-            <script>
-
-                $(document).ready(function () {
-                    $('#submit').click(function () {
-                        $(this).css('transition', 'ease-out')
-                        $(this).addClass('active');
-                        setTimeout(function () {
-                            $('#submit').addClass('succes');
-                        }, 3700);
-                    });
-                });
-                $('#submit').click(function () {
-                    var email = $('#email').val();
-                    var name = $('#name').val();
-                    var phone = $('#phone').val();
-                    var message = $('#message').val();
-                    $.ajax({
-                        url: '/contacts/sendmessage',
-                        type: 'POST',
-                        cache: false,
-                        data: {'name': name, 'phone': phone, 'email': email, 'message': message},
-                        dataType: 'html',
-                        beforeSend: function () {
-                            $('#submit').attr("disabled", "disabled");
-                        },
-                        success: function (data) {
-                            if (data == 'true') {
-                                $('#name').val("");
-                                $('#phone').val("");
-                                $('#email').val("");
-                                $('#message').val("");
-                                $('#contnote').html("Сообщение отправлено");
-                                $("#formdata").reset();
-                                $('#email').css("border-color", "#2cc");
-                                $('#message').css("border-color", "#2cc");
-                                $('#phone').css("border-color", "#2cc");
-                                $('#name').css("border-color", "#2cc");
-                            } else {
-                                $('#contnote').html(data);
-                                $('#email').css("border-color", "#f7b4b4");
-                                $('#message').css("border-color", "#f7b4b4");
-                                $('#phone').css("border-color", "#f7b4b4");
-                                $('#name').css("border-color", "#f7b4b4");
-                            }
-                            $('#submit').removeAttr("disabled");
-                        }
-                    });
-                });
-
-            </script>
-
-
-            </section>
-        </div>
-
-        </div>
         <!-- end container -->
     </main>
 @endsection
