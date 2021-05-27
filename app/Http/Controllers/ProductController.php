@@ -6,6 +6,7 @@ use App\Models\About;
 use App\Models\Menu;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use File;
 
 class ProductController extends Controller
 {
@@ -36,6 +37,40 @@ class ProductController extends Controller
         $articles = Article::where('razid', '66')->orderBy('id', 'desc')->get();
         $questions = Article::where('razid', '65')->orderBy('orderid')->get();
         return view('pages.retirementinsurance', compact('questions','articles'));
+    }
+
+    function FBytes($bytes, $precision = 2)
+    {
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        $bytes /= pow(1024, $pow);
+        return round($bytes, intval($precision)) . ' ' . $units[$pow];
+    }
+
+    public function convertClassTinyMce($articles)
+    {
+        foreach ($articles as $article){
+            if (preg_match_all('/<a[^>]*class="[^"]*file[^"]*"[^>]*>[^<]*<\/a>/', $article->tex_ru, $m)) {
+                foreach ($m[0] as $k => $v) {
+                    preg_match('/href="([^"]+)"/', $v, $links);
+                    if (count($links) == 2) {
+                        $linktex = strip_tags($v);
+                        $links[1] = substr($links[1],8);
+//                        echo $links[1]."\r\n";
+                        $filesize = $this->FBytes(\File::size(public_path($links[1])),$links[1]);
+//                        dd($filesize);
+                        $namefull =explode(".", $links[1]);
+                        $link = '<a href="' . $links[1] . '" download class="link link--download" ><span class="link__ext">' . end($namefull) . '</span> ' . $linktex . ' <span class="link__size">[' . $filesize . ']</span></a>';
+                        $article->tex_ru = str_replace($v, $link, $article->tex_ru);
+                    }
+                }
+
+            }
+        }
+
+        return $articles;
     }
 
 }

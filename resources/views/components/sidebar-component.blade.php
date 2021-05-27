@@ -15,9 +15,10 @@
                     </ul>
                 </div>
             @else
-            <a data-toggle="collapse" href="#{{$item->link}}" aria-expanded="true" class>
+{{--            <a data-toggle="collapse" href="#{{$item->link}}" aria-expanded="true" class>--}}
+            <a data-toggle="collapse" href="#{{$item->link}}"  aria-expanded="true" class>
                 <i class="fab fa-laravel"></i>
-                <span class="nav-link-text">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
+                <span class="nav-link-text" onclick="window.open('http://127.0.0.1:8000/admin/menu/{{$item->link}}','_self');">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
                 <b class="caret mt-1"></b>
             </a>
 
@@ -27,7 +28,6 @@
                 </ul>
             </div>
             @endif
-
 
         @else
 {{--            вот здесь для последнего меню добавляю чуть падинг снизу для скроллинга ,
@@ -51,29 +51,5 @@
 
     </li>
     @endforeach
-{{--    <li>--}}
 
-{{--        <a data-toggle="collapse" href="#laravel-examples" aria-expanded="false" class="collapsed">--}}
-{{--            <i class="fab fa-laravel"></i>--}}
-{{--            <span class="nav-link-text">test</span>--}}
-{{--            <b class="caret mt-1"></b>--}}
-{{--        </a>--}}
-
-{{--        <div class="collapse" id="laravel-examples" style="">--}}
-{{--            <ul class="nav pl-4">--}}
-{{--                <li class="active ">--}}
-{{--                    <a href="https://black-dashboard-laravel.creative-tim.com/profile">--}}
-{{--                        <i class="tim-icons icon-single-02"></i>--}}
-{{--                        <p>User Profile</p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li>--}}
-{{--                    <a href="https://black-dashboard-laravel.creative-tim.com/user">--}}
-{{--                        <i class="tim-icons icon-bullet-list-67"></i>--}}
-{{--                        <p>User Management</p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
-{{--        </div>--}}
-{{--    </li>--}}
 </ul>

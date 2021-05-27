@@ -7,6 +7,9 @@ use App\Models\Menu;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
+use File;
+use App\Http\Controllers\ProductController;
 
 class AboutController extends Controller
 {
@@ -32,17 +35,19 @@ class AboutController extends Controller
     }
 
     public function get_license(){
-        $articles = Article::where('razid', '14')->orderBy('orderid','desc')->get();
+        $articles = Article::where('razid', '34')->orderBy('orderid','desc')->get();
         return view('pages.about_license', compact(  'articles') );
     }
 
     public function get_financial_statements(){
         $articles = Article::where('razid', '15')->orderBy('orderid','desc')->get();
+        $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_financial_statements', compact(  'articles') );
     }
 
     public function get_corporate_events(){
         $articles = Article::where('razid', '17')->orderBy('orderid','desc')->get();
+        $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_corporate_events', compact(  'articles') );
     }
 
@@ -57,14 +62,17 @@ class AboutController extends Controller
 
     public function get_tarify(){
         $articles = Article::where('razid', '20')->orderBy('orderid','desc')->get();
+        $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_tarify', compact(  'articles') );
     }
     public function get_agents(){
         $articles = Article::where('razid', '68')->orderBy('orderid','desc')->get();
+        $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_agents', compact(  'articles') );
     }
     public function get_requisites(){
         $articles = Article::where('razid', '21')->orderBy('orderid','desc')->get();
+        $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_requisites', compact(  'articles') );
     }
 

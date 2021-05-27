@@ -6,7 +6,7 @@
 
 
         <div class="article-page__intro">
-            <div class="article-page__period">{{ $article->pubdat }}</div>
+            <div class="article-page__period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</div>
             <!-- .promo__period -->
             <h2 class="article__title">
                 @if($article->{'name_'.App::getLocale()} =='')
