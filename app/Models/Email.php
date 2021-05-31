@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Email extends Model
 {
     use HasFactory;
-
-
     protected $table = 'mail';
+
+    public static function boot()
+    {
+        parent::boot();
+        Email::observe(new \App\Observers\AdminActionsObserver);
+    }
 }

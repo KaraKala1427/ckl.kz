@@ -32,5 +32,10 @@ class Article extends Model
         return route('press_detail', ['id'=>$this->id, "year" => $this->year->name_ru , "alias"=>str_slug($this->name_ru, '-' )]) ;
     }
 
+    public static function boot()
+    {
+        parent::boot();
+        Article::observe(new \App\Observers\AdminActionsObserver);
+    }
 
 }

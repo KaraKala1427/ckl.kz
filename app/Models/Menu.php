@@ -13,5 +13,12 @@ class Menu extends Model
     public function children(){
         return $this->hasMany(Menu::class , 'level','id');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        Menu::observe(new \App\Observers\AdminActionsObserver);
+    }
+
     use HasFactory;
 }
