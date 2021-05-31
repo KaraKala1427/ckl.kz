@@ -195,7 +195,7 @@
                                                         <li class="headofficesm selalmaty"><a ofct="Алматы"
                                                                                               id="sshow167"
                                                                                               clickdata="show167"
-                                                                                              data-geo=""
+                                                                                              data-geo="43.239484, 76.908110"
                                                                                               class="headoffm headofficessel ">пр.Абая,
                                                                 60</a></li>
 
@@ -219,7 +219,7 @@
                                                     <h4 class="nav__title submenu">Центры прямых продаж</h4>
                                                 </li>
                                                 <li class="suboffices_main">
-                                                    <a ofct="Алматы" id="show167" style="" data-tab data-geo=""
+                                                    <a ofct="Алматы" id="show167" style="" data-tab data-geo="43.239484, 76.908110"
                                                        class="js-map-toggle link nav__item suboffices">пр.Абая, 60
                                                     </a>
                                                 </li>
