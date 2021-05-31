@@ -72,7 +72,7 @@
                                     @endif
 
                                     <div class="card__body">
-                                        <div class="card__period"><span class="period">{{$article->pubdat}}</span></div>
+                                        <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span></div>
                                         <h4 class="card__title">
                                             <a href="{{route('press_detail', ['id'=>$article->id, "language" => App::getLocale(), "year" => $article->year->name_ru , "alias"=>str_slug($article->name_ru, '-' ) ]) }}-{{str_slug($article->name_ru, '-' )}}"
 
