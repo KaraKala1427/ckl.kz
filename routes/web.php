@@ -101,6 +101,8 @@ Route::group([
         Route::get('/agents', [AboutController::class, 'get_agents'])->name('.agents');
 
         Route::get('/requisites', [AboutController::class, 'get_requisites'])->name('.requisites');
+
+        Route::get('/security', [AboutController::class, 'get_security'])->name('.security');
     });
 
 

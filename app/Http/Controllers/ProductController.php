@@ -57,8 +57,8 @@ class ProductController extends Controller
                     preg_match('/href="([^"]+)"/', $v, $links);
                     if (count($links) == 2) {
                         $linktex = strip_tags($v);
-                        $links[1] = substr($links[1],8);
 //                        echo $links[1]."\r\n";
+                        $links[1] = substr($links[1],8);
                         $filesize = $this->FBytes(\File::size(public_path($links[1])),$links[1]);
 //                        dd($filesize);
                         $namefull =explode(".", $links[1]);

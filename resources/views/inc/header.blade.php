@@ -436,6 +436,8 @@
                     <!--<li><a href="/about/association_participation" class="link  nav__item">Участие в ассоциациях</a></li>-->
                     <li><a href="{{ route('about.requisites') }}"
                            class="link  nav__item" id="requisites">{{ __('navbar.mf14')}}</a></li>
+                    <li><a href="{{ route('about.security') }}"
+                           class="link  nav__item" id="requisites">{{ __('navbar.mf23')}}</a></li>
                 </ul>
             </nav>
         </section>

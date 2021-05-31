@@ -76,5 +76,11 @@ class AboutController extends Controller
         return view('pages.about_requisites', compact(  'articles') );
     }
 
+    public function get_security(){
+        $articles = Article::where('razid', '93')->orderBy('orderid','desc')->get();
+        $articles = (new ProductController())->convertClassTinyMce($articles);
+        return view('pages.about_security', compact(  'articles') );
+    }
+
 
 }
