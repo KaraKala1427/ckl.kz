@@ -17,6 +17,7 @@ Route::get('sendattachmentemail',[\App\Http\Controllers\MailController::class, '
 Route::get('sendbasicmail',[\App\Http\Controllers\MailController::class, 'basic_mail']);
 Route::get('sendhtmlmail',[\App\Http\Controllers\MailController::class, 'html_mail'])->name('lol');
 Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'attachment_mail']);
+Route::get('/migrate', [\App\Http\Controllers\MigrateController::class, 'index']);
 
 
 
