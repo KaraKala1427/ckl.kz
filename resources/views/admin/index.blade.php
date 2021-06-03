@@ -1,7 +1,6 @@
-@extends('layouts.admin.app')
+@extends('layouts.admin.app', ['menu' => $menu])
 
 @section('content')
-
 
     <div class="row" style="float: right; width: 85%;">
 

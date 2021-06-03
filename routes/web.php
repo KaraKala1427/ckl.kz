@@ -142,7 +142,6 @@ Route::group([
 
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
 
-
 });
 
 

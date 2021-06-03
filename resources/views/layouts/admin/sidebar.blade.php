@@ -1,8 +1,5 @@
 @auth
     <div class="sidebar" style="width: 23%;">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
-      -->
         <div class="sidebar-wrapper ps" style="   background: #0098f0; ">
 
             <div class="logo">
@@ -13,8 +10,8 @@
                    Centras Kommesk Life
                 </a>
             </div>
-          <x-sidebar-component>
-
+          <x-sidebar-component
+            :menu="$menu">
           </x-sidebar-component>
         </div>
     </div>
