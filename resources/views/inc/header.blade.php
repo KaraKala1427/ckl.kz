@@ -9,7 +9,7 @@
         <div class="header__wrapper">
             <div class="header__logo">
                 <a href="/" class="logo">
-                    <img src="{{ asset('icons/logonew.png') }}" srcset="{{ asset('icons/logonew.png') }}"
+                    <img src="{{ asset('images/logonew.png') }}" srcset="{{ asset('images/logonew.png') }}"
                          alt="Коммеск Омир"
                          class="logo_image" style='width:204px;'/>
 

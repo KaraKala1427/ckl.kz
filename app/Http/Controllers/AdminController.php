@@ -24,7 +24,6 @@ class AdminController extends Controller
 
     }
     public function getLink($link){
-
         $menu = Menu::orderBy('orderid')->orderBy('level')->get();
         $articles = Article::where('raz',$link)->get();
         $link1 = $link;

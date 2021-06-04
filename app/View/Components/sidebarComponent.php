@@ -29,7 +29,8 @@ class sidebarComponent extends Component
         if (!empty($this->items)) {
             $menu = $this->items;
         } else {
-            $menu = Menu::where('level', 0)->get();
+            $menu = Menu::where('level', 0)->with('children')->get();
+//            dd("salam",$menu);
         }
         return view('components.sidebar-component', compact('menu'));
     }

@@ -16,8 +16,8 @@
 {{--    <link rel="preload" href="/templates/assets/images/sprite.svg" as="image"/>--}}
 
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('images/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/logonew.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/logonew.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logonew.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logonew.png') }}">
     <link rel="manifest" href="{{ asset('images/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('images/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#2b5797">
@@ -31,7 +31,7 @@
 
     {{--    Font awesome--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
     <link rel="stylesheet" href="{{ asset('scripts/script.js') }}"/>

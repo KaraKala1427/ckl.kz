@@ -1,5 +1,5 @@
 <ul class="nav">
-{{--    @php(dd($menu))--}}
+    @php(dd("componnent",$menu))
     @foreach($menu as $key => $item)
     <li>
         @if(count($item->children ?? []) > 0)

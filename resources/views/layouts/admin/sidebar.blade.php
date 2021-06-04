@@ -11,7 +11,7 @@
                 </a>
             </div>
 {{--            @php(dd($menus))--}}
-          <x-sidebar-component :menu="$menu" >
+          <x-sidebar-component >
 
           </x-sidebar-component>
         </div>
