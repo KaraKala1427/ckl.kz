@@ -1209,7 +1209,17 @@
                                     <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea></fieldset>
 
 
-
+                                            <style>
+                                                .removejust{
+                                                    display: none;
+                                                }
+                                                section.nav-section{
+                                                    display: none;
+                                                }
+                                                .card-body{
+                                                    display: none;
+                                                }
+                                            </style>
                                             <script>
                                                 function showOrHideBlock(errorBlock,manipulationBlock){
                                                     $('#'+errorBlock).hide();

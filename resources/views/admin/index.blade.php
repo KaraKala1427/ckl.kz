@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['menu' => $menu])
+@extends('layouts.admin.app')
 
 @section('content')
 

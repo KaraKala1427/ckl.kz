@@ -115,6 +115,9 @@
                 section.nav-section{
                     display: none;
                 }
+                .card-body{
+                    display: none;
+                }
             </style>
     </main>
 
