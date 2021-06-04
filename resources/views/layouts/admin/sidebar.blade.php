@@ -10,9 +10,8 @@
                    Centras Kommesk Life
                 </a>
             </div>
-{{--            @php(dd($menus))--}}
-          <x-sidebar-component >
-
+{{--            @php(dd("before component",$menu))--}}
+          <x-sidebar-component>
           </x-sidebar-component>
         </div>
     </div>

@@ -54,7 +54,7 @@
                                                     <label for="exampleFormControlTextarea1">Текст</label>
                                                     <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>
 
-                                                    <script src="https://cdn.tiny.cloud/1/o65lxpcmzh1b9m7amf72e0rvw485mdj8m5y6reaoe65r8z35/tinymce/5/tinymce.min.js"  referrerpolicy="origin"></script>
+                                                    <script src="{{asset('filemanager2/js/tinymce/tinymce.min.js')}}" ></script>
                                                     {{--                                                    <script src="//cdn.tinymce.com/4/tinymce.min.js" ></script>--}}
                                                     <script>
                                                         window.onload = function () {

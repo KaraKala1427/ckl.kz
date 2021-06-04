@@ -19,7 +19,6 @@ class AdminController extends Controller
     public function index(){
         $menu = Menu::orderBy('orderid')->orderBy('level')->get();
         $articles = Article::where('raz',8)->get();
-
         return view('admin.index', compact('menu','articles'));
 
     }
@@ -32,9 +31,9 @@ class AdminController extends Controller
     }
     public function getParentMenu($link){
         $menus = Menu::where('link',$link)->with('children')->get()->first();
-        $child_menus = $menus->children;
+        $menu = $menus->children;
         $link1 = $link;
-        return view('admin.menuParent', compact('child_menus','link1'));
+        return view('admin.menuParent', compact('menu','link1'));
     }
 
     public function getMenuAdd($link){
@@ -43,13 +42,9 @@ class AdminController extends Controller
     }
 
     public function getArticle($link, $id){
-
-
         $menu = Menu::orderBy('orderid')->orderBy('level')->get();
         $article = Article::where('id',$id)->get()->first();
         return view('admin.edit',compact('article','menu'));
-
-
     }
 
     public function update(Request $request, $id){

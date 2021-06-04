@@ -92,7 +92,7 @@ class AboutController extends Controller
 
     public function get_security()
     {
-        $articles = Article::where('razid', '77')->orderBy('orderid', 'desc')->get();
+        $articles = Article::where('razid', '94')->orderBy('orderid', 'desc')->get();
         $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_security', compact('articles'));
     }

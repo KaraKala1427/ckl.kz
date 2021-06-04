@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <div class="row" style="float: right; width: 85%;">
 
         <div class="col-lg-12 col-md-12">
@@ -34,10 +33,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($child_menus as $menu)
+                            @foreach($menu as $item)
                                 <tr>
-                                    <td class="text-center">{{$menu->orderid}}</td>
-                                    <td>{{$menu->name_ru}}</td>
+                                    <td class="text-center">{{$item->orderid}}</td>
+                                    <td>{{$item->name_ru}}</td>
                                     <td class="td-actions text-right">
 
 {{--                                        <a href="{{route('admin.one.menu.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">--}}
@@ -46,7 +45,7 @@
 
 {{--                                        </a>--}}
 
-                                        <a href="{{route('admin.menu.delete', ["link"=>$link1,"id"=>$menu->id])}}" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm">
+                                        <a href="{{route('admin.menu.delete', ["link"=>$link1,"id"=>$item->id])}}" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </a>
 

@@ -14,9 +14,9 @@ class sidebarComponent extends Component
      *
      * @return void
      */
-    public function __construct($items = null)
+    public function __construct($menu = [])
     {
-        $this->items = $items;
+        $this->items = $menu;
     }
 
     /**
@@ -26,12 +26,10 @@ class sidebarComponent extends Component
      */
     public function render()
     {
-        if (!empty($this->items)) {
+        if(count($this->items) === 0)
+            $menu = Menu::where('level', 0)->get();
+        else
             $menu = $this->items;
-        } else {
-            $menu = Menu::where('level', 0)->with('children')->get();
-//            dd("salam",$menu);
-        }
         return view('components.sidebar-component', compact('menu'));
     }
 }
