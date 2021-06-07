@@ -47,7 +47,6 @@
 {{--<script src="{{'/js/plugins/chartjs.min.js'}}"></script>--}}
 {{--<script src="{{'/js/plugins/bootstrap-notify.js'}}"></script>--}}
 <script src="{{'/js/black-dashboard.min.js'}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{'/js/black-dashboard.js.map'}}"></script>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="{{'/demo/demo.js'}}"></script>
 <script>
