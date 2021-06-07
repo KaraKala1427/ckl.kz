@@ -39,16 +39,11 @@
 </div>
 <!--   Core JS Files   -->
 </body>
-{{--<script src="{{'/js/core/jquery.min.js'}}"></script>--}}
-{{--<script src="{{'/js/core/popper.min.js'}}"></script>--}}
-{{--<script src="{{'/js/core/bootstrap.min.js'}}"></script>--}}
+<script src="{{mix('js/jquery.min.js')}}"></script>
 <script src="{{'/js/perfect-scrollbar.jquery.min.js'}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-{{--<script src="{{'/js/plugins/chartjs.min.js'}}"></script>--}}
-{{--<script src="{{'/js/plugins/bootstrap-notify.js'}}"></script>--}}
 <script src="{{'/js/black-dashboard.min.js'}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{'/demo/demo.js'}}"></script>
+<script src="{{asset('/demo/demo.js')}}"></script>
 <script>
     $(document).ready(function() {
         $().ready(function() {
