@@ -17,32 +17,35 @@ class AdminController extends Controller
     }
 
     public function index(){
-        $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+//        $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+        $menu = Menu::where('level',0)->get();
         $articles = Article::where('raz',8)->get();
         return view('admin.index', compact('menu','articles'));
 
     }
     public function getLink($link){
-        $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+        $menu = Menu::where('level',0)->get();;
         $articles = Article::where('raz',$link)->get();
         $link1 = $link;
         return view('admin.index', compact('articles','menu','link1'));
 
     }
     public function getParentMenu($link){
+        $menu = Menu::where('level',0)->get();
         $menus = Menu::where('link',$link)->with('children')->get()->first();
-        $menu = $menus->children;
+        $parentmenu = $menus->children;
+        //dd($menu);
         $link1 = $link;
-        return view('admin.menuParent', compact('menu','link1'));
+        return view('admin.menuParent', compact('parentmenu','menu','link1'));
     }
 
     public function getMenuAdd($link){
-        $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+        $menu = Menu::where('level',0)->get();
         return view('admin.insertMenu', compact('menu','link'));
     }
 
     public function getArticle($link, $id){
-        $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+        $menu = Menu::where('level',0)->get();
         $article = Article::where('id',$id)->get()->first();
         return view('admin.edit',compact('article','menu'));
     }
@@ -78,7 +81,7 @@ class AdminController extends Controller
     }
 
     public function getAdd($link){
-        $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+        $menu = Menu::where('level',0)->get();
         return view('admin.insert', compact('menu','link'));
     }
 

@@ -33,7 +33,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($menu as $item)
+                            @foreach($parentmenu as $item)
                                 <tr>
                                     <td class="text-center">{{$item->orderid}}</td>
                                     <td>{{$item->name_ru}}</td>

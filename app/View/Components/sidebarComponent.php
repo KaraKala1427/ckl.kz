@@ -30,6 +30,7 @@ class sidebarComponent extends Component
             $menu = Menu::where('level', 0)->get();
         else
             $menu = $this->items;
+//        dd($menu);
         return view('components.sidebar-component', compact('menu'));
     }
 }
