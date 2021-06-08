@@ -23,7 +23,7 @@ class AboutController extends Controller
 
     public function get_history()
     {
-        $years = Menu::where('level', 12)->orderBy('id')->get()->pluck('name_ru');
+        $years = Menu::where('level', 12)->orderBy('id','desc')->get()->pluck('name_ru');
         $id_years = Menu::where('level', 12)->orderBy('id')->get()->pluck('id');
         $articles = Article::whereIn('razid', $id_years)->get();
 //        dd(Article::whereIn('razid', $id_years)->toSql());

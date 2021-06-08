@@ -462,9 +462,9 @@
 
                                 <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc4')}}</label>
-                                    <input  type="text" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
+                                    <input  type="text" onkeypress="return /[a-z]/i.test(event.key)" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
 
-                                    <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Поле ФИО должно быть заполнено!</small></strong>
+                                    <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Вы не указали как вас зовут</small></strong>
 
 
                                 </fieldset>
@@ -473,7 +473,7 @@
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
                                     <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="Номер мобильного или городского" >
 
-                                    <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
+                                    <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Вы не указали телефон</small></strong>
 
 
                                 </fieldset>
@@ -659,7 +659,7 @@
                                                 },
                                                 success: function (data) {
                                                     if (data == 'true') {
-                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
+                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
                                                         dataLayer.push({'event': 'callback_sent'});
 
                                                         $('#feedbackModal').css('max-height', '155px');

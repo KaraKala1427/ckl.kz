@@ -68,6 +68,22 @@ class ProductController extends Controller
                 }
 
             }
+            if (preg_match_all('/<a[^>]*class="[^"]*file[^"]*"[^>]*>[^<]*<\/a>/', $article->tex_kz, $m)) {
+                foreach ($m[0] as $k => $v) {
+                    preg_match('/href="([^"]+)"/', $v, $links);
+                    if (count($links) == 2) {
+                        $linktex = strip_tags($v);
+//                        echo $links[1]."\r\n";
+                        $links[1] = substr($links[1],8);
+                        $filesize = $this->FBytes(\File::size(public_path($links[1])),$links[1]);
+//                        dd($filesize);
+                        $namefull =explode(".", $links[1]);
+                        $link = '<a href="' . $links[1] . '" download class="link link--download" ><span class="link__ext">' . end($namefull) . '</span> ' . $linktex . ' <span class="link__size">[' . $filesize . ']</span></a>';
+                        $article->tex_kz = str_replace($v, $link, $article->tex_kz);
+                    }
+                }
+
+            }
         }
 
         return $articles;

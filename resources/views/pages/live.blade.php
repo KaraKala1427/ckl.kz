@@ -89,7 +89,7 @@
             <div class="contacts__feedback">
 
                 <section class="feedback callb1" id="callb1">
-                    <h3 class="feedback__title">{{ __('navbar.bc3')}}</h3>
+                    <h3 class="feedback__title">{{ __('navbar.bc3_1')}}</h3>
                     <form action="#" method="" id="call-popup">
                         <div class="grid">
                             <input type="hidden" id="frompage" class="field" name="frompage" value="Страхование жизни https://ckl.kz/live">
