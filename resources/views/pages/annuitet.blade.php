@@ -1,6 +1,7 @@
 @extends('layouts.general')
 
 @section('content')
+            @include('mini_parts.callback')
             <section class="hero" style="background-image: url({{ asset('images/a.jpg')}}); position: relative;">
                 <div class="hero__content">
                     <h1 class="hero__title"></h1>

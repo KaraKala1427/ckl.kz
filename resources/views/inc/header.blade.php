@@ -337,31 +337,28 @@
                     <section class="phones phones__block">
                         <h3 class="phones__title">Связаться с нами</h3>
                         <ul class="phones__list">
-                            <li class="phones__item"><a href="tel:+77012447400">
-  <span class="phone">
-    <span class="phone__type">
+                            <li class="phones__item">
+                                <a href="tel:+77012447400">
+                                        <span class="phone">
+                                            <span class="phone__type">
+                                                <svg class="icon icon-mobile phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-mobile')}}"></use></svg>
+                                                <span>мобильный</span>
+                                            </span>
+                                            <span class="phone__number">+7 701 244-74-00</span>
+                                        </span>
+                                </a>
+                            </li>
 
-<svg class="icon icon-mobile phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-mobile')}}"></use></svg>
+                            <li class="phones__item ctadnum">
+                                <a href="tel:+77272447400">
+                                    <span class="phone">
+                                        <span class="phone__type">
+                                            <svg class="icon icon-landline phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-landline')}}"></use></svg>
+                                            <span>Call-центр</span>
+                                        </span>
+                                        <span class="phone__number">+7 727 244 74 00</span>
 
-      <span>мобильный</span>
-    </span>
-    <span class="phone__number">+7 701 244-74-00</span>
-  </span>
-                                </a></li>
-
-                            <li class="phones__item ctadnum"><a href="tel:+77272447400">
-  <span class="phone">
-    <span class="phone__type">
-
-
-<svg class="icon icon-landline phone__icon"><use
-        xlink:href="{{ asset('images/sprite.svg#icon-landline')}}"></use></svg>
-
-      <span>Call-центр</span>
-    </span>
-    <span class="phone__number">+7 727 244 74 00</span>
-
-  </span>
+                                    </span>
                                 </a>
                             </li>
 
@@ -462,14 +459,14 @@
 
                                 <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc4')}}</label>
-                                    <input  type="text" onkeypress="return /[a-z]/i.test(event.key)" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
+                                    <input  type="text" onkeypress="return /[a-zA-z\u0400-\u04FF ]/i.test(event.key)" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
 
                                     <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Вы не указали как вас зовут</small></strong>
 
 
                                 </fieldset>
 
-                                <fieldset class="field-set col col--1-2" style="">
+                                <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
                                     <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="Номер мобильного или городского" >
 
@@ -477,24 +474,6 @@
 
 
                                 </fieldset>
-
-
-                                <fieldset class="field-set col col--1-2 has-success" style="false">
-                                    <label class="field-set__label">{{ __('navbar.bc6')}}</label>
-                                    <input type="text" class="field field--date" value="" id="call-popup-call-date"
-                                           name="call_date" data-timepicker="true" data-time-format="hh:ii"
-                                           data-callback-time="" readonly="">
-
-                                </fieldset>
-
-
-                                <div class="field-set col col--1-2">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="call_now" value="0" id="call-popup-call-now"
-                                               class="new-styler">
-                                        <span class="checkbox__label">{{ __('navbar.bc7')}}</span>
-                                    </label>
-                                </div>
 
 
                                 <script>
@@ -577,9 +556,7 @@
 
                                         }
 
-                                        var $callNow = $('#call-popup-call-now'),
-                                            $callDate = $('#call-popup-call-date'),
-                                            $loading = $("#loading");
+                                        var $loading = $("#loading");
                                         /* Подсветка Фио зеленым при заполнении */
                                         $('input[name="fullname"]').keyup(function () {
                                             if ($(this).val().length > 1) {
@@ -597,40 +574,18 @@
                                                 $(this).closest('fieldset').removeClass('has-success');
                                             }
                                         });
-                                        $('#call-popup-call-date').change(function () {
-                                            if ($(this).val().length == 16) {
-                                                $(this).closest('fieldset').addClass('has-success');
-                                                $(this).closest('fieldset').removeClass('has-error');
-                                            } else {
-                                                $(this).closest('fieldset').removeClass('has-success');
-                                            }
-                                        });
-                                        /*Скрипт для "неактива" даты при нажатии на "позвонить сейчас"*/
-                                        $callNow.change(function () {
-                                            var checked = $(this).prop('checked');
-                                            $callDate.prop('disabled', checked).trigger('refresh');
-                                            if ($callNow.attr("value") == 0) {
-                                                $callNow.attr("value", 1);
-                                            } else {
 
-                                                $callNow.attr("value", 0);
-                                            }
-                                        });
                                         /*Post запрос Обратного звонка с условиями*/
                                         $('#submitcallback').click(function (event) {
                                             event.preventDefault();
                                             var fullname = $("#fullname").val();
                                             var phone = $("#phone-input").val();
-                                            var call_now = $callNow.val();
-                                            var call_date = $callDate.val();
                                             $.ajax({
                                                 url: "/sendhtmlemail",
                                                 type: 'get',
                                                 data: {
                                                     fullname: fullname,
                                                     phone: phone,
-                                                    call_date: call_date,
-                                                    call_now: call_now
                                                 },
                                                 beforeSend: function () {
                                                     let a = false;

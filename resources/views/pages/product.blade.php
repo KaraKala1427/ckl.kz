@@ -1,15 +1,7 @@
 @extends('layouts.general')
 
 @section('content')
-
-    <div class="card-body">
-        @if($message = Session::get('success'))
-            <div class="alert alert-success">
-                <strong>{{$message}}</strong>
-            </div>
-        @endif
-    </div>
-
+            @include('mini_parts.callback')
             <section class="hero" style="background-image: url({{ asset('images/osb.jpg')}}); position: relative;">
                 <div class="hero__content">
                     <h1 class="hero__title">{{ __('navbar.osns_tit')}}</h1>

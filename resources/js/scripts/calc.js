@@ -922,14 +922,14 @@
         return e ? e.toLowerCase().replace("_", "-") : e
     }
 
-    // function at(e) {
-    //     var t = null;
-    //     if (!st[e] && "undefined" != typeof module && module && module.exports) try {
-    //         t = et._abbr, require("./locale/" + e), ot(t)
-    //     } catch (e) {
-    //     }
-    //     return st[e]
-    // }
+    function at(e) {
+        var t = null;
+        if (!st[e] && "undefined" != typeof module && module && module.exports) try {
+            // t = et._abbr, require("./locale/" + e), ot(t)
+        } catch (e) {
+        }
+        return st[e]
+    }
 
     function ot(e, t) {
         var n;

@@ -28,19 +28,17 @@ class MailController extends Controller
         ]);
 
         $array = ($request->request->all());
-        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone'],
-            'call_date' => $array['call_date'], 'call_now' => $array['call_now']);
+        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
-        $Mali->call_date = $array['call_date'];
         $json_array = json_encode($data);
         $Mali->data = $json_array;
         $Mali->save();
         Mail::send('mail', $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com', 'Callback')->subject
-            ('Centras Kommesk Life');
-            $message->from('y.yerboluly@kommesk-omir.kz', 'Rustam from Kommesk Omir');
+//            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('Aligeyer@kommesk-omir.kz')->cc('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->to('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
 //        echo "HTML Email Sent. Check your inbox.";
@@ -96,9 +94,8 @@ class MailController extends Controller
         $Mali->save();
 //        dd($data);
         Mail::send('email', $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com', 'Callback')->subject
-            ('Centras Kommesk Life');
-            $message->from('y.yerboluly@kommesk-omir.kz', 'Rustam from Kommesk Omir');
+            $message->to('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
        echo 'true';
