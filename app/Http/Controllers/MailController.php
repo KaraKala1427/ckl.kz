@@ -13,7 +13,7 @@ class MailController extends Controller
     {
         $data = array('name' => "LaraCast");
         Mail::send(['text' => 'mail'], $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com', 'Tutorials Point')->subject
+            $message->to('ps.yii@gmail.com', 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');
                 $message->from('ps.yii@gmail.com', 'LaraCast');
         });
@@ -52,7 +52,7 @@ class MailController extends Controller
     {
         $data = array('name' => "LaraCast");
         Mail::send('mail', $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com', 'Tutorials Point')->subject
+            $message->to('ps.yii@gmail.com', 'Tutorials Point')->subject
             ('Laravel Testing Mail with Attachment');
             $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
             $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
@@ -67,7 +67,7 @@ class MailController extends Controller
     {
         $data = array('name' => "Virat Gandhi");
         Mail::send(['text' => 'email'], $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com', 'Tutorials Point')->subject
+            $message->to('ps.yii@gmail.com', 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');
             $message->from('y.yerboluly@kommesk-omir.kz', 'LaraCast');
         });
