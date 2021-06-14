@@ -111,7 +111,7 @@
 
                                 <fieldset class="field-set col col--1-2" style="">
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
-                                    <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="Номер мобильного или городского" >
+                                    <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="" >
                                     <strong> <small id="phone_error1" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
                                 </fieldset>
 

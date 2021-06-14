@@ -36,8 +36,8 @@ class MailController extends Controller
         $Mali->data = $json_array;
         $Mali->save();
         Mail::send('mail', $data, function ($message) {
-//            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('Aligeyer@kommesk-omir.kz')->cc('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
-            $message->to('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('Aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+//            $message->to('Aligeyer@kommesk-omir.kz')->cc('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
@@ -88,13 +88,12 @@ class MailController extends Controller
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
-        $Mali->call_date = date('Y-m-d H:i:s');
         $json_array = json_encode($writeToDataJson);
         $Mali->data = $json_array;
         $Mali->save();
 //        dd($data);
         Mail::send('email', $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('Aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 

@@ -411,7 +411,7 @@
                                                         style="vertical-align: inherit;"><span
                                                             style="vertical-align: inherit;"><span
                                                                 style="vertical-align: inherit;"><span
-                                                                    style="vertical-align: inherit;">Акционерное общество "Страховая компания" Коммеск-Өмір "</span></span></span></span>
+                                                                    style="vertical-align: inherit;">Акционерное общество «Компания по страхованию жизни «Сентрас Коммеск Life»</span></span></span></span>
                                                 </div>
                                                 <div class="address__place"><span style="vertical-align: inherit;"><span
                                                             style="vertical-align: inherit;"><span
@@ -1194,7 +1194,7 @@
 
                                             <fieldset class="field-set col col--1-2" style="">
                                                 <label class="field-set__label">{{ __('navbar.bc5')}}</label>
-                                                <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="Номер мобильного или городского" >
+                                                <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="" >
                                                 <strong> <small id="phone_error1" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
                                             </fieldset>
 

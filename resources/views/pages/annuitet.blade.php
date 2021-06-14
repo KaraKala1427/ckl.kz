@@ -94,7 +94,7 @@
                 <div class="contacts__feedback">
 
                     <section class="feedback callb1" id="callb1">
-                        <h3 class="feedback__title">{{ __('navbar.bc3')}}</h3>
+                        <h3 class="feedback__title">{{ __('navbar.bc3_1')}}</h3>
                         <form action="#" method="" id="call-popup">
                             <div class="grid">
                                 <input type="hidden" id="frompage" class="field" name="frompage" value="Аннуитетное страхование https://ckl.kz/annuitet">
@@ -108,7 +108,7 @@
 
                                 <fieldset class="field-set col col--1-2" style="">
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
-                                    <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="Номер мобильного или городского" >
+                                    <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="" >
                                     <strong> <small id="phone_error1" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
                                 </fieldset>
 

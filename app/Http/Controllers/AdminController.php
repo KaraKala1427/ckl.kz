@@ -85,18 +85,31 @@ class AdminController extends Controller
         return view('admin.insert', compact('menu','link'));
     }
 
+    protected $dates = [
+        'dat'
+    ];
 
     public function store(Request $request){
+
         $request->validate([
             'name_ru'=>'required',
             'dat'=>'required'
         ]);
         $article = new Article();
         $article->name_ru = $request->input('name_ru');
+        $article->name_kz = $request->input('name_kz')?? '';
+        $article->name_en = $request->input('name_en')?? '';
         $article->dat = $request->input('dat');
+        $article->pubdat = $request->input('dat');
         $article->description_ru = $request->input('description_ru');
+        $article->description_kz = $request->input('description_kz');
+        $article->description_en = $request->input('description_en');
         $article->head_ru = $request->input('head_ru');
+        $article->head_kz = $request->input('head_kz');
+        $article->head_en = $request->input('head_en');
         $article->tex_ru = $request->input('tex_ru');
+        $article->tex_kz = $request->input('tex_kz');
+        $article->tex_en = $request->input('tex_en');
         $article->raz = $request->input('link');
 
         $kink = $request->input('link');

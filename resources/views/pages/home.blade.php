@@ -3,8 +3,6 @@
 @section('content')
 
             <div class="container s">
-
-
                 <section class="hero" style="background-image: url({{ URL::to('/') }}/images/banner.jpg);">
                     <div class="hero__content">
                         <h1 class="hero__title"></h1>

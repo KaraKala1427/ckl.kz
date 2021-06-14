@@ -468,7 +468,7 @@
 
                                 <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
-                                    <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="Номер мобильного или городского" >
+                                    <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="" >
 
                                     <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Вы не указали телефон</small></strong>
 

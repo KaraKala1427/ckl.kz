@@ -25,8 +25,8 @@ class AboutController extends Controller
     {
         $years = Menu::where('level', 12)->orderBy('id','desc')->get()->pluck('name_ru');
         $id_years = Menu::where('level', 12)->orderBy('id')->get()->pluck('id');
-        $articles = Article::whereIn('razid', $id_years)->get();
-//        dd(Article::whereIn('razid', $id_years)->toSql());
+        $articles = Article::whereIn('razid', $id_years)->orderby('id','desc')->get();
+//        dd($articles);
         return view('pages.about_history', compact('years', 'articles'));
     }
 
