@@ -11,7 +11,6 @@
                     <img src="{{ asset('icons/logonew.png') }}" srcset="{{ asset('icons/logonew.png') }}"
                          alt="Коммеск Омир"
                          class="logo_image" style='width:204px;'/>
-
                 </a>
             </div>
 
@@ -77,65 +76,65 @@
                     <div class="dropdown dropdown--light dropdown--right  city">
                         <!-- В диве ниже стоит временный атрибут style, чтобы решить проблему ширины блока. В будущем, возможно, придется убрать.-->
                         <div class="dropdown__toggle button button--hollow ctcg citiest citiest__main"
-                             style="width: 163px; font-size: 16px; ">Актау
+                             style="width: 163px; font-size: 16px;" id="city-label">&nbsp;
                         </div>
 
 
                         <div class="dropdown__menu cityger">
                             <ul class="dropdown__list myid">
-                                <li><a georegion="aktau" georegionkk=" " georegionru="Актау"
+                                <li><a  onclick="setCityName('Актау')" georegion="aktau" georegionkk=" " georegionru="Актау"
                                        value=Актау tel="+7 727 244 74 00" id="forclickaktau" data-current="1">Актау</a>
                                 </li>
                                 <li><a georegion="aktobe" georegionkk=" " georegionru="Актобе"
                                        value=Актобе tel="+7 727 244 74 00" id="forclickaktobe"
-                                       data-current="0">Актобе</a></li>
+                                       data-current="0" onclick="setCityName('Актобе')">Актобе</a></li>
                                 <li><a georegion="almaty" georegionkk=" " georegionru="Алматы"
                                        value=Алматы tel="+7 727 244 74 00" id="forclickalmaty"
-                                       data-current="0">Алматы</a></li>
+                                       data-current="0" onclick="setCityName('Алматы')">Алматы</a></li>
                                 <li><a georegion="atyrau" georegionkk=" " georegionru="Атырау"
                                        value=Атырау tel="+7 727 244 74 00" id="forclickatyrau"
-                                       data-current="0">Атырау</a></li>
+                                       data-current="0" onclick="setCityName('Атырау')">Атырау</a></li>
                                 <li><a georegion="karaganda" georegionkk=" " georegionru="Караганда"
-                                       value=Караганда tel="+7 727 244 74 00" id="forclickkaraganda" data-current="0">Караганда</a>
+                                       value=Караганда onclick="setCityName('Караганда')" tel="+7 727 244 74 00" id="forclickkaraganda" data-current="0">Караганда</a>
                                 </li>
                                 <li><a georegion="kokshetau" georegionkk=" " georegionru="Кокшетау"
-                                       value=Кокшетау tel="+7 727 244 74 00" id="forclickkokshetau" data-current="0">Кокшетау</a>
+                                       value=Кокшетау tel="+7 727 244 74 00" id="forclickkokshetau" data-current="0" onclick="setCityName('Кокшетау')">Кокшетау</a>
                                 </li>
                                 <li><a georegion="kostanay" georegionkk=" " georegionru="Костанай"
-                                       value=Костанай tel="+7 727 244 74 00" id="forclickkostanay" data-current="0">Костанай</a>
+                                       value=Костанай tel="+7 727 244 74 00" id="forclickkostanay" data-current="0" onclick="setCityName('Костанай')">Костанай</a>
                                 </li>
                                 <li><a georegion="kyzylorda" georegionkk=" " georegionru="Кызылорда"
-                                       value=Кызылорда tel="+7 727 244 74 00" id="forclickkyzylorda" data-current="0">Кызылорда</a>
+                                       value=Кызылорда tel="+7 727 244 74 00" id="forclickkyzylorda" data-current="0" onclick="setCityName('Кызылорда')">Кызылорда</a>
                                 </li>
                                 <li><a georegion="nur-sultan" georegionkk=" " georegionru="Нур-Султан"
-                                       value=Нур-Султан tel="+7 727 244 74 00" id="forclicknur-sultan" data-current="0">Нур-Султан</a>
+                                       value=Нур-Султан tel="+7 727 244 74 00" id="forclicknur-sultan" data-current="0" onclick="setCityName('Нур-Султан')">Нур-Султан</a>
                                 </li>
                                 <li><a georegion="pavlodar" georegionkk=" " georegionru="Павлодар"
-                                       value=Павлодар tel="+7 727 244 74 00" id="forclickpavlodar" data-current="0">Павлодар</a>
+                                       value=Павлодар tel="+7 727 244 74 00" id="forclickpavlodar" data-current="0" onclick="setCityName('Павлодар')">Павлодар</a>
                                 </li>
                                 <li><a georegion="petropavlovsk" georegionkk=" " georegionru="Петропавловск"
                                        value=Петропавловск tel="+7 727 244 74 00" id="forclickpetropavlovsk"
-                                       data-current="0">Петропавловск</a></li>
+                                       data-current="0" onclick="setCityName('Петропавловск')">Петропавловск</a></li>
                                 <li><a georegion="semey" georegionkk=" " georegionru="Семей"
-                                       value=Семей tel="+7 727 244 74 00" id="forclicksemey" data-current="0">Семей</a>
+                                       value=Семей tel="+7 727 244 74 00" id="forclicksemey" data-current="0"  onclick="setCityName('Семей')">Семей</a>
                                 </li>
                                 <li><a georegion="taldykorgan" georegionkk=" " georegionru="Талдыкорган"
                                        value=Талдыкорган tel="+7 727 244 74 00" id="forclicktaldykorgan"
-                                       data-current="0">Талдыкорган</a></li>
+                                       data-current="0" onclick="setCityName('Талдыкорган')">Талдыкорган</a></li>
                                 <li><a georegion="taraz" georegionkk=" " georegionru="Тараз"
-                                       value=Тараз tel="+7 727 244 74 00" id="forclicktaraz" data-current="0">Тараз</a>
+                                       value=Тараз tel="+7 727 244 74 00" id="forclicktaraz" data-current="0" onclick="setCityName('Тараз')">Тараз</a>
                                 </li>
                                 <li><a georegion="turkestan" georegionkk=" " georegionru="Туркестан"
-                                       value=Туркестан tel="+7 727 244 74 00" id="forclickturkestan" data-current="0">Туркестан</a>
+                                       value=Туркестан tel="+7 727 244 74 00" id="forclickturkestan" data-current="0" onclick="setCityName('Туркестан')">Туркестан</a>
                                 </li>
                                 <li><a georegion="ural-sk" georegionkk=" " georegionru="Уральск"
-                                       value=Уральск tel="+7 727 244 74 00" id="forclickural-sk" data-current="0">Уральск</a>
+                                       value=Уральск tel="+7 727 244 74 00" id="forclickural-sk" data-current="0" onclick="setCityName('Уральск')">Уральск</a>
                                 </li>
                                 <li><a georegion="ust--kamenogorsk" georegionkk=" " georegionru="Усть-Каменогорск"
                                        value=Усть-Каменогорск tel="+7 727 244 74 00" id="forclickust--kamenogorsk"
-                                       data-current="0">Усть-Каменогорск</a></li>
+                                       data-current="0" onclick="setCityName('Усть-Каменогорск')">Усть-Каменогорск</a></li>
                                 <li><a georegion="shymkent" georegionkk=" " georegionru="Шымкент"
-                                       value=Шымкент tel="+7 727 244 74 00" id="forclickshymkent" data-current="0">Шымкент</a>
+                                       value=Шымкент tel="+7 727 244 74 00" id="forclickshymkent" data-current="0" onclick="setCityName('Шымкент')">Шымкент</a>
                                 </li>
                             </ul>
                         </div>
@@ -176,17 +175,17 @@
                         <!-- .menu-mobile__top-item -->
                         <div class="menu-mobile__top-item" style="display:none;">
                             <div class="dropdown dropdown--light dropdown--right ">
-                                <div class="dropdown__toggle button button--hollow ctcg citiest citiest__main"
+                                <div class="dropdown__toggle button button--hollow"
                                      style="width: 137px;">Алматы
                                 </div>
 
 
                                 <div class="dropdown__menu cityger">
                                     <ul class="dropdown__list myid">
-                                        <li><a georegion="aktau" georegionkk=" " georegionru="Актау"
+                                        <li><a  georegion="aktau" georegionkk=" " georegionru="Актау"
                                                value=Актау tel="+7 727 244 74 00" id="forclickaktau" data-current="1">Актау</a>
                                         </li>
-                                        <li><a georegion="aktobe" georegionkk=" " georegionru="Актобе"
+                                        <li><a  georegion="aktobe" georegionkk=" " georegionru="Актобе"
                                                value=Актобе tel="+7 727 244 74 00" id="forclickaktobe" data-current="0">Актобе</a>
                                         </li>
                                         <li><a georegion="almaty" georegionkk=" " georegionru="Алматы"
@@ -194,7 +193,7 @@
                                         </li>
                                         <li><a georegion="atyrau" georegionkk=" " georegionru="Атырау"
                                                value=Атырау tel="+7 727 244 74 00" id="forclickatyrau" data-current="0">Атырау</a>
-                                        </li>
+                                        </li>y
                                         <li><a georegion="karaganda" georegionkk=" " georegionru="Караганда"
                                                value=Караганда tel="+7 727 244 74 00" id="forclickkaraganda"
                                                data-current="0">Караганда</a></li>
@@ -691,6 +690,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
 

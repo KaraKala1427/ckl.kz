@@ -85,8 +85,12 @@
                 <div class=" blockblock card--border">
 
                     <div class="card__body">
-                        <div class="card__period"><span class="period">{{$other_article->pubdat}}</span></div>
-                        <h4 class="card__title">
+                              @if($article->{'pubdat'} != '')
+                            <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($other_article->pubdat))->format('Y-m-d') }}</span></div>
+                        @else
+                            {{ null }}
+                        @endif
+                            <h4 class="card__title">
                             <a href="{{ $other_article->route() }}" class="link" style="font-size: 27px;">
                                 @if($other_article->{'name_'.App::getLocale()} !='')
                                     {{ $other_article->{'name_'.App::getLocale()} }}

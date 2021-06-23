@@ -10,15 +10,16 @@
         @endif
     </div>
 
+
+
             <main class="main">
                 <div class="container">
                     <div class="contacts">
                         <section class=" content">
 
-                            <h3 class="contacts__title content__title">Контакты в
+                            <h3 class="contacts__title content__title">Контакты
                                 <div class="contacts__dropdown dropdown dropdown--light">
-                                    <div class="dropdown__toggle button button--hollow ctcg citiest city_contact  ">
-                                        Алматы
+                                    <div class="dropdown__toggle button button--hollow ctcg citiest city_contact" id="city-label">&nbsp;
                                     </div>
 
                                     <div class="dropdown__menu cityger_contact">
@@ -26,7 +27,7 @@
                                             <li><a georegion="almaty" georegionkk="	" georegionru="Алматы"
                                                    value=Алматы tel="+7 727 244 74 00" id="almaty" data-current="1">Алматы</a>
                                             <li><a georegion="aktau" georegionkk="	" georegionru="Актау"
-                                                   value=Актау tel="+7 727 244 74 00" id="aktau" data-current="0">Актау</a>
+                                                   value=Актау tel="+7 727 244 74 00" id="aktau" data-current="0" onclick="setCityName('Актау')">Актау</a>
                                             <li><a georegion="aktobe" georegionkk="	" georegionru="Актобе"
                                                    value=Актобе tel="+7 727 244 74 00" id="aktobe" data-current="0">Актобе</a>
                                             <li><a georegion="atyrau" georegionkk="	" georegionru="Атырау"
@@ -88,12 +89,17 @@
                                                 <div class="dropdown__menu ">
                                                     <ul class="dropdown__list myid">
 
-                                                        <li>Головной офис</li>
+                                                        <li style="color: #00ABCE; font-weight: bold; font-size:18px;">Головной офис</li>
                                                         <li class="headofficesm selalmaty"><a ofct="Алматы" id="sshow78"
                                                                                               clickdata="show78"
                                                                                               data-geo="43.263035, 76.934910,*+7 727 244 74 10"
-                                                                                              class="headoffm hoalmaty ">Наурызбай
+                                                                                              class="headoffm hoalmaty " style="
+    border-bottom: 1px solid black;
+    font-weight: normal;
+    padding-bottom: 6px;">Наурызбай
                                                                 батыра,19 </a></li>
+                                                    <li class="headofficesm selalmaty"  style="color: #00ABCE; font-weight: bold; font-size:18px;">Центры прямых продаж</li>
+
                                                         <li class="headofficesm selaktau"><a ofct="Актау" id="sshow157"
                                                                                              clickdata="show157"
                                                                                              data-geo="43.647838, 51.153686"
@@ -183,15 +189,15 @@
                                                         <li class="headofficesm selust--kamenogorsk"><a
                                                                 ofct="Усть-Каменогорск" id="sshow121"
                                                                 clickdata="show121" data-geo="49.960349, 82.604844"
-                                                                class="headoffm houst--kamenogorsk ">пр. Нурсултана
-                                                                Назарбаева, 22</a></li>
+                                                                class="headoffm houst--kamenogorsk ">пр.Нурсултана
+                                                                Назарбаева,22</a></li>
                                                         <li class="headofficesm selshymkent"><a ofct="Шымкент"
                                                                                                 id="sshow84"
                                                                                                 clickdata="show84"
                                                                                                 data-geo="42.316041, 69.608206"
                                                                                                 class="headoffm hoshymkent ">Тауке
                                                                 хана, 47</a></li>
-                                                        <li>Центры прямых продаж</li>
+
                                                         <li class="headofficesm selalmaty"><a ofct="Алматы"
                                                                                               id="sshow167"
                                                                                               clickdata="show167"
@@ -383,7 +389,7 @@
                                                 <li>
                                                     <a ofct="Усть-Каменогорск" id="show121" style="" data-tab
                                                        data-geo="49.960349, 82.604844"
-                                                       class="js-map-toggle link nav__item headoffices">пр. Нурсултана
+                                                       class="js-map-toggle link nav__item headoffices" >Нурсултана
                                                         Назарбаева, 22
                                                     </a>
                                                 </li>

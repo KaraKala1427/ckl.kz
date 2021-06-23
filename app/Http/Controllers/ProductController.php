@@ -62,7 +62,8 @@ class ProductController extends Controller
                         $filesize = $this->FBytes(\File::size(public_path($links[1])),$links[1]);
 //                        dd($filesize);
                         $namefull =explode(".", $links[1]);
-                        $link = '<a href="' . $links[1] . '" download class="link link--download" ><span class="link__ext">' . end($namefull) . '</span> ' . $linktex . ' <span class="link__size">[' . $filesize . ']</span></a>';
+                        $link = '<a href="' . $links[1] . '" download class="link link--download" ><span class="link__ext">'
+                            . end($namefull) . '</span> ' . $linktex . ' <span class="link__size">[' . $filesize . ']</span></a>';
                         $article->tex_ru = str_replace($v, $link, $article->tex_ru);
                     }
                 }
@@ -72,5 +73,4 @@ class ProductController extends Controller
 
         return $articles;
     }
-
 }
