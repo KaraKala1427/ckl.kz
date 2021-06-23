@@ -23,7 +23,7 @@ class MailController extends Controller
     public function test(){
         return view('test');
     }
-    public function html_email(Request $request){
+    public function html_eemail(Request $request){
         $request->validate([
             'fullname' => 'required',
             'phone' => 'required'
@@ -41,7 +41,7 @@ class MailController extends Controller
 //        mail('ernarerbol027@gmail.com', 'Test', $message);
         echo 'true';
     }
-    public function html_eemail(Request $request)
+    public function html_email(Request $request)
     {
         $request->validate([
             'fullname' => 'required',
