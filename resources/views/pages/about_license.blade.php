@@ -11,7 +11,11 @@
                 </p>
                 <div class="thumb__box">
                     <figure>
-                        <img src="{{$article->img_ru }}" alt=""  title="" style="float:left;" ><br>
+                        @if($article->{'img_'.App::getlocale()} != '')
+                        <img src="{{$article->{'img_'.App::getlocale()} }}" alt=""  title="" style="float:left;" ><br>
+                        @else
+                            <img src="{{$article->img_ru }}" alt=""  title="" style="float:left;" ><br>
+                        @endif
                     </figure>
                 </div>
 
