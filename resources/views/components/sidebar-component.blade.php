@@ -32,14 +32,14 @@
                 а то не скроллится, конечно это не правильно что я условие поставил статично ,а не динамично  --}}
             @if($item->link == "link77")
                 <li style="padding-bottom: 7rem;">
-                    <a href="{{ route('admin.one.menu', ["link" =>$item->link ]) }}">
+                    <a href="{{ route('admin.one.menu', ["link" =>$item->link ]) }}" class="in concrete{{ $item->link }}">
                         <i class="tim-icons icon-pin"></i>
                         <p>{{$item->name_ru}}</p>
                     </a>
                 </li>
             @else
                 <li>
-                    <a href="{{ route('admin.one.menu', ["link" =>$item->link ]) }}">
+                    <a href="{{ route('admin.one.menu', ["link" =>$item->link ]) }}" class="in concrete{{ $item->link }}">
                         <i class="tim-icons icon-pin"></i>
                         <p>{{$item->name_ru}}</p>
                     </a>

@@ -76,13 +76,18 @@
 
 
                                                 </div>
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="exampleFormControlTextarea1">Изображение</label>--}}
+{{--                                                    <input value="{{$article->img_ru}}" class="form-control" id="imgru" name="img_ru" rows="3" style="width:350px">--}}
+{{--                                                    <a data-toggle="modal"  href="javascript:;" data-target="#myModalf" class="btn" type="button">Изображение</a>--}}
+{{--                                                </div>--}}
 
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="kz">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">Название</label>
-                                                    <input value="{{$article->name_kz}}" type="text" class="form-control" id="exampleFormControlInput1"  name="name_kz">
+                                                    <input value="{{$article->name_kz}}" type="text" class="form-control" id="exampleFormControlInput1"  name="name_kz" >
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlSelect1">Дата</label>
