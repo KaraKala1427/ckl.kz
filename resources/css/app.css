@@ -18529,6 +18529,7 @@ iframe {
     line-height: 1.2;
     transition: max-height .3s ease-out, z-index .3s ease-out;
     max-height: 100%;
+    max-width: 100%;
     overflow: hidden;
 
 }
@@ -18669,6 +18670,8 @@ strong {
     border: 1px solid #ccc;
     border-top: none;
 }
+
+
 
 
 

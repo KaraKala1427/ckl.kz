@@ -201,7 +201,7 @@
                                                         <li class="headofficesm selalmaty"><a ofct="Алматы"
                                                                                               id="sshow167"
                                                                                               clickdata="show167"
-                                                                                              data-geo=""
+                                                                                              data-geo="43.239484, 76.908110"
                                                                                               class="headoffm headofficessel ">пр.Абая,
                                                                 60</a></li>
 
@@ -225,7 +225,7 @@
                                                     <h4 class="nav__title submenu">Центры прямых продаж</h4>
                                                 </li>
                                                 <li class="suboffices_main">
-                                                    <a ofct="Алматы" id="show167" style="" data-tab data-geo=""
+                                                    <a ofct="Алматы" id="show167" style="" data-tab data-geo="43.239484, 76.908110"
                                                        class="js-map-toggle link nav__item suboffices">пр.Абая, 60
                                                     </a>
                                                 </li>
@@ -417,7 +417,7 @@
                                                         style="vertical-align: inherit;"><span
                                                             style="vertical-align: inherit;"><span
                                                                 style="vertical-align: inherit;"><span
-                                                                    style="vertical-align: inherit;">Акционерное общество "Страховая компания" Коммеск-Өмір "</span></span></span></span>
+                                                                    style="vertical-align: inherit;">Акционерное общество «Компания по страхованию жизни «Сентрас Коммеск Life»</span></span></span></span>
                                                 </div>
                                                 <div class="address__place"><span style="vertical-align: inherit;"><span
                                                             style="vertical-align: inherit;"><span
@@ -1186,7 +1186,7 @@
 
 
                                 <section class="feedback callb1" id="callb1">
-                                    <h3 class="feedback__title">{{ __('navbar.bc3')}}</h3>
+                                    <h3 class="feedback__title">{{ __('navbar.bc3_1')}}</h3>
                                     <form action="#" method="" id="call-popup">
                                         <div class="grid">
                                             <input type="hidden" id="frompage" class="field" name="frompage" value="Контакты
@@ -1200,7 +1200,7 @@
 
                                             <fieldset class="field-set col col--1-2" style="">
                                                 <label class="field-set__label">{{ __('navbar.bc5')}}</label>
-                                                <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="Номер мобильного или городского" >
+                                                <input type="tel"  class="field tel-masked" id="phone-input1" onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="" >
                                                 <strong> <small id="phone_error1" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
                                             </fieldset>
 
@@ -1215,7 +1215,17 @@
                                     <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea></fieldset>
 
 
-
+                                            <style>
+                                                .removejust{
+                                                    display: none;
+                                                }
+                                                section.nav-section{
+                                                    display: none;
+                                                }
+                                                .card-body{
+                                                    display: none;
+                                                }
+                                            </style>
                                             <script>
                                                 function showOrHideBlock(errorBlock,manipulationBlock){
                                                     $('#'+errorBlock).hide();

@@ -17,6 +17,7 @@ Route::get('sendattachmentemail',[\App\Http\Controllers\MailController::class, '
 Route::get('sendbasicmail',[\App\Http\Controllers\MailController::class, 'basic_mail']);
 Route::get('sendhtmlmail',[\App\Http\Controllers\MailController::class, 'html_mail'])->name('lol');
 Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'attachment_mail']);
+Route::get('/migrate', [\App\Http\Controllers\MigrateController::class, 'index']);
 
 
 
@@ -101,6 +102,8 @@ Route::group([
         Route::get('/agents', [AboutController::class, 'get_agents'])->name('.agents');
 
         Route::get('/requisites', [AboutController::class, 'get_requisites'])->name('.requisites');
+
+        Route::get('/security', [AboutController::class, 'get_security'])->name('.security');
     });
 
 
@@ -138,7 +141,6 @@ Route::group([
     Route::delete('/{link}/{id}/', [App\Http\Controllers\AdminController::class, 'destroy'])->name('Del');
 
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
-
 
 });
 

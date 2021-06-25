@@ -13,9 +13,9 @@ class MailController extends Controller
     {
         $data = array('name' => "LaraCast");
         Mail::send(['text' => 'mail'], $data, function ($message) {
-            $message->to('ps.exel.style@gmail.com', 'Tutorials Point')->subject
+            $message->to('ps.yii@gmail.com', 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');
-                $message->from('ps.exel.style@gmail.com', 'LaraCast');
+                $message->from('ps.yii@gmail.com', 'LaraCast');
         });
         echo "Basic Email Sent. Check your inbox.";
     }
@@ -28,19 +28,17 @@ class MailController extends Controller
         ]);
 
         $array = ($request->request->all());
-        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone'],
-            'call_date' => $array['call_date'], 'call_now' => $array['call_now']);
+        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
-        $Mali->call_date = $array['call_date'];
         $json_array = json_encode($data);
         $Mali->data = $json_array;
         $Mali->save();
         Mail::send('mail', $data, function ($message) {
-            $message->to('ps.exel.style@gmail.com', 'Callback')->subject
-            ('Centras Kommesk Life');
-//            $message->from('r.abdrasulov@kommesk-omir.kz', 'Rustam from Kommesk Omir');
+            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('Aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+//            $message->to('Aligeyer@kommesk-omir.kz')->cc('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
 //        echo "HTML Email Sent. Check your inbox.";
@@ -54,11 +52,11 @@ class MailController extends Controller
     {
         $data = array('name' => "LaraCast");
         Mail::send('mail', $data, function ($message) {
-            $message->to('ps.exel.style@gmail.com', 'Tutorials Point')->subject
+            $message->to('ps.yii@gmail.com', 'Tutorials Point')->subject
             ('Laravel Testing Mail with Attachment');
             $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
             $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-            $message->from('ps.exel.style@gmail.com', 'LaraCast');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'LaraCast');
         });
         echo "Email Sent with attachment. Check your inbox.";
     }
@@ -69,9 +67,9 @@ class MailController extends Controller
     {
         $data = array('name' => "Virat Gandhi");
         Mail::send(['text' => 'email'], $data, function ($message) {
-            $message->to('ps.exel.style@gmail.com', 'Tutorials Point')->subject
+            $message->to('ps.yii@gmail.com', 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');
-            $message->from('ps.exel.style@gmail.com', 'LaraCast');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'LaraCast');
         });
         echo "Basic Email Sent. Check your inbox.";
     }
@@ -90,14 +88,13 @@ class MailController extends Controller
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
-        $Mali->call_date = date('Y-m-d H:i:s');
         $json_array = json_encode($writeToDataJson);
         $Mali->data = $json_array;
         $Mali->save();
 //        dd($data);
         Mail::send('email', $data, function ($message) {
-            $message->to('ps.exel.style@gmail.com', 'Callback')->subject
-            ('Centras Kommesk Life');
+            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('Aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
        echo 'true';
@@ -109,11 +106,11 @@ class MailController extends Controller
     {
         $data = array('name' => "LaraCast");
         Mail::send('email', $data, function ($message) {
-            $message->to('ps.exel.style@gmail.com', 'Tutorials Point')->subject
+            $message->to('ernarerbol027@gmail.com', 'Tutorials Point')->subject
             ('Laravel Testing Mail with Attachment');
             $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
             $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-            $message->from('ps.exel.style@gmail.com', 'LaraCast');
+            $message->from('y.yerboluly@kommesk-omir.kz', 'Laracast');
         });
         echo "Email Sent with attachment. Check your inbox.";
     }

@@ -15,7 +15,7 @@
     <!-- Nucleo Icons -->
     <link href="{{'/css/nucleo-icons.css'}}" rel="stylesheet" />
     <!-- CSS Files -->
-    <link href="{{'/css/black-dashboard.min.css?v=1.0.0'}}" rel="stylesheet" />
+    <link href="{{'/css/black-dashboard.min.css'}}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{'/demo/demo.css'}}" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}">
@@ -39,15 +39,11 @@
 </div>
 <!--   Core JS Files   -->
 </body>
-<script src="{{'/js/core/jquery.min.js'}}"></script>
-<script src="{{'/js/core/popper.min.js'}}"></script>
-<script src="{{'/js/core/bootstrap.min.js'}}"></script>
-<script src="{{'/js/plugins/perfect-scrollbar.jquery.min.js'}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<script src="{{'/js/plugins/chartjs.min.js'}}"></script>
-<script src="{{'/js/plugins/bootstrap-notify.js'}}"></script>
-<script src="{{'/js/black-dashboard.min.js?v=1.0.0'}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{'/demo/demo.js'}}"></script>
+<script src="{{mix('js/jquery.min.js')}}"></script>
+<script src="{{'/js/perfect-scrollbar.jquery.min.js'}}"></script>
+<script src="{{'/js/black-dashboard.min.js'}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+<script src="{{ mix('js/app.js') }}"></script>
+<script src="{{asset('/demo/demo.js')}}"></script>
 <script>
     $(document).ready(function() {
         $().ready(function() {

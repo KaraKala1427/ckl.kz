@@ -7,8 +7,9 @@
 <header class="header">
     <div class="container">
         <div class="header__wrapper">
-            <div class="header__logo"><a href="/" class="logo">
-                    <img src="{{ asset('icons/logonew.png') }}" srcset="{{ asset('icons/logonew.png') }}"
+            <div class="header__logo">
+                <a href="/" class="logo">
+                    <img src="{{ asset('images/logonew.png') }}" srcset="{{ asset('images/logonew.png') }}"
                          alt="Коммеск Омир"
                          class="logo_image" style='width:204px;'/>
                 </a>
@@ -335,31 +336,28 @@
                     <section class="phones phones__block">
                         <h3 class="phones__title">Связаться с нами</h3>
                         <ul class="phones__list">
-                            <li class="phones__item"><a href="tel:+77012447400">
-  <span class="phone">
-    <span class="phone__type">
+                            <li class="phones__item">
+                                <a href="tel:+77012447400">
+                                        <span class="phone">
+                                            <span class="phone__type">
+                                                <svg class="icon icon-mobile phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-mobile')}}"></use></svg>
+                                                <span>мобильный</span>
+                                            </span>
+                                            <span class="phone__number">+7 701 244-74-00</span>
+                                        </span>
+                                </a>
+                            </li>
 
-<svg class="icon icon-mobile phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-mobile')}}"></use></svg>
+                            <li class="phones__item ctadnum">
+                                <a href="tel:+77272447400">
+                                    <span class="phone">
+                                        <span class="phone__type">
+                                            <svg class="icon icon-landline phone__icon"><use xlink:href="{{ asset('images/sprite.svg#icon-landline')}}"></use></svg>
+                                            <span>Call-центр</span>
+                                        </span>
+                                        <span class="phone__number">+7 727 244 74 00</span>
 
-      <span>мобильный</span>
-    </span>
-    <span class="phone__number">+7 701 244-74-00</span>
-  </span>
-                                </a></li>
-
-                            <li class="phones__item ctadnum"><a href="tel:+77272447400">
-  <span class="phone">
-    <span class="phone__type">
-
-
-<svg class="icon icon-landline phone__icon"><use
-        xlink:href="{{ asset('images/sprite.svg#icon-landline')}}"></use></svg>
-
-      <span>Call-центр</span>
-    </span>
-    <span class="phone__number">+7 727 244 74 00</span>
-
-  </span>
+                                    </span>
                                 </a>
                             </li>
 
@@ -435,6 +433,8 @@
                     <!--<li><a href="/about/association_participation" class="link  nav__item">Участие в ассоциациях</a></li>-->
                     <li><a href="{{ route('about.requisites') }}"
                            class="link  nav__item" id="requisites">{{ __('navbar.mf14')}}</a></li>
+                    <li><a href="{{ route('about.security') }}"
+                           class="link  nav__item" id="security">{{ __('navbar.mf23')}}</a></li>
                 </ul>
             </nav>
         </section>
@@ -458,39 +458,21 @@
 
                                 <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc4')}}</label>
-                                    <input  type="text" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
+                                    <input  type="text" onkeypress="return /[a-zA-z\u0400-\u04FF ]/i.test(event.key)" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
 
-                                    <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Поле ФИО должно быть заполнено!</small></strong>
+                                    <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Вы не указали как вас зовут</small></strong>
 
 
                                 </fieldset>
 
-                                <fieldset class="field-set col col--1-2" style="">
+                                <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
-                                    <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="Номер мобильного или городского" >
+                                    <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="" >
 
-                                    <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small></strong>
+                                    <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Вы не указали телефон</small></strong>
 
 
                                 </fieldset>
-
-
-                                <fieldset class="field-set col col--1-2 has-success" style="false">
-                                    <label class="field-set__label">{{ __('navbar.bc6')}}</label>
-                                    <input type="text" class="field field--date" value="" id="call-popup-call-date"
-                                           name="call_date" data-timepicker="true" data-time-format="hh:ii"
-                                           data-callback-time="" readonly="">
-
-                                </fieldset>
-
-
-                                <div class="field-set col col--1-2">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="call_now" value="0" id="call-popup-call-now"
-                                               class="new-styler">
-                                        <span class="checkbox__label">{{ __('navbar.bc7')}}</span>
-                                    </label>
-                                </div>
 
 
                                 <script>
@@ -573,9 +555,7 @@
 
                                         }
 
-                                        var $callNow = $('#call-popup-call-now'),
-                                            $callDate = $('#call-popup-call-date'),
-                                            $loading = $("#loading");
+                                        var $loading = $("#loading");
                                         /* Подсветка Фио зеленым при заполнении */
                                         $('input[name="fullname"]').keyup(function () {
                                             if ($(this).val().length > 1) {
@@ -593,40 +573,18 @@
                                                 $(this).closest('fieldset').removeClass('has-success');
                                             }
                                         });
-                                        $('#call-popup-call-date').change(function () {
-                                            if ($(this).val().length == 16) {
-                                                $(this).closest('fieldset').addClass('has-success');
-                                                $(this).closest('fieldset').removeClass('has-error');
-                                            } else {
-                                                $(this).closest('fieldset').removeClass('has-success');
-                                            }
-                                        });
-                                        /*Скрипт для "неактива" даты при нажатии на "позвонить сейчас"*/
-                                        $callNow.change(function () {
-                                            var checked = $(this).prop('checked');
-                                            $callDate.prop('disabled', checked).trigger('refresh');
-                                            if ($callNow.attr("value") == 0) {
-                                                $callNow.attr("value", 1);
-                                            } else {
 
-                                                $callNow.attr("value", 0);
-                                            }
-                                        });
                                         /*Post запрос Обратного звонка с условиями*/
                                         $('#submitcallback').click(function (event) {
                                             event.preventDefault();
                                             var fullname = $("#fullname").val();
                                             var phone = $("#phone-input").val();
-                                            var call_now = $callNow.val();
-                                            var call_date = $callDate.val();
                                             $.ajax({
                                                 url: "/sendhtmlemail",
                                                 type: 'get',
                                                 data: {
                                                     fullname: fullname,
                                                     phone: phone,
-                                                    call_date: call_date,
-                                                    call_now: call_now
                                                 },
                                                 beforeSend: function () {
                                                     let a = false;
@@ -655,7 +613,7 @@
                                                 },
                                                 success: function (data) {
                                                     if (data == 'true') {
-                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
+                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
                                                         dataLayer.push({'event': 'callback_sent'});
 
                                                         $('#feedbackModal').css('max-height', '155px');

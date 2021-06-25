@@ -1,10 +1,6 @@
 @auth
-    <div class="sidebar" style="width: 23%;">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
-      -->
+    <div class="sidebar sidebar-admin" style="width: 21%;">
         <div class="sidebar-wrapper ps" style="   background: #0098f0; ">
-
             <div class="logo">
                 <a href="javascript:void(0)" class="simple-text logo-mini">
 
@@ -13,8 +9,8 @@
                    Centras Kommesk Life
                 </a>
             </div>
-          <x-sidebar-component>
-
+{{--            @php(dd("before component",$menu))--}}
+          <x-sidebar-component :menu="$menu">
           </x-sidebar-component>
         </div>
     </div>

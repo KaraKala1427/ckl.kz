@@ -12,7 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/plugins/perfect-scrollbar.jquery.min.js', 'public/js')
+    .js('resources/js/plugins/bootstrap-notify.js', 'public/js')
+    .js('resources/js/black-dashboard.min.js', 'public/js')
+    .js('resources/js/core/jquery.min.js', 'public/js')
     .vue()
     .sass('resources/sass/app.scss', 'public/css')
     .copy('resources/sass/vendor/black-dashboard.min.css', 'public/css')
     .copy('resources/sass/vendor/nucleo-icons.css', 'public/css');
+

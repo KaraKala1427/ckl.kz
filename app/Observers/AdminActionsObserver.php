@@ -36,8 +36,10 @@ class AdminActionsObserver
                 'user_id'      => Auth::user()->id,
                 'action'       => 'deleted',
                 'action_model' => $model->getTable(),
-                'action_id'    => $model->id
+                'action_id'    => $model->id,
+                'ip_address'   => Request::capture()->ip()
             ]);
         }
     }
 }
+

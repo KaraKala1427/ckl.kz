@@ -3,8 +3,6 @@
 @section('content')
 
             <div class="container s">
-
-
                 <section class="hero" style="background-image: url({{ URL::to('/') }}/images/banner.jpg);">
                     <div class="hero__content">
                         <h1 class="hero__title"></h1>
@@ -72,11 +70,7 @@
                                     @endif
 
                                     <div class="card__body">
-                                        @if($article->{'pubdat'} != '')
                                         <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span></div>
-                                        @else
-                                            {{ null }}
-                                        @endif
                                         <h4 class="card__title">
                                             <a href="{{route('press_detail', ['id'=>$article->id, "language" => App::getLocale(), "year" => $article->year->name_ru , "alias"=>str_slug($article->name_ru, '-' ) ]) }}-{{str_slug($article->name_ru, '-' )}}"
 
@@ -110,15 +104,16 @@
                         @endforeach
                     </div>
                 </section>
-
-             </div>
-
+            </div>
 
             <style>
                 .removejust{
                     display: none;
                 }
                 section.nav-section{
+                    display: none;
+                }
+                .card-body{
                     display: none;
                 }
             </style>

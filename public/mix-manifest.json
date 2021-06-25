@@ -1,5 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/perfect-scrollbar.jquery.min.js": "/js/perfect-scrollbar.jquery.min.js",
+    "/js/bootstrap-notify.js": "/js/bootstrap-notify.js",
+    "/js/black-dashboard.min.js": "/js/black-dashboard.min.js",
+    "/js/jquery.min.js": "/js/jquery.min.js",
     "/css/app.css": "/css/app.css",
     "/css/black-dashboard.min.css": "/css/black-dashboard.min.css",
     "/css/nucleo-icons.css": "/css/nucleo-icons.css"

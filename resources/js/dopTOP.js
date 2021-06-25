@@ -160,6 +160,8 @@ $(function(){
             $('#agents').addClass('active');
         }else if( k == 'requisites') {
             $('#requisites').addClass('active');
+        }else if( k == 'security') {
+            $('#security').addClass('active');
         }
 
     });

@@ -1,4 +1,4 @@
-<ul class="nav ">
+<ul class="nav">
     @foreach($menu as $key => $item)
     <li>
         @if(count($item->children ?? []) > 0)
@@ -8,23 +8,21 @@
                     <span class="nav-link-text">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
                     <b class="caret mt-1"></b>
                 </a>
-
                 <div class="collapse" id="{{$item->link}}" style="">
                     <ul class="nav pl-4">
-                        <x-sidebar-component :items="$item->children"></x-sidebar-component>
+                        <x-sidebar-component :menu="$item->children"></x-sidebar-component>
                     </ul>
                 </div>
             @else
-{{--            <a data-toggle="collapse" href="#{{$item->link}}" aria-expanded="true" class>--}}
-            <a data-toggle="collapse" href="#{{$item->link}}"  aria-expanded="true" class>
+            <a data-toggle="collapse" data-target="#{{$item->link}}" aria-expanded="true" class>
                 <i class="fab fa-laravel"></i>
-                <span class="nav-link-text" onclick="window.open('http://127.0.0.1:8000/admin/menu/{{$item->link}}','_self');">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
+                <span class="nav-link-text" onclick="window.open('/admin/menu/{{$item->link}}','_self');">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
                 <b class="caret mt-1"></b>
             </a>
 
             <div class="collapse show" id="{{$item->link}}" style="">
                 <ul class="nav pl-4">
-                    <x-sidebar-component :items="$item->children"></x-sidebar-component>
+                    <x-sidebar-component :menu="$item->children"></x-sidebar-component>
                 </ul>
             </div>
             @endif

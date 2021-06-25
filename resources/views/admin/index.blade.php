@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <div class="row" style="float: right; width: 85%;">
 
         <div class="col-lg-12 col-md-12">

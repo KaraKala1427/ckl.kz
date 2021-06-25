@@ -10,10 +10,8 @@
                     {!! $article->{'tex_'.App::getlocale()} !!}
                 </p>
                 <div class="thumb__box">
-                    <a href="{{$article->img_ru }}" class="js-lightbox-trigger overlay">
-                    </a>
                     <figure>
-                        <img src="{{$article->img_ru }}" alt=""  title="" style="float:left;"><br>
+                        <img src="{{$article->img_ru }}" alt=""  title="" style="float:left;" ><br>
                     </figure>
                 </div>
 
