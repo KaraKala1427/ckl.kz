@@ -209,13 +209,4 @@ $('#myTabs a').click(function (e) {
     $(this).tab('show')
 });
 
-$(document).ready(function(){
-    //console.log(sessionStorage.getItem('city'));
-    if(sessionStorage.getItem('city') != undefined) {
-        $('#city-label').html(sessionStorage.getItem('city'));
-    } else {
-        $('#city-label').html('Алматы');
-    }
-})
-
 
