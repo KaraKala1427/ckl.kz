@@ -16390,6 +16390,8 @@ input:checked ~ .gifts__title {
 
 .tiles__title {
     margin-bottom: .2em;
+    color: white;
+    text-shadow: 1px -2px 6px black;
 }
 
 .tiles--promo {

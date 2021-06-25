@@ -77,6 +77,8 @@ Route::group([
 
     Route::get('/live', [ProductController::class, 'live'])->name('live');
 
+    Route::get('/live/{page}{identificator?}', [ProductController::class, 'live_detail'])->name('live_detail');
+
     Route::get('/retirementinsurance', [ProductController::class, 'retirementinsurance'])->name('retirementinsurance');
 
 
