@@ -209,4 +209,14 @@ $('#myTabs a').click(function (e) {
     $(this).tab('show')
 });
 
+$(function(){
+    var url_admin = window.location.pathname;
+    let k,l='4';
+    k =  url_admin.split('/')[1];
+    if(k == 'admin'){
+        l = url_admin.split('/')[2];
+    }
+    $('.concrete'+l).addClass('menu_active');
+});
+
 
