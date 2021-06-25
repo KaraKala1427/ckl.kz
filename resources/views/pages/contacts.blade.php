@@ -583,7 +583,7 @@
                                             </div>
                                         </div>
                                         <div class="tab-panels__item suboffices show157" data-tabs-pane>
-                                            <div class="address">
+                                            <div class="address ">
                                                 <div class="address__place"><span style="vertical-align: inherit;"><span
                                                             style="vertical-align: inherit;">г. </span><span
                                                             style="vertical-align: inherit;">Актау, 9-й мкр., Д. </span><span
