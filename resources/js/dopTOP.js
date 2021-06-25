@@ -219,4 +219,13 @@ $(function(){
     $('.concrete'+l).addClass('menu_active');
 });
 
+$(document).ready(function(){
+    //console.log(sessionStorage.getItem('city'));
+    if(sessionStorage.getItem('city') != undefined) {
+        $('#city-label').html(sessionStorage.getItem('city'));
+    } else {
+        $('#city-label').html('Алматы');
+    }
+});
+
 
