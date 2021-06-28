@@ -31,6 +31,12 @@ class ProductController extends Controller
         $questions = Article::where('razid', '56')->orderBy('orderid')->get();
         return view('pages.live', compact('questions','articles'));
     }
+    public function live_detail()
+    {
+        $articles = Article::where('razid', '63')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '56')->orderBy('orderid')->get();
+        return view('pages.live_detail', compact('questions','articles'));
+    }
 
     public function retirementinsurance()
     {
