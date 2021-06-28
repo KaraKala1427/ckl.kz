@@ -218,7 +218,10 @@ $(function(){
     }
     $('.concrete'+l).addClass('menu_active');
 });
-
+function setCityName(city){
+    sessionStorage.setItem('city',city);
+    $('#city-label').html(sessionStorage.getItem('city'));
+}
 $(document).ready(function(){
     //console.log(sessionStorage.getItem('city'));
     if(sessionStorage.getItem('city') != undefined) {
@@ -227,5 +230,8 @@ $(document).ready(function(){
         $('#city-label').html('Алматы');
     }
 });
+
+
+
 
 

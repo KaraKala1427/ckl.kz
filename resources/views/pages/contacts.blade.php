@@ -93,7 +93,8 @@
                                                         <li class="headofficesm selalmaty"><a ofct="Алматы" id="sshow78"
                                                                                               clickdata="show78"
                                                                                               data-geo="43.263035, 76.934910,*+7 727 244 74 10"
-                                                                                              class="headoffm hoalmaty " style="
+                                                                                              class="headoffm hoalmaty" style="
+
     border-bottom: 1px solid black;
     font-weight: normal;
     padding-bottom: 6px;">Наурызбай

@@ -44,12 +44,7 @@
 @include('inc.footer')
 
 <script src="{{ mix('js/app.js') }}"></script>
-<script>
-    function setCityName(city){
-        sessionStorage.setItem('city',city);
-        $('#city-label').html(sessionStorage.getItem('city'));
-    }
-</script>
+
 </body>
 </html>
 

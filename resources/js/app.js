@@ -10,6 +10,7 @@ require('./scripts/main.min');
 require('./scripts/regionCT');
 require('./scripts/polyfills.min');
 require('./scripts/calc');
+require('./scripts/session');
 
 window.Vue = require('vue').default;
 
@@ -35,3 +36,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
