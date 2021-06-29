@@ -30,8 +30,6 @@
     <br>
 
     <div class="about_news">
-
-
         <div class="article-page__intro" id="page_intro">
             @foreach($articles as $article)
                 <h2 class="article__title">{{ $article->{'name_'.App::getLocale()} }}</h2>

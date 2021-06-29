@@ -214,7 +214,12 @@ $(function(){
     let k,l='4';
     k =  url_admin.split('/')[1];
     if(k == 'admin'){
-        l = url_admin.split('/')[2];
+        if(url_admin.split('/')[2].includes('link')){
+            l = url_admin.split('/')[2];
+        }
+        else {
+            l = url_admin.split('/')[3];
+        }
     }
     $('.concrete'+l).addClass('menu_active');
 });

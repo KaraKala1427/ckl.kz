@@ -14,10 +14,8 @@ class Locale
 
     public static $mainLanguage = 'ru';
 
-    public  static $languages
-     = [
-         'kz',
-        ];
+    public  static $languages = ['kz',];
+
     public static function getLocale(){
 
         $uri = request()->path();
@@ -31,8 +29,7 @@ class Locale
             }
 
         }
-
-return null;
+        return null;
     }
 
     /**
@@ -46,12 +43,10 @@ return null;
     public function handle(Request $request, Closure $next)
     {
         $locale = self::getLocale();
-if(!$locale){
-
-    $locale = self::$mainLanguage;
-
-}
-app()->setLocale($locale);
+        if(!$locale){
+            $locale = self::$mainLanguage;
+        }
+    app()->setLocale($locale);
     if(Cookie::get('lang') != $locale){
         return $next($request);
     }
