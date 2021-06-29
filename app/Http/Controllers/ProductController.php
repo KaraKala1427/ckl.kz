@@ -16,7 +16,6 @@ class ProductController extends Controller
         $articles = Article::where('razid', '61')->orderBy('id', 'desc')->get();
         $questions = Article::where('razid', '8')->orderBy('orderid')->get();
         return view('pages.product', compact('questions','articles'));
-
     }
     public function annuitet()
     {
@@ -27,14 +26,36 @@ class ProductController extends Controller
 
     public function live()
     {
-        $articles = Article::where('razid', '63')->orderBy('id', 'desc')->get();
-        $questions = Article::where('razid', '56')->orderBy('orderid')->get();
-        return view('pages.live', compact('questions','articles'));
+        return view('pages.live');
     }
-    public function live_detail()
+    public function live_gccj()
+    {
+        $articles = Article::where('razid', '96')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '97')->orderBy('orderid')->get();
+        return view('pages.live_detail', compact('questions','articles'));
+    }
+    public function live_zaemwik()
+    {
+        $articles = Article::where('razid', '99')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '100')->orderBy('orderid')->get();
+        return view('pages.live_detail', compact('questions','articles'));
+    }
+    public function live_nsj()
     {
         $articles = Article::where('razid', '63')->orderBy('id', 'desc')->get();
         $questions = Article::where('razid', '56')->orderBy('orderid')->get();
+        return view('pages.live_detail', compact('questions','articles'));
+    }
+    public function live_ncj_rebenka()
+    {
+        $articles = Article::where('razid', '105')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '106')->orderBy('orderid')->get();
+        return view('pages.live_detail', compact('questions','articles'));
+    }
+    public function live_nsj_valutnyi()
+    {
+        $articles = Article::where('razid', '108')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '109')->orderBy('orderid')->get();
         return view('pages.live_detail', compact('questions','articles'));
     }
 

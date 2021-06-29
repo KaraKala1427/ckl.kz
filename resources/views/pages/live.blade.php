@@ -33,33 +33,60 @@
         <div class="tiles tiles--business">
             <div class="tiles__item">
                 <img src="{{asset('images/cards/групповое.jpg')}}" alt="групповое" class="tiles__image" />
-                <a href="{{route('live_detail', ["page" => 'нсжуп'])}}" class="overlay" title="Обязательное автострахование"></a>
+                <a href="{{route('live_gccj')}}" class="overlay" title="Обязательное автострахование"></a>
                 <h3 class="tiles__title">Групповое срочное страхование жизни (ГССЖ)</h3>
             </div>
             <div class="tiles__item">
                 <img src="{{asset('images/cards/заемщик.jpg')}}" alt="заемщик" class="tiles__image" />
-                <a href="{{route('live_detail', ["page" => 'нсжуп'])}}" class="overlay" title="Выезжающим за рубеж"></a>
+                <a href="{{route('live_zaemwik')}}" class="overlay" title="Выезжающим за рубеж"></a>
                 <h3 class="tiles__title">Страхование жизни заемщика</h3>
             </div>
             <div class="tiles__item">
                 <img src="{{asset('images/cards/нсжуп.jpg')}}" alt="нсжуп" class="tiles__image " />
-                <a href="{{route('live_detail', ["page" => 'нсжуп'])}}" class="overlay" title="Арендатору"></a>
+                <a href="{{route('live_nsj')}}" class="overlay" title="Арендатору"></a>
                 <h3 class="tiles__title img_text_bottom">Накопительное страхование жизни с участием в прибыли</h3>
             </div>
             <div class="tiles__item">
                 <img src="{{asset('images/cards/нсжуп ребенок.jpg')}}" alt="нсжуп ребенок" class="tiles__image " />
-                <a href="{{route('live_detail', ["page" => 'нсжуп'])}}" class="overlay" title="Медстрахование"></a>
+                <a href="{{route('live_nsj_rebenka')}}" class="overlay" title="Медстрахование"></a>
                 <h3 class="tiles__title img_text_bottom">Накопительное страхование жизни в пользу ребенка</h3>
             </div>
             <div class="tiles__item">
                 <img src="{{asset('images/cards/валютное.jpg')}}" alt="валютное" class="tiles__image" />
-                <a href="{{route('live_detail', ["page" => 'нсжуп'])}}" class="overlay" title="Страхование грузов"></a>
+                <a href="{{route('live_nsj_valutnyi')}}" class="overlay" title="Страхование грузов"></a>
                 <h3 class="tiles__title">Накопительное страхование жизни - Валютный</h3>
             </div>
         </div>
+        <style>
+            .localgrid {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items:center;
+            }
+            .localgrid section {
+                width: 77%;
+                margin: 10px auto;
+            }
+            .removejust {
+                display: none;
+            }
 
+            .card__image {
+                width: 80%;
+                height: 400px;
+            }
+            .card__image img{
+                width: 100%;
+            }
+            @media (max-width: 991px) {
+                .card__image {
+                    width: 80%;
+                    height: 150px;
+                }
 
-        @include('mini_parts.callback_mail', ['frompage' => 'Страхование жизни https://ckl.kz/live'])
+            }
+        </style>
 
     <!-- end container -->
 </main>

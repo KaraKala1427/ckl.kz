@@ -18,6 +18,7 @@ Route::get('sendbasicmail',[\App\Http\Controllers\MailController::class, 'basic_
 Route::get('sendhtmlmail',[\App\Http\Controllers\MailController::class, 'html_mail'])->name('lol');
 Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'attachment_mail']);
 Route::get('/migrate', [\App\Http\Controllers\MigrateController::class, 'index']);
+Route::get('/runseeder', [\App\Http\Controllers\MigrateController::class, 'run_seeder']);
 Route::get('/curltest', [\App\Http\Controllers\MailController::class, 'test']);
 
 
@@ -30,9 +31,7 @@ Auth::routes();
 //
 //], function (){
 
-Route::get(
-    'setlocale/{lang}',
-    function ($lang){
+Route::get('setlocale/{lang}', function ($lang){
 
         $referer = Redirect::back()->getTargetUrl();
         $parse_url = parse_url($referer, PHP_URL_PATH);
@@ -40,7 +39,6 @@ Route::get(
         $segments = explode('/',  $parse_url);
 
         if (in_array($segments[1], App\Http\Middleware\Locale::$languages)){
-
             unset($segments[1]);
         }
 
@@ -66,7 +64,6 @@ Route::get(
 Route::group([
     'prefix' => App\Http\Middleware\Locale::getLocale(),
 
-
 ], function (){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -77,7 +74,11 @@ Route::group([
 
     Route::get('/live', [ProductController::class, 'live'])->name('live');
 
-    Route::get('/live/{page}{identificator?}', [ProductController::class, 'live_detail'])->name('live_detail');
+    Route::get('/live/gccj', [ProductController::class, 'live_gccj'])->name('live_gccj');
+    Route::get('/live/zaemwik', [ProductController::class, 'live_zaemwik'])->name('live_zaemwik');
+    Route::get('/live/nsj', [ProductController::class, 'live_nsj'])->name('live_nsj');
+    Route::get('/live/nsj-rebenka', [ProductController::class, 'live_ncj_rebenka'])->name('live_nsj_rebenka');
+    Route::get('/live/nsj-valutnyi', [ProductController::class, 'live_nsj_valutnyi'])->name('live_nsj_valutnyi');
 
     Route::get('/retirementinsurance', [ProductController::class, 'retirementinsurance'])->name('retirementinsurance');
 
@@ -125,8 +126,6 @@ Route::group([
     "middleware"=>"admin",
     "prefix"=>"/admin"
 ],function (){
-
-
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
     Route::get('/menu/{link}', [App\Http\Controllers\AdminController::class, 'getParentMenu'])->name('menus');
     Route::get('/menu/{link}/add', [App\Http\Controllers\AdminController::class, 'getMenuAdd'])->name('menu.add');
@@ -144,7 +143,6 @@ Route::group([
     Route::delete('/{link}/{id}/', [App\Http\Controllers\AdminController::class, 'destroy'])->name('Del');
 
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
-
 });
 
 
