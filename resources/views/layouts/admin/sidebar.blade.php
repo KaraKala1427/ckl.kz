@@ -1,6 +1,6 @@
 @auth
     <div class="sidebar sidebar-admin" style="width: 26%;">
-        <div class="sidebar-wrapper ps" style="   background: #0098f0;     width: 422px;">
+        <div class="sidebar-wrapper ps">
             <div class="logo">
                 <a href="javascript:void(0)" class="simple-text logo-mini">
 
