@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     @if(session('error'))
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-danger" role="alert">
                             {{session('error')}}
                         </div>
                     @endif
@@ -25,8 +25,8 @@
 
                         @error('oldPassword')
                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                         <small id="emailHelp" class="form-text text-muted"></small>
                     </div>
@@ -36,15 +36,15 @@
 
                         @error('password')
                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
                     <div class="form-group">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                         <label for="exampleInputPassword1">Повторно новый пароль</label>
                         <input id="password-confirm" type="password"  placeholder="Повторно новый пароль" class="form-control" name="password_confirmation" required autocomplete="new-password">

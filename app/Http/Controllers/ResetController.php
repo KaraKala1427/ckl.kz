@@ -17,8 +17,8 @@ class ResetController
     public function passwordEdit()
     {
         if (Auth::user()) {
-            $menus = Menu::orderBy('orderid')->orderBy('level')->get();
-            return view('admin.password', compact('menus'));
+            $menu = Menu::orderBy('orderid')->orderBy('level')->get();
+            return view('admin.password', compact('menu'));
 
         } else {
 

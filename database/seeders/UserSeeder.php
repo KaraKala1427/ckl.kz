@@ -29,7 +29,12 @@ class UserSeeder extends Seeder
 
         User::create([
             "username" => "yulia",
-            "password" => bcrypt('yayulia321'),
+            "password" => bcrypt('Asdfgh123#'),
+            "role_id"  => Role::ADMIN
+        ]);
+        User::create([
+            "username" => "aizhan",
+            "password" => bcrypt('Nahzia321!'),
             "role_id"  => Role::ADMIN
         ]);
 

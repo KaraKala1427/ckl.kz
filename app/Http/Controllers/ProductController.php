@@ -30,14 +30,14 @@ class ProductController extends Controller
     }
     public function live_gccj()
     {
-        $articles = Article::where('razid', '96')->orderBy('id', 'desc')->get();
-        $questions = Article::where('razid', '97')->orderBy('orderid')->get();
+        $articles = Article::where('razid', '97')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '96')->orderBy('orderid')->get();
         return view('pages.live_detail', compact('questions','articles'));
     }
     public function live_zaemwik()
     {
-        $articles = Article::where('razid', '99')->orderBy('id', 'desc')->get();
-        $questions = Article::where('razid', '100')->orderBy('orderid')->get();
+        $articles = Article::where('razid', '100')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '99')->orderBy('orderid')->get();
         return view('pages.live_detail', compact('questions','articles'));
     }
     public function live_nsj()
@@ -48,14 +48,14 @@ class ProductController extends Controller
     }
     public function live_ncj_rebenka()
     {
-        $articles = Article::where('razid', '105')->orderBy('id', 'desc')->get();
-        $questions = Article::where('razid', '106')->orderBy('orderid')->get();
+        $articles = Article::where('razid', '106')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '105')->orderBy('orderid')->get();
         return view('pages.live_detail', compact('questions','articles'));
     }
     public function live_nsj_valutnyi()
     {
-        $articles = Article::where('razid', '108')->orderBy('id', 'desc')->get();
-        $questions = Article::where('razid', '109')->orderBy('orderid')->get();
+        $articles = Article::where('razid', '109')->orderBy('id', 'desc')->get();
+        $questions = Article::where('razid', '108')->orderBy('orderid')->get();
         return view('pages.live_detail', compact('questions','articles'));
     }
 
