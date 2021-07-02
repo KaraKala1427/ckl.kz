@@ -16883,3 +16883,21 @@ Copyright (c) 2015 Daniel Eden
 .ps {
     background: #0098f0;
 }
+.sidebar-admin{
+    width: 26%;
+}
+@media (max-width: 1600px) {
+    .sidebar-admin {
+        width: 27%;
+    }
+}
+@media (max-width: 1530px) {
+    .sidebar-admin {
+        width: 28%;
+    }
+}
+@media (max-width: 1430px) {
+    .sidebar-admin {
+        width: 29%;
+    }
+}
