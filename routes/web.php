@@ -25,6 +25,14 @@ Route::get('/curltest', [\App\Http\Controllers\MailController::class, 'test']);
 
 Auth::routes();
 
+Route::group([
+    'namespace'  => 'App\\Http\\Controllers\\Files',
+    'middleware' => config('filemanager.middleware')
+], function () {
+    Route::get(config('filemanager.base_route'), 'FilemanagerController@getIndex')
+        ->name('filemanager.base_route');
+});
+
 //Route::group([
 //    'prefix' => '{language?}',
 //    'where' => ['language' => 'ru|kz']
