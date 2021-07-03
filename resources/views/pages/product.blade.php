@@ -2,12 +2,12 @@
 
 @section('content')
             @include('mini_parts.callback')
-            <section class="hero" style="background-image: url({{ asset('images/osb.jpg')}}); position: relative;">
+            <section class="hero" style="background-image: url({{ asset('images/ochp.jpg')}}); position: relative;">
                 <div class="hero__content">
-                    <h1 class="hero__title">{{ __('navbar.osns_tit')}}</h1>
+                    <h1 class="hero__title"></h1>
                     {{--                <h1 class="hero__title"> {{ __('auth.failed') }} </h1> --}}
                     <div class="hero__maintext hero__maintext--bigger">
-                        <p>{{ __('navbar.osns_text')}}</p>
+                        <p></p>
                     </div>
                     <div class="hero__helptext">
                         <p></p>
