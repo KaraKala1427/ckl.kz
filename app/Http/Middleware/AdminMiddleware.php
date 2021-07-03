@@ -21,7 +21,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!(Auth::check() && Auth::user()->isAdmin())) {
-            return redirect()->route('home')->with('warning', 'У вас нет доступа в данный раздел');
+            return redirect('/login')->with('warning', 'У вас нет доступа в данный раздел');
         }
         return $next($request);
     }

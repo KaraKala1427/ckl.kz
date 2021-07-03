@@ -33,27 +33,27 @@
 
         <div class="tiles tiles--business">
             <div class="tiles__item">
-                <img src="{{asset('images/cards/групповое.jpg')}}" alt="групповое" class="tiles__image" />
+                <img src="{{asset('images/cards/gruppovoe.jpg')}}" alt="групповое" class="tiles__image" />
                 <a href="{{route('live_gccj')}}" class="overlay" title="Обязательное автострахование"></a>
-                <h3 class="tiles__title">Групповое срочное страхование жизни (ГССЖ)</h3>
+                <h3 class="tiles__title">Групповое срочное страхование жизни</h3>
             </div>
             <div class="tiles__item">
-                <img src="{{asset('images/cards/заемщик.jpg')}}" alt="заемщик" class="tiles__image" />
+                <img src="{{asset('images/cards/zaemwik.jpg')}}" alt="заемщик" class="tiles__image" />
                 <a href="{{route('live_zaemwik')}}" class="overlay" title="Выезжающим за рубеж"></a>
                 <h3 class="tiles__title">Страхование жизни заемщика</h3>
             </div>
             <div class="tiles__item">
-                <img src="{{asset('images/cards/нсжуп.jpg')}}" alt="нсжуп" class="tiles__image " />
+                <img src="{{asset('images/cards/nsjup.jpg')}}" alt="нсжуп" class="tiles__image " />
                 <a href="{{route('live_nsj')}}" class="overlay" title="Арендатору"></a>
                 <h3 class="tiles__title img_text_bottom">Накопительное страхование жизни с участием в прибыли</h3>
             </div>
             <div class="tiles__item">
-                <img src="{{asset('images/cards/нсжуп ребенок.jpg')}}" alt="нсжуп ребенок" class="tiles__image " />
+                <img src="{{asset('images/cards/nsj_rebenka.jpg')}}" alt="нсжуп ребенок" class="tiles__image " />
                 <a href="{{route('live_nsj_rebenka')}}" class="overlay" title="Медстрахование"></a>
                 <h3 class="tiles__title img_text_bottom">Накопительное страхование жизни в пользу ребенка</h3>
             </div>
             <div class="tiles__item">
-                <img src="{{asset('images/cards/валютное.jpg')}}" alt="валютное" class="tiles__image" />
+                <img src="{{asset('images/cards/valutnyi.jpg')}}" alt="валютное" class="tiles__image" />
                 <a href="{{route('live_nsj_valutnyi')}}" class="overlay" title="Страхование грузов"></a>
                 <h3 class="tiles__title">Накопительное страхование жизни - Валютный</h3>
             </div>
