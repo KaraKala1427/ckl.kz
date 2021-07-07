@@ -43,7 +43,7 @@
                 <h3 class="tiles__title">Страхование жизни заемщика</h3>
             </div>
             <div class="tiles__item">
-                <img src="{{asset('images/cards/nsjup.jpg')}}" alt="нсжуп" class="tiles__image " />
+                <img src="{{asset('images/cards/nsjupp.jpg')}}" alt="нсжуп" class="tiles__image " />
                 <a href="{{route('live_nsj')}}" class="overlay" title="Арендатору"></a>
                 <h3 class="tiles__title img_text_bottom">Накопительное страхование жизни с участием в прибыли</h3>
             </div>

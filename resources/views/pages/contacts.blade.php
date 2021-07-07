@@ -145,9 +145,8 @@
                                                         <li class="headofficesm selnur-sultan"><a ofct="Нур-Султан"
                                                                                                   id="sshow105"
                                                                                                   clickdata="show105"
-                                                                                                  data-geo="51.1684, 71.4136,*+7 7172 32-85-09"
-                                                                                                  class="headoffm honur-sultan ">пр.
-                                                                Женис,16</a></li>
+                                                                                                  data-geo="51.1464, 71.4235"
+                                                                                                  class="headoffm honur-sultan ">г. Нур-Султан, пр.Кабанбай батыра 6/1, БЦ «Каскад», 9 этаж, офис 91.</a></li>
                                                         <li class="headofficesm selpavlodar"><a ofct="Павлодар"
                                                                                                 id="sshow115"
                                                                                                 clickdata="show115"
@@ -306,8 +305,8 @@
                                             <ul class="nav__list">
                                                 <li>
                                                     <a ofct="Нур-Султан" id="show105" style="" data-tab
-                                                       data-geo="51.1684, 71.4136,*+7 7172 32-85-09"
-                                                       class="js-map-toggle link nav__item headoffices">пр. Женис,16
+                                                       data-geo="51.1464, 71.4235,*+7 7172 32-85-09"
+                                                       class="js-map-toggle link nav__item headoffices">Кабанбай батыра 6/1
                                                     </a>
                                                 </li>
                                             </ul>
@@ -790,15 +789,17 @@
                                         </div>
                                         <div class="tab-panels__item headoffices show105" data-tabs-pane>
                                             <div class="address">
-                                                <div class="address__place">г. Нур-Султан, пр. Женис, 16, кв.10</div>
-                                                <div class="address__place">09:00-18:00 - будние дни<br/>Выходной
+                                                <div class="address__place">гг. Нур-Султан, пр.Кабанбай батыра 6/1, БЦ «Каскад», 9 этаж, офис 91.</div>
+                                                <div class="address__place">09:00-18:00 – будние дни <br/>
+
+                                                    13:00-14:00 – перерыв
+                                                   <br>  Выходной
                                                     &ndash; Сб., Вс.
                                                 </div>
                                                 <div class="address__phones list--nostyle">
-                                                    <div>+7(7172)32-85-09</div>
-                                                    <div>+7(7172)44-54-11
-                                                        <div>+7(7172)32-00-26</div>
-                                                        <div>+7(7172)94-51-65</div>
+                                                    <div>+7 717 279 25 63</div>
+                                                    <div>(64,65,66,67)
+
                                                     </div>
                                                 </div>
                                             </div>
