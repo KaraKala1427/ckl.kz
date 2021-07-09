@@ -5,8 +5,8 @@ stages:
 image: registry-backend.cic.kz/centras/ckl:latest
 
 before_script:
-  - composer install --no-scripts --no-autoloader
-  - composer dump-autoload --optimize
+  - echo composer install --no-scripts --no-autoloader
+  - echo composer dump-autoload --optimize
 
 # vendor:
 #   stage: vendor
