@@ -26,4 +26,4 @@ vendor:
     - ckl
   script:
     - php -v
-    - which composer
+    - php composer.phar install
