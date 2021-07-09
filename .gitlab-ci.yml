@@ -1,10 +1,21 @@
+stages:
+  - vendor
+  - upload
+
 image: registry-backend.cic.kz/centras/ckl:latest
 
 before_script:
   - composer install --no-scripts --no-autoloader
   - composer dump-autoload --optimize
 
-build:
+vendor:
+  container_name: composer_installation
+  image: composer
+  volumes:
+    - ./:/app
+  command: composer install --ignore-platform-reqs
+
+upload:
   tags:
     - ckl
   script:
