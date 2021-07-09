@@ -11,6 +11,8 @@ lftp -e "                                 \
             --exclude tests        \
             --exclude vendor       \
             --exclude node_modules \
+            --exclude package.json \
+       --exclude package-lock.json \
             --exclude storage      \
                                    \
             ./ www/$FTP_DIRECTORY/ \
