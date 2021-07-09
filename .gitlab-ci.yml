@@ -1,4 +1,5 @@
 stages:
+  - build
   - vendor
   - upload
 
@@ -36,8 +37,8 @@ image: registry-backend.cic.kz/centras/ckl:latest
     expire_in: 1 week
 
 build-dev:
-  extends: .upload
-  stage: upload
+  extends: .build
+  stage: build
   only:
     - main
   variables:
