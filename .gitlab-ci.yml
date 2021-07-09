@@ -9,13 +9,15 @@ before_script:
   - composer dump-autoload --optimize
 
 vendor:
-  container_name: composer_installation
+  stage: vendor
+  tags:
+    - ckl
   image: composer
-  volumes:
-    - ./:/app
-  command: composer install --ignore-platform-reqs
+  script: 
+    - composer install --ignore-platform-reqs
 
 upload:
+  stage: upload
   tags:
     - ckl
   script:
