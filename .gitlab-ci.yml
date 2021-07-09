@@ -1,5 +1,5 @@
 stages:
-  - vendor
+  # - vendor
   - upload
 
 image: registry-backend.cic.kz/centras/ckl:latest
