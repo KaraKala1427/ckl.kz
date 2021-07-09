@@ -94,7 +94,7 @@
                                 </div>
                             </nav>
                             <div class="copy">
-                                <p>©2020 <span class="text-grey"></span></p>ЭТО НЕ ГОЛУБЬ, ЭТО СОВА,  СЕРГЕЙЙ </div>
+                                <p>©2020 <span class="text-grey"></span></p>всем привет </div>
                         </div>
                     </div>
                     <!-- end inner-grid -->
