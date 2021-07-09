@@ -1,4 +1,4 @@
-image: ubuntu:20.04
+image: registry-backend.cic.kz/centras/lftp:latest
 
 before_script:
   - apt-get update -qy
@@ -9,6 +9,4 @@ build:
     - ckl
   script:
     # Sync to FTP
-    - echo "" >> /etc/lftp.conf
-    - echo "set ssl:verify-certificate off" >> /etc/lftp.conf
     - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/test.ckl.kz/ --exclude public; bye"
