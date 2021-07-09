@@ -1,18 +1,19 @@
-lftp -e " \
-        open $FTP_HOST; \
-          \
+lftp -e "                                 \
+        open $FTP_HOST;                   \
+                                          \
         user $FTP_USERNAME $FTP_PASSWORD; \
-          \
-        mirror -X .* -X .*/ \
-            --reverse \
-            --verbose \
-            --exclude .idea \
-            --exclude tests \
-            --exclude vendor \
+                                          \
+        mirror -X .* -X .*/        \
+            --reverse              \
+            --verbose              \
+            --exclude .idea        \
+            --exclude public       \
+            --exclude tests        \
+            --exclude vendor       \
             --exclude node_modules \
-            --exclude storage \
-            \
+            --exclude storage      \
+                                   \
             ./ www/$FTP_DIRECTORY/ \
-        ; \
-          \
+        ;                          \
+                                   \
         bye "
