@@ -10,6 +10,10 @@ upload:
     - ckl
   script:
     - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/test.ckl.kz/ --exclude public; bye"
+  artifacts:
+    paths:
+      - vendor
+    expire_in: 1 week
 
 vendor:
   stage: vendor
