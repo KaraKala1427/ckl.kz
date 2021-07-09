@@ -94,7 +94,7 @@
                                 </div>
                             </nav>
                             <div class="copy">
-                                <p>©2020 <span class="text-grey"></span></p>всем привет </div>
+                                <p>©2020 <span class="text-grey"></span></p>всем привет 123132 </div>
                         </div>
                     </div>
                     <!-- end inner-grid -->
