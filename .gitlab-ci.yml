@@ -14,6 +14,14 @@ image: registry-backend.cic.kz/centras/ckl:latest
       - vendor
     expire_in: 1 week
   
+.build:
+  tags:
+    - ckl
+  script:
+    - npm i
+    - npm run dev
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./public www/$FTP_DIRECTORY/public bye"
+
 .vendor:
   when: manual
   tags:
@@ -21,11 +29,19 @@ image: registry-backend.cic.kz/centras/ckl:latest
   script:
     - php -v
     - php composer.phar install
-    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/$FTP_DIRECTORY/vendor bye"
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./vendor www/$FTP_DIRECTORY/vendor bye"
   artifacts:
     paths:
       - vendor
     expire_in: 1 week
+
+build-dev:
+  extends: .upload
+  stage: upload
+  only:
+    - main
+  variables:
+    FTP_DIRECTORY: dev.ckl.kz
 
 upload-dev:
   extends: .upload
