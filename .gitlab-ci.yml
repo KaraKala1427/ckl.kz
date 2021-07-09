@@ -9,4 +9,5 @@ build:
     - ckl
   script:
     # Sync to FTP
+    - cat /etc/lftp.conf
     - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/test.ckl.kz/; bye"
