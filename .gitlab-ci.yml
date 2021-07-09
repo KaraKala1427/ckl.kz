@@ -4,10 +4,6 @@ stages:
 
 image: registry-backend.cic.kz/centras/ckl:latest
 
-before_script:
-  - echo composer install --no-scripts --no-autoloader
-  - echo composer dump-autoload --optimize
-
 # vendor:
 #   stage: vendor
 #   tags:
@@ -23,3 +19,11 @@ upload:
   script:
     # Sync to FTP
     - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/test.ckl.kz/ --exclude public; bye"
+
+vendor:
+  stage: vendor
+  tags:
+    - ckl
+  script:
+    - php -v
+    - which composer
