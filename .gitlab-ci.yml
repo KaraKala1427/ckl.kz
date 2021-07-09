@@ -21,7 +21,7 @@ image: registry-backend.cic.kz/centras/ckl:latest
   script:
     - php -v
     - php composer.phar install
-    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/dev.ckl.kz/vendor bye"
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/$FTP_DIRECTORY/vendor bye"
   artifacts:
     paths:
       - vendor
