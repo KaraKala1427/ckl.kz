@@ -6,11 +6,12 @@ lftp -e " \
         mirror -X .* -X .*/ \
             --reverse \
             --verbose \
-            --delete ./ www/$FTP_DIRECTORY/ \
             --exclude public \
             --exclude vendor \
             --exclude node_modules \
             --exclude storage \
+            \
+            ./ www/$FTP_DIRECTORY/ \
         ; \
           \
         bye "
