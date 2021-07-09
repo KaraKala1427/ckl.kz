@@ -1,4 +1,4 @@
-image: registry-backend.cic.kz/centras/lftp:latest
+image: registry-backend.cic.kz/centras/ckl:latest
 
 before_script:
   - composer install --no-scripts --no-autoloader
