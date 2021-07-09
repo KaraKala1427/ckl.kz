@@ -30,12 +30,16 @@ image: registry-backend.cic.kz/centras/ckl:latest
 upload-dev:
   extends: .upload
   stage: upload
+  only:
+    - main
   variables:
     FTP_DIRECTORY: dev.ckl.kz
 
 vendor-dev:
   extends: .vendor
   stage: vendor
+  only:
+    - main
   variables:
     FTP_DIRECTORY: dev.ckl.kz
 
