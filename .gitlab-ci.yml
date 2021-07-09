@@ -1,5 +1,9 @@
 image: registry-backend.cic.kz/centras/lftp:latest
 
+before_script:
+  - composer install --no-scripts --no-autoloader
+  - composer dump-autoload --optimize
+
 build:
   tags:
     - ckl
