@@ -1,9 +1,5 @@
 image: registry-backend.cic.kz/centras/lftp:latest
 
-before_script:
-  - apt-get update -qy
-  - apt-get install -y lftp
-
 build:
   tags:
     - ckl
