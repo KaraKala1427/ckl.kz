@@ -12,10 +12,6 @@ image: registry-backend.cic.kz/centras/ckl:latest
     - ckl
   script:
     - sh upload-app.sh
-  artifacts:
-    paths:
-      - vendor
-    expire_in: 1 week
   
 .build:
   tags:
