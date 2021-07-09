@@ -23,6 +23,7 @@ vendor:
   script:
     - php -v
     - php composer.phar install
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/test.ckl.kz/vendor bye"
   artifacts:
     paths:
       - vendor
