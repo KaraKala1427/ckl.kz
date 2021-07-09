@@ -4,20 +4,18 @@ stages:
 
 image: registry-backend.cic.kz/centras/ckl:latest
 
-upload:
-  stage: upload
+.upload:
   tags:
     - ckl
   script:
-    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/dev.ckl.kz/ --exclude public --exclude vendor --exclude node_modules; bye"
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/$FTP_DIRECTORY/ --exclude public --exclude vendor --exclude node_modules; bye"
   artifacts:
     paths:
       - vendor
     expire_in: 1 week
-
-vendor:
+  
+.vendor:
   when: manual
-  stage: vendor
   tags:
     - ckl
   script:
@@ -28,3 +26,16 @@ vendor:
     paths:
       - vendor
     expire_in: 1 week
+
+upload-dev:
+  extends: .upload
+  stage: upload
+  veriables:
+    FTP_DIRECTORY: dev.ckl.kz
+
+vendor-dev:
+  extends: .vendor
+  stage: vendor
+  veriables:
+    FTP_DIRECTORY: dev.ckl.kz
+
