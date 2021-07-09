@@ -6,7 +6,6 @@ lftp -e " \
         mirror -X .* -X .*/ \
             --reverse \
             --verbose \
-            --exclude public \
             --exclude vendor \
             --exclude node_modules \
             --exclude storage \
