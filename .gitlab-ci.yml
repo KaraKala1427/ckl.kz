@@ -11,5 +11,4 @@ build:
     # Sync to FTP
     - echo "" >> /etc/lftp.conf
     - echo "set ssl:verify-certificate off" >> /etc/lftp.conf
-    - cat /etc/lftp.conf
     - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/test.ckl.kz/ --exclude public; bye"
