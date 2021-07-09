@@ -5,6 +5,8 @@ before_script:
   - apt-get install -y lftp
 
 build:
+  tags:
+    - ckl
   script:
     # Sync to FTP
-    - lftp -e "open ftp.mywebhost.com; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete local-folder/ destination-folder/; bye"
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ test.ckl.kz/; bye"
