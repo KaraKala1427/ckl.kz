@@ -14,4 +14,4 @@ lftp -e " \
             --exclude storage \
         ; \
           \
-        bye \"
+        bye "
