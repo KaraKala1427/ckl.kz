@@ -18673,7 +18673,9 @@ strong {
     border-top: none;
 }
 
-
+.logo_image{
+    display: none;
+}
 
 
 
