@@ -8,13 +8,13 @@ before_script:
   - composer install --no-scripts --no-autoloader
   - composer dump-autoload --optimize
 
-vendor:
-  stage: vendor
-  tags:
-    - ckl
-  image: composer
-  script: 
-    - composer install --ignore-platform-reqs
+# vendor:
+#   stage: vendor
+#   tags:
+#     - ckl
+#   image: composer
+#   script: 
+#     - composer install --ignore-platform-reqs
 
 upload:
   stage: upload
