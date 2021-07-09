@@ -4,14 +4,6 @@ stages:
 
 image: registry-backend.cic.kz/centras/ckl:latest
 
-# vendor:
-#   stage: vendor
-#   tags:
-#     - ckl
-#   image: composer
-#   script: 
-#     - composer install --ignore-platform-reqs
-
 upload:
   stage: upload
   tags:
