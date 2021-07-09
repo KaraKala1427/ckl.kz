@@ -8,7 +8,7 @@ image: registry-backend.cic.kz/centras/ckl:latest
   tags:
     - ckl
   script:
-    - bash upload-app.sh
+    - sh upload-app.sh
   artifacts:
     paths:
       - vendor
