@@ -1,69 +1,30 @@
-image: php:7.3
+stages:
+  - vendor
+  - upload
 
-services:
-  - mysql:5.7
+image: registry-backend.cic.kz/centras/ckl:latest
 
-variables:
-  NODE_VERSION: 12
-
-  MYSQL_ROOT_PASSWORD: password
-  MYSQL_DATABASE: ckl_test
-  MYSQL_ROOT_HOST: mysql
-  MYSQL_USER: user
-  MYSQL_PASSWORD: secret
-
-  DB_DATABASE: ckl_test
-  DB_HOST: mysql
-  DB_USERNAME: root
-  DB_PASSWORD: secret
-
-before_script:
-  - apt-get update
-  - apt-get install -y libxml2-dev wget zlib1g-dev libwebp-dev libjpeg62-turbo-dev libpng-dev libxpm-dev libfreetype6-dev libzip-dev
-  
-  - docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
-  - docker-php-ext-install xml soap zip gd exif
-  - docker-php-ext-install mysql && docker-php-ext-enable mysql
-  
-  - echo "Installing Node v${NODE_VERSION}..."
-  - curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
-  - apt-get install -y nodejs
-  
-  - apt-get clean
-  
-  - php -v
-  - php -i
-
-composer:
-  stage: build
+upload:
+  stage: upload
+  tags:
+    - ckl
   script:
-    - wget https://getcomposer.org/composer.phar -O ./composer.phar
-    - php composer.phar update 
-    - cp .env.testing .env
-    - php artisan key:generate
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/dev.ckl.kz/ --exclude public --exclude vendor --exclude node_modules; bye"
   artifacts:
-    expire_in: 30 days
     paths:
-      - vendor/
-      - node_modules/
-      - .env
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-composer
+      - vendor
+    expire_in: 1 week
+
+vendor:
+  when: manual
+  stage: vendor
+  tags:
+    - ckl
+  script:
+    - php -v
+    - php composer.phar install
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./ www/dev.ckl.kz/vendor bye"
+  artifacts:
     paths:
-      - vendor/
-      - node_modules/
-
-build:
-  stage: build
-  script:
-    - npm i
-    - npm run dev
-
-phpunit:
-  stage: test
-  dependencies:
-    - composer
-  script:
-    - php artisan migrate -v
-    - phpunit --coverage-text --colors=never
-
+      - vendor
+    expire_in: 1 week
