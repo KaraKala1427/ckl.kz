@@ -16,6 +16,7 @@ upload:
     expire_in: 1 week
 
 vendor:
+  when: manual
   stage: vendor
   tags:
     - ckl
