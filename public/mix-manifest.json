@@ -1,10 +1,10 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/perfect-scrollbar.jquery.min.js": "/js/perfect-scrollbar.jquery.min.js",
-    "/js/bootstrap-notify.js": "/js/bootstrap-notify.js",
-    "/js/black-dashboard.min.js": "/js/black-dashboard.min.js",
-    "/js/jquery.min.js": "/js/jquery.min.js",
-    "/css/app.css": "/css/app.css",
-    "/css/black-dashboard.min.css": "/css/black-dashboard.min.css",
-    "/css/nucleo-icons.css": "/css/nucleo-icons.css"
+    "/js/app.js": "/js/app.js?id=f2c6a2e3ff7784713fea",
+    "/js/perfect-scrollbar.jquery.min.js": "/js/perfect-scrollbar.jquery.min.js?id=bc7ce1e5b5f9927f542d",
+    "/js/bootstrap-notify.js": "/js/bootstrap-notify.js?id=cd6ac3e79a0261688a1f",
+    "/js/black-dashboard.min.js": "/js/black-dashboard.min.js?id=85176f6c85b632a3388f",
+    "/js/jquery.min.js": "/js/jquery.min.js?id=796d45c6e57b59c1d8ef",
+    "/css/app.css": "/css/app.css?id=217d7af0e5569aa2a2b7",
+    "/css/black-dashboard.min.css": "/css/black-dashboard.min.css?id=1ab8cd7b3322d35076b0",
+    "/css/nucleo-icons.css": "/css/nucleo-icons.css?id=394dc8c2af0a0ee7d717"
 }

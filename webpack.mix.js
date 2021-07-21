@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js').version()
     .js('resources/js/plugins/perfect-scrollbar.jquery.min.js', 'public/js')
     .js('resources/js/plugins/bootstrap-notify.js', 'public/js')
     .js('resources/js/black-dashboard.min.js', 'public/js')
