@@ -17,7 +17,7 @@ image: registry-backend.cic.kz/centras/ckl:latest
   script:
     - npm i
     - npm run dev
-    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./public www/$FTP_DIRECTORY/public bye"
+    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --exclude storage --reverse --verbose --delete ./public www/$FTP_DIRECTORY/public bye"
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
