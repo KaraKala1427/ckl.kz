@@ -36,7 +36,7 @@
                                                 <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
 {{--                                                <div class="form-group">--}}
                                                     <label for="img_ru">Рисунок</label>
-                                                    <input type="file" class="form-control" id="img_ru" name="img_ru" accept="image/*" required >
+                                                    <input type="file" class="form-control" id="img_ru" name="img_ru" accept="image/*" required enctype="multipart/form-data">
                                                     @error('img_ru')
                                                     <small id="emailHelp" class="form-text text-danger">Загрузите рисунок</small>
                                                     @enderror

@@ -17,7 +17,11 @@
                     <div class="awards__year">
                     </div>
                     <!-- .awards__year -->
-                    <span class="awards__name">{{$article->name_ru}}</span>
+                    @if($article->{'name_'.App::getLocale()} != '')
+                    <span class="awards__name">{{$article->{'name_'.App::getLocale()} }}</span>
+                    @else
+                        <span class="awards__name">{{$article->name_ru}}</span>
+                    @endif
                 </div>
                 <!-- end .awards__card -->
             </div>
