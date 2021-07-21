@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -84,6 +86,10 @@ class AdminController extends Controller
         $menu = Menu::where('level',0)->get();
         return view('admin.insert', compact('menu','link'));
     }
+    public function getThumbAdd($link){
+        $menu = Menu::where('level',0)->get();
+        return view('admin.insertThumb', compact('menu','link'));
+    }
 
     protected $dates = [
         'dat'
@@ -139,6 +145,39 @@ class AdminController extends Controller
 //            dd($menu);
 
         return redirect()->route('admin.menus', ["link" => $link])->with('success','Успешно создано');
+
+
+    }
+
+    public function postThumb(Request $request){
+        $request->validate([
+            'name_ru'=>'required',
+            'img_ru'=>'required'
+        ]);
+
+        $image = $request->file('img_ru')->hashName();
+//        $request->file('img_ru')->storeAs('./public/dir/', $image);
+        $img_path = "/storage/dir/$image";
+
+        $img = Image::make($request->file('img_ru')->path());
+        $img->resize(700, 700, function ($const) {
+            $const->aspectRatio();
+        })->save(public_path()."/storage/dir/$image");
+
+        $article = new Article();
+        $article->name_ru = $request->input('name_ru');
+        $article->name_kz = $request->input('name_kz')?? '';
+        $article->name_en = $request->input('name_en')?? '';
+        $article->img_ru = $img_path;
+        $article->dat = (new \Illuminate\Support\Carbon)->format('Y-m-d');
+        $article->raz = $request->input('link');
+        $kink = $request->input('link');
+        $menu = Menu::where('link',$kink)->first();
+        $article->orderid = $menu->orderid;
+        $article->razid = $menu->id;
+        $article->save();
+
+        return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success','Успешно создано');
 
 
     }

@@ -92,9 +92,16 @@ class AboutController extends Controller
 
     public function get_security()
     {
-        $articles = Article::where('razid', '77')->orderBy('orderid', 'desc')->get();
+        $articles = Article::where('razid', '94')->orderBy('orderid', 'desc')->get();
         $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_security', compact('articles'));
+    }
+
+
+    public function get_clients_recommendations(){
+        $articles = Article::where('razid', '110')->orderBy('orderid', 'desc')->get();
+
+        return view('pages.about_clients_and_rec',compact('articles'));
     }
 
 

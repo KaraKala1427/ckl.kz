@@ -435,6 +435,8 @@
                            class="link  nav__item" id="requisites">{{ __('navbar.mf14')}}</a></li>
                     <li><a href="{{ route('about.security') }}"
                            class="link  nav__item" id="security">{{ __('navbar.mf23')}}</a></li>
+                    <li><a href="{{ route('about.clients-and-rec') }}"
+                           class="link  nav__item" id="clients">{{ __('navbar.mf24')}}</a></li>
                 </ul>
             </nav>
         </section>

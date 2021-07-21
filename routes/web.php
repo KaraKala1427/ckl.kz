@@ -90,8 +90,6 @@ Route::group([
 
     Route::get('/retirementinsurance', [ProductController::class, 'retirementinsurance'])->name('retirementinsurance');
 
-
-
     Route::group(['prefix' => '/about', 'as' => 'about'], function () {
         Route::get('/history',[AboutController::class, 'get_history'])->name('.history');
 
@@ -116,6 +114,8 @@ Route::group([
         Route::get('/requisites', [AboutController::class, 'get_requisites'])->name('.requisites');
 
         Route::get('/security', [AboutController::class, 'get_security'])->name('.security');
+
+        Route::get('/clients-and-recommendations', [AboutController::class, 'get_clients_recommendations'])->name('.clients-and-rec');
     });
 
 
@@ -143,6 +143,7 @@ Route::group([
     Route::get('/{link}/list', [App\Http\Controllers\AdminController::class, 'getLink'])->name('one.menu');
     Route::get('/{link}/edd/{id}', [App\Http\Controllers\AdminController::class, 'getArticle'])->name('one.menu.edit');
     Route::get('/{link}/add', [App\Http\Controllers\AdminController::class, 'getAdd'])->name('one.menu.add');
+    Route::get('/{link}/addThumb', [App\Http\Controllers\AdminController::class, 'getThumbAdd'])->name('thumbAdd');
 
     Route::get('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordEdit'])->name('password.edit');
     Route::post('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordUpdate'])->name('password.update');
@@ -151,6 +152,7 @@ Route::group([
     Route::delete('/{link}/{id}/', [App\Http\Controllers\AdminController::class, 'destroy'])->name('Del');
 
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
+    Route::post('/insertThumb', [App\Http\Controllers\AdminController::class, 'postThumb'])->name('insertThumb');
 });
 
 

@@ -16,8 +16,12 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="text-right">
-                            @if(!empty($link1))
+                            @if(!empty($link1) && $link1!='link110')
                                 <a href="{{route('admin.one.menu.add',["link" => $link1])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
+                                    <i class="tim-icons icon-simple-add"></i>
+                                </a>
+                            @elseif(!empty($link1) && $link1=='link110')
+                                <a href="{{route('admin.thumbAdd',["link" => $link1])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                     <i class="tim-icons icon-simple-add"></i>
                                 </a>
                             @endif
@@ -41,11 +45,13 @@
                                     <td>{{$article->dat}}</td>
                                     {{--                                <td class="text-right"></td>--}}
                                     <td class="td-actions text-right">
-
+                                        @if($article->raz != 'link110')
                                         <a href="{{route('admin.one.menu.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                             <i class="tim-icons icon-settings"></i>
-
                                         </a>
+                                        @else
+                                            {{null}}
+                                        @endif
 
                                         <form method="post" action="{{url('/admin/link/' . $article->id)}}">
 

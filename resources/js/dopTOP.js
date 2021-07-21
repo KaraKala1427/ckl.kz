@@ -162,6 +162,8 @@ $(function(){
             $('#requisites').addClass('active');
         }else if( k == 'security') {
             $('#security').addClass('active');
+        }else if( k == 'clients-and-recommendations') {
+            $('#clients').addClass('active');
         }
 
     });

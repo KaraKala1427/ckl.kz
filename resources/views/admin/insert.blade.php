@@ -13,7 +13,7 @@
                             <div class="">
                                 <form action="{{route('admin.itemInsert')}}" method="post">
                                     {{method_field('post')}}
-                                    <div >
+                                    <div>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills" role="tablist">
                                             <li role="presentation" class="nav-item"><a href="#ru" aria-controls="ru" role="tab" data-toggle="tab" class="nav-link active">Русский</a></li>
