@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Artisan;
 
 class DevController extends Controller
 {
+
+
     public function link()
     {
-        Artisan::call('storage:link');
+       return Artisan::call('storage:link');
     }
 }
