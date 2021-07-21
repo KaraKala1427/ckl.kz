@@ -19,6 +19,7 @@ Route::get('sendhtmlmail',[\App\Http\Controllers\MailController::class, 'html_ma
 Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'attachment_mail']);
 Route::get('/migrate', [\App\Http\Controllers\MigrateController::class, 'index']);
 Route::get('/runseeder', [\App\Http\Controllers\MigrateController::class, 'run_seeder']);
+Route::get('/link', [\App\Http\Controllers\DevController::class, 'link']);
 Route::get('/curltest', [\App\Http\Controllers\MailController::class, 'test']);
 
 
