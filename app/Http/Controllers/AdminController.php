@@ -157,7 +157,13 @@ class AdminController extends Controller
 
         $image = $request->file('img_ru')->hashName();
 //        $request->file('img_ru')->storeAs('./public/dir/', $image);
-        $img_path = "/storage/dir/$image";
+        $storage_path = public_path()."/storage/dir";
+
+        if (!file_exists($storage_path)) {
+            mkdir($storage_path);
+        }
+
+        $img_path = "$storage_path/$image";
 
         $img = Image::make($request->file('img_ru')->path());
         $img->resize(700, 700, function ($const) {
