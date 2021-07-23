@@ -157,10 +157,10 @@ class AdminController extends Controller
 
         $image = $request->file('img_ru')->hashName();
 //        $request->file('img_ru')->storeAs('./public/dir/', $image);
-        $storage_path = public_path()."/storage/dir";
+        $storage_path = "/storage/dir";
 
-        if (!file_exists($storage_path)) {
-            mkdir($storage_path);
+        if (!file_exists(public_path() . $storage_path)) {
+            mkdir(public_path() . $storage_path);
         }
 
         $img_path = "$storage_path/$image";
