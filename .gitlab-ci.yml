@@ -63,6 +63,14 @@ vendor-dev:
   variables:
     FTP_DIRECTORY: dev.ckl.kz
 
+build-master:
+  when: manual
+  extends: .build
+  stage: build
+  only:
+    - main
+  variables:
+    FTP_DIRECTORY: ckl.kz
 
 upload-master:
   when: manual
