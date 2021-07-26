@@ -121,7 +121,6 @@ class AdminController extends Controller
             $article->orderid = $menu->orderid;
             $article->razid = $menu->id;
         }
-//        dd($article);
         $article->save();
 
         return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success','Успешно обновлено');
