@@ -61,8 +61,6 @@ class AdminController extends Controller
 
     public function update(Request $request, $id){
 
-//        dd(Article::find(1)->pubdat);
-
             $request->validate([
                 'name_ru'=>'required',
                 'dat'=>'required'
