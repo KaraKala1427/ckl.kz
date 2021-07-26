@@ -11,8 +11,8 @@
                     <div class="" id="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="" role="document">
                             <div class="">
-                                <form action="{{route('admin.insertThumb')}}" method="post" enctype='multipart/form-data'>
-                                    {{method_field('post')}}
+                                <form action="{{route('admin.thumbUpdate', $article->id)}}" method="post" enctype='multipart/form-data'>
+                                    {{method_field('put')}}
                                     <div>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills" role="tablist">
@@ -28,26 +28,27 @@
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">Название</label>
-                                                    <input value="" type="text" class="form-control" id="exampleFormControlInput1"  name="name_ru">
+                                                    <input value="{{$article->name_ru}}" type="text" class="form-control" id="exampleFormControlInput1"  name="name_ru">
                                                     @error('name_ru')
                                                     <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
                                                     @enderror
                                                 </div>
                                                 <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
-{{--                                                <div class="form-group">--}}
-                                                    <label for="img_ru">Рисунок</label>
-                                                    <input type="file" class="form-control" id="img_ru" name="img_ru" accept="image/*" >
-                                                    @error('img_ru')
-                                                    <small id="emailHelp" class="form-text text-danger">Загрузите рисунок</small>
-                                                    @enderror
-{{--                                                </div>--}}
+                                                <div class="awards__card awards__card--center">
+                                                    <a href="{{$article->img_ru}}" class="js-lightbox-trigger overlay"></a>
+                                                    <figure class="awards__image">
+                                                        <img src="{{$article->img_ru}}">
+                                                    </figure>
+                                                </div>
+                                                <label for="img_ru">Рисунок</label>
+                                                <input type="file" class="form-control" id="img_ru" name="img_ru" accept="image/*" >
 
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="kz">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">Название</label>
-                                                    <input value="" type="text" class="form-control" id="exampleFormControlInput1"  name="name_kz">
+                                                    <input value="{{$article->name_kz}}" type="text" class="form-control" id="exampleFormControlInput1"  name="name_kz">
                                                     @error('name_kz')
                                                     <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
                                                     @enderror
@@ -57,7 +58,7 @@
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">Название</label>
-                                                    <input value="" type="text" class="form-control" id="exampleFormControlInput1"  name="name_en">
+                                                    <input value="{{$article->name_en}}" type="text" class="form-control" id="exampleFormControlInput1"  name="name_en">
                                                     @error('name_en')
                                                     <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
                                                     @enderror
@@ -71,7 +72,7 @@
                                         <button type="submit" class="btn btn-"      style="   background: #0098f0;
                                         background: linear-gradient(
                                         0deg
-                                        ,#0098f0,#00f2c3);">Добавить запись</button>
+                                        ,#0098f0,#00f2c3);">Обновить запись</button>
 
                                     </div>
                                 </form>

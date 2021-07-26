@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Menu;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ProductController;
@@ -52,6 +53,12 @@ class AdminController extends Controller
         return view('admin.edit',compact('article','menu'));
     }
 
+    public function getThumbEdit($link, $id){
+        $menu = Menu::where('level',0)->get();
+        $article = Article::where('id',$id)->get()->first();
+        return view('admin.editThumb',compact('article','menu','link'));
+    }
+
     public function update(Request $request, $id){
 
 //        dd(Article::find(1)->pubdat);
@@ -79,6 +86,47 @@ class AdminController extends Controller
 
             $article->save();
         return redirect()->route('admin.one.menu.edit', ["link"=>$article->raz,'id'=>$article->id])->with('success','Успешно изменено');
+
+    }
+    public function thumbUpdate(Request $request, $id){
+        $request->validate([
+            'name_ru'=>'required',
+        ]);
+        $article = Article::find($id);
+        if($request->hasFile('img_ru')){
+            $image = $request->file('img_ru')->hashName();
+    //        $request->file('img_ru')->storeAs('./public/dir/', $image);
+            $storage_path = "/storage/dir";
+
+            if (!file_exists(public_path() . $storage_path)) {
+                mkdir(public_path() . $storage_path);
+            }
+
+            $img_path = "$storage_path/$image";
+
+            $img = Image::make($request->file('img_ru')->path());
+            $img->resize(700, 700, function ($const) {
+                $const->aspectRatio();
+            })->save(public_path()."/storage/dir/$image");
+        }
+        else $img_path = $article->img_ru;
+
+        $article->name_ru = $request->get('name_ru', '');
+        $article->name_kz = $request->get('name_kz', '') ?? '';
+        $article->name_en = $request->get('name_en', '') ?? '';
+        $article->img_ru = $img_path;
+        $article->dat = (new \Illuminate\Support\Carbon)->format('Y-m-d');
+        $article->raz = $request->input('link');
+        $kink = $request->input('link');
+        $menu = Menu::where('link',$kink)->first();
+        if ($menu !== null){
+            $article->orderid = $menu->orderid;
+            $article->razid = $menu->id;
+        }
+//        dd($article);
+        $article->save();
+
+        return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success','Успешно обновлено');
 
     }
 
@@ -142,11 +190,8 @@ class AdminController extends Controller
         $menu->link = '';
         $menu->save();
         $menu->update(['orderid' => $menu->id,'link' => "link$menu->id"]);
-//            dd($menu);
 
         return redirect()->route('admin.menus', ["link" => $link])->with('success','Успешно создано');
-
-
     }
 
     public function postThumb(Request $request){
@@ -171,32 +216,38 @@ class AdminController extends Controller
         })->save(public_path()."/storage/dir/$image");
 
         $article = new Article();
-        $article->name_ru = $request->input('name_ru');
-        $article->name_kz = $request->input('name_kz')?? '';
-        $article->name_en = $request->input('name_en')?? '';
+        $article->name_ru = $request->get('name_ru', '');
+        $article->name_kz = $request->get('name_kz', '') ?? '';
+        $article->name_en = $request->get('name_en', '') ?? '';
         $article->img_ru = $img_path;
         $article->dat = (new \Illuminate\Support\Carbon)->format('Y-m-d');
         $article->raz = $request->input('link');
         $kink = $request->input('link');
         $menu = Menu::where('link',$kink)->first();
-        $article->orderid = $menu->orderid;
-        $article->razid = $menu->id;
+        if ($menu !== null){
+            $article->orderid = $menu->orderid;
+            $article->razid = $menu->id;
+        }
+//        dd($article);
         $article->save();
 
         return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success','Успешно создано');
-
-
     }
 
     public function destroy(Request $request,$link,$id){
-        $article = Article::find($id);
+        $article = Article::findOrFail($id);
         $article->delete($id);
         return redirect()->route('admin.one.menu',["link" => $article->raz])->with('success','Успешно удалено');
     }
 
     public function deleteMenu(Request $request,$link,$id){
-        Menu::find($id)->delete();
-        return redirect()->route('admin.menus',["link" => $link])->with('success','Успешно удалено');
+        try{
+            Menu::findOrFail($id)->delete();
+            return redirect()->route('admin.menus',["link" => $link])->with('success','Успешно удалено');
+        }catch (ModelNotFoundException $exception){
+            // record not found
+            return redirect()->route('admin.menus',["link" => $link])->with('success','Успешно удалено');
+        }
     }
 
 

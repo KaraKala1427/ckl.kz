@@ -15,6 +15,7 @@
     <!-- Nucleo Icons -->
     <link href="{{'/css/nucleo-icons.css'}}" rel="stylesheet" />
     <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ asset('css/app.css?v=' . md5_file('css/app.css')) }}"/>
     <link href="{{'/css/black-dashboard.min.css'}}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{'/demo/demo.css'}}" rel="stylesheet" />

@@ -143,6 +143,7 @@ Route::group([
 
     Route::get('/{link}/list', [App\Http\Controllers\AdminController::class, 'getLink'])->name('one.menu');
     Route::get('/{link}/edd/{id}', [App\Http\Controllers\AdminController::class, 'getArticle'])->name('one.menu.edit');
+    Route::get('/{link}/edd/{id}/thumb', [App\Http\Controllers\AdminController::class, 'getThumbEdit'])->name('thumb.edit');
     Route::get('/{link}/add', [App\Http\Controllers\AdminController::class, 'getAdd'])->name('one.menu.add');
     Route::get('/{link}/addThumb', [App\Http\Controllers\AdminController::class, 'getThumbAdd'])->name('thumbAdd');
 
@@ -153,6 +154,7 @@ Route::group([
     Route::delete('/{link}/{id}/', [App\Http\Controllers\AdminController::class, 'destroy'])->name('Del');
 
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
+    Route::put('/edd/{id}/thumb', [App\Http\Controllers\AdminController::class, 'thumbUpdate'])->name('thumbUpdate');
     Route::post('/insertThumb', [App\Http\Controllers\AdminController::class, 'postThumb'])->name('insertThumb');
 });
 

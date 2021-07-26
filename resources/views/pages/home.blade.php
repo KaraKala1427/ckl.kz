@@ -3,7 +3,7 @@
 @section('content')
 
             <div class="container s">
-                <section class="hero" style="background-image: url({{ URL::to('/') }}/images/banner.jpg);">
+                <section class="hero" style="background-image: url({{ URL::to('/') }}/images/strlife.jpg);">
                     <div class="hero__content">
                         <h1 class="hero__title"></h1>
                         <div class="hero__maintext hero__maintext--bigger">
