@@ -34,7 +34,6 @@ image: registry-backend.cic.kz/centras/ckl:latest
     - php -v
     - php composer.phar install
     - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./vendor www/$FTP_DIRECTORY/vendor bye"
-    - lftp -e "open $FTP_HOST; user $FTP_USERNAME $FTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete ./resources/views/admin/filemanager.blade.php www/$FTP_DIRECTORY/vendor/haruncpi/laravel-simple-filemanager/src/views/index.blade.php bye"
   artifacts:
     paths:
       - vendor
