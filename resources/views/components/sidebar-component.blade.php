@@ -2,18 +2,6 @@
     @foreach($menu as $key => $item)
     <li>
         @if(count($item->children ?? []) > 0)
-            @if($item->link == "link24")
-                <a data-toggle="collapse" href="#{{$item->link}}" aria-expanded="false" class="collapsed">
-                    <i class="fab fa-laravel"></i>
-                    <span class="nav-link-text">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
-                    <b class="caret mt-1"></b>
-                </a>
-                <div class="collapse" id="{{$item->link}}" style="">
-                    <ul class="nav pl-4">
-                        <x-sidebar-component :menu="$item->children"></x-sidebar-component>
-                    </ul>
-                </div>
-            @else
             <a data-toggle="collapse" data-target="#{{$item->link}}" aria-expanded="true" class="concrete{{ $item->link }}">
                 <i class="fab fa-laravel"></i>
                 <span class="nav-link-text" onclick="window.open('/admin/menu/{{$item->link}}','_self');">{{$item->name_ru}} ({{ count($item->children ?? []) }})</span>
@@ -25,7 +13,6 @@
                     <x-sidebar-component :menu="$item->children"></x-sidebar-component>
                 </ul>
             </div>
-            @endif
 
         @else
 {{--            вот здесь для последнего меню добавляю чуть падинг снизу для скроллинга ,

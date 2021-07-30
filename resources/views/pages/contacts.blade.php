@@ -29,7 +29,7 @@
                                             <li><a georegion="aktau" georegionkk="	" georegionru="Актау"
                                                    value=Актау tel="+7 727 244 74 00" id="aktau" data-current="0" onclick="setCityName('Актау')">Актау</a>
                                             <li><a georegion="aktobe" georegionkk="	" georegionru="Актобе"
-                                                   value=Актобе tel="+7 727 244 74 00" id="aktobe" data-current="0">Актобе</a>
+                                                   value=Актобе tel="+7 727 244 74 00" id="aktobe" data-current="0">Актобе </a>
                                             <li><a georegion="atyrau" georegionkk="	" georegionru="Атырау"
                                                    value=Атырау tel="+7 727 244 74 00" id="atyrau" data-current="0">Атырау</a>
                                             <li><a georegion="karaganda" georegionkk="	" georegionru="Караганда"

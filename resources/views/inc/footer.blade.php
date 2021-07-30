@@ -94,7 +94,7 @@
                                 </div>
                             </nav>
                             <div class="copy">
-                                <p>©2020 <span class="text-grey"></span></p>  «Сентрас Коммеск Life» </div>
+                                <p>©2020 <span class="text-grey"></span></p> «Сентрас Коммеск Life» </div>
                         </div>
                     </div>
                     <!-- end inner-grid -->
