@@ -64,8 +64,8 @@
                                                             tinymce.init({
                                                                 height: 250,
                                                                 mode : "textareas",
-                                                                plugins: "link image code",
-                                                                menubar: 'insert tools',
+                                                                plugins: "link image code table",
+                                                                menubar: 'insert tools table',
                                                                 toolbar: 'bold italic underline | link | image code | copy aligncenter alignjustify alignleft alignnone alignright',
                                                                 image_caption: true,
                                                                 file_browser_callback_types: 'file image media',

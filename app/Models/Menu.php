@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
+    use HasFactory;
+
     public $timestamps = false;
     protected $fillable = ['orderid','link'];
 
@@ -20,5 +22,4 @@ class Menu extends Model
         Menu::observe(new \App\Observers\AdminActionsObserver);
     }
 
-    use HasFactory;
 }

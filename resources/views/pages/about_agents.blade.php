@@ -15,6 +15,7 @@
         @endif
         @endforeach
     </div>
+
     </article>
     </div>
     </div>
