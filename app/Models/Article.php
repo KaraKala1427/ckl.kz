@@ -31,6 +31,9 @@ class Article extends Model
     public function route(){
         return route('press_detail', ['id'=>$this->id, "year" => $this->year->name_ru , "alias"=>str_slug($this->name_ru, '-' )]) ;
     }
+    public function city(){
+        return $this->belongsTo(Menu::class,'razid','link');
+    }
 
     public static function boot()
     {
