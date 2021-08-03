@@ -7,7 +7,8 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
-class HomeController extends Controller
+class
+HomeController extends Controller
 {
     public function index() {
         $id_years = Menu::where('level', 22)->orderBy('id','desc')->get()->pluck('id');

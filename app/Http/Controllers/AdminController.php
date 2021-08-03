@@ -50,7 +50,9 @@ class AdminController extends Controller
     public function getArticle($link, $id){
         $menu = Menu::where('level',0)->get();
         $article = Article::where('id',$id)->get()->first();
-        return view('admin.edit',compact('article','menu'));
+        $cityItem = Menu::select('level')->where('level', 24)->where('link', $link)->first();
+        $isCity = $cityItem !== null;
+        return view('admin.edit',compact('article','menu', 'isCity'));
     }
 
     public function getThumbEdit($link, $id){
@@ -129,7 +131,9 @@ class AdminController extends Controller
 
     public function getAdd($link){
         $menu = Menu::where('level',0)->get();
-        return view('admin.insert', compact('menu','link'));
+        $cityItem = Menu::select('level')->where('level', 24)->where('link', $link)->first();
+        $isCity = $cityItem !== null;
+        return view('admin.insert', compact('menu','link', 'isCity'));
     }
     public function getThumbAdd($link){
         $menu = Menu::where('level',0)->get();
