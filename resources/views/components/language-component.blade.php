@@ -3,7 +3,7 @@
         <ul class="nav__list">
             @foreach ($params as $lang =>  $data)
                 <li><a href="{{ route('setlocale',$data) }}" style="padding: 10px;  margin-left: -15px">
-                        {{ $lang }}
+                        {{ $lang === 'ru' ? 'Ру' : 'Кз'  }}
                     </a></li>
             @endforeach
 
