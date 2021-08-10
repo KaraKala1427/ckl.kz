@@ -19,7 +19,7 @@ class HomeController extends Controller
 
     public function getContacts(){
         $locale = \app()->getLocale();
-        $cities = Menu::select("menus.name_$locale as name","menus.name_en as name_en","articles.id", "articles.head_ru as head","articles.name_$locale as article_name", "articles.tex_ru as text", "articles.description_$locale as desc")
+        $cities = Menu::select("menus.name_$locale as name","menus.name_en as name_en","articles.id", "articles.head_ru as head","articles.name_$locale as article_name", "articles.tex_$locale as text", "articles.description_$locale as desc")
             ->join('articles','menus.link', 'articles.raz')
             ->orderByRaw('name = "Алматы" desc')
             ->orderBy('name')

@@ -80,7 +80,6 @@
                              style="width: 163px; font-size: 16px;" id="city-label">&nbsp;
                         </div>
 
-
                         <div class="dropdown__menu cityger">
                             <ul class="dropdown__list myid">
                                 <li><a  onclick="setCityName('Актау')" georegion="aktau" georegionkk=" " georegionru="Актау"

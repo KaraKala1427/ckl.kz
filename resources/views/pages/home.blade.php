@@ -50,6 +50,8 @@
                     </div>
                 </div>
 
+
+
                 <!-- end tiles -->
                 <section class="news">
                     <h2 class="news__title">{{ __('navbar.newsd') }}</h2>

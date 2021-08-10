@@ -221,7 +221,7 @@
                                     @if($city->id != 167 )
                                         <div class="tab-panels__item headoffices show{{$city->id}}" data-tabs-pane>
                                             <div class="address">
-                                                {!! $city->text !!}
+                                                {!! $city->text  !!}
                                             </div>
                                         </div>
                                     @elseif($city->id == 167)
