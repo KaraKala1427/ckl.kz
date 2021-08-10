@@ -125,7 +125,6 @@ Route::group([
 //        return view('pages.contacts');
 //    })->name('contacts');
     Route::get('/contacts',[HomeController::class,'getContacts'])->name('contacts');
-    Route::get('/sandbox',[SandBoxController::class,'sandbox'])->name('sandbox');
     Route::get('/press/page/{page?}', [PressController::class, 'press'])->name('press');
     Route::get('/press/{year}/{id}-{alias}', [PressController::class, 'press_detail'])->name('press_detail');
     Route::get('/press/{year?}', [PressController::class, 'press_by_year'])->name('press_by_year');
