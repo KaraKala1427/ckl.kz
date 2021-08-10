@@ -28,14 +28,14 @@ class AdminController extends Controller
     }
     public function getLink($link){
         $menu = Menu::where('level',0)->get();;
-        $articles = Article::where('raz',$link)->get();
+        $articles = Article::where('raz',$link)->orderBy('id', 'desc')->get();
         $link1 = $link;
         return view('admin.index', compact('articles','menu','link1'));
 
     }
     public function getParentMenu($link){
         $menu = Menu::where('level',0)->get();
-        $menus = Menu::where('link',$link)->with('children')->get()->first();
+        $menus = Menu::where('link',$link)->with('children')->orderBy('desc')->get()->first();
         $parentmenu = $menus->children;
         //dd($menu);
         $link1 = $link;
