@@ -49,7 +49,7 @@
                                                     <input value="{{$article->description_ru}}" class="form-control" id="descc" name="description_ru" rows="3">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                    <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                     <input value="{{$article->head_ru}}" class="form-control" id="headerr" name="head_ru" rows="3">
 
                                                 </div>
@@ -99,7 +99,7 @@
                                                     <input value="{{$article->description_kz}}" class="form-control" id="descc" name="description_kz" rows="3">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                    <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                     <input value="{{$article->head_kz}}" class="form-control" id="headerr" name="head_kz" rows="3">
 
                                                 </div>
@@ -125,7 +125,7 @@
                                                     <input value="{{$article->description_en}}" class="form-control" id="descc" name="description_en" rows="3">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                    <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                     <input value="{{$article->head_en}}" class="form-control" id="headerr" name="head_en" rows="3">
 
                                                 </div>

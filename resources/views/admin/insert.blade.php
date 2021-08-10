@@ -1,5 +1,4 @@
 @extends('layouts.admin.app')
-
 @section('content')
     <div class="row" style="float: right; width: 85%;">
         <div class="col-lg-12 col-md-12">
@@ -46,9 +45,9 @@
                                                     <input value="" class="form-control" id="descc" name="description_ru" rows="3">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Заголовок</label>
-                                                    <input value="" class="form-control" id="headerr" name="head_ru" rows="3">
-                                                </div>
+                                                        <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
+                                                        <input value="" class="form-control" id="headerr" name="head_ru" rows="3">
+                                            </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
                                                     <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>
@@ -88,7 +87,7 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Дата</label>
                                                 <input value="{{(new \Illuminate\Support\Carbon)->format('Y-m-d')}}" type="date" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
-                                                @error('dat')
+                                                 @error('dat')
                                                 <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
                                                 @enderror
                                             </div>
@@ -97,11 +96,12 @@
                                                 <label for="exampleFormControlTextarea1">Описание</label>
                                                 <input value="" class="form-control" id="descc" name="description_kz" rows="3">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlTextarea1">Заголовок</label>
-                                                <input value="" class="form-control" id="headerr" name="head_kz" rows="3">
 
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
+                                                <input value="" class="form-control" id="headerr" name="head_kz" rows="3">
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Текст</label>
                                                 <textarea  class="form-control" id="textt" name="tex_kz" rows="3"></textarea>
@@ -130,7 +130,7 @@
                                                 <input value="" class="form-control" id="descc" name="description_en" rows="3">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlTextarea1">Заголовок</label>
+                                                <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                 <input value="" class="form-control" id="headerr" name="head_en" rows="3">
 
                                             </div>
