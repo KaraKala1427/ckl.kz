@@ -35,7 +35,7 @@ class AdminController extends Controller
     }
     public function getParentMenu($link){
         $menu = Menu::where('level',0)->get();
-        $menus = Menu::where('link',$link)->with('children')->orderBy('desc')->get()->first();
+        $menus = Menu::where('link',$link)->with('children')->get()->first();
         $parentmenu = $menus->children;
         //dd($menu);
         $link1 = $link;
