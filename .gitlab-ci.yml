@@ -105,7 +105,7 @@ sonarqube-check:
     # SONAR_HOST_URL: "http://192.168.30.30:8888"
     GIT_DEPTH: 0
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG -Dsonar.sources=. -Dsonar.exclusions=vendor/**,public/**,node_modules/**,storage/**
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG -Dsonar.sources=. -Dsonar.exclusions=vendor/**,public/**,node_modules/**,storage/**,resources/js/scripts/calc.js,resources/js/dopTOP.js
   allow_failure: true
   only:
     - merge_requests
