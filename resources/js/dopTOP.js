@@ -112,7 +112,9 @@ $(function(){
             $('#presst').addClass('active');
         }else if( k == 'contacts') {
             $('#contactst').addClass('active');
-        }
+    }else if( k == 'checkpolicy') {
+        $('#checkpolicyt').addClass('active');
+    }
     });
 
     $.each($('.cityger_contact').find('ul > li >a'), function(k, v) {

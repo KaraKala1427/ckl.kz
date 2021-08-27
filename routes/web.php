@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\SandBoxController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -77,6 +78,10 @@ Route::group([
 ], function (){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
+    Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
+    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
 
     Route::get('/product', [ProductController::class, 'index'])->name('product');
 

@@ -400,7 +400,10 @@
                        class="link nav__item nav__item--tab " id='presst'>{{ __('navbar.mf3')}}</a></li>
                 <li><a href="{{ route('contacts') }}"
                        class="link nav__item nav__item--tab" id='contactst'>{{ __('navbar.mf4')}}</a></li>
+                <li><a href="{{ route('checkpolicy') }}"
+                       class="link nav__item nav__item--tab" id='checkpolicyt'>{{ __('Проверить полис')}}</a></li>
             </ul>
+
         </nav>
 
         <section class="nav-section" id="nav__list">
