@@ -4,7 +4,7 @@ stages:
   - build
   - sonarqube
 
-image: registry-backend.cic.kz/centras/ckl:latest
+image: reg.cic.kz/centras/ckl:latest
 
 .upload:
   tags:
