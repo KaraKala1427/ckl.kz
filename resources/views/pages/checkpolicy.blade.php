@@ -6,11 +6,11 @@
             <div class="container">
                 <div class="contacts">
                     <section class="feedback callb1" id="callb1">
-        <h3 class="feedback__title">Проверить страховой полис</h3>
+        <h3 class="feedback__title">{{ __('navbar.provpol')}}</h3>
         <form action="#" method="" id="call-popup">
             <div class="grid">
                 <fieldset class="field-set col col--full" style="">
-                    <label class="field-set__label">Введите буквенно-цифровой код, указанный на Вашем договоре страхования (например: 2566D490058X или КОМФОРТ-001463/19)</label>
+                    <label class="field-set__label">{{ __('navbar.policycod')}}</label>
                     <input type="text" class="field"
                            onkeyup="showOrHideBlock('code_error','code')" id="code"
                            name="code">
@@ -21,10 +21,11 @@
                 </fieldset>
 
                 <fieldset class="field-set col col--full" style="">
-                    <label class="field-set__label">Введите код авторизации:</label>
+                    <label class="field-set__label">{{ __('navbar.captch')}}</label>
                     <div class="captcha">
                                 <span>{!! captcha_img() !!}</span>
-                                <button type="button" class="btn btn-" class="reload" id="reload" style="margin-bottom: 24px; background-color:#00abcd">
+
+                                <button type="button" class="btn btn-" class="reload" id="reload" style="margin-bottom: 24px; color: #00abcd; font-size:25px">
                                     &#x21bb;
                                 </button>
                     </div>
@@ -38,6 +39,33 @@
 
                 </fieldset>
 
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script type="text/javascript">
+                    $('#reload').click(function () {
+                        $.ajax({
+                            type: 'GET',
+                            url: 'reload-captcha',
+                            success: function (data) {
+                                $(".captcha span").html(data.captcha);
+                            }
+                        });
+                    });
+
+                </script>
+
+                <style>
+                    .removejust {
+                        display: none;
+                    }
+
+                    section.nav-section {
+                        display: none;
+                    }
+
+                    .card-body {
+                        display: none;
+                    }
+                </style>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script type="text/javascript">
                     $('#reload').click(function () {
@@ -153,7 +181,7 @@
                             }
                         });
                         $('input[name="captcha"]').keyup(function () {
-                            if ($(this).val().length == 10) {
+                            if ($(this).val().length == 5) {
                                 $(this).closest('fieldset').addClass('has-success');
                                 $(this).closest('fieldset').removeClass('has-error');
                             } else {
@@ -176,18 +204,16 @@
                                     captcha: captcha,
                                 },
                                 beforeSend: function () {
-                                    let a = false;
                                     if (code == '') {
                                         // alert('Поле ФИО у нас обязательное для заполнения!');
                                         // $("#fullname").val("ошибка");
                                         $("#code_error").show();
-                                        a = true;
+                                        return false;
                                     }
                                     if (captcha == '') {
                                         $("#captcha_error").show();
-                                        a = true;
+                                        return false
                                     }
-                                    if (a) return false;
 
                                     $loading.show();
                                     $("#code_error").hide();
@@ -215,17 +241,24 @@
                                     }
 
                                 },
-
-
-                            });
+                                error: function(err) {
+                                    if (err.status === 422) {
+                                        $("#captcha_error").show();
+                                        $("#loading1").click(function() {
+                                            $(this).attr('disabled', true)
+                                        })
+                                    }else{
+                                        $("#captcha_error").show();
+                                    }
+                                }
+                            })
                         });
                     });
-
 
                 </script>
                 <div class="col col--full">
                     <button type="submit" class="button button--prime"
-                            id="submitcallback1">{{ __('navbar.bc8')}}
+                            id="submitcallback1">{{ __('navbar.btnpolys')}}
                     </button>
                     <button style="display: none;" class="button button--prime" id="loading1"
                             disabled="">{{ __('navbar.bc9')}}
@@ -236,14 +269,9 @@
             </div>
         </form>
 
+                    </section>
     </section>
-    </section>
-                    <div class="calculator__section" style="margin-bottom: -20px;">
-                        <div class="calculator__block bg-grey">
-                            Также Вы можете проверить полис по обязательным видам страхования на сайте ГОСУДАРСТВЕННОГО КРЕДИТНОГО БЮРО, перейдя по ссылке  <a href="http://id.mkb.kz" target="_blank" style="text-decoration: underline;">id.mkb.kz</a>			</div>
-                    </div>
 
-                </div>
     <!-- .contacts__feedback -->
     </div>
     <!-- .grid -->
