@@ -309,7 +309,7 @@
                                                onclick="$(this).css('border-color','#ccc')"/></fieldset>
 
                                     <fieldset class="field-set col col--full" style="">
-                                        <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос"
+                                                <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос"
                                                   rows="5"></textarea></fieldset>
 
 
@@ -519,6 +519,8 @@
     </main>
     <!-- end main -->
 @endsection
+
+
 
 
 
