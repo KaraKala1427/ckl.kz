@@ -1,8 +1,8 @@
 stages:
+  - vendor
   - upload
   - build
   - sonarqube
-  - vendor
 
 image: registry-backend.cic.kz/centras/ckl:latest
 
