@@ -1,10 +1,10 @@
 stages:
+  - vendor
   - upload
   - build
   - sonarqube
-  - vendor
 
-image: registry-backend.cic.kz/centras/ckl:latest
+image: reg.cic.kz/centras/ckl:latest
 
 .upload:
   tags:
