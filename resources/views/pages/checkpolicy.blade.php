@@ -125,7 +125,7 @@
                                                         },
                                                         success: function (data) {
                                                             if(data.code == 200){
-                                                                $(".callb1").html('<h3>Прилетел статус договора ' + code  + ' : ' + data.st + ' !</h3>');
+                                                                $(".callb1").html('<h3>Cтатус договора : ' + data.st + ' !</h3>');
                                                             }
                                                             if(data.code == 404){
                                                                 $("#policyError").show();
