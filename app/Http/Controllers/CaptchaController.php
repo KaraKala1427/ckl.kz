@@ -16,8 +16,11 @@ class CaptchaController extends Controller
             'code' => 'required',
             'captcha' => 'required|captcha'
         ]);
-        $data = array('code' => ['code'], 'captcha' => ['captcha']);
-echo 'true';
+        $data = array(
+            'code' => ['code'],
+            'captcha' => ['captcha']
+        );
+        return 'true';
     }
 
     public function reloadCaptcha()

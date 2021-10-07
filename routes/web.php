@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiConnectController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\SandBoxController;
 use Illuminate\Support\Facades\Auth;
@@ -79,9 +80,6 @@ Route::group([
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
-    Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
-    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
 
     Route::get('/product', [ProductController::class, 'index'])->name('product');
 
@@ -125,15 +123,16 @@ Route::group([
         Route::get('/clients-and-recommendations', [AboutController::class, 'get_clients_recommendations'])->name('.clients-and-rec');
     });
 
-
-//    Route::get('/contacts', function () {
-//        return view('pages.contacts');
-//    })->name('contacts');
     Route::get('/contacts',[HomeController::class,'getContacts'])->name('contacts');
     Route::get('/sandbox',[SandBoxController::class,'sandbox'])->name('sandbox');
     Route::get('/press/page/{page?}', [PressController::class, 'press'])->name('press');
     Route::get('/press/{year}/{id}-{alias}', [PressController::class, 'press_detail'])->name('press_detail');
     Route::get('/press/{year?}', [PressController::class, 'press_by_year'])->name('press_by_year');
+
+    Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
+    Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
+    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
+//    Route::post('/api/checkPolicy', [ApiConnectController::class, 'checkPolicy']);
 
 });
 
