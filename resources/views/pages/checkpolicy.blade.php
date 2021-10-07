@@ -6,7 +6,7 @@
         <div class="container">
             <div class="contacts">
                 <section class="feedback callb1" id="callb1">
-                    <h3 class="feedback__title">{{ __('navbar.provpol')}}</h3>
+                    <h3 class="feedback__title"><b>{{ __('navbar.provpol')}}</b></h3>
                     <form action="#" method="" id="call-popup">
                         <div class="grid">
                             <fieldset class="field-set col col--full" style="">
@@ -128,7 +128,7 @@
                                                                 $(".callb1").html('<h3>Прилетел статус договора ' + code  + ' : ' + data.st + ' !</h3>');
                                                             }
                                                             if(data.code == 404){
-                                                                $(".callb1").html('<h3>Прилетел статус договора ' + code  + ' :  не найден договор!</h3>');
+                                                                $("#policyError").show();
                                                             }
                                                         },
                                                     })
@@ -165,7 +165,8 @@
                                         disabled="">{{ __('navbar.bc9')}}
                                 </button>
                             </div>
-                            <div class="field-set col col--1-2" id="cberror" style="display: none;"><br><br>
+                            <div id="policyError" style="display: none" >
+                                <p class="error">Договор страхования не найден. Пожалуйста, проверьте правильность ввода номера договора!</p>
                             </div>
                         </div>
                     </form>
