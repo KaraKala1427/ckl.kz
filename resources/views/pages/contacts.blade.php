@@ -306,11 +306,25 @@
                                     <fieldset class="field-set col col--1-2" style="">
                                         <label class="field-set__label">Эл. почта</label>
                                         <input type="email" class="field" name="email" id="email1"
-                                               onclick="$(this).css('border-color','#ccc')"/></fieldset>
+                                               onclick="$(this).css('border-color','#ccc')"/>
+                                    </fieldset>
+
+                                    <fieldset class="field-set col col--1-2">
+                                        <label class="field-set__label">Удобное время (время Астаны)</label>
+                                        <input type="text" class="field field--date" value="" id="call-popup-call-date1" name="call_date1" data-timepicker="true" data-time-format="hh:ii" data-callback-time="" readonly />
+                                    </fieldset>
+
+                                    <div class="field-set col col--1-2">
+                                        <br>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="call_now1" value="0" id="call-popup-call-now1" class="new-styler" onclick="disableDate(this)"/>
+                                            <span class="checkbox__label">Позвоните прямо сейчас</span>
+                                        </label>
+                                    </div>
 
                                     <fieldset class="field-set col col--full" style="">
-                                                <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос"
-                                                  rows="5"></textarea></fieldset>
+                                        <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea>
+                                    </fieldset>
 
 
                                     <style>
@@ -331,6 +345,11 @@
                                             $('#' + errorBlock).hide();
                                         }
 
+                                        function disableDate(checkBox){
+                                            var dateElement = document.getElementById('call-popup-call-date1');
+                                            dateElement.disabled = checkBox.checked;
+                                        }
+
                                         //начало скрипта для раздела О компании под меню
                                         $(document).ready(function () {
                                             var pageName = new URL(window.location.href).pathname.split('/')[1];
@@ -349,9 +368,19 @@
                                         //начало скрипта для обратного звонка
                                         $(document).ready(function () {
                                             function calldate2312() {
-
-                                                $("#call-popup-call-date").val('2020-02-03 11:18');
-                                                $("#call-popup-call-date").closest('fieldset').addClass('has-success');
+                                                var today1 = new Date();
+                                                let month,day;
+                                                if ((today1.getMonth()+1) < 10) {
+                                                    month = '0' + today1.getMonth()+1;
+                                                }
+                                                else month = today1.getMonth()+1;
+                                                if ((today1.getDate()) < 10) {
+                                                    day = '0' + today1.getDate();
+                                                }
+                                                else day = today1.getMonth()+1;
+                                                var now = today1.getFullYear()+'-'+ month +'-' + day + ' ' + today1.getHours()+':'+today1.getMinutes();
+                                                $("#call-popup-call-date1").val(now);
+                                                $("#call-popup-call-date1").closest('fieldset').addClass('has-success');
 
                                             }
 
@@ -359,6 +388,7 @@
 
                                             /* Скрипты для формы Обратного звонка */
                                             window.onload = function () {
+                                                alert('ad')
                                                 // Зададим стартовую дату
                                                 var start = new Date(),
                                                     prevDay,
@@ -400,9 +430,8 @@
                                                         }
                                                     }
                                                 })
-
-
                                             }
+
                                             $loading = $("#loading1");
                                             /* Подсветка Фио зеленым при заполнении */
                                             $('input[name="fullname"]').keyup(function () {
@@ -429,6 +458,8 @@
                                                 var fullname = $("#fullname1").val();
                                                 var phone = $("#phone-input1").val();
                                                 var email = $('#email1').val();
+                                                var callDate = $('#call-popup-call-date1').val();
+                                                var callNow = $('#call-popup-call-now1').val();
                                                 var frompage = $('#frompage').val();
                                                 var qst = $('#qst').val();
 
@@ -439,6 +470,8 @@
                                                         fullname: fullname,
                                                         phone: phone,
                                                         email: email,
+                                                        callDate: callDate,
+                                                        callNow: callNow,
                                                         qst: qst,
                                                         frompage: frompage
 
