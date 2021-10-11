@@ -317,7 +317,7 @@
                                     <div class="field-set col col--1-2">
                                         <br>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="call_now1" value="0" id="call-popup-call-now1" class="new-styler" onclick="disableDate(this)"/>
+                                            <input type="checkbox" name="call_now1" id="call-popup-call-now1" class="new-styler" onclick="disableDate(this)"/>
                                             <span class="checkbox__label">Позвоните прямо сейчас</span>
                                         </label>
                                     </div>
@@ -345,7 +345,9 @@
                                             $('#' + errorBlock).hide();
                                         }
 
+                                        var checkNow;
                                         function disableDate(checkBox){
+                                            checkNow = checkBox.checked;
                                             var dateElement = document.getElementById('call-popup-call-date1');
                                             dateElement.disabled = checkBox.checked;
                                         }
@@ -388,7 +390,6 @@
 
                                             /* Скрипты для формы Обратного звонка */
                                             window.onload = function () {
-                                                alert('ad')
                                                 // Зададим стартовую дату
                                                 var start = new Date(),
                                                     prevDay,
@@ -450,16 +451,18 @@
                                                     $(this).closest('fieldset').removeClass('has-success');
                                                 }
                                             });
-
                                             /*Post запрос Обратного звонка с условиями*/
                                             $('#submitcallback1').click(function (event) {
                                                 event.preventDefault();
-                                                // alert('контактный аяах');
                                                 var fullname = $("#fullname1").val();
                                                 var phone = $("#phone-input1").val();
                                                 var email = $('#email1').val();
                                                 var callDate = $('#call-popup-call-date1').val();
-                                                var callNow = $('#call-popup-call-now1').val();
+                                                var callNow;
+                                                if (checkNow) {
+                                                    callNow = true;
+                                                }
+                                                else callNow = false;
                                                 var frompage = $('#frompage').val();
                                                 var qst = $('#qst').val();
 

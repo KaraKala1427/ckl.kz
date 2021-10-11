@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Email;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -105,7 +106,6 @@ class MailController extends Controller
             'email' => $array['email'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow'], 'qst' => $array['qst']);
 
         $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow'], 'qst' => $array['qst']);
-
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
