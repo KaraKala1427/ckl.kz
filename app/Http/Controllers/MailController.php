@@ -50,7 +50,7 @@ class MailController extends Controller
         ]);
 
         $array = ($request->request->all());
-        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone']);
+        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];

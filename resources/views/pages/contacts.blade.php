@@ -286,8 +286,8 @@
                                         <input type="text" class="field"
                                                onkeyup="showOrHideBlock('fullname_error1','fullname1')" id="fullname1"
                                                name="fullname">
-
-                                        <strong><small id="fullname_error1" class="form-text text-"
+                                        <strong>
+                                            <small id="fullname_error1" class="form-text text-"
                                                        style="display: none;  color: crimson">Поле ФИО должно быть
                                                 заполнено!</small></strong>
                                     </fieldset>
@@ -297,9 +297,9 @@
                                         <input type="tel" class="field tel-masked" id="phone-input1"
                                                onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone"
                                                placeholder="">
-                                        <strong> <small id="phone_error1" class="form-text text-"
-                                                        style="display: none; color: crimson">Поле номер должно быть
-                                                заполнено!</small></strong>
+                                        <strong>
+                                            <small id="phone_error1" class="form-text text-" style="display: none; color: crimson">Поле номер должно быть заполнено!</small>
+                                        </strong>
                                     </fieldset>
 
 
