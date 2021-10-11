@@ -148,6 +148,7 @@
                                                     $("#loading1").click(function () {
                                                         $(this).attr('disabled', true)
                                                     })
+                                                    $("#reload").click()
                                                 } else {
                                                     $("#captcha_error").show();
                                                 }
