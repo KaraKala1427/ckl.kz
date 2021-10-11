@@ -7,7 +7,7 @@
             <div class="contacts">
                 <section class="feedback callb1" id="callb1">
                     <h3 class="feedback__title"><b>{{ __('navbar.provpol')}}</b></h3>
-                    <div class="calculator__desc text-grey" style="word-spacing: 1.1px;">
+                    <div class="calculator__desc text-grey">
                         <p class="small">{{ __('navbar.policyText')}}</p>
                     </div>
                     <div id='polisrez_'>&nbsp;</div>
