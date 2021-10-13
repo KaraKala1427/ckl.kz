@@ -7,20 +7,15 @@
             <div class="contacts">
                 <section class="feedback callb1" id="callb1">
                     <h3 class="feedback__title"><b>{{ __('navbar.provpol')}}</b></h3>
-                    <div class="calculator__desc text-grey">
-                        <p class="small">{{ __('navbar.policyText')}}</p>
-                    </div>
                     <div id='polisrez_'>&nbsp;</div>
                     <form action="#" method="" id="call-popup">
                         <div class="grid">
-                            <fieldset class="field-set col col--full" style="">
+                            <fieldset class="field-set col col--full">
                                 <label class="field-set__label">{{ __('navbar.policycod')}}</label>
-                                <input type="text" class="field"
-                                       onkeyup="showOrHideBlock('code_error','code')" id="code"
-                                       name="code">
-
-                                <strong><small id="code_error" class="form-text text-"
-                                               style="display: none;  color: crimson">Поле должно быть заполнено!</small></strong>
+                                <input type="text" class="field" onkeyup="showOrHideBlock('code_error','code')" id="code" name="code">
+                                <strong>
+                                    <small id="code_error" class="form-text text-" style="display: none;  color: crimson">Поле должно быть заполнено!</small>
+                                </strong>
                             </fieldset>
 
                             <fieldset class="field-set col col--full" style="">
@@ -163,7 +158,7 @@
                                 function requestApi(data) {
                                     if (data == 'true') {
                                         $.ajax({
-                                            url: "https://connect.cic.kz/api/ckl/checkPolicy",
+                                            url: "https://connect.cic.kz/centras/ckl/checkPolicy",
                                             type: 'post',
                                             data: {
                                                 code: code,
