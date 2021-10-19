@@ -60,6 +60,10 @@
                     margin: 10px auto;
                 }
 
+                .nav-section {
+                    display: none;
+                }
+
                 .removejust {
                     display: none;
                 }
@@ -288,7 +292,9 @@
                     width: 77%;
                     margin: 10px auto;
                 }
-
+                .nav-section {
+                    display: none;
+                }
                 .removejust {
                     display: none;
                 }
