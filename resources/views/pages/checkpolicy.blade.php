@@ -116,11 +116,12 @@
                                             success: await function (data) {
                                                 if (data == 'true') {
                                                      $.ajax({
-                                                        url: "https://connect.cic.kz/api/ckl/checkPolicy",
+                                                        url: "https://connect.cic.kz/centras/ckl/checkPolicy",
                                                         type: 'post',
                                                         data: {
                                                             code: code,
-                                                            company: "CKL"
+                                                            company: 'ckl',
+                                                            token: "wesvk345sQWedva55sfsd*g"
                                                         },
                                                         success: function (data) {
                                                             if(data.code == 200){
@@ -155,34 +156,6 @@
                                         })
                                     });
                                 });
-                                function requestApi(data) {
-                                    if (data == 'true') {
-                                        $.ajax({
-                                            url: "https://connect.cic.kz/centras/ckl/checkPolicy",
-                                            type: 'post',
-                                            data: {
-                                                code: code,
-                                                company: "CKL"
-                                            },
-                                            success: function (data) {
-                                                if(data.code == 200){
-                                                    $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
-                                                }
-                                                if(data.code == 404){
-                                                    $("#policyError").show();
-                                                }
-                                            },
-                                        })
-                                        dataLayer.push({'event': 'callback_sent'});
-                                        $('#feedbackModal1').css('max-height', '155px');
-                                    } else {
-                                        $("#cberror").html(data);
-                                        $("#cberror").fadeIn(1500);
-                                        $('#code').css("border-color", "#f7b4b4");
-                                        $('#captcha').css("border-color", "#f7b4b4");
-                                    }
-
-                                }
                             </script>
                             <div class="col col--full">
                                 <button type="submit" class="button button--prime"

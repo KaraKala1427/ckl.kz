@@ -90,8 +90,13 @@
                         </div>
                     </section>
                 </div>
+                <div class="grid localgrid">
 
-            @include('mini_parts.callback_mail', ['frompage' => 'OCPHC https://ckl.kz/product'])
+                    <!-- .contacts__mails -->
+                    <div class="contacts__feedback">
+                        @include('mini_parts.callback_mail', ['frompage' => 'OCPHC https://ckl.kz/product'])
+                    </div>
+                </div>
 
         <!-- end container -->
     </main>

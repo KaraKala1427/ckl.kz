@@ -89,7 +89,13 @@
                     </div>
                 </section>
             </div>
-            @include('mini_parts.callback_mail', ['frompage' => 'Аннуитетное страхование https://ckl.kz/annuitet'])
+            <div class="grid localgrid">
+
+                <!-- .contacts__mails -->
+                <div class="contacts__feedback">
+                    @include('mini_parts.callback_mail', ['frompage' => 'Аннуитетное страхование https://ckl.kz/annuitet'])
+                </div>
+            </div>
         <!-- end container -->
     </main>
     <!-- end main -->

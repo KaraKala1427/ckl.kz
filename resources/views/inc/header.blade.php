@@ -481,7 +481,7 @@
                                 <div class="field-set col col--1-2">
                                     <br>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="call_now" id="call-popup-call-now" class="new-styler" onclick="disableDate(this)"/>
+                                        <input type="checkbox" name="call_now" id="call-popup-call-now" class="new-styler" onclick="disableDateHeader(this)"/>
                                         <span class="checkbox__label">Позвоните прямо сейчас</span>
                                     </label>
                                 </div>
@@ -494,7 +494,7 @@
                                     }
 
                                     var checkNow;
-                                    function disableDate(checkBox){
+                                    function disableDateHeader(checkBox){
                                         checkNow = checkBox.checked;
                                         var dateElement = document.getElementById('call-popup-call-date');
                                         dateElement.disabled = checkBox.checked;
@@ -519,7 +519,7 @@
                                     $(document).ready(function () {
                                         function calldate2312() {
                                             var today1 = new Date();
-                                            let month,day;
+                                            let month,day,minutes;
                                             if ((today1.getMonth()+1) < 10) {
                                                 month = '0' + today1.getMonth()+1;
                                             }
@@ -528,7 +528,11 @@
                                                 day = '0' + today1.getDate();
                                             }
                                             else day = today1.getMonth()+1;
-                                            var now = today1.getFullYear()+'-'+ month +'-' + day + ' ' + today1.getHours()+':'+today1.getMinutes();
+                                            if( today1.getMinutes() < 10){
+                                                minutes = '0' + today1.getMinutes();
+                                            }
+                                            else minutes = today1.getMinutes();
+                                            var now = today1.getFullYear()+'-'+ month +'-' + day + ' ' + today1.getHours()+':' + minutes;
                                             $("#call-popup-call-date").val(now);
                                             $("#call-popup-call-date").closest('fieldset').addClass('has-success');
 
