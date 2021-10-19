@@ -1,17 +1,6 @@
 @extends('layouts.general')
 
 @section('content')
-
-    <div class="card-body">
-        @if($message = Session::get('success'))
-            <div class="alert alert-success">
-                <strong>{{$message}}</strong>
-            </div>
-        @endif
-    </div>
-
-
-
     <main class="main">
         <div class="container">
             <div class="contacts">
