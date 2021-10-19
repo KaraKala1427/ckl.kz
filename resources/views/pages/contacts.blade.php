@@ -263,7 +263,7 @@
                             </dd>
                         </dl>
 
-                    @include('mini_parts.callback_mail', ['frompage' => 'OCPHC https://ckl.kz/contacts'])
+                    @include('mini_parts.callback_mail', ['frompage' => 'Контакты https://ckl.kz/contacts'])
 
                 </section>
             </div>
