@@ -65,6 +65,7 @@
                                         if ($(this).val().length > 1) {
                                             $(this).closest('fieldset').addClass('has-success');
                                             $(this).closest('fieldset').removeClass('has-error');
+                                            $("#policyExpired").hide();
                                         } else {
                                             $(this).closest('fieldset').removeClass('has-success');
                                         }
@@ -124,7 +125,11 @@
                                                             token: "wesvk345sQWedva55sfsd*g"
                                                         },
                                                         success: function (data) {
-                                                            if(data.code == 200){
+                                                            if(data.status == 'expired' && data.code == 200){
+                                                                $("#policyExpired").html('<p class="error">Срок действия полиса с номером ' + data.id + '  истек.</p>');
+                                                                $("#policyExpired").show();
+                                                            }
+                                                            else if(data.status == 'success' && data.code == 200){
                                                                 $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
                                                             }
                                                             if(data.code == 404){
@@ -167,6 +172,8 @@
                             </div>
                             <div id="policyError" style="display: none" >
                                 <p class="error">Договор страхования не найден. Пожалуйста, проверьте правильность ввода номера договора!</p>
+                            </div>
+                            <div id="policyExpired" style="display: none" >
                             </div>
                         </div>
                     </form>
