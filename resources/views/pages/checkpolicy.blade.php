@@ -28,8 +28,7 @@
                                         &#x21bb;
                                     </button>
                                 </div>
-                                <input type="text" class="field" placeholder=""
-                                       onkeyup="showOrHideBlock('captcha_error','captcha')" id="captcha"
+                                <input type="text" class="field" placeholder="" onkeyup="showOrHideBlock('captcha_error','captcha')" id="captcha"
                                        name="captcha">
 
                                 <strong>
@@ -66,6 +65,7 @@
                                             $(this).closest('fieldset').addClass('has-success');
                                             $(this).closest('fieldset').removeClass('has-error');
                                             $("#policyExpired").hide();
+                                            $("#policyError").hide();
                                         } else {
                                             $(this).closest('fieldset').removeClass('has-success');
                                         }
@@ -128,11 +128,16 @@
                                                             if(data.status == 'expired' && data.code == 200){
                                                                 $("#policyExpired").html('<p class="error">Срок действия полиса с номером ' + data.id + '  истек.</p>');
                                                                 $("#policyExpired").show();
+                                                                $("#reload").click();
+                                                                // $("#captcha").val(''); // стирает капчу который неактуальный
                                                             }
                                                             else if(data.status == 'success' && data.code == 200){
                                                                 $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
+                                                                $("#reload").click();
                                                             }
                                                             if(data.code == 404){
+                                                                $("#reload").click();
+                                                                // $("#captcha").val('');
                                                                 $("#policyError").show();
                                                             }
                                                         },
