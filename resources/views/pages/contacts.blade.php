@@ -265,6 +265,7 @@
 
                     @include('mini_parts.callback_mail', ['frompage' => 'Контакты https://ckl.kz/contacts'])
 
+
                 </section>
             </div>
             <!-- .contacts__feedback -->

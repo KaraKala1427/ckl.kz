@@ -33,7 +33,7 @@ class MailController extends Controller
         ]);
 
         $array = ($request->request->all());
-        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow']);
+        $data = array('fullname' => $array['fullname'], 'phone' => $array['phone']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
@@ -42,11 +42,8 @@ class MailController extends Controller
         $Mali->save();
         Mail::send('email', $data, function ($message) {
             $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('n.aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
-//            $message->to('Aligeyer@kommesk-omir.kz')->cc('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
-
-//        echo "HTML Email Sent. Check your inbox.";
         echo 'true';
     }
 
@@ -90,19 +87,16 @@ class MailController extends Controller
             'fullname' => $array['fullname'],
             'phone' => $array['phone'],
             'email' => $array['email'],
-            'callDate' => $array['callDate'],
-            'callNow' => $array['callNow'],
             'qst' => $array['qst'],
             );
 
-        $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow'], 'qst' => $array['qst']);
+        $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'],  'qst' => $array['qst']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
         $json_array = json_encode($writeToDataJson);
         $Mali->data = $json_array;
         $Mali->save();
-//        dd($data);
         Mail::send('mail', $data, function ($message) {
             $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('n.aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');

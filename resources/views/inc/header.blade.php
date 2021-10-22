@@ -603,8 +603,6 @@
                                                 beforeSend: function () {
                                                     let a = false;
                                                     if(fullname=='') {
-                                                        // alert('Поле ФИО у нас обязательное для заполнения!');
-                                                        // $("#fullname").val("ошибка");
                                                         $("#fullname_error").show();
                                                         a = true;
                                                     }

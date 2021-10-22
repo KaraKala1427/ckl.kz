@@ -23,7 +23,7 @@
 
             <fieldset class="field-set col col--1-2" style="false">
                 <label class="field-set__label">Эл. почта</label>
-                <input type="email" class="field" name="email" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">
+                <input type="email" class="field" name="email1" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">
 
                 <strong> <small id="email_error1" class="form-text text-"
                                 style=" display: none; color: crimson">Неправильный формат почты</small></strong>
@@ -103,73 +103,7 @@
 
                 //начало скрипта для обратного звонка
                 $(document).ready(function () {
-                    function calldate2312() {
-                        var today1 = new Date();
-                        let month, day, minutes;
-                        if ((today1.getMonth() + 1) < 10) {
-                            month = '0' + today1.getMonth() + 1;
-                        } else month = today1.getMonth() + 1;
-                        if ((today1.getDate()) < 10) {
-                            day = '0' + today1.getDate();
-                        } else day = today1.getMonth() + 1;
-                        if (today1.getMinutes() < 10) {
-                            minutes = '0' + today1.getMinutes();
-                        } else minutes = today1.getMinutes();
-                        var now = today1.getFullYear() + '-' + month + '-' + day + ' ' + today1.getHours() + ':' + minutes;
 
-                        $("#call-popup-call-date1").val(now);
-                        $("#call-popup-call-date1").closest('fieldset').addClass('has-success');
-
-                    }
-
-                    setTimeout(calldate2312, 2000);
-
-                    /* Скрипты для формы Обратного звонка */
-                    window.onload = function () {
-                        // Зададим стартовую дату
-                        var start = new Date(),
-                            prevDay,
-                            startHours = 9;
-                        // 09:00
-                        start.setHours(9);
-                        start.setMinutes(0);
-                        // Если сегодня суббота или воскресенье - 10:00
-                        if ([6, 0].indexOf(start.getDay()) != -1) {
-                            start.setHours(10);
-                            startHours = 10
-                        }
-                        var dp = $('.modal [data-callback-time]').data('datepicker');
-                        dp.update({
-                            minDate: start,
-                            startDate: start,
-                            minHours: startHours,
-                            maxHours: 18,
-                            autoClose: true,
-                            onSelect: function (fd, d, picker) {
-                                // Ничего не делаем если выделение было снято
-                                if (!d) return;
-                                var day = d.getDay();
-                                // Обновляем состояние календаря только если была изменена дата
-                                if (prevDay != undefined && prevDay == day) return;
-                                prevDay = day;
-                                // Если выбранный день суббота или воскресенье, то устанавливаем
-                                // часы для выходных, в противном случае восстанавливаем начальные значения
-                                if (day == 6 || day == 0) {
-                                    picker.update({
-                                        minHours: 10,
-                                        maxHours: 16
-                                    })
-                                } else {
-                                    picker.update({
-                                        minHours: 9,
-                                        maxHours: 18
-                                    })
-                                }
-                            }
-                        })
-
-
-                    }
                     $loading = $("#loading1");
                     /* Подсветка Фио зеленым при заполнении */
                     $('input[name="fullname"]').keyup(function () {
@@ -211,7 +145,6 @@
                                 email: email,
                                 qst: qst,
                                 frompage: frompage,
-
                             },
                             beforeSend: function () {
                                 let a = false;
@@ -242,20 +175,18 @@
                                     return false;
                                 }
 
-                                $("#email").on("input", validate);
+                                $("#email1").on("input", validate);
                                 if (a) return false;
 
                                 $loading.show();
                                 $("#fullname_error1").hide();
                                 $("#phone_error1").hide();
                                 $('#submitcallback1').hide();
-
                             },
                             complete: function () {
                                 console.log('ушло сообщение')
                                 $loading.hide();
                                 $('#submitcallback1').show();
-
                             },
                             success: function (data) {
                                 if (data == 'true') {
@@ -279,6 +210,7 @@
 
 
             </script>
+
             <style>
                 .localgrid {
                     width: 100%;
