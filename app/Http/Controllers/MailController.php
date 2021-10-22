@@ -24,24 +24,7 @@ class MailController extends Controller
     public function test(){
         return view('test');
     }
-    public function html_eemail(Request $request){
-        $request->validate([
-            'fullname' => 'required',
-            'phone' => 'required'
-        ]);
-        $to = "e_@gmail.com";
-        //$email = $_POST['email'];
-        $email = "Yernar developer";
-        $sitename = "ckl.kz";
-        $headers = "From: $email\r\nReply-to: $email\r\nContent-type: text/html; charset=utf-8\r\n";
-        $subject = "Message from " . $sitename;
 
-        $array = ($request->request->all());
-        $message =  $array['fullname'];
-        mail($to, $subject, $message, $headers);
-//        mail('ernarerbol027@gmail.com', 'Test', $message);
-        echo 'true';
-    }
     public function html_email(Request $request)
     {
         $request->validate([
@@ -57,7 +40,7 @@ class MailController extends Controller
         $json_array = json_encode($data);
         $Mali->data = $json_array;
         $Mali->save();
-        Mail::send('mail', $data, function ($message) {
+        Mail::send('email', $data, function ($message) {
             $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('n.aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
 //            $message->to('Aligeyer@kommesk-omir.kz')->cc('ernarerbol027@gmail.com')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
@@ -102,10 +85,17 @@ class MailController extends Controller
 
 //        dd($request->request->all());
         $array = ($request->request->all());
-        $data = array('frompage' => $array['frompage'], 'fullname' => $array['fullname'], 'phone' => $array['phone'],
-            'email' => $array['email'], 'qst' => $array['qst']);
+        $data = array(
+            'frompage' => $array['frompage'],
+            'fullname' => $array['fullname'],
+            'phone' => $array['phone'],
+            'email' => $array['email'],
+            'callDate' => $array['callDate'],
+            'callNow' => $array['callNow'],
+            'qst' => $array['qst'],
+            );
 
-        $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'], 'qst' => $array['qst']);
+        $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow'], 'qst' => $array['qst']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
@@ -113,7 +103,7 @@ class MailController extends Controller
         $Mali->data = $json_array;
         $Mali->save();
 //        dd($data);
-        Mail::send('email', $data, function ($message) {
+        Mail::send('mail', $data, function ($message) {
             $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('n.aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });

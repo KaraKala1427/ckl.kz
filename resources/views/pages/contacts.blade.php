@@ -1,17 +1,6 @@
 @extends('layouts.general')
 
 @section('content')
-
-    <div class="card-body">
-        @if($message = Session::get('success'))
-            <div class="alert alert-success">
-                <strong>{{$message}}</strong>
-            </div>
-        @endif
-    </div>
-
-
-
     <main class="main">
         <div class="container">
             <div class="contacts">
@@ -298,18 +287,29 @@
                                                onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone"
                                                placeholder="">
                                         <strong> <small id="phone_error1" class="form-text text-"
-                                                        style=" display: none; color: crimson">Поле номер должно быть
+                                                        style="display: none; color: crimson">Поле номер должно быть
                                                 заполнено!</small></strong>
                                     </fieldset>
 
 
-                                    <fieldset class="field-set col col--1-2" style="false">
+                                    <fieldset class="field-set col col--1-2" style="">
                                         <label class="field-set__label">Эл. почта</label>
-                                        <input type="email" class="field" name="email" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">
-
-                                        <strong> <small id="email_error1" class="form-text text-"
-                                                        style=" display: none; color: crimson">Неправильный формат почты</small></strong>
+                                        <input type="email" class="field" name="email" id="email1"
+                                               onclick="$(this).css('border-color','#ccc')"/>
                                     </fieldset>
+
+                                    <fieldset class="field-set col col--1-2">
+                                        <label class="field-set__label">Удобное время (время Астаны)</label>
+                                        <input type="text" class="field field--date" value="" id="call-popup-call-date1" name="call_date1" data-timepicker="true" data-time-format="hh:ii" data-callback-time="" readonly />
+                                    </fieldset>
+
+                                    <div class="field-set col col--1-2">
+                                        <br>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="call_now1" id="call-popup-call-now1" class="new-styler" onclick="disableDate(this)"/>
+                                            <span class="checkbox__label">Позвоните прямо сейчас</span>
+                                        </label>
+                                    </div>
 
                                     <fieldset class="field-set col col--full" style="">
                                         <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea>
@@ -334,10 +334,6 @@
                                             $('#' + errorBlock).hide();
                                         }
 
-                                        function validateEmail(email) {
-                                            const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                            return re.test(email);
-                                        }
                                         var checkNow;
                                         function disableDate(checkBox){
                                             checkNow = checkBox.checked;
@@ -450,10 +446,6 @@
                                                 var fullname = $("#fullname1").val();
                                                 var phone = $("#phone-input1").val();
                                                 var email = $('#email1').val();
-                                                if(!validateEmail(email) && email.length !== 0) {
-                                                    $("#email_error1").show();
-                                                    return;
-                                                }
                                                 var callDate = $('#call-popup-call-date1').val();
                                                 var callNow;
                                                 if (checkNow) {
@@ -470,6 +462,8 @@
                                                         fullname: fullname,
                                                         phone: phone,
                                                         email: email,
+                                                        callDate: callDate,
+                                                        callNow: callNow,
                                                         qst: qst,
                                                         frompage: frompage
 
@@ -486,30 +480,7 @@
                                                             $("#phone_error1").show();
                                                             a = true;
                                                         }
-
-
-                                                        function validate() {
-                                                            const $result = $("#result");
-                                                            const email = $("#email1").val();
-                                                            $result.text("");
-
-                                                            if (validateEmail(email)) {
-                                                                console.log('asd');
-                                                                $result.text(email + " is valid :)");
-                                                                $result.css("color", "green");
-                                                            } else {
-                                                                console.log('false');
-                                                                $result.text(email + " is not valid :(");
-                                                                $result.css("color", "red");
-                                                            }
-                                                            return false;
-                                                        }
-
-                                                        $("#email").on("input", validate);
-
                                                         if (a) return false;
-
-
 
                                                         $loading.show();
                                                         $("#fullname_error1").hide();
@@ -525,10 +496,10 @@
                                                     },
                                                     success: function (data) {
                                                         if (data == 'true') {
-                                                            $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение,</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
+                                                            $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
                                                             dataLayer.push({'event': 'callback_sent'});
-                                                            //
-                                                            // $('#feedbackModal1').css('max-height', '155px');
+
+                                                            $('#feedbackModal1').css('max-height', '155px');
                                                         } else {
                                                             $("#cberror").html(data);
                                                             $("#cberror").fadeIn(1500);

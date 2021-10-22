@@ -7,16 +7,15 @@
             <div class="contacts">
                 <section class="feedback callb1" id="callb1">
                     <h3 class="feedback__title"><b>{{ __('navbar.provpol')}}</b></h3>
+                    <div id='polisrez_'>&nbsp;</div>
                     <form action="#" method="" id="call-popup">
                         <div class="grid">
-                            <fieldset class="field-set col col--full" style="">
+                            <fieldset class="field-set col col--full">
                                 <label class="field-set__label">{{ __('navbar.policycod')}}</label>
-                                <input type="text" class="field"
-                                       onkeyup="showOrHideBlock('code_error','code')" id="code"
-                                       name="code">
-
-                                <strong><small id="code_error" class="form-text text-"
-                                               style="display: none;  color: crimson">Поле должно быть заполнено!</small></strong>
+                                <input type="text" class="field" onkeyup="showOrHideBlock('code_error','code')" id="code" name="code">
+                                <strong>
+                                    <small id="code_error" class="form-text text-" style="display: none;  color: crimson">Поле должно быть заполнено!</small>
+                                </strong>
                             </fieldset>
 
                             <fieldset class="field-set col col--full" style="">
@@ -29,8 +28,7 @@
                                         &#x21bb;
                                     </button>
                                 </div>
-                                <input type="text" class="field" placeholder=""
-                                       onkeyup="showOrHideBlock('captcha_error','captcha')" id="captcha"
+                                <input type="text" class="field" placeholder="" onkeyup="showOrHideBlock('captcha_error','captcha')" id="captcha"
                                        name="captcha">
 
                                 <strong>
@@ -66,6 +64,8 @@
                                         if ($(this).val().length > 1) {
                                             $(this).closest('fieldset').addClass('has-success');
                                             $(this).closest('fieldset').removeClass('has-error');
+                                            $("#policyExpired").hide();
+                                            $("#policyError").hide();
                                         } else {
                                             $(this).closest('fieldset').removeClass('has-success');
                                         }
@@ -117,17 +117,27 @@
                                             success: await function (data) {
                                                 if (data == 'true') {
                                                      $.ajax({
-                                                        url: "https://connect.cic.kz/api/ckl/checkPolicy",
+                                                        url: "https://connect.cic.kz/centras/ckl/checkPolicy",
                                                         type: 'post',
                                                         data: {
                                                             code: code,
-                                                            company: "CKL"
+                                                            company: 'ckl',
+                                                            token: "wesvk345sQWedva55sfsd*g"
                                                         },
                                                         success: function (data) {
-                                                            if(data.code == 200){
+                                                            if(data.status == 'expired' && data.code == 200){
+                                                                $("#policyExpired").html('<p class="error">Срок действия полиса с номером ' + data.id + '  истек.</p>');
+                                                                $("#policyExpired").show();
+                                                                $("#reload").click();
+                                                                // $("#captcha").val(''); // стирает капчу который неактуальный
+                                                            }
+                                                            else if(data.status == 'success' && data.code == 200){
                                                                 $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
+                                                                $("#reload").click();
                                                             }
                                                             if(data.code == 404){
+                                                                $("#reload").click();
+                                                                // $("#captcha").val('');
                                                                 $("#policyError").show();
                                                             }
                                                         },
@@ -156,34 +166,6 @@
                                         })
                                     });
                                 });
-                                function requestApi(data) {
-                                    if (data == 'true') {
-                                        $.ajax({
-                                            url: "https://connect.cic.kz/api/ckl/checkPolicy",
-                                            type: 'post',
-                                            data: {
-                                                code: code,
-                                                company: "CKL"
-                                            },
-                                            success: function (data) {
-                                                if(data.code == 200){
-                                                    $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
-                                                }
-                                                if(data.code == 404){
-                                                    $("#policyError").show();
-                                                }
-                                            },
-                                        })
-                                        dataLayer.push({'event': 'callback_sent'});
-                                        $('#feedbackModal1').css('max-height', '155px');
-                                    } else {
-                                        $("#cberror").html(data);
-                                        $("#cberror").fadeIn(1500);
-                                        $('#code').css("border-color", "#f7b4b4");
-                                        $('#captcha').css("border-color", "#f7b4b4");
-                                    }
-
-                                }
                             </script>
                             <div class="col col--full">
                                 <button type="submit" class="button button--prime"
@@ -195,6 +177,8 @@
                             </div>
                             <div id="policyError" style="display: none" >
                                 <p class="error">Договор страхования не найден. Пожалуйста, проверьте правильность ввода номера договора!</p>
+                            </div>
+                            <div id="policyExpired" style="display: none" >
                             </div>
                         </div>
                     </form>

@@ -70,8 +70,12 @@
             @endforeach
         </div>
     </section>
-
-    @include('mini_parts.callback_mail', ['frompage' => 'Страхование жизни https://ckl.kz/live'])
+    <div class="grid localgrid">
+        <!-- .contacts__mails -->
+        <div class="contacts__feedback">
+             @include('mini_parts.callback_mail', ['frompage' => 'Страхование жизни https://ckl.kz/live'])
+        </div>
+    </div>
     <!-- end container -->
     </main>
     <!-- end main -->

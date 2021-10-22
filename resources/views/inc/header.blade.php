@@ -465,18 +465,26 @@
                                     <input  type="text" onkeypress="return /[a-zA-z\u0400-\u04FF ]/i.test(event.key)" class="field" id="fullname" name="fullname" onkeyup="showOrHideBlock('fullname_error','fullname')" >
 
                                     <strong><small id="fullname_error" class="form-text text-" style="display: none;  color: crimson">Вы не указали как вас зовут</small></strong>
-
-
                                 </fieldset>
 
                                 <fieldset class="field-set col col--full" style="">
                                     <label class="field-set__label">{{ __('navbar.bc5')}}</label>
                                     <input type="tel"  class="field tel-masked" id="phone-input" name="phone" onkeyup="showOrHideBlock('phone_error','phone-input')" placeholder="" >
-
                                     <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Вы не указали телефон</small></strong>
-
-
                                 </fieldset>
+
+                                <fieldset class="field-set col col--1-2">
+                                    <label class="field-set__label">Удобное время (время Астаны)</label>
+                                    <input type="text" class="field field--date" value="" id="call-popup-call-date" name="call_date" data-timepicker="true" data-time-format="hh:ii" data-callback-time="" readonly />
+                                </fieldset>
+
+                                <div class="field-set col col--1-2">
+                                    <br>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="call_now" id="call-popup-call-now" class="new-styler" onclick="disableDateHeader(this)"/>
+                                        <span class="checkbox__label">Позвоните прямо сейчас</span>
+                                    </label>
+                                </div>
 
 
                                 <script>
@@ -485,6 +493,12 @@
                                         $('#'+errorBlock).hide();
                                     }
 
+                                    var checkNow;
+                                    function disableDateHeader(checkBox){
+                                        checkNow = checkBox.checked;
+                                        var dateElement = document.getElementById('call-popup-call-date');
+                                        dateElement.disabled = checkBox.checked;
+                                    }
 
                                     //начало скрипта для раздела О компании под меню
                                     $(document).ready(function () {
@@ -504,8 +518,22 @@
                                     //начало скрипта для обратного звонка
                                     $(document).ready(function () {
                                         function calldate2312() {
-
-                                            $("#call-popup-call-date").val('2020-02-03 11:18');
+                                            var today1 = new Date();
+                                            let month,day,minutes;
+                                            if ((today1.getMonth()+1) < 10) {
+                                                month = '0' + today1.getMonth()+1;
+                                            }
+                                            else month = today1.getMonth()+1;
+                                            if ((today1.getDate()) < 10) {
+                                                day = '0' + today1.getDate();
+                                            }
+                                            else day = today1.getMonth()+1;
+                                            if( today1.getMinutes() < 10){
+                                                minutes = '0' + today1.getMinutes();
+                                            }
+                                            else minutes = today1.getMinutes();
+                                            var now = today1.getFullYear()+'-'+ month +'-' + day + ' ' + today1.getHours()+':' + minutes;
+                                            $("#call-popup-call-date").val(now);
                                             $("#call-popup-call-date").closest('fieldset').addClass('has-success');
 
                                         }
@@ -583,12 +611,20 @@
                                             event.preventDefault();
                                             var fullname = $("#fullname").val();
                                             var phone = $("#phone-input").val();
+                                            var callDate = $('#call-popup-call-date').val();
+                                            var callNow;
+                                            if (checkNow) {
+                                                callNow = true;
+                                            }
+                                            else callNow = false;
                                             $.ajax({
                                                 url: "/sendhtmlemail",
                                                 type: 'get',
                                                 data: {
                                                     fullname: fullname,
                                                     phone: phone,
+                                                    callDate: callDate,
+                                                    callNow: callNow,
                                                 },
                                                 beforeSend: function () {
                                                     let a = false;
@@ -617,7 +653,7 @@
                                                 },
                                                 success: function (data) {
                                                     if (data == 'true') {
-                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
+                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
                                                         dataLayer.push({'event': 'callback_sent'});
 
                                                         $('#feedbackModal').css('max-height', '155px');
