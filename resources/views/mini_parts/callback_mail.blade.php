@@ -22,27 +22,14 @@
 
 
             <fieldset class="field-set col col--1-2" style="false">
-                <label class="field-set__label">
-                    Эл. почта
-                </label>
-                <input type="email" class="field" name="email" id="email1"
-                       onclick="$(this).css('border-color','#ccc')"/>
+                <label class="field-set__label">Эл. почта</label>
+                <input type="email" class="field" name="email" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">
+
+                <strong> <small id="email_error1" class="form-text text-"
+                                style=" display: none; color: crimson">Неправильный формат почты</small></strong>
             </fieldset>
 
-            <fieldset class="field-set col col--1-2">
-                <label class="field-set__label">Удобное время (время Астаны)</label>
-                <input type="text" class="field field--date" value="" id="call-popup-call-date1" name="call_date1"
-                       data-timepicker="true" data-time-format="hh:ii" data-callback-time="" readonly/>
-            </fieldset>
 
-            <div class="field-set col col--1-2">
-                <br>
-                <label class="checkbox">
-                    <input type="checkbox" name="call_now1" id="call-popup-call-now1" class="new-styler"
-                           onclick="disableDate(this)"/>
-                    <span class="checkbox__label">Позвоните прямо сейчас</span>
-                </label>
-            </div>
             <fieldset class="field-set col col--full" style="false">
                 <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea>
             </fieldset>
@@ -93,14 +80,11 @@
                 function showOrHideBlock(errorBlock, manipulationBlock) {
                     $('#' + errorBlock).hide();
                 }
-
-                var checkNow;
-
-                function disableDate(checkBox) {
-                    checkNow = checkBox.checked;
-                    var dateElement = document.getElementById('call-popup-call-date1');
-                    dateElement.disabled = checkBox.checked;
+                function validateEmail(email) {
+                    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(email);
                 }
+
 
                 //начало скрипта для раздела О компании под меню
                 $(document).ready(function () {
@@ -211,12 +195,11 @@
                         var fullname = $("#fullname1").val();
                         var phone = $("#phone-input1").val();
                         var email = $('#email1').val();
+                        if(!validateEmail(email) && email.length !== 0) {
+                            $("#email_error1").show();
+                            return;
+                        }
                         var frompage = $('#frompage').val();
-                        var callDate = $('#call-popup-call-date1').val();
-                        var callNow;
-                        if (checkNow) {
-                            callNow = true;
-                        } else callNow = false;
                         var qst = $('#qst').val();
 
                         $.ajax({
@@ -228,8 +211,6 @@
                                 email: email,
                                 qst: qst,
                                 frompage: frompage,
-                                callDate: callDate,
-                                callNow: callNow,
 
                             },
                             beforeSend: function () {
@@ -244,6 +225,24 @@
                                     $("#phone_error1").show();
                                     a = true;
                                 }
+                                function validate() {
+                                    const $result = $("#result");
+                                    const email = $("#email1").val();
+                                    $result.text("");
+
+                                    if (validateEmail(email)) {
+                                        console.log('asd');
+                                        $result.text(email + " is valid :)");
+                                        $result.css("color", "green");
+                                    } else {
+                                        console.log('false');
+                                        $result.text(email + " is not valid :(");
+                                        $result.css("color", "red");
+                                    }
+                                    return false;
+                                }
+
+                                $("#email").on("input", validate);
                                 if (a) return false;
 
                                 $loading.show();

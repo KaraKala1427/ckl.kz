@@ -473,18 +473,6 @@
                                     <strong> <small id="phone_error" class="form-text text-" style="display: none; color: crimson">Вы не указали телефон</small></strong>
                                 </fieldset>
 
-                                <fieldset class="field-set col col--1-2">
-                                    <label class="field-set__label">Удобное время (время Астаны)</label>
-                                    <input type="text" class="field field--date" value="" id="call-popup-call-date" name="call_date" data-timepicker="true" data-time-format="hh:ii" data-callback-time="" readonly />
-                                </fieldset>
-
-                                <div class="field-set col col--1-2">
-                                    <br>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="call_now" id="call-popup-call-now" class="new-styler" onclick="disableDateHeader(this)"/>
-                                        <span class="checkbox__label">Позвоните прямо сейчас</span>
-                                    </label>
-                                </div>
 
 
                                 <script>
@@ -493,12 +481,6 @@
                                         $('#'+errorBlock).hide();
                                     }
 
-                                    var checkNow;
-                                    function disableDateHeader(checkBox){
-                                        checkNow = checkBox.checked;
-                                        var dateElement = document.getElementById('call-popup-call-date');
-                                        dateElement.disabled = checkBox.checked;
-                                    }
 
                                     //начало скрипта для раздела О компании под меню
                                     $(document).ready(function () {
@@ -611,20 +593,12 @@
                                             event.preventDefault();
                                             var fullname = $("#fullname").val();
                                             var phone = $("#phone-input").val();
-                                            var callDate = $('#call-popup-call-date').val();
-                                            var callNow;
-                                            if (checkNow) {
-                                                callNow = true;
-                                            }
-                                            else callNow = false;
                                             $.ajax({
                                                 url: "/sendhtmlemail",
                                                 type: 'get',
                                                 data: {
                                                     fullname: fullname,
                                                     phone: phone,
-                                                    callDate: callDate,
-                                                    callNow: callNow,
                                                 },
                                                 beforeSend: function () {
                                                     let a = false;
@@ -653,9 +627,8 @@
                                                 },
                                                 success: function (data) {
                                                     if (data == 'true') {
-                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
+                                                        $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение,</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
                                                         dataLayer.push({'event': 'callback_sent'});
-
                                                         $('#feedbackModal').css('max-height', '155px');
                                                     } else {
                                                         $("#cberror").html(data);
