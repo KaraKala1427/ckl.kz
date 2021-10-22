@@ -190,7 +190,7 @@
                             },
                             success: function (data) {
                                 if (data == 'true') {
-                                    $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
+                                    $(".callb1").html('<h3 style="color:springgreen">Ваше сообщение отправлено!</h3>');
                                     dataLayer.push({'event': 'callback_sent'});
 
                                     $('#feedbackModal1').css('max-height', '155px');

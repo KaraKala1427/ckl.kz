@@ -499,75 +499,6 @@
 
                                     //начало скрипта для обратного звонка
                                     $(document).ready(function () {
-                                        function calldate2312() {
-                                            var today1 = new Date();
-                                            let month,day,minutes;
-                                            if ((today1.getMonth()+1) < 10) {
-                                                month = '0' + today1.getMonth()+1;
-                                            }
-                                            else month = today1.getMonth()+1;
-                                            if ((today1.getDate()) < 10) {
-                                                day = '0' + today1.getDate();
-                                            }
-                                            else day = today1.getMonth()+1;
-                                            if( today1.getMinutes() < 10){
-                                                minutes = '0' + today1.getMinutes();
-                                            }
-                                            else minutes = today1.getMinutes();
-                                            var now = today1.getFullYear()+'-'+ month +'-' + day + ' ' + today1.getHours()+':' + minutes;
-                                            $("#call-popup-call-date").val(now);
-                                            $("#call-popup-call-date").closest('fieldset').addClass('has-success');
-
-                                        }
-
-                                        setTimeout(calldate2312, 2000);
-
-                                        /* Скрипты для формы Обратного звонка */
-                                        window.onload = function () {
-                                            // Зададим стартовую дату
-                                            var start = new Date(),
-                                                prevDay,
-                                                startHours = 9;
-                                            // 09:00
-                                            start.setHours(9);
-                                            start.setMinutes(0);
-                                            // Если сегодня суббота или воскресенье - 10:00
-                                            if ([6, 0].indexOf(start.getDay()) != -1) {
-                                                start.setHours(10);
-                                                startHours = 10
-                                            }
-                                            var dp = $('.modal [data-callback-time]').data('datepicker');
-                                            dp.update({
-                                                minDate: start,
-                                                startDate: start,
-                                                minHours: startHours,
-                                                maxHours: 18,
-                                                autoClose: true,
-                                                onSelect: function (fd, d, picker) {
-                                                    // Ничего не делаем если выделение было снято
-                                                    if (!d) return;
-                                                    var day = d.getDay();
-                                                    // Обновляем состояние календаря только если была изменена дата
-                                                    if (prevDay != undefined && prevDay == day) return;
-                                                    prevDay = day;
-                                                    // Если выбранный день суббота или воскресенье, то устанавливаем
-                                                    // часы для выходных, в противном случае восстанавливаем начальные значения
-                                                    if (day == 6 || day == 0) {
-                                                        picker.update({
-                                                            minHours: 10,
-                                                            maxHours: 16
-                                                        })
-                                                    } else {
-                                                        picker.update({
-                                                            minHours: 9,
-                                                            maxHours: 18
-                                                        })
-                                                    }
-                                                }
-                                            })
-
-
-                                        }
 
                                         var $loading = $("#loading");
                                         /* Подсветка Фио зеленым при заполнении */
@@ -625,7 +556,7 @@
                                                 },
                                                 success: function (data) {
                                                     if (data == 'true') {
-                                                        $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение,</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
+                                                        $(".callb").html('<h3 style="color:springgreen">Спасибо за обращение,</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong>. Обычно мы реагируем оперативно, но если сегодня выходной, то мы перезвоним Вам на следующий рабочий день!');
                                                         dataLayer.push({'event': 'callback_sent'});
                                                         $('#feedbackModal').css('max-height', '155px');
                                                     } else {
