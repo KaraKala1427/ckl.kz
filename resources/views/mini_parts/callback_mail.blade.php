@@ -192,7 +192,6 @@
                                 if (data == 'true') {
                                     $(".callb1").html('<h3 style="color:springgreen">Ваше сообщение отправлено!</h3>');
                                     dataLayer.push({'event': 'callback_sent'});
-
                                     $('#feedbackModal1').css('max-height', '155px');
                                 } else {
                                     $("#cberror").html(data);
@@ -211,42 +210,6 @@
 
             </script>
 
-            <style>
-                .localgrid {
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .localgrid section {
-                    width: 77%;
-                    margin: 10px auto;
-                }
-                .nav-section {
-                    display: none;
-                }
-                .removejust {
-                    display: none;
-                }
-
-                .card__image {
-                    width: 80%;
-                    height: 400px;
-                }
-
-                .card__image img {
-                    width: 100%;
-                }
-
-                @media (max-width: 991px) {
-                    .card__image {
-                        width: 80%;
-                        height: 150px;
-                    }
-
-                }
-            </style>
             <div class="col col--full">
                 <button type="submit" class="button button--prime"
                         id="submitcallback1">{{ __('navbar.bc8')}}
@@ -259,4 +222,39 @@
         </div>
     </form>
 </section>
+<style>
+    .localgrid {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .localgrid section {
+        width: 77%;
+        margin: 10px auto;
+    }
+    .nav-section {
+        display: none;
+    }
+    .removejust {
+        display: none;
+    }
+
+    .card__image {
+        width: 80%;
+        height: 400px;
+    }
+
+    .card__image img {
+        width: 100%;
+    }
+
+    @media (max-width: 991px) {
+        .card__image {
+            width: 80%;
+            height: 150px;
+        }
+
+    }
+</style>
