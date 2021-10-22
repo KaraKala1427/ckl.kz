@@ -103,9 +103,9 @@ class MailController extends Controller
 //        dd($request->request->all());
         $array = ($request->request->all());
         $data = array('frompage' => $array['frompage'], 'fullname' => $array['fullname'], 'phone' => $array['phone'],
-            'email' => $array['email'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow'], 'qst' => $array['qst']);
+            'email' => $array['email'], 'qst' => $array['qst']);
 
-        $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'], 'callDate' => $array['callDate'], 'callNow' => $array['callNow'], 'qst' => $array['qst']);
+        $writeToDataJson= array('frompage' => $array['frompage'],'email' => $array['email'], 'qst' => $array['qst']);
         $Mali = new Email();
         $Mali->fullname = $array['fullname'];
         $Mali->phone = $array['phone'];
