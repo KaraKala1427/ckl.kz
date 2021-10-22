@@ -22,27 +22,14 @@
 
 
             <fieldset class="field-set col col--1-2" style="false">
-                <label class="field-set__label">
-                    Эл. почта
-                </label>
-                <input type="email" class="field" name="email" id="email1"
-                       onclick="$(this).css('border-color','#ccc')"/>
+                <label class="field-set__label">Эл. почта</label>
+                <input type="email" class="field" name="email1" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">
+
+                <strong> <small id="email_error1" class="form-text text-"
+                                style=" display: none; color: crimson">Неправильный формат почты</small></strong>
             </fieldset>
 
-            <fieldset class="field-set col col--1-2">
-                <label class="field-set__label">Удобное время (время Астаны)</label>
-                <input type="text" class="field field--date" value="" id="call-popup-call-date1" name="call_date1"
-                       data-timepicker="true" data-time-format="hh:ii" data-callback-time="" readonly/>
-            </fieldset>
 
-            <div class="field-set col col--1-2">
-                <br>
-                <label class="checkbox">
-                    <input type="checkbox" name="call_now1" id="call-popup-call-now1" class="new-styler"
-                           onclick="disableDate(this)"/>
-                    <span class="checkbox__label">Позвоните прямо сейчас</span>
-                </label>
-            </div>
             <fieldset class="field-set col col--full" style="false">
                 <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea>
             </fieldset>
@@ -93,14 +80,11 @@
                 function showOrHideBlock(errorBlock, manipulationBlock) {
                     $('#' + errorBlock).hide();
                 }
-
-                var checkNow;
-
-                function disableDate(checkBox) {
-                    checkNow = checkBox.checked;
-                    var dateElement = document.getElementById('call-popup-call-date1');
-                    dateElement.disabled = checkBox.checked;
+                function validateEmail(email) {
+                    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(email);
                 }
+
 
                 //начало скрипта для раздела О компании под меню
                 $(document).ready(function () {
@@ -119,73 +103,7 @@
 
                 //начало скрипта для обратного звонка
                 $(document).ready(function () {
-                    function calldate2312() {
-                        var today1 = new Date();
-                        let month, day, minutes;
-                        if ((today1.getMonth() + 1) < 10) {
-                            month = '0' + today1.getMonth() + 1;
-                        } else month = today1.getMonth() + 1;
-                        if ((today1.getDate()) < 10) {
-                            day = '0' + today1.getDate();
-                        } else day = today1.getMonth() + 1;
-                        if (today1.getMinutes() < 10) {
-                            minutes = '0' + today1.getMinutes();
-                        } else minutes = today1.getMinutes();
-                        var now = today1.getFullYear() + '-' + month + '-' + day + ' ' + today1.getHours() + ':' + minutes;
 
-                        $("#call-popup-call-date1").val(now);
-                        $("#call-popup-call-date1").closest('fieldset').addClass('has-success');
-
-                    }
-
-                    setTimeout(calldate2312, 2000);
-
-                    /* Скрипты для формы Обратного звонка */
-                    window.onload = function () {
-                        // Зададим стартовую дату
-                        var start = new Date(),
-                            prevDay,
-                            startHours = 9;
-                        // 09:00
-                        start.setHours(9);
-                        start.setMinutes(0);
-                        // Если сегодня суббота или воскресенье - 10:00
-                        if ([6, 0].indexOf(start.getDay()) != -1) {
-                            start.setHours(10);
-                            startHours = 10
-                        }
-                        var dp = $('.modal [data-callback-time]').data('datepicker');
-                        dp.update({
-                            minDate: start,
-                            startDate: start,
-                            minHours: startHours,
-                            maxHours: 18,
-                            autoClose: true,
-                            onSelect: function (fd, d, picker) {
-                                // Ничего не делаем если выделение было снято
-                                if (!d) return;
-                                var day = d.getDay();
-                                // Обновляем состояние календаря только если была изменена дата
-                                if (prevDay != undefined && prevDay == day) return;
-                                prevDay = day;
-                                // Если выбранный день суббота или воскресенье, то устанавливаем
-                                // часы для выходных, в противном случае восстанавливаем начальные значения
-                                if (day == 6 || day == 0) {
-                                    picker.update({
-                                        minHours: 10,
-                                        maxHours: 16
-                                    })
-                                } else {
-                                    picker.update({
-                                        minHours: 9,
-                                        maxHours: 18
-                                    })
-                                }
-                            }
-                        })
-
-
-                    }
                     $loading = $("#loading1");
                     /* Подсветка Фио зеленым при заполнении */
                     $('input[name="fullname"]').keyup(function () {
@@ -211,12 +129,11 @@
                         var fullname = $("#fullname1").val();
                         var phone = $("#phone-input1").val();
                         var email = $('#email1').val();
+                        if(!validateEmail(email) && email.length !== 0) {
+                            $("#email_error1").show();
+                            return;
+                        }
                         var frompage = $('#frompage').val();
-                        var callDate = $('#call-popup-call-date1').val();
-                        var callNow;
-                        if (checkNow) {
-                            callNow = true;
-                        } else callNow = false;
                         var qst = $('#qst').val();
 
                         $.ajax({
@@ -228,9 +145,6 @@
                                 email: email,
                                 qst: qst,
                                 frompage: frompage,
-                                callDate: callDate,
-                                callNow: callNow,
-
                             },
                             beforeSend: function () {
                                 let a = false;
@@ -244,25 +158,40 @@
                                     $("#phone_error1").show();
                                     a = true;
                                 }
+                                function validate() {
+                                    const $result = $("#result");
+                                    const email = $("#email1").val();
+                                    $result.text("");
+
+                                    if (validateEmail(email)) {
+                                        console.log('asd');
+                                        $result.text(email + " is valid :)");
+                                        $result.css("color", "green");
+                                    } else {
+                                        console.log('false');
+                                        $result.text(email + " is not valid :(");
+                                        $result.css("color", "red");
+                                    }
+                                    return false;
+                                }
+
+                                $("#email1").on("input", validate);
                                 if (a) return false;
 
                                 $loading.show();
                                 $("#fullname_error1").hide();
                                 $("#phone_error1").hide();
                                 $('#submitcallback1').hide();
-
                             },
                             complete: function () {
                                 console.log('ушло сообщение')
                                 $loading.hide();
                                 $('#submitcallback1').show();
-
                             },
                             success: function (data) {
                                 if (data == 'true') {
-                                    $(".callb1").html('<h3 style="color:springgreen">Спасибо за обращение!</h3> С Вами свяжутся по номеру <strong style="color:black;">+7' + phone + '</strong> в указанное в заявке время.');
+                                    $(".callb1").html('<h3 style="color:springgreen">Ваше сообщение отправлено!</h3>');
                                     dataLayer.push({'event': 'callback_sent'});
-
                                     $('#feedbackModal1').css('max-height', '155px');
                                 } else {
                                     $("#cberror").html(data);
@@ -280,42 +209,7 @@
 
 
             </script>
-            <style>
-                .localgrid {
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
 
-                .localgrid section {
-                    width: 77%;
-                    margin: 10px auto;
-                }
-                .nav-section {
-                    display: none;
-                }
-                .removejust {
-                    display: none;
-                }
-
-                .card__image {
-                    width: 80%;
-                    height: 400px;
-                }
-
-                .card__image img {
-                    width: 100%;
-                }
-
-                @media (max-width: 991px) {
-                    .card__image {
-                        width: 80%;
-                        height: 150px;
-                    }
-
-                }
-            </style>
             <div class="col col--full">
                 <button type="submit" class="button button--prime"
                         id="submitcallback1">{{ __('navbar.bc8')}}
@@ -328,4 +222,39 @@
         </div>
     </form>
 </section>
+<style>
+    .localgrid {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .localgrid section {
+        width: 77%;
+        margin: 10px auto;
+    }
+    .nav-section {
+        display: none;
+    }
+    .removejust {
+        display: none;
+    }
+
+    .card__image {
+        width: 80%;
+        height: 400px;
+    }
+
+    .card__image img {
+        width: 100%;
+    }
+
+    @media (max-width: 991px) {
+        .card__image {
+            width: 80%;
+            height: 150px;
+        }
+
+    }
+</style>
