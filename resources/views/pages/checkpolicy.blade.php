@@ -124,13 +124,14 @@
                                                             company: 'ckl',
                                                             token: "wesvk345sQWedva55sfsd*g"
                                                         },
-                                                        success: function (data) {
-                                                            if(data.code == 200){
-                                                                $("#policyResult").html('<p>' + data.message + '</p>');
+                                                        success: function (data, textStatus, xhr) {
+                                                            if(data.status == "active"){
+                                                                $("#policyResult").html('<p style="color:#276318">' + data.message + '</p>');
                                                                 $("#policyResult").show();
                                                                 $("#reload").click()
+                                                                $("#captcha").val('');
                                                             }
-                                                            else if(data.code == 406){
+                                                            else if(data.status == "disactive"){
                                                                 $("#policyResult").html('<p class="error">' + data.message + '</p>');
                                                                 $("#policyResult").show();
                                                                 $("#reload").click();
