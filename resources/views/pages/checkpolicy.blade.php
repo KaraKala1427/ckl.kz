@@ -125,20 +125,15 @@
                                                             token: "wesvk345sQWedva55sfsd*g"
                                                         },
                                                         success: function (data) {
-                                                            if(data.status == 'expired' && data.code == 200){
-                                                                $("#policyExpired").html('<p class="error">Срок действия полиса с номером ' + data.id + '  истек.</p>');
-                                                                $("#policyExpired").show();
-                                                                $("#reload").click();
-                                                                // $("#captcha").val(''); // стирает капчу который неактуальный
+                                                            if(data.code == 200){
+                                                                $("#policyResult").html('<p>' + data.message + '</p>');
+                                                                $("#policyResult").show();
+                                                                $("#reload").click()
                                                             }
-                                                            else if(data.status == 'success' && data.code == 200){
-                                                                $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
+                                                            else if(data.code == 406){
+                                                                $("#policyResult").html('<p class="error">' + data.message + '</p>');
+                                                                $("#policyResult").show();
                                                                 $("#reload").click();
-                                                            }
-                                                            if(data.code == 404){
-                                                                $("#reload").click();
-                                                                // $("#captcha").val('');
-                                                                $("#policyError").show();
                                                             }
                                                         },
                                                     })
@@ -175,8 +170,7 @@
                                         disabled="">{{ __('navbar.bc9')}}
                                 </button>
                             </div>
-                            <div id="policyError" style="display: none" >
-                                <p class="error">Договор страхования не найден. Пожалуйста, проверьте правильность ввода номера договора!</p>
+                            <div id="policyResult" style="display: none" >
                             </div>
                             <div id="policyExpired" style="display: none" >
                             </div>
