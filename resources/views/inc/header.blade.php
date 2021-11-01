@@ -304,6 +304,11 @@
                                         <a href="{{ route('contacts')}}"
                                            class="link nav__item nav__item--tab">{{ __('navbar.mf4')}}</a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('checkpolicy') }}"
+                                           class="link nav__item nav__item--tab">{{ __('navbar.mf33')}}
+                                        </a>
+                                    </li>
 
 
                                 </ul>

@@ -64,8 +64,7 @@
                                         if ($(this).val().length > 1) {
                                             $(this).closest('fieldset').addClass('has-success');
                                             $(this).closest('fieldset').removeClass('has-error');
-                                            $("#policyExpired").hide();
-                                            $("#policyError").hide();
+                                            $("#policyResult").hide();
                                         } else {
                                             $(this).closest('fieldset').removeClass('has-success');
                                         }
@@ -124,7 +123,7 @@
                                                             company: 'ckl',
                                                             token: "wesvk345sQWedva55sfsd*g"
                                                         },
-                                                        success: function (data, textStatus, xhr) {
+                                                        success: function (data) {
                                                             if(data.status == "active"){
                                                                 $("#policyResult").html('<p style="color:#276318">' + data.message + '</p>');
                                                                 $("#policyResult").show();
@@ -135,8 +134,15 @@
                                                                 $("#policyResult").html('<p class="error">' + data.message + '</p>');
                                                                 $("#policyResult").show();
                                                                 $("#reload").click();
+                                                                $("#captcha").val('');
                                                             }
                                                         },
+                                                         error: function(data){
+                                                             $("#policyResult").html('<p class="error">' + data.responseJSON.message + '</p>');
+                                                             $("#policyResult").show();
+                                                             $("#reload").click();
+                                                             $("#captcha").val('');
+                                                         }
                                                     })
                                                     dataLayer.push({'event': 'callback_sent'});
                                                     $('#feedbackModal1').css('max-height', '155px');
@@ -172,8 +178,6 @@
                                 </button>
                             </div>
                             <div id="policyResult" style="display: none" >
-                            </div>
-                            <div id="policyExpired" style="display: none" >
                             </div>
                         </div>
                     </form>
