@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description"
           content="Финансовая защита от последствий несчастных случаев на работе. Программы пенсионного накопления и страхования жизни.">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="alternate" type="application/rss+xml" title="" href="rss.xml"/>
     <meta name="viewport" content="width=device-width">
     <link rel="apple-touch-icon" href="">
