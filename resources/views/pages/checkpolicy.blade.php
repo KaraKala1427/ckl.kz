@@ -64,8 +64,7 @@
                                         if ($(this).val().length > 1) {
                                             $(this).closest('fieldset').addClass('has-success');
                                             $(this).closest('fieldset').removeClass('has-error');
-                                            $("#policyExpired").hide();
-                                            $("#policyError").hide();
+                                            $("#policyResult").hide();
                                         } else {
                                             $(this).closest('fieldset').removeClass('has-success');
                                         }
@@ -125,22 +124,25 @@
                                                             token: "wesvk345sQWedva55sfsd*g"
                                                         },
                                                         success: function (data) {
-                                                            if(data.status == 'expired' && data.code == 200){
-                                                                $("#policyExpired").html('<p class="error">Срок действия полиса с номером ' + data.id + '  истек.</p>');
-                                                                $("#policyExpired").show();
-                                                                $("#reload").click();
-                                                                // $("#captcha").val(''); // стирает капчу который неактуальный
+                                                            if(data.status == "active"){
+                                                                $("#policyResult").html('<p style="color:#276318">' + data.message + '</p>');
+                                                                $("#policyResult").show();
+                                                                $("#reload").click()
+                                                                $("#captcha").val('');
                                                             }
-                                                            else if(data.status == 'success' && data.code == 200){
-                                                                $(".callb1").html('<h3>Номер договора : ' + data.id + '</h3><br><h3>Статус договора : ' + data.st + '</h3><br><h3>Даты действия : ' + data.period + '</h3>');
+                                                            else if(data.status == "disactive"){
+                                                                $("#policyResult").html('<p class="error">' + data.message + '</p>');
+                                                                $("#policyResult").show();
                                                                 $("#reload").click();
-                                                            }
-                                                            if(data.code == 404){
-                                                                $("#reload").click();
-                                                                // $("#captcha").val('');
-                                                                $("#policyError").show();
+                                                                $("#captcha").val('');
                                                             }
                                                         },
+                                                         error: function(data){
+                                                             $("#policyResult").html('<p class="error">' + data.responseJSON.message + '</p>');
+                                                             $("#policyResult").show();
+                                                             $("#reload").click();
+                                                             $("#captcha").val('');
+                                                         }
                                                     })
                                                     dataLayer.push({'event': 'callback_sent'});
                                                     $('#feedbackModal1').css('max-height', '155px');
@@ -175,10 +177,7 @@
                                         disabled="">{{ __('navbar.bc9')}}
                                 </button>
                             </div>
-                            <div id="policyError" style="display: none" >
-                                <p class="error">Договор страхования не найден. Пожалуйста, проверьте правильность ввода номера договора!</p>
-                            </div>
-                            <div id="policyExpired" style="display: none" >
+                            <div id="policyResult" style="display: none" >
                             </div>
                         </div>
                     </form>
