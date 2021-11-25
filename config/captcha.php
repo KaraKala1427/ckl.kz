@@ -48,3 +48,4 @@ return [
         'contrast' => -5,
     ]
 ];
+

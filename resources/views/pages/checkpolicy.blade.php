@@ -81,7 +81,6 @@
                                     /*Post запрос Обратного звонка с условиями*/
                                     $('#submitcallback1').click(async function (event) {
                                         event.preventDefault();
-                                        // alert('контактный аяах');
                                         var code = $("#code").val();
                                         var captcha = $("#captcha").val();
 
@@ -129,12 +128,14 @@
                                                                 $("#policyResult").show();
                                                                 $("#reload").click()
                                                                 $("#captcha").val('');
+                                                                $("#captcha_error").val('');
                                                             }
                                                             else if(data.status == "disactive"){
                                                                 $("#policyResult").html('<p class="error">' + data.message + '</p>');
                                                                 $("#policyResult").show();
                                                                 $("#reload").click();
                                                                 $("#captcha").val('');
+                                                                $("#captcha_error").val('');
                                                             }
                                                         },
                                                          error: function(data){
@@ -142,6 +143,7 @@
                                                              $("#policyResult").show();
                                                              $("#reload").click();
                                                              $("#captcha").val('');
+                                                             $("#captcha_error").val('');
                                                          }
                                                     })
                                                     dataLayer.push({'event': 'callback_sent'});

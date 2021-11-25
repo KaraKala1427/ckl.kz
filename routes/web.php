@@ -131,7 +131,8 @@ Route::group([
     Route::get('/press/{year?}', [PressController::class, 'press_by_year'])->name('press_by_year');
 
     Route::get('/covid', [CovidController::class, 'index'])->name('covid');
-    Route::post('/covid', [CovidController::class, 'answer'])->name('ajaxRequest.post');
+    Route::post('/covid/getSubject', [CovidController::class, 'getClient'])->name('covid.getClient');
+    Route::post('/covid/setSubject', [CovidController::class, 'setClient'])->name('covid.setClient');
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
