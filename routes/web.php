@@ -132,7 +132,7 @@ Route::group([
 
     Route::get('/covid', [CovidController::class, 'index'])->name('covid');
     Route::post('/covid/getSubject', [CovidController::class, 'getClient'])->name('covid.getClient');
-    Route::post('/covid/setSubject', [CovidController::class, 'setClient'])->name('covid.setClient');
+    Route::post('/covid/setOrder', [CovidController::class, 'setOrder'])->name('covid.setOrder');
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);

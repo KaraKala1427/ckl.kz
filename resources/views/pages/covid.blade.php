@@ -10,7 +10,7 @@
 
 
             <!-- ИИН -->
-            <form action="{{route('covid.setClient')}}" method="POST" id="">
+            <form action="{{route('covid.setOrder')}}" method="POST" id="covidFrom">
                 @csrf
                 <div class="grid">
                     <div id="ajax"></div>
@@ -105,7 +105,7 @@
                     <fieldset class="field-set col col--4-12">
                         <label class="field-set__label"></label>
                         <label class="checkbox">
-                            <input type="checkbox" name="insured[]" id="insured1" value="yes" class="datas agentData1" checked="checked">
+                            <input type="checkbox" name="insured[]" id="insured1" value="yes" class="datas agentData1" checked="checked" disabled>
                             <span class="checkbox__label">Застрахованный является Страхователем</span>
                         </label>
                     </fieldset>
@@ -127,14 +127,14 @@
                     <fieldset class="field-set col col--6-12">
                         <label for="orderPhone" class="field-set__label checkList">
                             Мобильный телефон </label>
-                        <input type="tel" class="field interTel datas phone_number" id="Phone" name="Phone" value="">
+                        <input type="tel" class="field interTel datas phone_number" id="phone" name="phone" value="">
                     </fieldset>
 
                     <!-- E-Mail -->
                     <fieldset class="field-set col col--6-12">
                         <label for="orderEmail" class="field-set__label checkList">
                             E-Mail </label>
-                        <input type="text" class="field datas keyboardInput agentData1" id="Email" name="Email"
+                        <input type="text" class="field datas keyboardInput agentData1" id="email" name="email"
                                value="">
                         <div class="small col" id="checkEmail1"></div>
                     </fieldset>
@@ -143,7 +143,7 @@
                     <fieldset class="field-set col col--6-12">
                         <label for="orderEmail" class="field-set__label checkList">
                             Страховая сумма</label>
-                        <input type="text" class="field datas keyboardInput agentData1" id="Calc_Sum" name="Calc_Sum"
+                        <input type="text" class="field datas keyboardInput agentData1" id="limitSum" name="limitSum"
                                value="">
                         <div class="small col" id="checkEmail1"></div>
                         <p class="small text-grey">Период страхования - 12 месяцев</p>
@@ -218,9 +218,6 @@
         </div>
     </div>
 
-
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/imask"></script>
     <script type="text/javascript">
@@ -232,6 +229,9 @@
             });
             $('.edate').val("");
 
+            $('#covidFrom').submit(function(event){
+                event.preventDefault();
+            });
             var input = document.querySelectorAll('.edate');
             var dateInputMask = function dateInputMask(elm) {
                 elm.addEventListener('keypress', function (e) {
@@ -261,7 +261,7 @@
         });
 
         var phoneMask = IMask(
-            document.getElementById('Phone'), {
+            document.getElementById('phone'), {
                 mask: '+{7}(000)000-00-00'
             });
         6
@@ -271,8 +271,9 @@
             input.value = input.value.replace(/\D/g, '');
         }
 
-        $(".iins").on('keypress change', async function load_iin() {
+        $(".iins").on('keypress change', async function () {
             var iin = $("#iin").val();
+            console.log(iin);
             if (iin.length == 12) {
                 $.ajax({
                     type: 'POST',
@@ -293,21 +294,13 @@
                             $("#documentGivedDate").val(data.DOCUMENT_GIVED_DATE)
                             $("#documentNumber").val(data.DOCUMENT_NUMBER)
                             $("#documentGivedBy").val(data.DOCUMENT_GIVED_BY)
+                            $("#documentTypeId").val(data.DOCUMENT_GIVED_BY)
                         }
                     }
                 });
             }
         });
 
-        // var lastName = $("#lastName").val();
-        // var firstName = $("#firstName").val();
-        // var patronymicName = $("#patronymicName").val();
-        // var born = $("#born").val();
-        // var documentGivedDate = $("#documentGivedDate").val();
-        // var documentNumber = $("#documentNumber").val();
-        // var email = $("#email").val();
-        // var phone = $("#phone").val();
-        // var limitSum = $("#limitSum").val();
     </script>
 
 
