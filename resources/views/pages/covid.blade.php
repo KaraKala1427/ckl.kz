@@ -1,14 +1,200 @@
 @extends('layouts.general')
 
 @section('content')
+
+
     <div class="calculator__block bg-grey entry agentBlock" id="section1">
+        <div id="overLoader" class="overLoader" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                 style="margin:auto;display:block;" width="60%" height="60%" viewBox="0 0 100 100"
+                 preserveAspectRatio="xMidYMid">
+                <circle cx="6.451612903225806" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-0.5s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="0s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-0.5s"></animate>
+                </circle>
+                <circle cx="6.451612903225806" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.5s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-0.5s"></animate>
+                </circle>
+                <circle cx="16.129032258064512" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-0.7s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-0.2s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-0.7s"></animate>
+                </circle>
+                <circle cx="16.129032258064512" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.7s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.2s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-0.7s"></animate>
+                </circle>
+                <circle cx="25.806451612903224" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-0.9s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-0.4s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-0.9s"></animate>
+                </circle>
+                <circle cx="25.806451612903224" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.9s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.4s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-0.9s"></animate>
+                </circle>
+                <circle cx="35.48387096774193" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.1s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-0.6s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-1.1s"></animate>
+                </circle>
+                <circle cx="35.48387096774193" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.1s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.6s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-1.1s"></animate>
+                </circle>
+                <circle cx="45.16129032258064" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.3s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-0.8s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-1.3s"></animate>
+                </circle>
+                <circle cx="45.16129032258064" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.3s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.8s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-1.3s"></animate>
+                </circle>
+                <circle cx="54.838709677419345" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.5s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-1.5s"></animate>
+                </circle>
+                <circle cx="54.838709677419345" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.5s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-2s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-1.5s"></animate>
+                </circle>
+                <circle cx="64.51612903225805" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.7s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.2s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-1.7s"></animate>
+                </circle>
+                <circle cx="64.51612903225805" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.7s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-2.2s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-1.7s"></animate>
+                </circle>
+                <circle cx="74.19354838709677" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-1.9s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.4s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-1.9s"></animate>
+                </circle>
+                <circle cx="74.19354838709677" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.9s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-2.4s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-1.9s"></animate>
+                </circle>
+                <circle cx="83.87096774193547" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.1s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.6s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-2.1s"></animate>
+                </circle>
+                <circle cx="83.87096774193547" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-3.1s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-2.6s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-2.1s"></animate>
+                </circle>
+                <circle cx="93.54838709677418" cy="50" r="3" fill="#d8b2d8">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-2.3s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-1.8s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#d8b2d8;#dcc2e2;#d8b2d8" dur="2s"
+                             repeatCount="indefinite" begin="-2.3s"></animate>
+                </circle>
+                <circle cx="93.54838709677418" cy="50" r="3" fill="#9eccef">
+                    <animate attributeName="r" times="0;0.5;1"
+                             values="2.4000000000000004;3.5999999999999996;2.4000000000000004" dur="2s"
+                             repeatCount="indefinite" begin="-3.3s"></animate>
+                    <animate attributeName="cy" keyTimes="0;0.5;1" values="32;68;32" dur="2s" repeatCount="indefinite"
+                             begin="-2.8s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
+                    <animate attributeName="fill" keyTimes="0;0.5;1" values="#9eccef;#62d1e7;#9eccef" dur="2s"
+                             repeatCount="indefinite" begin="-2.3s"></animate>
+                </circle>
+            </svg>
+        </div>
         <div class=""></div>
         <h3 class="calculator__title">
             Личные данные</h3>
         <div class="grid">
             <div id="ajax"></div>
-
-
             <!-- ИИН -->
             <form action="{{route('covid.setOrder')}}" method="POST" id="covidFrom">
                 @csrf
@@ -25,8 +211,7 @@
                                    type="" name="iin" maxlength="12">
                         </fieldset>
                     </div>
-                    <div id="overLoader" class="wheel-loading" style="display: none; ">
-                        <img src="{{ asset('images/ajax-loader.gif') }}" alt="Loading..."></div>
+
                     <!-- Имя -->
                     <fieldset class="field-set col col--3-12" style="false">
                         <label for="orderfirstName" class="field-set__label checkList">
@@ -98,7 +283,7 @@
                         <label for="orderDocDate" class="field-set__label checkList">
                             Дата выдачи документа
                         </label>
-                        <input class="field field--date datas edate" id="documentGivedDate" type="tel"
+                        <input class="field field--date datas edate" id="documentGivedDate"
                                name="documentGivedDate" maxlength="10" placeholder="dd.mm.yyyy" value=""
                                autocomplete="off">
                     </fieldset>
@@ -226,6 +411,7 @@
                         </fieldset>
 
 
+
                         <fieldset class="field-set col col--6-12" style="false">
                             <h3 class="col">Дата начала договора</h3>
                             <input class="field field--date edate col--6-12" id="agrBeg" type="tel" name="agrBeg"
@@ -284,8 +470,6 @@
             </form>
         </div>
     </div>
-
-
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -374,7 +558,70 @@
             }
         });
 
+
+        ///// validateData
+
+                function validateData() {
+                    var errors = '';
+                    var d = new Date();
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate() + 1;
+                    var nowDate = d.getFullYear() +
+                        (month < 10 ? '0' : '')
+                        + month +
+                        (day < 10 ? '0' : '') + day;
+                    var splitted = $("#agrBeg").val().split('.');
+                    var agrDate = splitted[2] + splitted[1] + splitted[0];
+
+                    var regEx = /^([0-9]{2})\.([0-9]{2})\.([0-9]{4})$/;
+                    var maxDate = new Date();
+                    maxDate.setDate(maxDate.getDate() + 90);
+                    var maxMonth = maxDate.getMonth() + 1;
+                    var maxDay = maxDate.getDate() + 1;
+                    var futureDate = maxDate.getFullYear() +
+                        (maxMonth < 10 ? '0' : '')
+                        + maxMonth +
+                        (maxDay < 10 ? '0' : '') + maxDay;
+                    var beg = $("#agrBeg").val();
+                    var begSplit = beg.split('.');
+                    var begDate = begSplit[2] + begSplit[1] + begSplit[0];
+
+                    var end = $("#agrEnd").val();
+                    var endSplit = end.split('.');
+                    var endDate = endSplit[2] + endSplit[1] + endSplit[0];
+
+                    if ($("#agrBeg").val() == '' || !regEx.test($("#agrBeg").val())
+                        || agrDate < nowDate || $('.agentSection').data('type')
+                        !== 'renew' && agrDate > futureDate || endDate - begDate < 5) {
+                        errors += '<u>Не указана:</u> Дата начала договора<br/>';
+                        $("html, body").animate({
+                            scrollTop: $("#forAgrBeg").offset().top
+                        }, 2000);
+                    }
+
+                    if ($("#agrEnd").val() == '' || !regEx.test($("#agrEnd").val())) {
+                        errors += '<u>Не указана:</u> Дата окончания договора<br/>';
+                        $("html, body").animate({
+                            scrollTop: $("#forAgrBeg").offset().top
+                        }, 2000);
+                    }
+                }
+
+
+
+
+                $(function (){
+
+                    $("#agrBeg").datepicker({
+                        minDate: new Date(),
+                        clearButton: true,
+
+
+                    });
+                });
     </script>
+
+
 
 
 

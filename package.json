@@ -26,6 +26,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "air-datepicker": "^3.0.1",
         "black-dashboard": "^1.0.0",
         "bootstrap": "^4.6.0",
         "imask": "^6.2.2",

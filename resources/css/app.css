@@ -15713,7 +15713,7 @@ li + .nav__separate {
 }
 
 .calculator__block--special {
-    border: 1px solid #d1dcec;
+    border: 1px solid red;
 }
 
 .calculator__block--spacer {
@@ -18676,6 +18676,5 @@ strong {
 .logo_image{
     display: none;
 }
-
 
 
