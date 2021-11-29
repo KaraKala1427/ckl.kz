@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Helpers\EnsOrderHelper;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use GuzzleHttp\Client;
@@ -21,7 +22,7 @@ class  CovidController extends Controller
             'token'  => "wesvk345sQWedva55sfsd*g",
             'iin'    => $request->iin
         ])->json();
-        $response = self::secret($response);
+        $response = EnsOrderHelper::secret($response);
         $this->kiasClient =  $response['client'];
         return response()->json($response);
     }
@@ -31,16 +32,22 @@ class  CovidController extends Controller
     {
         $array = $request->all();
         $dataOrder = $this->formDataOrder($array);
-        $order = new Order();
+        if(isset($array['order_id'])){
+           $order = Order::findOrFail($array['order_id']);
+        }
+        else $order = new Order();
         $this->saveOrder($order, $array, $dataOrder);
-        $subjISN = $this->setSubject($order);
-        self::updateOrder($order, $subjISN);
+        $responseSubjISN = $this->setSubject($order);
+        if($responseSubjISN['code'] != 200) return $responseSubjISN['error'];
+        $subjISN = $responseSubjISN['subjectISN'];
+        $key = 0;
+        self::updateOrder($order, $subjISN, $key);
         $responseDoc  = $this->setDocs($subjISN, $order);
         if($responseDoc['code'] != 200) return $responseDoc['error'];
         $responseESBD = $this->setSubjectESBD($subjISN);
         if($responseESBD['code'] == 200){
-            $dateBeg = $this->getFieldValue($order, 'dateBeg');
-            $dateEnd = $this->getFieldValue($order, 'dateEnd');
+            $dateBeg = $this->getFieldOrderData($order, 'dateBeg');
+            $dateEnd = $this->getFieldOrderData($order, 'dateEnd');
             if($order->agr_isn == null){
                 $responseAgr = $this->setAgreement($subjISN, $dateBeg, $dateEnd, $order);
                 if($responseAgr['code'] != 200) return $responseAgr['error'];
@@ -56,11 +63,12 @@ class  CovidController extends Controller
             $responseRole = $this->setAgrRole($subjISN, $order);
             if($responseRole['code'] != 200) return $responseRole['error'];
             $responseAttributes = $this->setAttributes($subjISN, $order);
-            if($responseAttributes == 'ok'){
+            if($responseAttributes['result'] == 'ok'){
                 $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
                 if($responseCond['code'] != 200) return $responseCond['error'];
-                $responseCalc = $this->agrCalculate($order->agr_isn);
-                if($responseCalc['code'] == 200) return $responseCalc['premium'];   // при успешном прохождении цепочки запросов (endpoint)
+                $responseCalc = $this->agrCalculate($order);
+                $finalArray = [$order->id, $hash, $responseCalc['premium']];
+                if($responseCalc['code'] == 200) return $finalArray;   // при успешном прохождении цепочки запросов (endpoint)
                 return $responseCalc['error'];
             }
             return $responseAttributes['error'];
@@ -70,17 +78,17 @@ class  CovidController extends Controller
     }
     public function setSubject(Order $order)
     {
+        $orderDataUser = $this->getFieldOrderData($order,'subjects')[0]['user'];
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setClient',[
             "token"     => "wesvk345sQWedva55sfsd*g",
-            "iin"       => $order->iin,
-            "fullName"  => $order->first_name." ".$order->last_name,
+            "iin"       => $orderDataUser['iin'],
+            "fullName"  => $orderDataUser['first_name']." ".$orderDataUser['last_name'],
             "resident"  => "Y",
             "juridical" => "N",
-            "sex"       => self::convertBoolToSex($this->kiasClient['Sex_ID']),
-            "birthDay"  => $this->kiasClient['Born']
+            "sex"       => EnsOrderHelper::identifySexByIIN($orderDataUser['iin']),
+            "birthDay"  => $orderDataUser['born']
         ])->json();
-        if($response['code'] == 200) return $response['subjectISN'];
-        else return $response['error'];
+        return $response;
     }
 
     public function setDocs($subjISN, Order $order)
@@ -92,8 +100,7 @@ class  CovidController extends Controller
             "docClassName"  => $subjectDocs['document_class_name'],
             "docNo"         => $subjectDocs['document_number'],
             "docIssuedBy"   => $subjectDocs['document_gived_by'],
-            "docDateBeg"    => $this->getFieldValue($order, 'dateBeg'),
-            "docDateEnd"    => $this->getFieldValue($order, 'dateEnd'),
+            "docDateBeg"    => $subjectDocs['document_gived_date'],
         ])->json();
         return $response;
     }
@@ -118,6 +125,9 @@ class  CovidController extends Controller
         ])->json();
         if($response['code'] == 200) {
             $order->agr_isn = $response['agr_isn'];
+            $dataOrder = json_decode($order->order_data);
+            $dataOrder['agrISN'] = $response['agr_isn'];
+            $order->order_data = json_encode($dataOrder);
             $order->save();
         }
         return $response;
@@ -146,11 +156,13 @@ class  CovidController extends Controller
 
     public function setAgrObj($subjISN, Order $order)
     {
+        $orderDataUser = $this->getFieldOrderData($order,'subjects')[0]['user'];
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrObject',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "subjISN"   => $subjISN,
             "agrISN"    => $order->agr_isn,
-            "objName"   => $order->first_name." ".$order->last_name,
+            "objName"   => $orderDataUser['first_name']." ".$orderDataUser['last_name'],
         ])->json();
         return $response;
     }
@@ -163,8 +175,7 @@ class  CovidController extends Controller
             "agrISN"    => $order->agr_isn,
             "role"      => "insurer",
         ])->json();
-        if($response['code'] == 200) return $response['role_isn'];
-        else return $response['error'];
+         return $response;
     }
 
     public function setAttributes($subjISN, Order $order)
@@ -172,11 +183,11 @@ class  CovidController extends Controller
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAllAttribute',[
             "token"      => "wesvk345sQWedva55sfsd*g",
             "subjISN"    => $subjISN,
-            "agrISN"     => $order->agr_isn,
-            "email"     => $order->email,
-            "phone"     => $order->phone,
-            "programISN" => $this->getFieldValue($order, 'programISN'),
-            "notificationISN" => $this->getFieldValue($order, 'notificationISN'),
+            "agrISN"     => $this->getFieldOrderData($order, 'agrISN'),
+            "email"     => $this->getFieldOrderData($order, 'email'),
+            "phone"     => $this->getFieldOrderData($order, 'phone'),
+            "programISN" => $this->getFieldOrderData($order, 'programISN'),
+            "notificationISN" => $this->getFieldOrderData($order, 'notificationISN'),
         ])->json();
         return $response;
     }
@@ -192,22 +203,19 @@ class  CovidController extends Controller
 
         return $response;
     }
-    public function agrCalculate($agrISN)
+    public function agrCalculate(Order $order)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/agrCalculate',[
             "token"      => "wesvk345sQWedva55sfsd*g",
-            "agrISN"     => $agrISN
+            "agrISN"     => $order->agr_isn
         ])->json();
-        if($response['code'] == 200) return $response['premium'];
-        else return $response['error'];
-    }
-
-    public static function secret($response)
-    {
-        $response['client']['DOCUMENT_GIVED_DATE'] = substr($response['client']['DOCUMENT_GIVED_DATE'], 0, 1) . "*.**.***" . substr($response['client']['DOCUMENT_GIVED_DATE'], -1);
-        $response['client']['DOCUMENT_NUMBER'] = substr($response['client']['DOCUMENT_NUMBER'], 0, 2) . "*****" . substr($response['client']['DOCUMENT_NUMBER'], -2);
+        if($response['code'] == 200){
+            $order->premium_sum = $response['premium'];
+            $order->save();
+        }
         return $response;
     }
+
     public function saveOrder(Order $order, $array, $dataOrder)
     {
         $order->product = 'covid';
@@ -231,6 +239,7 @@ class  CovidController extends Controller
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
             'dateEnd' => $array['dateEnd'],
+            'agrISN'  => null,
             'subjects' => [
                 0 => [
                     'kias' => [
@@ -243,7 +252,7 @@ class  CovidController extends Controller
                         'document_gived_date' => $this->kiasClient['DOCUMENT_GIVED_DATE'],
                         'document_number' => $this->kiasClient['DOCUMENT_NUMBER'],
                         'document_gived_by' => $this->kiasClient['DOCUMENT_GIVED_BY'],
-                        'document_class_name' => $this->convertDocCLassName($this->kiasClient['DOCUMENT_TYPE_ID']),
+                        'document_class_name' => EnsOrderHelper::convertDocCLassName($this->kiasClient['DOCUMENT_TYPE_ID']),
                     ],
                     'user' => [
                         'subjISN' => null,
@@ -255,18 +264,18 @@ class  CovidController extends Controller
                         'document_gived_date' => $array['documentGivedDate'],
                         'document_number' => $array['documentNumber'],
                         'document_gived_by' => $array['documentGivedBy'],
-                        'document_class_name' => $this->convertDocCLassName($array['documentTypeId']),
+                        'document_class_name' => EnsOrderHelper::convertDocCLassName($array['documentTypeId']),
                     ],
                 ],
             ],
         ]);
         return $dataOrder;
     }
-    public static function updateOrder(Order $order, $subjISN)
+    public static function updateOrder(Order $order, $subjISN , $key = 0)
     {
         $dataOrder = json_decode($order->order_data)['subjects'];
-        $dataOrder[0]['kias']['subjISN'] = $subjISN;
-        $dataOrder[0]['user']['subjISN'] = $subjISN;
+        $dataOrder[$key]['kias']['subjISN'] = $subjISN;
+        $dataOrder[$key]['user']['subjISN'] = $subjISN;
         $order->order_data = json_encode($dataOrder);
         $order->save();
     }
@@ -277,43 +286,27 @@ class  CovidController extends Controller
 
     }
 
-    public static function convertBoolToSex($string)
-    {
-        return $string == '1' ? 'М' : 'Ж';
-    }
-
     public function getFinalSubject(Order $order)
     {
+        $result = [];
         $subject = json_decode($order->order_data)['subjects'];
+        $result['document_gived_by'] = $subject[0]['user']['document_gived_by'];
+        $result['document_class_name'] = $subject[0]['user']['document_class_name'];
         if (strpos($subject[0]['user']['document_number'],'*') !== false)
         {
-            return $subject[0]['kias'];
+            $result['document_number'] = $subject[0]['kias']['document_number'];
         }
-        return $subject[0]['user'];
-    }
-    public function convertDocCLassName($typeId)
-    {
-        switch ($typeId) {
-            case '1':
-                $docClassName = 'Удостоверение личности гражданина Казахстана';
-                break;
-            case '2':
-                $docClassName = 'Паспорт гражданина Казахстана';
-                break;
-            case '3':
-                $docClassName = 'Свидетельство о рождении';
-                break;
-            case '4':
-                $docClassName = 'Вид на жительство';
-                break;
-            case '8':
-                $docClassName = 'Служебный паспорт Республики Казахстан';
-                break;
+        else $result['document_number'] = $subject[0]['user']['document_number'];
+        if (strpos($subject[0]['user']['document_gived_date'],'*') !== false)
+        {
+            $result['document_gived_date'] = $subject[0]['kias']['document_gived_date'];
         }
-        return $docClassName;
+        else $result['document_gived_date'] = $subject[0]['user']['document_gived_date'];
+
+        return $result;
     }
 
-    public function getFieldValue(Order $order, $param)
+    public function getFieldOrderData(Order $order, $param)
     {
         $data = json_decode($order->order_data);
         return $data[$param];

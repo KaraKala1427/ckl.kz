@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('product');
+            $table->enum('step',[1,2,3]);
             $table->string('iin', 12);
             $table->string('email')->nullable();
             $table->string('phone')->nullable();

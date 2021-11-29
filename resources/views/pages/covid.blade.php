@@ -246,7 +246,7 @@
                         <fieldset class="field-set col col--6-12">
                             <label for="orderPhone" class="field-set__label checkList">
                                 Мобильный телефон </label>
-                            <input type="tel" class="field interTel datas phone_number" id="Phone" name="Phone"
+                            <input type="tel" class="field interTel datas phone_number" id="phone" name="phone"
                                    value="">
                         </fieldset>
 
@@ -254,7 +254,7 @@
                         <fieldset class="field-set col col--6-12">
                             <label for="orderEmail" class="field-set__label checkList">
                                 E-Mail </label>
-                            <input type="text" class="field datas keyboardInput agentData1" id="Email" name="Email"
+                            <input type="text" class="field datas keyboardInput agentData1" id="email" name="email"
                                    value="">
                             <div class="small col" id="checkEmail1"></div>
                         </fieldset>
