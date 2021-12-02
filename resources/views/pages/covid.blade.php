@@ -60,7 +60,7 @@
                     <!-- ДР -->
                     <fieldset class="field-set col col--3-12" style="false">
                         <label for="orderDocDate" class="field-set__label checkList">
-                            День рождение
+                            День рождения
                         </label>
                         <input class="field field--date datas edate" id="born" type="tel"
                                name="born" maxlength="10" placeholder="dd.mm.yyyy" value="" autocomplete="off">
@@ -208,8 +208,8 @@
                                    name="limitSum"
                                    value="">
                             <div class="small col" id="checkEmail1"></div>
-                            <p class="small text-grey">Период страхования - 12 месяцев</p>
                         </fieldset>
+
 
                         <!-- Программа -->
 
@@ -228,18 +228,33 @@
                         <fieldset class="field-set col col--6-12" style="false">
                             <h3 class="col">Дата начала договора</h3>
                             <input class="field field--date edate col--6-12" id="dateBeg" type="tel" name="dateBeg"
+                            <input class="field field--date edate dateBeg col--6-12" id="dateBeg" type="text" name="dateBeg"
                                    maxlength="10" placeholder="dd.mm.yyyy" value="" autocomplete="off">
                             <br><span class="small error" style="display: none" id="textAgrBeg"></span>
-                            <input type="hidden" id="ssid" value="939ae3ec9dc28ee495a304aa33396d48">
+                            <input type="hidden" id="ssid" value="">
+                            <p class="small text-grey">Период страхования - 12 месяцев</p>
                         </fieldset>
 
                         <fieldset class="field-set col col--6-12" style="false">
                             <h3 class="col">Дата окончания договора</h3>
                             <input class="field col--6-12 edate field--date" id="dateEnd" type="tel" name="dateEnd"
+                            <input class="field col--6-12 edate dateEnd field--date" id="dateEnd" type="text" name="dateEnd"
                                    maxlength="10" value="" placeholder="dd.mm.yyyy" autocomplete="off" disabled="">
                         </fieldset>
 
-
+                        <fieldset class="field-set col col--full" style="false">
+                            <label for="orderBenefit" class="field-set__label">
+                                Способ уведомления</label><select
+                                name="notificationISN" id="notificationISN" tabindex="-1"
+                                class="benefits datas agentData1 field">
+                                <option value="notification-empty">--</option>
+                                <option value="898811">Email от Коммеска + Email от ЕСБД</option>
+                                <option value="898821">Email от Коммеска + SMS от ЕСБД</option>
+                                <option value="898831">SMS от ЕСБД</option>
+                                <option value="898841">SMS от Коммеска + Email от ЕСБД</option>
+                                <option value="898851">SMS от Коммеска + SMS от ЕСБД</option>
+                            </select>
+                        </fieldset>
                         <!-- Мобильный номер -->
 
                         <fieldset class="field-set col col--6-12">
@@ -260,20 +275,6 @@
 
                     </div>
 
-
-                    <fieldset class="field-set col col--full" style="false">
-                        <label for="orderBenefit" class="field-set__label">
-                            Способ уведомления</label><select
-                            name="notificationISN" id="notificationISN" tabindex="-1"
-                            class="benefits datas agentData1 field">
-                            <option value="notification-empty">--</option>
-                            <option value="898811">Email от Коммеска + Email от ЕСБД</option>
-                            <option value="898821">Email от Коммеска + SMS от ЕСБД</option>
-                            <option value="898831">SMS от ЕСБД</option>
-                            <option value="898841">SMS от Коммеска + Email от ЕСБД</option>
-                            <option value="898851">SMS от Коммеска + SMS от ЕСБД</option>
-                        </select>
-                    </fieldset>
 
                     <fieldset class="field-set col col--4-12">
                         <br>
@@ -357,7 +358,7 @@
                     }
                 });
             };
-            for (var j = 0; j < 2; j++) {
+            for (var j = 0; j < 3; j++) {
                 dateInputMask(input[j]);
             }
 
@@ -372,7 +373,6 @@
             var input = document.querySelector('.iins');
             input.value = input.value.replace(/\D/g, '');
         }
-
         $(".iins").on('keypress change', async function () {
             var iin = $("#iin").val();
             if (iin.length == 12) {
@@ -406,69 +406,50 @@
             }
         });
 
+        // Делаем disabled прошедшие дни и текущий
 
-        ///// validateData
-
-        function validateData() {
-            var errors = '';
-            var d = new Date();
-            var month = d.getMonth() + 1;
-            var day = d.getDate() + 1;
-            var nowDate = d.getFullYear() +
-                (month < 10 ? '0' : '')
-                + month +
-                (day < 10 ? '0' : '') + day;
-            var splitted = $("#agrBeg").val().split('.');
-            var agrDate = splitted[2] + splitted[1] + splitted[0];
-
-            var regEx = /^([0-9]{2})\.([0-9]{2})\.([0-9]{4})$/;
-            var maxDate = new Date();
-            maxDate.setDate(maxDate.getDate() + 90);
-            var maxMonth = maxDate.getMonth() + 1;
-            var maxDay = maxDate.getDate() + 1;
-            var futureDate = maxDate.getFullYear() +
-                (maxMonth < 10 ? '0' : '')
-                + maxMonth +
-                (maxDay < 10 ? '0' : '') + maxDay;
-            var beg = $("#agrBeg").val();
-            var begSplit = beg.split('.');
-            var begDate = begSplit[2] + begSplit[1] + begSplit[0];
-
-            var end = $("#agrEnd").val();
-            var endSplit = end.split('.');
-            var endDate = endSplit[2] + endSplit[1] + endSplit[0];
-
-            if ($("#agrBeg").val() == '' || !regEx.test($("#agrBeg").val())
-                || agrDate < nowDate || $('.agentSection').data('type')
-                !== 'renew' && agrDate > futureDate || endDate - begDate < 5) {
-                errors += '<u>Не указана:</u> Дата начала договора<br/>';
-                $("html, body").animate({
-                    scrollTop: $("#forAgrBeg").offset().top
-                }, 2000);
-            }
-
-            if ($("#agrEnd").val() == '' || !regEx.test($("#agrEnd").val())) {
-                errors += '<u>Не указана:</u> Дата окончания договора<br/>';
-                $("html, body").animate({
-                    scrollTop: $("#forAgrBeg").offset().top
-                }, 2000);
-            }
-        }
-
-
+        var today = new Date();
+        var startDate = new Date();
+        startDate.setDate(today.getDate() + 7);
         $(function () {
 
-            $("#agrBeg").datepicker({
+            $("#dateBeg").datepicker({
                 minDate: new Date(),
+                minDate: startDate,
                 clearButton: true,
-
-
             });
+
+            // Валидация и прибавление года к дате
+
+                $('.edate').datepicker({
+                    onSelect: function (date, e, calendar) {
+                        calendar.hide();
+                        if ($("#dateBeg").val() != '') {
+
+                            var parts = $('#dateBeg').val().split(".");
+                            var day = parts[0] && parseInt(parts[0], 10);
+                            var month = parts[1] && parseInt(parts[1], 10);
+                            var year = parts[2] && parseInt(parts[2], 10);
+
+                            if (day <= 31 && day >= 1 && month <= 12 && month >= 1) {
+
+                                var expiryDate = new Date(year, month - 1, day);
+                                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                                expiryDate.setDate(expiryDate.getDate() - 1);
+
+                                var day = ('0' + expiryDate.getDate()).slice(-2);
+                                var month = ('0' + (expiryDate.getMonth() + 1)).slice(-2);
+                                var year = expiryDate.getFullYear();
+
+                                $("#dateEnd").val(day + "." + month + "." + year);
+
+                            }
+                        }
+                    }
+                });
         });
+
     </script>
-
-
-
 
 
     <style>

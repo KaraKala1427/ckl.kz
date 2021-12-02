@@ -11,8 +11,9 @@ require('./scripts/polyfills.min');
 require('./scripts/calc');
 require('./scripts/session');
 
-window.Vue = require('vue').default;
 
+
+window.Vue = require('vue').default;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
