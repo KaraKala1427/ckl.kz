@@ -26,8 +26,6 @@ Route::get('/runseeder', [\App\Http\Controllers\MigrateController::class, 'run_s
 Route::get('/link', [\App\Http\Controllers\DevController::class, 'link']);
 Route::get('/curltest', [\App\Http\Controllers\MailController::class, 'test']);
 
-
-
 Auth::routes();
 
 Route::group([
@@ -38,37 +36,23 @@ Route::group([
         ->name('filemanager.base_route');
 });
 
-//Route::group([
-//    'prefix' => '{language?}',
-//    'where' => ['language' => 'ru|kz']
-//
-//], function (){
-
 Route::get('setlocale/{lang}', function ($lang){
 
         $referer = Redirect::back()->getTargetUrl();
         $parse_url = parse_url($referer, PHP_URL_PATH);
-
         $segments = explode('/',  $parse_url);
 
         if (in_array($segments[1], App\Http\Middleware\Locale::$languages)){
             unset($segments[1]);
         }
-
         if ($lang != App\Http\Middleware\Locale::$mainLanguage){
-
             array_splice($segments, 1, 0, $lang);
         }
-
         $url = Request::root() .implode("/", $segments);
-
         if(parse_url($referer, PHP_URL_QUERY)){
                 $url = $url . '?' . parse_url($referer, PHP_URL_QUERY);
-
         }
-
         $url =  str_replace(env('APP_URL'), "", $url);
-
         return  redirect($url);
 
     }
@@ -80,22 +64,15 @@ Route::group([
 ], function (){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
     Route::get('/product', [ProductController::class, 'index'])->name('product');
-
     Route::get('/annuitet', [ProductController::class, 'annuitet'])->name('annuitet');
-
     Route::get('/live', [ProductController::class, 'live'])->name('live');
-
     Route::get('/live/gccj', [ProductController::class, 'live_gccj'])->name('live_gccj');
     Route::get('/live/zaemwik', [ProductController::class, 'live_zaemwik'])->name('live_zaemwik');
     Route::get('/live/nsj', [ProductController::class, 'live_nsj'])->name('live_nsj');
     Route::get('/live/nsj-rebenka', [ProductController::class, 'live_ncj_rebenka'])->name('live_nsj_rebenka');
     Route::get('/live/nsj-valutnyi', [ProductController::class, 'live_nsj_valutnyi'])->name('live_nsj_valutnyi');
-
     Route::get('/retirementinsurance', [ProductController::class, 'retirementinsurance'])->name('retirementinsurance');
-
     Route::group(['prefix' => '/about', 'as' => 'about'], function () {
         Route::get('/history',[AboutController::class, 'get_history'])->name('.history');
 
@@ -137,8 +114,6 @@ Route::group([
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
     Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
-//    Route::post('/api/checkPolicy', [ApiConnectController::class, 'checkPolicy']);
-
 });
 
 Route::group([

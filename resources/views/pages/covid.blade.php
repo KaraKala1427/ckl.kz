@@ -4,7 +4,7 @@
 
 
     <div class="calculator__block bg-grey entry agentBlock" id="section1">
-        @include('mini_parts.overloader')>
+        @include('mini_parts.overloader')
         <h3 class="calculator__title">
             Личные данные</h3>
         <div class="grid">

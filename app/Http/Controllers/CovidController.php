@@ -106,7 +106,11 @@ class  CovidController extends Controller
                 }
                 if($responseCalc['code'] == 200){
                     $hash = md5($order->id."mySuperPassword123");
-                    $data = [$order->id, $hash, $responseCalc['premium']];
+                    $data = [
+                        'order_id' => $order->id,
+                        'hash' =>$hash,
+                        'premium' => $responseCalc['premium']
+                    ];
                     session()->put('data', $data);
                     return response()->json($data);   // при успешном прохождении цепочки запросов (endpoint)
                 }
@@ -282,7 +286,6 @@ class  CovidController extends Controller
     public function formDataOrder($array)
     {
         $this->kiasClient = session()->get('kiasClient');
-//        dd($array);
         $dataOrder = array([
             'code' => 200,
             'phone' => $array['phone'],
