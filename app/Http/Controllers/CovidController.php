@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Services\Helpers\EnsOrderHelper;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 
 class  CovidController extends Controller
 {
@@ -22,8 +24,9 @@ class  CovidController extends Controller
             'token'  => "wesvk345sQWedva55sfsd*g",
             'iin'    => $request->iin
         ])->json();
-        $response = EnsOrderHelper::secret($response);
         $this->kiasClient =  $response['client'];
+        session()->put('kiasClient', $response['client']);
+        $response = EnsOrderHelper::secret($response);
         return response()->json($response);
     }
 
@@ -32,48 +35,92 @@ class  CovidController extends Controller
     {
         $array = $request->all();
         $dataOrder = $this->formDataOrder($array);
-        if(isset($array['order_id'])){
-           $order = Order::findOrFail($array['order_id']);
+        if(isset($array['order_id']) && isset($array['hash']) && $this->checkHash($array['order_id'], $array['hash'])){
+            try {
+                $order = Order::findOrFail($array['order_id']);
+            }
+            catch (ModelNotFoundException $exception)
+            {
+                $order = new Order();
+            }
         }
         else $order = new Order();
         $this->saveOrder($order, $array, $dataOrder);
         $responseSubjISN = $this->setSubject($order);
-        if($responseSubjISN['code'] != 200) return $responseSubjISN['error'];
+        if($responseSubjISN['code'] != 200) {
+            session()->put('data',$responseSubjISN['error']);
+            return $responseSubjISN['error'];
+        }
         $subjISN = $responseSubjISN['subjectISN'];
         $key = 0;
         self::updateOrder($order, $subjISN, $key);
         $responseDoc  = $this->setDocs($subjISN, $order);
-        if($responseDoc['code'] != 200) return $responseDoc['error'];
+        if($responseDoc['code'] != 200) {
+            session()->put('data',$responseDoc['error']);
+            return $responseDoc['error'];
+        }
         $responseESBD = $this->setSubjectESBD($subjISN);
         if($responseESBD['code'] == 200){
             $dateBeg = $this->getFieldOrderData($order, 'dateBeg');
             $dateEnd = $this->getFieldOrderData($order, 'dateEnd');
             if($order->agr_isn == null){
                 $responseAgr = $this->setAgreement($subjISN, $dateBeg, $dateEnd, $order);
-                if($responseAgr['code'] != 200) return $responseAgr['error'];
+                if($responseAgr['code'] != 200) {
+                    session()->put('data',$responseAgr['error']);
+                    return $responseAgr['error'];
+                }
             }
             else {
-                $responseUpdate = $this->updateAgreement($subjISN, $order->agr_isn, $dateBeg, $dateEnd);
-                if($responseUpdate['code'] != 200) return $responseUpdate['error'];
+                $responseUpdate = $this->updateAgreement($subjISN, $order, $dateBeg, $dateEnd);
+                if($responseUpdate['code'] != 200) {
+                    session()->put('data',$responseUpdate['error']);
+                    return $responseUpdate['error'];
+                }
                 $responseClear = $this->clearAgreement($order->agr_isn);
-                if($responseClear['code'] != 200) return $responseClear['error'];
+                if($responseClear['code'] != 200) {
+                    session()->put('data',$responseClear['error']);
+                    return $responseClear['error'];
+                }
             }
             $responseObj = $this->setAgrObj($subjISN, $order);
-            if($responseObj['code'] != 200) return $responseObj['error'];
-            $responseRole = $this->setAgrRole($subjISN, $order);
-            if($responseRole['code'] != 200) return $responseRole['error'];
-            $responseAttributes = $this->setAttributes($subjISN, $order);
-            if($responseAttributes['result'] == 'ok'){
-                $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
-                if($responseCond['code'] != 200) return $responseCond['error'];
-                $responseCalc = $this->agrCalculate($order);
-                $finalArray = [$order->id, $hash, $responseCalc['premium']];
-                if($responseCalc['code'] == 200) return $finalArray;   // при успешном прохождении цепочки запросов (endpoint)
-                return $responseCalc['error'];
+            if($responseObj['code'] != 200) {
+                session()->put('data',$responseObj['error']);
+                return $responseObj['error'];
             }
-            return $responseAttributes['error'];
+            $responseRole = $this->setAgrRole($subjISN, $order);
+            if($responseRole['code'] != 200) {
+                session()->put('data',$responseRole['error']);
+//                return $responseRole['error'];
+            }
+            $responseAttributes = $this->setAttributes($subjISN, $order);
+            if($responseAttributes['data'] == 'ok'){
+                $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
+                if($responseCond['code'] != 200) {
+                    session()->put('data',$responseCond['error']);
+                    return $responseCond['error'];
+                }
+                $responseCalc = $this->agrCalculate($order);
+                if($responseCalc['code'] != 200) {
+                    session()->put('data',$responseCalc['error']);
+                    return $responseCalc['error'];
+                }
+                if($responseCalc['code'] == 200){
+                    $hash = md5($order->id."mySuperPassword123");
+                    $data = [$order->id, $hash, $responseCalc['premium']];
+                    session()->put('data', $data);
+                    return response()->json($data);   // при успешном прохождении цепочки запросов (endpoint)
+                }
+
+            }
+            else   {
+                session()->put('data',$responseAttributes['error']);
+                return $responseAttributes['error'];
+            }
         }
-        return $responseESBD['error'];
+        else {
+            session()->put('data',$responseESBD['error']);
+            return $responseESBD['error'];
+        }
 
     }
     public function setSubject(Order $order)
@@ -87,7 +134,7 @@ class  CovidController extends Controller
             "juridical" => "N",
             "sex"       => EnsOrderHelper::identifySexByIIN($orderDataUser['iin']),
             "birthDay"  => $orderDataUser['born']
-        ])->json();
+        ]);
         return $response;
     }
 
@@ -125,23 +172,28 @@ class  CovidController extends Controller
         ])->json();
         if($response['code'] == 200) {
             $order->agr_isn = $response['agr_isn'];
-            $dataOrder = json_decode($order->order_data);
-            $dataOrder['agrISN'] = $response['agr_isn'];
+            $dataOrder = json_decode($order->order_data,true);
+            $dataOrder[0]['agrISN'] = $response['agr_isn'];
             $order->order_data = json_encode($dataOrder);
             $order->save();
         }
         return $response;
     }
 
-    public function updateAgreement($subjISN, $agr_isn, $dateBeg, $dateEnd)
+    public function updateAgreement($subjISN, Order $order, $dateBeg, $dateEnd)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/updateAgreement',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "subjISN"   => $subjISN,
-            "agrISN"    => $agr_isn,
+            "agrISN"    => $order->agr_isn,
             "agrBeg"    => $dateBeg,
             "agrEnd"    => $dateEnd
         ])->json();
+
+        $dataOrder = json_decode($order->order_data,true);
+        $dataOrder[0]['agrISN'] = $order->agr_isn;
+        $order->order_data = json_encode($dataOrder);
+        $order->save();
         return $response;
     }
 
@@ -157,12 +209,11 @@ class  CovidController extends Controller
     public function setAgrObj($subjISN, Order $order)
     {
         $orderDataUser = $this->getFieldOrderData($order,'subjects')[0]['user'];
-
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrObject',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "subjISN"   => $subjISN,
             "agrISN"    => $order->agr_isn,
-            "objName"   => $orderDataUser['first_name']." ".$orderDataUser['last_name'],
+            "objName"   => $orderDataUser['last_name']." ".$orderDataUser['first_name'],
         ])->json();
         return $response;
     }
@@ -181,13 +232,13 @@ class  CovidController extends Controller
     public function setAttributes($subjISN, Order $order)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAllAttribute',[
-            "token"      => "wesvk345sQWedva55sfsd*g",
-            "subjISN"    => $subjISN,
-            "agrISN"     => $this->getFieldOrderData($order, 'agrISN'),
-            "email"     => $this->getFieldOrderData($order, 'email'),
-            "phone"     => $this->getFieldOrderData($order, 'phone'),
-            "programISN" => $this->getFieldOrderData($order, 'programISN'),
-            "notificationISN" => $this->getFieldOrderData($order, 'notificationISN'),
+            "token"           => "wesvk345sQWedva55sfsd*g",
+            "subjISN"         => $subjISN,
+            "agrISN"          => $this->getFieldOrderData($order, 'agrISN'),
+            "email"           => $this->getFieldOrderData($order, 'email'),
+            "phone"           => $this->getFieldOrderData($order, 'phone'),
+            "programISN"      => (int)$this->getFieldOrderData($order, 'programISN'),
+            "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
         ])->json();
         return $response;
     }
@@ -220,8 +271,8 @@ class  CovidController extends Controller
     {
         $order->product = 'covid';
         $order->iin = $array['iin'];
-        $order->first_name = $array['first_name'];
-        $order->last_name = $array['last_name'];
+        $order->first_name = $array['firstName'];
+        $order->last_name = $array['lastName'];
         $order->phone = $array['phone'];
         $order->email = $array['email'];
         $order->order_data = json_encode($dataOrder);
@@ -230,6 +281,8 @@ class  CovidController extends Controller
 
     public function formDataOrder($array)
     {
+        $this->kiasClient = session()->get('kiasClient');
+//        dd($array);
         $dataOrder = array([
             'code' => 200,
             'phone' => $array['phone'],
@@ -238,16 +291,16 @@ class  CovidController extends Controller
             'programISN' => $array['programISN'],
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
-            'dateEnd' => $array['dateEnd'],
+            'dateEnd' => $array['dateEnd'] ?? '09.12.2022',
             'agrISN'  => null,
             'subjects' => [
                 0 => [
                     'kias' => [
                         'subjISN' => null,
-                        'iin' => $this->kiasClient['iin'],
+                        'iin' => $this->kiasClient['IIN'],
                         'first_name' => $this->kiasClient["First_Name"],
                         'last_name' => $this->kiasClient["Last_Name"],
-                        'patronymic_name' => $this->kiasClient["Patronymic_Name"],
+                        'patronymic_name' => $this->kiasClient["Patronymic_Name"] ?? null,
                         'born' => $this->kiasClient['Born'],
                         'document_gived_date' => $this->kiasClient['DOCUMENT_GIVED_DATE'],
                         'document_number' => $this->kiasClient['DOCUMENT_NUMBER'],
@@ -273,44 +326,49 @@ class  CovidController extends Controller
     }
     public static function updateOrder(Order $order, $subjISN , $key = 0)
     {
-        $dataOrder = json_decode($order->order_data)['subjects'];
-        $dataOrder[$key]['kias']['subjISN'] = $subjISN;
-        $dataOrder[$key]['user']['subjISN'] = $subjISN;
+        $dataOrder = json_decode($order->order_data,true);
+        $dataOrder[0]['subjects'][$key]['kias']['subjISN'] = $subjISN;
+        $dataOrder[0]['subjects'][$key]['user']['subjISN'] = $subjISN;
         $order->order_data = json_encode($dataOrder);
         $order->save();
     }
 
     public static function getLimitSum(Order $order)
     {
-        return json_decode($order->order_data)['limitSum'];
+        return json_decode($order->order_data,true)[0]['limitSum'];
 
     }
 
-    public function getFinalSubject(Order $order)
+    public function getFinalSubject(Order $order , $key = 0)
     {
         $result = [];
-        $subject = json_decode($order->order_data)['subjects'];
-        $result['document_gived_by'] = $subject[0]['user']['document_gived_by'];
-        $result['document_class_name'] = $subject[0]['user']['document_class_name'];
-        if (strpos($subject[0]['user']['document_number'],'*') !== false)
+        $subject = json_decode($order->order_data,true)[0]['subjects'];
+        $result['document_gived_by'] = $subject[$key]['user']['document_gived_by'];
+        $result['document_class_name'] = $subject[$key]['user']['document_class_name'];
+        if (strpos($subject[$key]['user']['document_number'],'*') !== false)
         {
-            $result['document_number'] = $subject[0]['kias']['document_number'];
+            $result['document_number'] = $subject[$key]['kias']['document_number'];
         }
-        else $result['document_number'] = $subject[0]['user']['document_number'];
-        if (strpos($subject[0]['user']['document_gived_date'],'*') !== false)
+        else $result['document_number'] = $subject[$key]['user']['document_number'];
+        if (strpos($subject[$key]['user']['document_gived_date'],'*') !== false)
         {
-            $result['document_gived_date'] = $subject[0]['kias']['document_gived_date'];
+            $result['document_gived_date'] = $subject[$key]['kias']['document_gived_date'];
         }
-        else $result['document_gived_date'] = $subject[0]['user']['document_gived_date'];
+        else $result['document_gived_date'] = $subject[$key]['user']['document_gived_date'];
 
         return $result;
     }
 
-    public function getFieldOrderData(Order $order, $param)
+    public function getFieldOrderData(Order $order, $param , $key = 0)
     {
-        $data = json_decode($order->order_data);
+        $data = json_decode($order->order_data, true)[$key];
         return $data[$param];
     }
 
- }
+    public function checkHash($id, $hash)
+    {
+        if( md5($id."mySuperPassword123") == $hash) return true;
+        return false;
+    }
 
+ }

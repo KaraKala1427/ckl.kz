@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->string('premium_sum')->nullable();
             $table->string('agr_isn')->nullable();
             $table->enum('status', [Order::STATUS_ACCEPTED, Order::STATUS_ERROR, Order::STATUS_PENDING, Order::STATUS_REJECTED, Order::STATUS_CALCULATED, Order::STATUS_IN_PROCESS])->default(Order::STATUS_CALCULATED);
-            $table->string('order_data');
+            $table->longText('order_data');
         });
     }
 
