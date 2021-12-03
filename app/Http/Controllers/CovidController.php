@@ -49,7 +49,10 @@ class  CovidController extends Controller
         $responseSubjISN = $this->setSubject($order);
         if($responseSubjISN['code'] != 200) {
             session()->put('data',$responseSubjISN['error']);
-            return $responseSubjISN['error'];
+            return response()->json([
+                'code' => 404,
+                'error' => $responseSubjISN['error']
+            ]);
         }
         $subjISN = $responseSubjISN['subjectISN'];
         $key = 0;
@@ -57,7 +60,10 @@ class  CovidController extends Controller
         $responseDoc  = $this->setDocs($subjISN, $order);
         if($responseDoc['code'] != 200) {
             session()->put('data',$responseDoc['error']);
-            return $responseDoc['error'];
+            return response()->json([
+                'code' => 404,
+                'error' => $responseDoc['error']
+            ]);
         }
         $responseESBD = $this->setSubjectESBD($subjISN);
         if($responseESBD['code'] == 200){
@@ -67,25 +73,37 @@ class  CovidController extends Controller
                 $responseAgr = $this->setAgreement($subjISN, $dateBeg, $dateEnd, $order);
                 if($responseAgr['code'] != 200) {
                     session()->put('data',$responseAgr['error']);
-                    return $responseAgr['error'];
+                    return response()->json([
+                        'code' => 404,
+                        'error' => $responseAgr['error']
+                    ]);
                 }
             }
             else {
                 $responseUpdate = $this->updateAgreement($subjISN, $order, $dateBeg, $dateEnd);
                 if($responseUpdate['code'] != 200) {
                     session()->put('data',$responseUpdate['error']);
-                    return $responseUpdate['error'];
+                    return response()->json([
+                        'code' => 404,
+                        'error' => $responseUpdate['error']
+                    ]);
                 }
                 $responseClear = $this->clearAgreement($order->agr_isn);
                 if($responseClear['code'] != 200) {
                     session()->put('data',$responseClear['error']);
-                    return $responseClear['error'];
+                    return response()->json([
+                        'code' => 404,
+                        'error' => $responseClear['error']
+                    ]);
                 }
             }
             $responseObj = $this->setAgrObj($subjISN, $order);
             if($responseObj['code'] != 200) {
                 session()->put('data',$responseObj['error']);
-                return $responseObj['error'];
+                return response()->json([
+                    'code' => 404,
+                    'error' => $responseObj['error']
+                ]);
             }
             $responseRole = $this->setAgrRole($subjISN, $order);
             if($responseRole['code'] != 200) {
@@ -97,16 +115,23 @@ class  CovidController extends Controller
                 $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
                 if($responseCond['code'] != 200) {
                     session()->put('data',$responseCond['error']);
-                    return $responseCond['error'];
+                    return response()->json([
+                        'code' => 404,
+                        'error' => $responseCond['error']
+                    ]);
                 }
                 $responseCalc = $this->agrCalculate($order);
                 if($responseCalc['code'] != 200) {
                     session()->put('data',$responseCalc['error']);
-                    return $responseCalc['error'];
+                    return response()->json([
+                        'code' => 404,
+                        'error' => $responseCalc['error']
+                    ]);
                 }
                 if($responseCalc['code'] == 200){
                     $hash = md5($order->id."mySuperPassword123");
                     $data = [
+                        'code' => 200,
                         'order_id' => $order->id,
                         'hash' =>$hash,
                         'premium' => $responseCalc['premium']
@@ -118,22 +143,30 @@ class  CovidController extends Controller
             }
             else   {
                 session()->put('data',$responseAttributes['error']);
-                return $responseAttributes['error'];
+                return response()->json([
+                    'code' => 404,
+                    'error' => $responseAttributes['error']
+                ]);
             }
         }
         else {
             session()->put('data',$responseESBD['error']);
-            return $responseESBD['error'];
+            return response()->json([
+                'code' => 404,
+                'error' => $responseESBD['error']
+            ]);
         }
-
     }
+
     public function setSubject(Order $order)
     {
         $orderDataUser = $this->getFieldOrderData($order,'subjects')[0]['user'];
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setClient',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "iin"       => $orderDataUser['iin'],
-            "fullName"  => $orderDataUser['first_name']." ".$orderDataUser['last_name'],
+            "fisrtName" => $orderDataUser['first_name'],
+            "lastName"  => $orderDataUser['last_name'],
+            "middleName"  => $orderDataUser['patronymic_name'],
             "resident"  => "Y",
             "juridical" => "N",
             "sex"       => EnsOrderHelper::identifySexByIIN($orderDataUser['iin']),
@@ -294,7 +327,7 @@ class  CovidController extends Controller
             'programISN' => $array['programISN'],
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
-            'dateEnd' => $array['dateEnd'] ?? '09.12.2022',
+            'dateEnd' => $array['dateEnd'],
             'agrISN'  => null,
             'subjects' => [
                 0 => [
