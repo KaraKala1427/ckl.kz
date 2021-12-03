@@ -407,4 +407,5 @@ class  CovidController extends Controller
         return false;
     }
 
+
  }

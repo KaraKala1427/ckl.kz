@@ -118,7 +118,7 @@
                     <fieldset class="field-set col col--4-12">
                         <label class="field-set__label"></label>
                         <label class="checkbox">
-                            <input type="checkbox" name="insuredInsurer" id="insuredInsurer" value="yes" class="datas agentData1"
+                            <input type="checkbox" name="insuredInsurer" id="insuredInsurer" value="yes" class="checkbox-cov"
                                    checked="checked" disabled>
                             <span class="checkbox__label">Застрахованный является Страхователем</span>
                         </label>
@@ -127,7 +127,7 @@
                     <fieldset class="field-set col col--6-12">
                         <label class="field-set__label"></label>
                         <label class="checkbox">
-                            <input type="checkbox" name="notResidentUSA" id="notResidentUSA" value="no" class="datas agentData1"
+                            <input type="checkbox" name="notResidentUSA" id="notResidentUSA"  value="no" class="checkbox-cov"
                                    checked="checked">
                             <span
                                 class="checkbox__label">Застрахованный  НЕ является  резидентом США/Гражданином США</span>
@@ -144,8 +144,8 @@
                         <div class="checkbox-enhanced">
 						<span>
 							<h5>
-								<label for="calcPlus" class="checkbox">
-									<input type="checkbox" name="calcPlus" value="yes" id="calcPlus" class="new-styler">
+								<label for="hasInvalid" class="checkbox">
+									<input type="checkbox" class="checkbox-cov" name="hasInvalid" value="" id="hasInvalid">
 									<span class="checkbox__label">Имеет ли Застрахованный инвалидность?</span>
 								</label>
 							</h5>
@@ -158,9 +158,9 @@
                         <div class="checkbox-enhanced">
 						<span>
 							<h5>
-								<label for="calcCareless" class="checkbox">
-									<input type="checkbox" name="calcCareless" value="yes" id="calcCareless"
-                                           class="new-styler">
+								<label for="hasPsycho" class="checkbox">
+									<input type="checkbox" name="hasPsycho" value="" id="hasPsycho"
+                                           class="checkbox-cov">
 									<span class="checkbox__label">Состоит ли Застрахованный на учете в психоневрологическом диспансере?</span>
 								</label>
 							</h5>
@@ -172,9 +172,9 @@
                         <div class="checkbox-enhanced">
 						<span>
 							<h5>
-								<label for="calcPeople" class="checkbox">
-									<input type="checkbox" name="calcPeople" value="yes" id="calcPeople"
-                                           class="new-styler">
+								<label for="hasSport" class="checkbox">
+									<input type="checkbox" name="hasSport" value="" id="hasSport"
+                                           class="checkbox-cov">
 									<span class="checkbox__label">Занимается ли Застрахованный спортом?</span>
 								</label>
 							</h5>
@@ -186,18 +186,48 @@
                         <div class="checkbox-enhanced">
 						<span>
 							<h5>
-								<label for="calcGPO" class="checkbox">
-									<input type="checkbox" name="calcGPO" value="yes" id="calcGPO" class="new-styler">
+								<label for="hasChronic" class="checkbox">
+									<input type="checkbox" name="hasChronic" value="" id="hasChronic" class="checkbox-cov">
 									<span class="checkbox__label">Имеет ли Застрахованный хронические или наследственные заболевания?</span>
 								</label>
 							</h5>
 						</span>
+                        </div>
+                    </div>
 
+                    <div class="col-50 col col--6-12">
+                        <div class="checkbox-enhanced">
+						<span>
+							<h5>
+								<label for="hasCriminal" class="checkbox">
+									<input type="checkbox" name="hasCriminal" value="" id="hasCriminal" class="checkbox-cov">
+									<span class="checkbox__label">
+                                        Является ли Застрахованный лицом,
+                                        отбывающим наказание за совершение уголовных преступлений
+                                        в учреждениях уголовно-исполнительной системы?
+                                    </span>
+								</label>
+							</h5>
+						</span>
                         </div>
                     </div>
                 </div>
 
-                    <div class="grid">
+
+                <div class="grid">
+
+                        <!-- Программа -->
+
+                        <fieldset class="field-set col col--6-12">
+                            <label for="orderBenefit" class="field-set__label">Программа</label>
+                            <select name="programISN" id="programISN" tabindex="-1"
+                                    class="benefits datas agentData1 field">
+                                <option value="program-empty">--</option>
+                                <option value="898641">Прогрмма 1</option>
+                                <option value="898651">Прогрмма 2</option>
+                                <option value="898661">Прогрмма 3</option>
+                            </select>
+                        </fieldset>
 
                         <!--    Страховая сумма -->
 
@@ -209,21 +239,6 @@
                                    value="">
                             <div class="small col" id="checkEmail1"></div>
                         </fieldset>
-
-
-                        <!-- Программа -->
-
-                        <fieldset class="field-set col col--6-12">
-                            <label for="orderBenefit" class="field-set__label">Программа</label>
-                            <select name="programISN" id="programISN" tabindex="-1"
-                                class="benefits datas agentData1 field">
-                                <option value="program-empty">--</option>
-                                <option value="898641">Прогрмма 1</option>
-                                <option value="898651">Прогрмма 2</option>
-                                <option value="898661">Прогрмма 3</option>
-                            </select>
-                        </fieldset>
-
 
                         <fieldset class="field-set col col--6-12" style="false">
                             <h3 class="col">Дата начала договора</h3>
@@ -278,12 +293,13 @@
 
                     <fieldset class="field-set col col--4-12">
                         <br>
-                        <input type="submit" class="button button--hollow agentClear" id="sendOrder"  value="Расчитать"/>
+                        <input type="submit"  class="button button--hollow agentClear" id="sendOrder"  value="Расчитать"/>
                     </fieldset>
+                <div style="display: none; font-weight: bold" id="premiumWrapper">Итого: <span id="premium"  class="premium" style="font-size: larger;"></span> тг</div>
                 <input type="number" name="order_id" id="order_id"
-                       value="20" style="display: none">
+                       value="" style="display: none">
                 <input type="text" name="hash" id="hash"
-                       value="b3e21df8eefaf26469cdb5425f521e78" style="display: none">
+                       value="" style="display: none">
             </form>
         </div>
     </div>
@@ -297,14 +313,28 @@
             $('.edate').datepicker({
                 dateFormat: "dd.mm.yyyy"
             });
+
             $('#covidForm').submit(async function (event) {
                 event.preventDefault();
+                var checkboxes = '';
+                $(".checkbox-cov").each(function () {
+                    if ($(this).is(':checked')) {
+                        checkboxes = checkboxes + $(this).attr('id') + "=yes&";
+                    } else {
+                        checkboxes = checkboxes + $(this).attr('id') + "=no&";
+                    }
+
+                });
+
+                console.log(checkboxes);
+
                 $.ajax({
                     type: 'POST',
                     url: "{{route('covid.setOrder')}}",
                     dataType: "json",
                     data: {
                         iin: $("#iin").val(),
+                        checkboxes: checkboxes,
                         order_id: $("#order_id").val(),
                         hash: $("#hash").val(),
                         firstName : $("#firstName").val(),
@@ -329,8 +359,15 @@
                     },
                     success: await function (data) {
                         $('#overLoader').hide()
-                        alert(data);
-                        console.log(data);
+                        $("#order_id").val(data.order_id);
+                        $("#hash").val(data.hash);
+                        $("#premium").html(data.premium);
+                        $('#premiumWrapper').show();
+                        $('#premium').text((i, text) => {
+                            const [premium] = text.split(' ');
+                            return `${(+premium).toLocaleString('ru-RU')}`;
+                        });
+                        history.pushState({}, '', "?productOrderId="+data.order_id+"&hash="+data.hash+"&step=1");
                     }
                 });
 
@@ -384,6 +421,7 @@
                         _token: '{{csrf_token()}}'
                     },
                     beforeSend: function () {
+
                         $('#overLoader').show();
                     },
 
@@ -474,7 +512,6 @@
     <!-- end container -->
     </main>
     <!-- end main -->
-
 
 @endsection
 

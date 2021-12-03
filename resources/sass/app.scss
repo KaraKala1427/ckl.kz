@@ -10441,6 +10441,7 @@ a.overlay {
 @media (max-width: 767px) {
     .grid {
         margin-right: -10px;
+        display: block;
     }
 }
 
@@ -18738,11 +18739,19 @@ strong {
     position: fixed;
     opacity: 1;
     z-index: 100;
-    top: 30%;
+    top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     margin: auto;
+
+    > svg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
 }
 
 

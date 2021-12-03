@@ -1,6 +1,7 @@
-<div id="overLoader" class="overLoader" style="display: none;">
+<div id="overLoader" class="overLoader" style="display: none;
+background:rgba(255,255,255, 0.8);">
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-         style="margin:auto;display:block;" width="60%" height="60%" viewBox="0 0 100 100"
+         style="margin:auto;display:block;"  width="60%" height="60%" viewBox="0 0 100 100"
          preserveAspectRatio="xMidYMid">
         <circle cx="6.451612903225806" cy="50" r="3" fill="#d8b2d8">
             <animate attributeName="r" times="0;0.5;1"
