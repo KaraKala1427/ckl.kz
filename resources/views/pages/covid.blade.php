@@ -82,6 +82,9 @@
                     <!-- Тип документа	 -->
 
                     <fieldset class="field-set col col--3-12">
+                        <div id="doctypeField" >
+
+                    <fieldset class="field-set col col--3-12">
                         <label for="orderBenefit" class="field-set__label">Тип документа </label>
                         <select name="documentTypeId" id="documentTypeId" tabindex="-1" class="benefits datas agentData1 field">
                             <option value="documentTypeId-empty">--</option>
@@ -89,6 +92,7 @@
                             <option value="2">Паспорт гражданина Казахстана</option>
                             <option value="4">Вид на жительство</option>
                         </select>
+                        </div>
                     </fieldset>
 
                     <!-- Дата выдачи документа -->
@@ -431,14 +435,27 @@
                         $('#overLoader').hide()
                         if (data.code == 200) {
                             data = data.client;
-                            $("#lastName").val(data.Last_Name)
-                            $("#firstName").val(data.First_Name)
-                            $("#patronymicName").val(data.Patronymic_Name)
-                            $("#born").val(data.Born)
-                            $("#documentGivedDate").val(data.DOCUMENT_GIVED_DATE)
-                            $("#documentNumber").val(data.DOCUMENT_NUMBER)
-                            $("#documentGivedBy").val(data.DOCUMENT_GIVED_BY)
-                            $("#documentTypeId").val(data.DOCUMENT_TYPE_ID)
+                            $("#lastName").val(data.Last_Name);
+                            $("#firstName").val(data.First_Name);
+                            $("#patronymicName").val(data.Patronymic_Name);
+                            $("#born").val(data.Born);
+                            $("#documentGivedDate").val(data.DOCUMENT_GIVED_DATE);
+                            $("#documentNumber").val(data.DOCUMENT_NUMBER);
+                            $("#documentGivedBy").val(data.DOCUMENT_GIVED_BY);
+                            $("#documentTypeId").val(data.DOCUMENT_TYPE_ID);
+                            $('#documentTypeId').parent().remove();
+                            $('<select>').appendTo('#doctypeField').addClass('docTypes').attr({
+                                id: 'documentTypeId',
+                                name: 'documentTypeId'
+                            });
+                            $("#documentTypeId").append(
+                                $('<option>', { value: 4, text: "Вид на жительство" }),
+                                $('<option>', { value: 1, text: "Удостоверение личности гражданина Казахстана" }),
+                                $('<option>', { value: 2, text: "Паспорт гражданина Казахстана" })
+                            );
+                            $('#documentTypeId').val(data.DOCUMENT_TYPE_ID);
+                            App.UI("#doctypeField");
+
                         }
                     }
                 });
