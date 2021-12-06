@@ -326,7 +326,7 @@
 
                 });
 
-                console.log(checkboxes);
+                // console.log(checkboxes);
 
                 $.ajax({
                     type: 'POST',
@@ -358,16 +358,18 @@
                         $('#overLoader').show();
                     },
                     success: await function (data) {
-                        $('#overLoader').hide()
-                        $("#order_id").val(data.order_id);
-                        $("#hash").val(data.hash);
-                        $("#premium").html(data.premium);
-                        $('#premiumWrapper').show();
-                        $('#premium').text((i, text) => {
-                            const [premium] = text.split(' ');
-                            return `${(+premium).toLocaleString('ru-RU')}`;
-                        });
-                        history.pushState({}, '', "?productOrderId="+data.order_id+"&hash="+data.hash+"&step=1");
+                        if(data.code == 200){
+                            $('#overLoader').hide()
+                            $("#order_id").val(data.order_id);
+                            $("#hash").val(data.hash);
+                            $("#premium").html(data.premium);
+                            $('#premiumWrapper').show();
+                            $('#premium').text((i, text) => {
+                                const [premium] = text.split(' ');
+                                return `${(+premium).toLocaleString('ru-RU')}`;
+                            });
+                            history.pushState({}, '', "?productOrderId="+data.order_id+"&hash="+data.hash+"&step=1");
+                        }
                     }
                 });
 
