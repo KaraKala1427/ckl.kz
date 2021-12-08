@@ -98,7 +98,7 @@ class MailController extends Controller
         $Mali->data = $json_array;
         $Mali->save();
         Mail::send('mail', $data, function ($message) {
-            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('n.aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Заказ звонка с сайта КСЖ "Сентрас Коммеск Life"');
+            $message->to('dso@kommesk-omir.kz')->cc('call-center@kommesk-omir.kz')->cc('n.aligeyer@kommesk-omir.kz')->cc('y.yerboluly@kommesk-omir.kz')->subject('Вопрос специалисту с сайта КСЖ "Сентрас Коммеск Life"');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
