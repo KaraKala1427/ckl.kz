@@ -26,8 +26,6 @@
                                    class="link nav__item nav__item--tab live">{{ __('navbar.mf17')}}</a></li>
                             <li><a href="{{ route('retirementinsurance') }}" data-link="live_page"
                                    class="link nav__item nav__item--tab">{{ __('navbar.mf18')}}</a></li>
-                            <li><a href="{{ route('covid') }}" data-link="live_page"
-                                   class="link nav__item nav__item--tab">Ковид</a></li>
                         </ul>
                     </nav>
                 </div>

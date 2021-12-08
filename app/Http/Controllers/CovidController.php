@@ -13,8 +13,21 @@ use Illuminate\Support\Facades\Redirect;
 class  CovidController extends Controller
 {
     protected $kiasClient = [];
-    public function index()
+    public function index(Request $request)
     {
+        $order_id = $request->productOrderId;
+        $hash = $request->hash;
+        if($order_id != null && $hash != null && $this->checkHash($order_id, $hash)){
+            try {
+                $order = Order::findOrFail($order_id);
+                $dataUrl = json_decode($order->order_data,true)[0];
+                return view('pages.covid',compact('dataUrl'));
+            }
+            catch (ModelNotFoundException $exception)
+            {
+                return view('pages.covid');
+            }
+        }
         return view('pages.covid');
     }
 
@@ -46,6 +59,12 @@ class  CovidController extends Controller
         }
         else $order = new Order();
         $this->saveOrder($order, $array, $dataOrder);
+        if($this->startOrNot($array['checkboxes'])){
+            return response()->json([
+                'code' => 422,
+                'error' => "Позвоните в call-center."
+            ]);
+        }
         $responseSubjISN = $this->setSubject($order);
         if($responseSubjISN['code'] != 200) {
             session()->put('data',$responseSubjISN['error']);
@@ -404,6 +423,12 @@ class  CovidController extends Controller
     public function checkHash($id, $hash)
     {
         if( md5($id."mySuperPassword123") == $hash) return true;
+        return false;
+    }
+    public function startOrNot($checkboxString)
+    {
+        $k = substr_count($checkboxString, 'yes');
+        if($k>2) return true;
         return false;
     }
 

@@ -22,7 +22,7 @@
                                 <span style="display: none;">(при наличии)</span>
                             </label>
                             <input class="field field datas iins" id="iin"
-                                   type="" name="iin" maxlength="12">
+                                   type="" name="iin" maxlength="12" value="{{$dataUrl['subjects'][0]['user']['iin'] ?? ''}}">
                         </fieldset>
                     </div>
 
@@ -32,7 +32,7 @@
                             Имя
                         </label>
                         <input class="field datas keyboardInput agentData1" type="text" name="firstName" id="firstName"
-                               value="">
+                               value="{{$dataUrl['subjects'][0]['user']['first_name'] ?? ''}}">
                     </fieldset>
 
                     <!-- Фамилия -->
@@ -41,11 +41,7 @@
                             Фамилия
                         </label>
                         <input class="field datas keyboardInput agentData1" type="text"
-                               name="lastName" id="lastName" value="">
-                        <div class="small col keyboardInput">
-                            <span class="error" id="checkLastName1">
-                            </span>
-                        </div>
+                               name="lastName" id="lastName" value="{{$dataUrl['subjects'][0]['user']['last_name'] ?? ''}}">
                     </fieldset>
 
                     <!-- Отчество -->
@@ -54,7 +50,7 @@
                             Отчество
                         </label>
                         <input class="field datas keyboardInput agentData1" type="text"
-                               name="patronymicName" id="patronymicName" value="">
+                               name="patronymicName" id="patronymicName" value="{{$dataUrl['subjects'][0]['user']['patronymic_name'] ?? ''}}">
                     </fieldset>
 
                     <!-- ДР -->
@@ -63,7 +59,7 @@
                             День рождения
                         </label>
                         <input class="field field--date datas edate" id="born" type="tel"
-                               name="born" maxlength="10" placeholder="dd.mm.yyyy" value="" autocomplete="off">
+                               name="born" maxlength="10" placeholder="dd.mm.yyyy" value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
                     </fieldset>
 
 
@@ -74,7 +70,7 @@
                             Номер документа
                         </label>
                         <input class="field field-- datas" id="documentNumber" type="text"
-                               name="documentNumber" value="">
+                               name="documentNumber" value="{{$dataUrl['subjects'][0]['user']['document_number'] ?? ''}}">
                         <div class="small col" id="checkDocNumber1"></div>
                     </fieldset>
 
@@ -83,15 +79,13 @@
 
                     <fieldset class="field-set col col--3-12">
                         <div id="doctypeField" >
-
-                    <fieldset class="field-set col col--3-12">
-                        <label for="orderBenefit" class="field-set__label">Тип документа </label>
-                        <select name="documentTypeId" id="documentTypeId" tabindex="-1" class="benefits datas agentData1 field">
-                            <option value="documentTypeId-empty">--</option>
-                            <option value="1" selected>Удостоверение личности гражданина Казахстана</option>
-                            <option value="2">Паспорт гражданина Казахстана</option>
-                            <option value="4">Вид на жительство</option>
-                        </select>
+                            <label for="orderBenefit" class="field-set__label">Тип документа </label>
+                            <select name="documentTypeId" id="documentTypeId" tabindex="-1" class="benefits datas agentData1 field">
+                                <option value="documentTypeId-empty">--</option>
+                                <option value="1" selected>Удостоверение личности гражданина Казахстана</option>
+                                <option value="2">Паспорт гражданина Казахстана</option>
+                                <option value="4">Вид на жительство</option>
+                            </select>
                         </div>
                     </fieldset>
 
@@ -101,7 +95,7 @@
                             Дата выдачи документа
                         </label>
                         <input class="field field--date datas edate" id="documentGivedDate"
-                               name="documentGivedDate" maxlength="10" placeholder="dd.mm.yyyy" value=""
+                               name="documentGivedDate" maxlength="10" placeholder="dd.mm.yyyy" value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}"
                                autocomplete="off">
                     </fieldset>
 
@@ -112,7 +106,7 @@
                             Кем выдан
                         </label>
                         <input class="field datas keyboardInput agentData1" id="documentGivedBy" type="text"
-                               name="documentGivedBy" maxlength="10" value="" autocomplete="off">
+                               name="documentGivedBy" maxlength="10" value="{{$dataUrl['subjects'][0]['user']['document_gived_by'] ?? ''}}" autocomplete="off">
                     </fieldset>
 
                 </div>
@@ -227,9 +221,9 @@
                             <select name="programISN" id="programISN" tabindex="-1"
                                     class="benefits datas agentData1 field">
                                 <option value="program-empty">--</option>
-                                <option value="898641">Прогрмма 1</option>
-                                <option value="898651">Прогрмма 2</option>
-                                <option value="898661">Прогрмма 3</option>
+                                <option value="898641" {{ 898641 == $dataUrl['programISN'] ? 'selected' : ''}}>Прогрмма 1</option>
+                                <option value="898651" {{ 898651 == $dataUrl['programISN'] ? 'selected' : ''}}>Прогрмма 2</option>
+                                <option value="898661" {{ 898661 == $dataUrl['programISN'] ? 'selected' : ''}}>Прогрмма 3</option>
                             </select>
                         </fieldset>
 
@@ -240,11 +234,11 @@
                                 Страховая сумма</label>
                             <input type="text" class="field datas keyboardInput agentData1" id="limitSum"
                                    name="limitSum"
-                                   value="">
+                                   value="{{$dataUrl['limitSum'] ?? ''}}">
                             <div class="small col" id="checkEmail1"></div>
                         </fieldset>
 
-                        <fieldset class="field-set col col--6-12" style="false">
+                        <fieldset class="field-set col col--6-12" >
                             <h3 class="col">Дата начала договора</h3>
                             <input class="field field--date edate col--6-12" id="dateBeg" type="tel" name="dateBeg"
                             <input class="field field--date edate dateBeg col--6-12" id="dateBeg" type="text" name="dateBeg"
@@ -254,24 +248,24 @@
                             <p class="small text-grey">Период страхования - 12 месяцев</p>
                         </fieldset>
 
-                        <fieldset class="field-set col col--6-12" style="false">
+                        <fieldset class="field-set col col--6-12" >
                             <h3 class="col">Дата окончания договора</h3>
                             <input class="field col--6-12 edate field--date" id="dateEnd" type="tel" name="dateEnd"
                             <input class="field col--6-12 edate dateEnd field--date" id="dateEnd" type="text" name="dateEnd"
                                    maxlength="10" value="" placeholder="dd.mm.yyyy" autocomplete="off" disabled="">
                         </fieldset>
 
-                        <fieldset class="field-set col col--full" style="false">
+                        <fieldset class="field-set col col--full">
                             <label for="orderBenefit" class="field-set__label">
                                 Способ уведомления</label><select
                                 name="notificationISN" id="notificationISN" tabindex="-1"
                                 class="benefits datas agentData1 field">
                                 <option value="notification-empty">--</option>
-                                <option value="898811">Email от Коммеска + Email от ЕСБД</option>
-                                <option value="898821">Email от Коммеска + SMS от ЕСБД</option>
-                                <option value="898831">SMS от ЕСБД</option>
-                                <option value="898841">SMS от Коммеска + Email от ЕСБД</option>
-                                <option value="898851">SMS от Коммеска + SMS от ЕСБД</option>
+                                <option value="898811" {{ 898811 == $dataUrl['notificationISN'] ? 'selected' : ''}}>Email от Коммеска + Email от ЕСБД</option>
+                                <option value="898821" {{ 898821 == $dataUrl['notificationISN'] ? 'selected' : ''}}>Email от Коммеска + SMS от ЕСБД</option>
+                                <option value="898831" {{ 898831 == $dataUrl['notificationISN'] ? 'selected' : ''}}>SMS от ЕСБД</option>
+                                <option value="898841" {{ 898841 == $dataUrl['notificationISN'] ? 'selected' : ''}}>SMS от Коммеска + Email от ЕСБД</option>
+                                <option value="898851" {{ 898851 == $dataUrl['notificationISN'] ? 'selected' : ''}}>SMS от Коммеска + SMS от ЕСБД</option>
                             </select>
                         </fieldset>
                         <!-- Мобильный номер -->
@@ -280,7 +274,7 @@
                             <label for="orderPhone" class="field-set__label checkList">
                                 Мобильный телефон </label>
                             <input type="tel" class="field interTel datas phone_number" id="phone" name="phone"
-                                   value="">
+                                   value="{{$dataUrl['phone'] ?? ''}}">
                         </fieldset>
 
                         <!-- E-Mail -->
@@ -288,7 +282,7 @@
                             <label for="orderEmail" class="field-set__label checkList">
                                 E-Mail </label>
                             <input type="text" class="field datas keyboardInput agentData1" id="email" name="email"
-                                   value="">
+                                   value="{{$dataUrl['email'] ?? ''}}">
                             <div class="small col" id="checkEmail1"></div>
                         </fieldset>
 
@@ -330,7 +324,7 @@
 
                 });
 
-                // console.log(checkboxes);
+                console.log(checkboxes);
 
                 $.ajax({
                     type: 'POST',
@@ -362,8 +356,8 @@
                         $('#overLoader').show();
                     },
                     success: await function (data) {
+                        $('#overLoader').hide()
                         if(data.code == 200){
-                            $('#overLoader').hide()
                             $("#order_id").val(data.order_id);
                             $("#hash").val(data.hash);
                             $("#premium").html(data.premium);
@@ -444,7 +438,7 @@
                             $("#documentGivedBy").val(data.DOCUMENT_GIVED_BY);
                             $("#documentTypeId").val(data.DOCUMENT_TYPE_ID);
                             $('#documentTypeId').parent().remove();
-                            $('<select>').appendTo('#doctypeField').addClass('docTypes').attr({
+                            $('<select>').appendTo('#doctypeField').addClass('docTypes datas field agentData').attr({
                                 id: 'documentTypeId',
                                 name: 'documentTypeId'
                             });
