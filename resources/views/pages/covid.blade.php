@@ -59,7 +59,7 @@
                             День рождения
                         </label>
                         <input class="field field--date datas edate" id="born" type="tel"
-                               name="born" maxlength="10" placeholder="dd.mm.yyyy" value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
+                                   name="born" maxlength="10" placeholder="dd.mm.yyyy" value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
                     </fieldset>
 
 
@@ -82,15 +82,15 @@
                             <label for="orderBenefit" class="field-set__label">Тип документа </label>
                             <select name="documentTypeId" id="documentTypeId" tabindex="-1" class="benefits datas agentData1 field">
                                 <option value="documentTypeId-empty">--</option>
-                                <option value="1" selected>Удостоверение личности гражданина Казахстана</option>
-                                <option value="2">Паспорт гражданина Казахстана</option>
-                                <option value="4">Вид на жительство</option>
+                                <option value="1" {{ 'Удостоверение личности гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>Удостоверение личности гражданина Казахстана</option>
+                                <option value="2" {{ 'Паспорт гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>Паспорт гражданина Казахстана</option>
+                                <option value="4" {{ 'Вид на жительство' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>Вид на жительство</option>
                             </select>
                         </div>
                     </fieldset>
 
                     <!-- Дата выдачи документа -->
-                    <fieldset class="field-set col col--3-12" style="false">
+                    <fieldset class="field-set col col--3-12">
                         <label for="orderDocDate" class="field-set__label checkList">
                             Дата выдачи документа
                         </label>
@@ -101,7 +101,7 @@
 
                     <!-- Кем выдан	 -->
 
-                    <fieldset class="field-set col col--3-12" style="false">
+                    <fieldset class="field-set col col--3-12" >
                         <label for="orderdocumentGivedBy" class="field-set__label checkList">
                             Кем выдан
                         </label>
@@ -221,9 +221,9 @@
                             <select name="programISN" id="programISN" tabindex="-1"
                                     class="benefits datas agentData1 field">
                                 <option value="program-empty">--</option>
-                                <option value="898641" {{ 898641 == $dataUrl['programISN'] ? 'selected' : ''}}>Прогрмма 1</option>
-                                <option value="898651" {{ 898651 == $dataUrl['programISN'] ? 'selected' : ''}}>Прогрмма 2</option>
-                                <option value="898661" {{ 898661 == $dataUrl['programISN'] ? 'selected' : ''}}>Прогрмма 3</option>
+                                <option value="898641" {{ 898641 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма 1</option>
+                                <option value="898651" {{ 898651 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма 2</option>
+                                <option value="898661" {{ 898661 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма 3</option>
                             </select>
                         </fieldset>
 
@@ -240,19 +240,18 @@
 
                         <fieldset class="field-set col col--6-12" >
                             <h3 class="col">Дата начала договора</h3>
-                            <input class="field field--date edate col--6-12" id="dateBeg" type="tel" name="dateBeg"
                             <input class="field field--date edate dateBeg col--6-12" id="dateBeg" type="text" name="dateBeg"
-                                   maxlength="10" placeholder="dd.mm.yyyy" value="" autocomplete="off">
-                            <br><span class="small error" style="display: none" id="textAgrBeg"></span>
+                                   maxlength="10" placeholder="dd.mm.yyyy" value="{{$dataUrl['dateBeg'] ?? ''}}" autocomplete="off">
+                            <br>
+                            <span class="small error" style="display: none" id="textAgrBeg"></span>
                             <input type="hidden" id="ssid" value="">
                             <p class="small text-grey">Период страхования - 12 месяцев</p>
                         </fieldset>
 
                         <fieldset class="field-set col col--6-12" >
                             <h3 class="col">Дата окончания договора</h3>
-                            <input class="field col--6-12 edate field--date" id="dateEnd" type="tel" name="dateEnd"
                             <input class="field col--6-12 edate dateEnd field--date" id="dateEnd" type="text" name="dateEnd"
-                                   maxlength="10" value="" placeholder="dd.mm.yyyy" autocomplete="off" disabled="">
+                                   maxlength="10" value="{{$dataUrl['dateEnd'] ?? ''}}" placeholder="dd.mm.yyyy" autocomplete="off" disabled="">
                         </fieldset>
 
                         <fieldset class="field-set col col--full">
@@ -261,11 +260,11 @@
                                 name="notificationISN" id="notificationISN" tabindex="-1"
                                 class="benefits datas agentData1 field">
                                 <option value="notification-empty">--</option>
-                                <option value="898811" {{ 898811 == $dataUrl['notificationISN'] ? 'selected' : ''}}>Email от Коммеска + Email от ЕСБД</option>
-                                <option value="898821" {{ 898821 == $dataUrl['notificationISN'] ? 'selected' : ''}}>Email от Коммеска + SMS от ЕСБД</option>
-                                <option value="898831" {{ 898831 == $dataUrl['notificationISN'] ? 'selected' : ''}}>SMS от ЕСБД</option>
-                                <option value="898841" {{ 898841 == $dataUrl['notificationISN'] ? 'selected' : ''}}>SMS от Коммеска + Email от ЕСБД</option>
-                                <option value="898851" {{ 898851 == $dataUrl['notificationISN'] ? 'selected' : ''}}>SMS от Коммеска + SMS от ЕСБД</option>
+                                <option value="898811" {{ 898811 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>Email от Коммеска + Email от ЕСБД</option>
+                                <option value="898821" {{ 898821 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>Email от Коммеска + SMS от ЕСБД</option>
+                                <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS от ЕСБД</option>
+                                <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS от Коммеска + Email от ЕСБД</option>
+                                <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS от Коммеска + SMS от ЕСБД</option>
                             </select>
                         </fieldset>
                         <!-- Мобильный номер -->
@@ -293,6 +292,10 @@
                         <br>
                         <input type="submit"  class="button button--hollow agentClear" id="sendOrder"  value="Расчитать"/>
                     </fieldset>
+                    <input type="hidden" id="bornHidden" value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}">
+                    <input type="hidden" id="documentGivedDateHidden" value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}">
+                    <input type="hidden" id="dateBegHidden" value="{{$dataUrl['dateBeg'] ?? ''}}">
+                    <input type="hidden" id="dateEndHidden" value="{{$dataUrl['dateEnd'] ?? ''}}">
                 <div style="display: none; font-weight: bold" id="premiumWrapper">Итого: <span id="premium"  class="premium" style="font-size: larger;"></span> тг</div>
                 <input type="number" name="order_id" id="order_id"
                        value="" style="display: none">

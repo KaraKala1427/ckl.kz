@@ -4,11 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 require('./bootstrap');
-require('./dopTOP');
 require('./scripts/main.min');
 require('./scripts/regionCT');
 require('./scripts/polyfills.min');
 require('./scripts/calc');
+require('./dopTOP');
 require('./scripts/session');
 
 
