@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Helpers\EnsOrderHelper;
+use http\Env\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -43,6 +44,25 @@ class  CovidController extends Controller
         return response()->json($response);
     }
 
+    public function getProgramIsn(Request $request)
+    {
+
+        $programIsn = $request->programISN;
+        if($programIsn == '0') $limitSum = '';
+        elseif($programIsn == '898641') $limitSum = 1000000;
+        elseif ($programIsn == '898651') $limitSum = 2000000;
+        elseif ($programIsn == '898661') $limitSum = 3000000;
+        $response = ['code' => 200, 'limitSum' => $limitSum];
+
+        if ($response['code'] == 200) {
+            return response()->json($response);
+        }
+        else{
+            return  response()->json([
+                'code' => 404
+            ]);
+        }
+    }
 
     public function setOrder(Request $request)
     {

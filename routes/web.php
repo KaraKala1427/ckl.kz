@@ -109,6 +109,7 @@ Route::group([
 
     Route::get('/covid', [CovidController::class, 'index'])->name('covid');
     Route::post('/covid/getSubject', [CovidController::class, 'getClient'])->name('covid.getClient');
+    Route::post('/covid/getProgram', [CovidController::class, 'getProgramIsn'])->name('covid.getProgramIsn');
     Route::post('/covid/setOrder', [CovidController::class, 'setOrder'])->name('covid.setOrder');
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
@@ -143,5 +144,3 @@ Route::group([
     Route::put('/edd/{id}/thumb', [App\Http\Controllers\AdminController::class, 'thumbUpdate'])->name('thumbUpdate');
     Route::post('/insertThumb', [App\Http\Controllers\AdminController::class, 'postThumb'])->name('insertThumb');
 });
-
-
