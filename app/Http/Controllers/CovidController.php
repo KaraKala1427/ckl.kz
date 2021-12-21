@@ -35,13 +35,14 @@ class  CovidController extends Controller
         if($order_id != null && $hash != null && $this->checkHash($order_id, $hash)){
             try {
                 $order = Order::findOrFail($order_id);
+                $premiumSum = $order->premium_sum;
                 $step  = $order->step;
                 $dataUrl = json_decode($order->order_data,true)[0];
                 $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
                 $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
                 $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
                 if ($urlStep == 1){
-                    return view('pages.covid',compact('dataUrl'));
+                    return view('pages.covid',compact('dataUrl','premiumSum'));
                 }
                 elseif ($step == 2 && $urlStep == $step){
                     return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts'));

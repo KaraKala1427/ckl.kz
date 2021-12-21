@@ -1,7 +1,7 @@
 @extends('layouts.general')
 
 @section('content')
-{{--    @dd($wrongAttempts)--}}
+    {{--    @dd($wrongAttempts)--}}
     <div class="calculator__section">
         <div class="calculator__block bg-grey">
             <div class="container2" style="display:none;">
@@ -30,7 +30,8 @@
                             <b>Обязательное автострахование: {{$order->premium_sum}} тенге</b>
                         </p>
                         <p>
-                            <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}</p>
+                            <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
+                        </p>
                         <p>
                             <b>Период действия:</b> {{$dataUrl['dateBeg'] ?? ''}} - {{$dataUrl['dateEnd'] ?? ''}} </p>
                         <p>
@@ -66,18 +67,21 @@
                             {{$dataUrl['email'] ?? ''}}
                         </p>
                     </div>
-                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span>{{$order->premium_sum}}</div>
+                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span>{{$order->premium_sum}}
+                    </div>
                 </div>
 
                 <div class="grid">
                     <div class="col col--6-12 teldiv">
                         <label for="phone" class="field-set__label NumpadInputMaster">Для перехода к оплате подтвердите
                             свой номер телефона</label>
-                        <input type="tel" class="field interTel" id="phone" name="confirmTel" value="{{$dataUrl['phone'] ?? ''}}" disabled>
+                        <input type="tel" class="field interTel" id="phone" name="confirmTel"
+                               value="{{$dataUrl['phone'] ?? ''}}" disabled>
                     </div>
                     <div class="col col--6-12 telbuttondiv"><br/>
-                        <button class="buttonSmsFirst button button--hollow" style="display: none"><a href="javascript:void(0)" onClick="sendSMS()"
-                           class='sendLink'><b>Получить код проверки</b></a>
+                        <button class="buttonSmsFirst button button--hollow" style="display: none"><a
+                                href="javascript:void(0)" onClick="sendSMS()"
+                                class='sendLink'><b>Получить код проверки</b></a>
                         </button>
                         <span class='smswaiting' style='display:none;'>До повторной отправки  СМС осталось
                             <span id='sec'></span> <span id="timeType">сек.</span></span>
@@ -87,13 +91,16 @@
                         <input type="text" class="field" id="code" value="" placeholder="Введите код">
                     </div>
                     <div class="col col--6-12 codedivs" style="display:none;">
-                        <button class="buttonSmsSecond button button--hollow"><a href="javascript:void(0)" onClick="confirmcode()">Подтвердить</a></button>
+                        <button class="buttonSmsSecond button button--hollow"><a href="javascript:void(0)"
+                                                                                 onClick="confirmcode()">Подтвердить</a>
+                        </button>
                     </div>
 
                 </div>
 
                 <div id="step3" style="display: none">
-                    <h3 class="calculator__title">Номер заказа: {{$order_id}}<br/>К оплате: {{$order->premium_sum}} ₸ </h3>
+                    <h3 class="calculator__title">Номер заказа: {{$order_id}}<br/>К оплате: {{$order->premium_sum}} ₸
+                    </h3>
                     <div class="delivery-disq text-grey">
                         <p>
                             После нажатия на кнопку «Оплатить» вы будете направлены на страницу одного из наших
@@ -120,8 +127,10 @@
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithPolicy" value="yes">
-                                <span class="checkbox__label">Я согласен на обработку <a href="{{asset('images/files/rules/policy.pdf')}}"
-                                                                                         target="_blank" style="text-decoration: underline;">персональных данных</a> </span>
+                                <span class="checkbox__label">Я согласен на обработку <a
+                                        href="{{asset('images/files/rules/policy.pdf')}}"
+                                        target="_blank"
+                                        style="text-decoration: underline;">персональных данных</a> </span>
                             </label>
                         </fieldset>
 
@@ -195,54 +204,58 @@
 
                 <br/>
                 <br/>
-                <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">Предыдущий шаг</button>
+                <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">Предыдущий шаг
+                </button>
             </div>
         </div>
         <div id='aj_result'></div>
     </div>
 
     <script>
+        function showError(text) {
+            $('#modalText').html(text);
+            $('#modalError').modal('show');
+        }
+
+
         var timerId;
         var timeOut;
         $(document).ready(function () {
             wrongAttempts = @json($wrongAttempts);
-            verified = @json($verified) === true ? true : false;
-            if(verified){
+            verified = @json($verified) ===
+            true ? true : false;
+            if (verified) {
                 $('.codedivs').hide();
                 $(".sendLink").hide();
                 $(".smswaiting").hide();
                 $('#step3').show();
-            }
-            else {
+            } else {
                 let timeLimit = @json($timeLimitReached);
-                if(timeLimit != null){
-                    if (timeLimit.type == 'сек.'){
-                        if( timeLimit.number < 60) {
+                if (timeLimit != null) {
+                    if (timeLimit.type == 'сек.') {
+                        if (timeLimit.number < 60) {
                             clearInterval(timerId);
                             clearTimeout(timeOut);
-                            initresendwait(60-timeLimit.number);
-                            if(wrongAttempts > 2){
+                            initresendwait(60 - timeLimit.number);
+                            if (wrongAttempts > 2) {
                                 $('.codedivs').hide();
                             }
-                        }
-                        else $('.buttonSmsFirst').show()
-                    }
-                    else{
+                        } else $('.buttonSmsFirst').show()
+                    } else {
                         clearInterval(timerId);
                         clearTimeout(timeOut);
                         initresendwait(timeLimit.number, true, 60000);
-                        if(timeLimit.showCodedivs == 'true'){
+                        if (timeLimit.showCodedivs == 'true') {
                             $('.codedivs').show();
                         }
                     }
-                }
-                else {
+                } else {
                     $('.buttonSmsFirst').show()
                 }
             }
 
         });
-        $(document).on("click", "#prevStep", function() {
+        $(document).on("click", "#prevStep", function () {
             window.location.href = "/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1";
         });
 
@@ -253,57 +266,54 @@
                 url: '{{route('covid.sendSms')}}',
                 data: {
                     order_id: {{$order_id}},
-                    hash : '{{$hash}}',
+                    hash: '{{$hash}}',
                     phone: phone,
                     _token: '{{csrf_token()}}'
                 },
 
-                success: await function(data) {
+                success: await function (data) {
                     console.log(data)
-                    if (data.success == true){
+                    if (data.success == true) {
                         clearInterval(timerId);
                         clearTimeout(timeOut);
-                        if(data.time_limit_reached != null && data.time_limit_reached?.type == 'мин.'){
+                        if (data.time_limit_reached != null && data.time_limit_reached?.type == 'мин.') {
                             initresendwait(data.time_limit_reached.number, true, 60000);
-                        }
-                        else {
+                        } else {
                             initresendwait();
                         }
                         $('.codedivs').show();
-                    }
-                    else alert('Попробуйте еще раз');
+                    } else alert('Попробуйте еще раз');
                 }
             });
         }
-        function initresendwait(seconds,ddos = false, timeStep = 1000) {
+
+        function initresendwait(seconds, ddos = false, timeStep = 1000) {
             $(".buttonSmsFirst").hide();
             $(".sendLink").html('Отправить смс повторно');
             $(".sendLink").hide();
-            if(!ddos){
+            if (!ddos) {
                 $(".smswaiting, .codedivs").show();
-            }
-            else {
+            } else {
                 $(".smswaiting").show();
             }
             seconds = seconds == null ? 60 : seconds;
             $("#sec").html(seconds);
-            if(timeStep == 60000){
+            if (timeStep == 60000) {
                 $('#timeType').html('мин.')
-            }
-            else $('#timeType').html('сек.')
-            timerId = setInterval(function() {
-                if (parseInt($("#sec").html())>0) {
-                    $("#sec").html(parseInt($("#sec").html())-1);
+            } else $('#timeType').html('сек.')
+            timerId = setInterval(function () {
+                if (parseInt($("#sec").html()) > 0) {
+                    $("#sec").html(parseInt($("#sec").html()) - 1);
                 }
             }, timeStep);
 
-            timeOut = setTimeout(function() {
+            timeOut = setTimeout(function () {
                 clearInterval(timerId);
                 $(".buttonSmsFirst").show();
                 $(".sendLink").show();
                 $(".smswaiting").hide();
                 $('.codedivs').hide();
-            }, (seconds)*timeStep);
+            }, (seconds) * timeStep);
         }
 
         async function confirmcode() {
@@ -311,43 +321,39 @@
             $.ajax({
                 type: 'POST',
                 url: "{{route('covid.confirmCode')}}",
-                data:  {
+                data: {
                     order_id: {{$order_id}},
-                    hash : '{{$hash}}',
+                    hash: '{{$hash}}',
                     phone: phone,
-                    code:$("#code").val(),
+                    code: $("#code").val(),
                     _token: '{{csrf_token()}}'
                 },
-                success: await function(data) {
-                    if (data.success == true){
+                success: await function (data) {
+                    if (data.success == true) {
                         $('.codedivs').hide();
                         $(".sendLink").hide();
                         $(".smswaiting").hide();
                         $('#step3').show();
-                    }
-                    else {
-                        if (!data.limit_reached){
+                    } else {
+                        if (!data.limit_reached) {
                             alert('Попробуйте еще раз');
-                        }
-                        else {
+                        } else {
                             alert('Вы исчерпали 3 попытки');
-                            if (data.time_limit_reached != null){
+                            if (data.time_limit_reached != null) {
                                 alert('time limit reached');
                                 $('.codedivs').hide();
                                 $(".sendLink").hide();
                                 clearInterval(timerId);
                                 clearTimeout(timeOut);
-                                if(data.time_limit_reached?.type == 'мин.'){
+                                if (data.time_limit_reached?.type == 'мин.') {
                                     alert('минутный таймер запуск')
                                     initresendwait(data.time_limit_reached.number, true, 60000);
-                                }
-                                else{
+                                } else {
                                     initresendwait(60 - data.time_limit_reached?.number)
                                     $('.codedivs').hide();
                                     $(".sendLink").hide();
                                 }
-                            }
-                            else {
+                            } else {
                                 $(".buttonSmsFirst").show();
                                 $(".sendLink").show();
                                 // $(".smswaiting").hide();
@@ -359,10 +365,68 @@
             });
         }
 
+        $(document).on("click", "#setNotifyButton", function() {
+
+            var check = '';
+            if(!$("#agreeWithRule").is(":checked")) {
+                check += 'Пожалуйста, ознакомьтесь с Правилами страхования<br/>';
+            }
+            if(!$("#agreeWithPolicy").is(":checked")) {
+                check += 'Пожалуйста, подтвердите согласие на обработку персональных данных<br/>';
+            }
+            if(!$("#agreeWithData").is(":checked")) {
+                check += 'Пожалуйста, подтвердите корректность введенных данных';
+            }
+
+            if(check.length > 0) {
+                showError(check);
+                return;
+            }
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/engine/ajax/eogpo.php",
+            //     dataType: "json",
+            //     data: {
+            //         action: "setNotify",
+            //         notify: $("#notifyType").val(),
+            //         pid: '4720082',
+            //         hash: '562441748c789c5edbbfb99647461c3d',
+            //         sum: '10206'
+            //     },
+            //     success: function(data) {
+            //         if(data.status) {
+            //             if($('.payWith').closest('fieldset').find(':checked').val() == 'kaspi')
+            //                 $('#payKaspi').click();
+            //             else if($('.payWith').closest('fieldset').find(':checked').val() == 'card')
+            //                 $("#payButton").click();
+            //             else
+            //                 showError('Выберите способ оплаты');
+            //         } else {
+            //             showError(data.error);
+            //         }
+            //     }
+            // });
+        });
 
 
     </script>
+    <!-- Button trigger modal -->
 
+    <div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <p id="modalText" style="color: red;"></p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         .removejust {
             display: none;
