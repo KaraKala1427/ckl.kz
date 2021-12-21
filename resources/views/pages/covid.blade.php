@@ -421,23 +421,28 @@
                             class="button button--prime">
                         Рассчитать
                     </button>
-                    <div
-                        style="display: @if(($premiumSum ?? '') > 0) block @else none @endif; font-weight: bold; margin-top: 13px;"
+                    <div style="display: @if(($premiumSum ?? '') > 0) block @else none @endif; font-weight: bold; margin-top: 13px;"
                         id="premiumWrapper">
                         Итого: <span id="premium" class="premium"
                                      style="font-size: larger;">{{$premiumSum ?? ''}}</span> тг
-                        <input type="hidden" id="bornHidden"
-                               value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}">
-                        <input type="hidden" id="documentGivedDateHidden"
-                               value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}">
-                        <input type="hidden" id="dateBegHidden" value="{{$dataUrl['dateBeg'] ?? ''}}">
-                        <input type="hidden" id="dateEndHidden" value="{{$dataUrl['dateEnd'] ?? ''}}">
-                        <input type="number" name="order_id" id="order_id"
-                               value="" style="display: none">
-                        <input type="text" name="hash" id="hash"
-                               value="" style="display: none">
                     </div>
                 </div>
+                <div  id="nextStepShow" class="col col--6-12" style="display: none">
+                    <button onclick="" id="nextStep"
+                            class="button button--prime">
+                        Следующий шаг
+                    </button>
+                </div>
+                <input type="hidden" id="bornHidden"
+                       value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}">
+                <input type="hidden" id="documentGivedDateHidden"
+                       value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}">
+                <input type="hidden" id="dateBegHidden" value="{{$dataUrl['dateBeg'] ?? ''}}">
+                <input type="hidden" id="dateEndHidden" value="{{$dataUrl['dateEnd'] ?? ''}}">
+                <input type="number" name="order_id" id="order_id"
+                       value="" style="display: none">
+                <input type="text" name="hash" id="hash"
+                       value="" style="display: none">
             </div>
         </div>
     </div>
@@ -511,6 +516,34 @@
                         return true;
                     }
                 }
+
+                $(document).on("click", "#nextStep", async function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('covid.nextStep')}}",
+                        data: {
+                            action: "setCurrentStepCode",
+                            step: 'step2',
+                            productOrderId: $("#order_id").val(),
+                            hash: $("#hash").val(),
+                            _token: '{{csrf_token()}}'
+                        },
+
+                        beforeSend: function () {
+                            // $('#overLoader').show();
+                        },
+
+                        success: await function (data) {
+                            $('#overLoader').hide();
+                            if (data.code == 200) {
+                                history.pushState({}, '', "?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + '&step=2');
+                            }
+                        },
+                        failure: function () {
+                            showError("Неизвестная ошибка");
+                        }
+                    });
+                });
 
                 /////// определяем переменные для проверки полей на пустоту
 
@@ -655,10 +688,10 @@
                                 return `${(+premium).toLocaleString('ru-RU')}`;
                             });
                             history.pushState({}, '', "?productOrderId=" + data.order_id + "&hash=" + data.hash + "&step=1");
-
+                            $("#nextStepShow").show();
                         } else {
                             showError(data.error);
-                            $('#overLoader').hide()
+                            $('#overLoader').hide();
                         }
                     },
                 });
