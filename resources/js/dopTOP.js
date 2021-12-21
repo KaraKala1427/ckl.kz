@@ -104,7 +104,7 @@ $(function(){
         else {
             k = url.split('/')[1];
         }
-        if(k == 'product' || k == 'annuitet' || k == 'live' || k =='retirementinsurance' ){
+        if(k == 'product' || k == 'annuitet' || k == 'live' || k =='retirementinsurance'  || k =='covid'){
             $('#product').addClass('active');
         } else if( k == 'about') {
             $('#aboutt').addClass('active');

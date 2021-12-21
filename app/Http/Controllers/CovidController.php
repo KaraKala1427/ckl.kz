@@ -85,7 +85,7 @@ class  CovidController extends Controller
                 if ($urlStep == 2){
                     return view('pages.covid2',compact('dataUrl', 'order','hash','order_id'));
                 }
-                return view('pages.covid',compact('dataUrl'));
+                return view('pages.covid',compact('dataUrl', ));
             }
             catch (ModelNotFoundException $exception)
             {
@@ -194,7 +194,8 @@ class  CovidController extends Controller
             session()->put('data',$responseSubjISN['error']);
             return response()->json([
                 'code' => 404,
-                'error' => $responseSubjISN['error']
+                'error' => $responseSubjISN['error'],
+                'function' => 'setSubject'
             ]);
         }
         $subjISN = $responseSubjISN['subjectISN'];
@@ -205,7 +206,8 @@ class  CovidController extends Controller
             session()->put('data',$responseDoc['error']);
             return response()->json([
                 'code' => 404,
-                'error' => $responseDoc['error']
+                'error' => $responseDoc['error'],
+                'function' => 'setDocs'
             ]);
         }
         $responseESBD = $this->setSubjectESBD($subjISN);
@@ -220,7 +222,8 @@ class  CovidController extends Controller
                     session()->put('data',$responseAgr['error']);
                     return response()->json([
                         'code' => 404,
-                        'error' => $responseAgr['error']
+                        'error' => $responseAgr['error'],
+                        'function' => 'setAgr'
                     ]);
                 }
             }
@@ -230,7 +233,8 @@ class  CovidController extends Controller
                     session()->put('data',$responseUpdate['error']);
                     return response()->json([
                         'code' => 404,
-                        'error' => $responseUpdate['error']
+                        'error' => $responseUpdate['error'],
+                        'function' => 'updateAgr'
                     ]);
                 }
                 $responseClear = $this->clearAgreement($order->agr_isn);
@@ -238,7 +242,8 @@ class  CovidController extends Controller
                     session()->put('data',$responseClear['error']);
                     return response()->json([
                         'code' => 404,
-                        'error' => $responseClear['error']
+                        'error' => $responseClear['error'],
+                        'function' => 'clearAgr'
                     ]);
                 }
             }
@@ -247,7 +252,8 @@ class  CovidController extends Controller
                 session()->put('data',$responseObj['error']);
                 return response()->json([
                     'code' => 404,
-                    'error' => $responseObj['error']
+                    'error' => $responseObj['error'],
+                    'function' => 'setAgrObject'
                 ]);
             }
             $responseRole = $this->setAgrRole($subjISN, $order);
@@ -262,7 +268,8 @@ class  CovidController extends Controller
                     session()->put('data',$responseCond['error']);
                     return response()->json([
                         'code' => 404,
-                        'error' => $responseCond['error']
+                        'error' => $responseCond['error'],
+                        'function' => 'setAgrCond'
                     ]);
                 }
                 $responseCalc = $this->agrCalculate($order);
@@ -270,7 +277,8 @@ class  CovidController extends Controller
                     session()->put('data',$responseCalc['error']);
                     return response()->json([
                         'code' => 404,
-                        'error' => $responseCalc['error']
+                        'error' => $responseCalc['error'],
+                        'function' => 'agrCalculate'
                     ]);
                 }
                 if($responseCalc['code'] == 200){
@@ -290,7 +298,8 @@ class  CovidController extends Controller
                 session()->put('data',$responseAttributes['error']);
                 return response()->json([
                     'code' => 404,
-                    'error' => $responseAttributes['error']
+                    'error' => $responseAttributes['error'],
+                    'function' => 'setAttribute'
                 ]);
             }
         }
@@ -298,7 +307,8 @@ class  CovidController extends Controller
             session()->put('data',$responseESBD['error']);
             return response()->json([
                 'code' => 404,
-                'error' => $responseESBD['error']
+                'error' => $responseESBD['error'],
+                'function' => 'setSubjectEsbd'
             ]);
         }
     }
