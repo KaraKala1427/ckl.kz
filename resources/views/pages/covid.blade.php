@@ -427,7 +427,7 @@
                                      style="font-size: larger;">{{$premiumSum ?? ''}}</span> тг
                     </div>
                 </div>
-                <div  id="nextStepShow" class="col col--6-12" style="display: none">
+                <div  id="nextStepShow" class="col col--6-12" style="display: @if(($premiumSum ?? '') > 0) block @else none @endif;">
                     <button onclick="" id="nextStep"
                             class="button button--prime">
                         Следующий шаг
@@ -529,7 +529,7 @@
                         },
 
                         beforeSend: function () {
-                            // $('#overLoader').show();
+                            $('#overLoader').show();
                         },
 
                         success: await function (data) {
