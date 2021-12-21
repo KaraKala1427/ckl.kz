@@ -522,8 +522,7 @@
                         type: "POST",
                         url: "{{route('covid.nextStep')}}",
                         data: {
-                            action: "setCurrentStepCode",
-                            step: 'step2',
+                            step: 2,
                             productOrderId: $("#order_id").val(),
                             hash: $("#hash").val(),
                             _token: '{{csrf_token()}}'
@@ -536,7 +535,7 @@
                         success: await function (data) {
                             $('#overLoader').hide();
                             if (data.code == 200) {
-                                history.pushState({}, '', "?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + '&step=2');
+                                window.location.href = "/covid?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + "&step=2";
                             }
                         },
                         failure: function () {

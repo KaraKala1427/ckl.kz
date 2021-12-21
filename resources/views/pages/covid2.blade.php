@@ -221,9 +221,8 @@
         var timerId;
         var timeOut;
         $(document).ready(function () {
-            wrongAttempts = @json($wrongAttempts);
-            verified = @json($verified) ===
-            true ? true : false;
+            wrongAttempts = @json($wrongAttempts ?? '');
+            verified = @json($verified ?? '') === true ? true : false;
             if (verified) {
                 $('.codedivs').hide();
                 $(".sendLink").hide();

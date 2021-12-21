@@ -84,7 +84,9 @@ class  CovidController extends Controller
                 $order->save();
                 $dataUrl = json_decode($order->order_data,true)[0];
                 if ($urlStep == 2){
-                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id'));
+                    return response()->json([
+                        'code' => 200
+                    ]);
                 }
                 return view('pages.covid',compact('dataUrl', ));
             }
