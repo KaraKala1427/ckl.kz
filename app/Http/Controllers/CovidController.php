@@ -2,27 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\PhoneRepository;
 use App\Services\Helpers\EnsOrderHelper;
+use App\Services\Products\CovidService;
+use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 
 class  CovidController extends Controller
 {
     protected $kiasClient = [];
+    protected $phoneRepository;
+    protected $covidService;
+
+    public function __construct(PhoneRepository $phoneRepository, CovidService $service)
+    {
+        $this->phoneRepository = $phoneRepository;
+        $this->covidService = $service;
+    }
+
     public function index(Request $request)
     {
         $order_id = $request->productOrderId;
         $hash = $request->hash;
+        $urlStep = $request->step;
         if($order_id != null && $hash != null && $this->checkHash($order_id, $hash)){
             try {
                 $order = Order::findOrFail($order_id);
+                $step  = $order->step;
                 $dataUrl = json_decode($order->order_data,true)[0];
-                return view('pages.covid',compact('dataUrl'));
+                $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
+                $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
+                $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
+                if ($urlStep == 1){
+                    return view('pages.covid',compact('dataUrl'));
+                }
+                elseif ($step == 2 && $urlStep == $step){
+                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts'));
+                }
+                return redirect()->route('covid',['productOrderId'=> $order_id, 'hash' => $hash, 'step' => 1]);
             }
             catch (ModelNotFoundException $exception)
             {
@@ -38,10 +62,90 @@ class  CovidController extends Controller
             'token'  => "wesvk345sQWedva55sfsd*g",
             'iin'    => $request->iin
         ])->json();
+        if($response['code'] == 404){
+            return response()->json($response);
+        }
         $this->kiasClient =  $response['client'];
         session()->put('kiasClient', $response['client']);
         $response = EnsOrderHelper::secret($response);
         return response()->json($response);
+    }
+
+    public function nextStep(Request $request)
+    {
+        $order_id = $request->productOrderId;
+        $hash = $request->hash;
+        $urlStep = $request->step;
+        if($order_id != null && $hash != null && $this->checkHash($order_id, $hash)){
+            try {
+                $order = Order::findOrFail($order_id);
+                $order->step = $urlStep;
+                $order->save();
+                $dataUrl = json_decode($order->order_data,true)[0];
+                if ($urlStep == 2){
+                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id'));
+                }
+                return view('pages.covid',compact('dataUrl'));
+            }
+            catch (ModelNotFoundException $exception)
+            {
+                return view('pages.covid');
+            }
+        }
+        return view('pages.covid');
+    }
+
+    public function sendSms(Request $request)
+    {
+        $order_id = $request->order_id;
+        $hash = $request->hash;
+        $phone = $request->phone;
+        if($order_id != null && $hash != null && $this->checkHash($order_id, $hash)){
+            $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id,true);
+            if($timeLimitReached == null){
+                $code = rand(1000,9999);
+                $model = $this->phoneRepository->create($order_id,$phone, $code);
+                if(!is_null($model)){
+                    $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id,true);
+                    return response()->json([
+                        'code'    => 200,
+                        'success' => true,
+                        'time_limit_reached' => $timeLimitReached
+                    ]);
+                }
+                return response()->json([
+                    'code'    => 400,
+                    'success' => false
+                ]);
+            }
+            else {
+                return response()->json([
+                    'code'    => 400,
+                    'success' => false,
+                    'time_limit_reached' => $timeLimitReached
+                ]);
+            }
+        }
+    }
+
+    public function confirmCode(Request $request)
+    {
+        $order_id = $request->order_id;
+        $code = $request->code;
+
+        $result = $this->covidService->confirmCode($order_id, $code);
+        if($result['success']){
+            return response()->json([
+                'code'    => 200,
+                'success' => true
+            ]);
+        }
+        return response()->json([
+            'code'    => 400,
+            'success' => false,
+            'limit_reached' => $result['limit_reached'],
+            'time_limit_reached' => $result['time_limit_reached']
+        ]);
     }
 
     public function getProgramIsn(Request $request)
@@ -106,6 +210,8 @@ class  CovidController extends Controller
         }
         $responseESBD = $this->setSubjectESBD($subjISN);
         if($responseESBD['code'] == 200){
+            $orderDataUser = $this->getFieldOrderData($order,'subjects')[0]['user'];
+            $this->saveXmlInAndOut($responseESBD['xmlIsn'], $order, $orderDataUser['iin'] );
             $dateBeg = $this->getFieldOrderData($order, 'dateBeg');
             $dateEnd = $this->getFieldOrderData($order, 'dateEnd');
             if($order->agr_isn == null){
@@ -200,6 +306,7 @@ class  CovidController extends Controller
     public function setSubject(Order $order)
     {
         $orderDataUser = $this->getFieldOrderData($order,'subjects')[0]['user'];
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setClient',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "iin"       => $orderDataUser['iin'],
@@ -452,5 +559,18 @@ class  CovidController extends Controller
         return false;
     }
 
+    public function saveXmlInAndOut($xmlIsn, Order $order, $requestParam)
+    {
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getXmlInfo',[
+            "token"     => "wesvk345sQWedva55sfsd*g",
+            "xmlIsn"      => $xmlIsn,
+        ])->json();
+        if ($response['code'] == 200){
+            $order->xml_in  .= PHP_EOL.PHP_EOL." -------------------- $requestParam".PHP_EOL.$response['result_cursor'][0]['XMLIN'];
+            $order->xml_out .= PHP_EOL.PHP_EOL." -------------------- $requestParam".PHP_EOL.$response['result_cursor'][0]['XMLOUT'];
+            $order->save();
+        }
+        return $response;
+    }
 
  }

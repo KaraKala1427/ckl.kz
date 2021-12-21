@@ -93,9 +93,12 @@
                                     <div class="person">
                                         <div class="person__wrapper">
 
-                                            <figure class="person-photo"><img src="{{ $value->img_ru }}"
+                                            <figure class="person-photo">
+                                                @if($value->img_ru != '')
+                                                <img src="{{ $value->img_ru }}"
                                                                               class="person-photo__image" alt="{{ $value->{'name_ru'} }}">
-                                                <div class="person-photo__back"></div>
+                                                    <div class="person-photo__back"></div>
+                                                @endif
                                             </figure>
 
                                             <div class="person-info"><h3

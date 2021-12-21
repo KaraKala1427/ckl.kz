@@ -108,7 +108,7 @@
                     <label for="orderDocNumber" class="field-set__label checkList">
                         Номер документа </label>
                     <input class="field field-- datas" id="documentNumber" type="text" name="documentNumber"
-                           onkeyup="showOrHideBlock('documentNumber_error','documentNumber')" value="">
+                           onkeyup="showOrHideBlock('documentNumber_error','documentNumber')" value="{{$dataUrl['subjects'][0]['user']['document_number'] ?? ''}}">
                     <strong><small id="documentNumber_error" class="form-text text-"
                                    style="display: none; color: crimson">
                             Вы не указали номер документа</small></strong>
@@ -239,14 +239,11 @@
                         <option value="898821" {{ 898821 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
                             Email от Коммеска + SMS от ЕСБД
                         </option>
-                        <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                            от ЕСБД
+                        <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS от ЕСБД
                         </option>
-                        <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '  ') ? 'selected' : ''}}>SMS
-                            от Коммеска + Email от ЕСБД
+                        <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '  ') ? 'selected' : ''}}>SMS от Коммеска + Email от ЕСБД
                         </option>
-                        <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                            от Коммеска + SMS от ЕСБД
+                        <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS от Коммеска + SMS от ЕСБД
                         </option>
                     </select>
                 </fieldset>
@@ -257,7 +254,7 @@
                     <label for="orderPhone" class="field-set__label checkList">
                         Мобильный телефон </label>
                     <input type="tel" class="field interTel datas phone_number" id="phone" name="phone"
-                           onkeyup="showOrHideBlock('phone_error','phone')" onchange="showBlock3()" value="">
+                           onkeyup="showOrHideBlock('phone_error','phone')" onchange="showBlock3()" value="{{$dataUrl['phone'] ?? ''}}">
                     <strong><small id="phone_error" class="form-text text-" style="display: none; color: crimson">
                             Вы не указали телефон</small></strong>
                 </fieldset>
@@ -268,7 +265,7 @@
                     <label for="orderEmail" class="field-set__label checkList">
                         E-Mail </label>
                     <input type="text" class="field datas keyboardInput agentData1" id="email" name="email"
-                           onkeyup="showOrHideBlock('email_error','email')" onchange="showBlock3()" value="">
+                           onkeyup="showOrHideBlock('email_error','email')" onchange="showBlock3()" value="{{$dataUrl['email'] ?? ''}}">
                     <strong><small id="email_error" class="form-text" style="display: none; color: crimson">
                             Вы не указали email</small></strong>
                 </fieldset>
@@ -506,16 +503,6 @@
                             a = true;
                         }
 
-                        if (lastName == '') {
-                            $("#lastName_error").show();
-                            a = true;
-                        }
-
-                        if (patronymicName == '') {
-                            $("#patronymicName_error").show();
-                            a = true;
-                        }
-
                         if (phone == '') {
                             $("#phone_error").show();
                             a = true;
@@ -636,10 +623,8 @@
                         _token: '{{csrf_token()}}'
                     },
                     beforeSend: function () {
-
                         $('#overLoader').show();
                     },
-
                     success: await function (data) {
                         $('#overLoader').hide()
                         if (data.code == 200) {

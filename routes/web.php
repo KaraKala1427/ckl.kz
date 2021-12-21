@@ -111,6 +111,9 @@ Route::group([
     Route::post('/covid/getSubject', [CovidController::class, 'getClient'])->name('covid.getClient');
     Route::post('/covid/getProgram', [CovidController::class, 'getProgramIsn'])->name('covid.getProgramIsn');
     Route::post('/covid/setOrder', [CovidController::class, 'setOrder'])->name('covid.setOrder');
+    Route::post('/covid/next-step', [CovidController::class, 'nextStep'])->name('covid.nextStep');
+    Route::post('/covid/send-sms', [CovidController::class, 'sendSms'])->name('covid.sendSms');
+    Route::post('/covid/confirm-sms', [CovidController::class, 'confirmCode'])->name('covid.confirmCode');
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
