@@ -4,6 +4,7 @@
 namespace App\Services\Products;
 
 
+use App\Models\Order;
 use App\Models\Phone;
 use App\Repositories\PhoneRepository;
 use Carbon\Carbon;
@@ -78,6 +79,20 @@ class CovidService
             return $model->wrong_attempts;
         }
         return 0;
+    }
+
+    public function IsAllowedDate(Order $order)
+    {
+        $dateBeg = Carbon::parse($this->getFieldOrderData($order, 'dateBeg'));
+        $today = Carbon::parse(Carbon::now());
+        $difference = $today->diffInDays($dateBeg);
+        if ($difference >= 6)  return 'true';
+        return 'false';
+    }
+    public function getFieldOrderData(Order $order, $param , $key = 0)
+    {
+        $data = json_decode($order->order_data, true)[$key];
+        return $data[$param];
     }
 
     public function getLastTimeOfSms($order_id)

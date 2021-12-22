@@ -41,11 +41,12 @@ class  CovidController extends Controller
                 $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
                 $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
                 $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
+                $allowedDate  = $this->covidService->IsAllowedDate($order);
                 if ($urlStep == 1){
                     return view('pages.covid',compact('dataUrl','premiumSum'));
                 }
                 elseif ($step == 2 && $urlStep == $step){
-                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts'));
+                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts','allowedDate'));
                 }
                 return redirect()->route('covid',['productOrderId'=> $order_id, 'hash' => $hash, 'step' => 1]);
             }
@@ -88,7 +89,38 @@ class  CovidController extends Controller
                         'code' => 200
                     ]);
                 }
-                return view('pages.covid',compact('dataUrl', ));
+                return view('pages.covid',compact('dataUrl'));
+            }
+            catch (ModelNotFoundException $exception)
+            {
+                return view('pages.covid');
+            }
+        }
+        return view('pages.covid');
+    }
+
+    public function prevStep(Request $request)
+    {
+        $order_id = $request->productOrderId;
+        $hash = $request->hash;
+        $urlStep = $request->step;
+        $clearDate = $request->clearDate;
+        if($order_id != null && $hash != null && $this->checkHash($order_id, $hash)){
+            try {
+                $order = Order::findOrFail($order_id);
+                $dataUrl = json_decode($order->order_data,true);
+                if ($urlStep == 1 && $clearDate == 1){
+                    $order->agr_isn = '';
+                    $dataUrl[0]['agrISN'] = '';
+                    $dataUrl[0]['dateBeg'] = '';
+                    $dataUrl[0]['dateEnd'] = '';
+                    $order->order_data = json_encode($dataUrl);
+                    $order->save();
+                }
+                return response()->json([
+                    'code' => 200,
+                    'step' => 1
+                ]);
             }
             catch (ModelNotFoundException $exception)
             {
@@ -135,7 +167,6 @@ class  CovidController extends Controller
     {
         $order_id = $request->order_id;
         $code = $request->code;
-
         $result = $this->covidService->confirmCode($order_id, $code);
         if($result['success']){
             return response()->json([

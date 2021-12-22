@@ -427,7 +427,7 @@
                                      style="font-size: larger;">{{$premiumSum ?? ''}}</span> тг
                     </div>
                 </div>
-                <div  id="nextStepShow" class="col col--6-12" style="display: @if(($premiumSum ?? '') > 0) block @else none @endif;">
+                <div  id="nextStepShow" class="col col--6-12" style="display:none;">
                     <button onclick="" id="nextStep"
                             class="button button--prime">
                         Следующий шаг
@@ -483,6 +483,13 @@
         //
 
         $(document).ready(function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const orderId = urlParams.get('productOrderId')
+            const hash = urlParams.get('hash')
+            $('#order_id').val(orderId);
+            $('#hash').val(hash);
+
             $('.edate').datepicker({
                 dateFormat: "dd.mm.yyyy"
             });
@@ -593,7 +600,6 @@
                     // Проверка на пустоту полей
 
                     beforeSend: function () {
-
                         let a = false;
                         let scrollToElement = false; //До какого элемента скроллить, если false - скролла не будет
 

@@ -88,7 +88,9 @@
                     </div>
 
                     <div class="col col--6-12 codedivs" style="display:none;">
-                        <input type="text" class="field" id="code" value="" placeholder="Введите код">
+                        <input type="text" class="field" id="code" value="" placeholder="Введите код" onkeyup="showOrHideBlock('code_error','code')">
+                        <strong><small id="code_error" class="form-text text-" style="display: none; color: crimson">
+                                Вы не указали код</small></strong>
                     </div>
                     <div class="col col--6-12 codedivs" style="display:none;">
                         <button class="buttonSmsSecond button button--hollow"><a href="javascript:void(0)"
@@ -216,7 +218,11 @@
             $('#modalText').html(text);
             $('#modalError').modal('show');
         }
+        // функция для скрытия ошибок после заполения поля
 
+        function showOrHideBlock(errorBlock, manipulationBlock) {
+            $('#' + errorBlock).hide();
+        }
 
         var timerId;
         var timeOut;
@@ -254,8 +260,37 @@
             }
 
         });
-        $(document).on("click", "#prevStep", function () {
-            window.location.href = "/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1";
+        $(document).on("click", "#prevStep", async function () {
+            let allowedDate = @json($allowedDate ?? '');
+            let clearDate;
+            if (allowedDate == 'true') clearDate = 0;
+            else clearDate = 1;
+            $.ajax({
+                type: "POST",
+                url: "{{route('covid.prevStep')}}",
+                data: {
+                    step: 1,
+                    clearDate: clearDate,
+                    productOrderId: {{$order_id}},
+                    hash: "{{$hash}}",
+                    _token: '{{csrf_token()}}'
+                },
+
+                beforeSend: function () {
+                    $('#overLoader').show();
+                },
+
+                success: await function (data) {
+                    $('#overLoader').hide();
+                    if (data.code == 200) {
+                        window.location.href = "/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1";
+                    }
+                },
+                failure: function () {
+                    showError("Неизвестная ошибка");
+                }
+            });
+
         });
 
         async function sendSMS() {
@@ -281,7 +316,7 @@
                             initresendwait();
                         }
                         $('.codedivs').show();
-                    } else alert('Попробуйте еще раз');
+                    } else showError('Попробуйте еще раз');
                 }
             });
         }
@@ -327,6 +362,14 @@
                     code: $("#code").val(),
                     _token: '{{csrf_token()}}'
                 },
+                beforeSend: function () {
+                    let a = false;
+                    if ($("#code").val() == '') {
+                        $("#code_error").show();
+                        a = true;
+                    }
+                    if (a) return false;
+                },
                 success: await function (data) {
                     if (data.success == true) {
                         $('.codedivs').hide();
@@ -335,17 +378,16 @@
                         $('#step3').show();
                     } else {
                         if (!data.limit_reached) {
-                            alert('Попробуйте еще раз');
+                            showError('Попробуйте еще раз');
                         } else {
-                            alert('Вы исчерпали 3 попытки');
+                            showError('Вы исчерпали 3 попытки');
                             if (data.time_limit_reached != null) {
-                                alert('time limit reached');
                                 $('.codedivs').hide();
                                 $(".sendLink").hide();
                                 clearInterval(timerId);
                                 clearTimeout(timeOut);
                                 if (data.time_limit_reached?.type == 'мин.') {
-                                    alert('минутный таймер запуск')
+                                    // alert('минутный таймер запуск')
                                     initresendwait(data.time_limit_reached.number, true, 60000);
                                 } else {
                                     initresendwait(60 - data.time_limit_reached?.number)
@@ -367,21 +409,26 @@
         $(document).on("click", "#setNotifyButton", function() {
 
             var check = '';
+            let allowedDate = @json($allowedDate ?? '');
             if(!$("#agreeWithRule").is(":checked")) {
-                check += 'Пожалуйста, ознакомьтесь с Правилами страхования<br/>';
+                check += '-Пожалуйста, ознакомьтесь с Правилами страхования<br/>';
             }
             if(!$("#agreeWithPolicy").is(":checked")) {
-                check += 'Пожалуйста, подтвердите согласие на обработку персональных данных<br/>';
+                check += '-Пожалуйста, подтвердите согласие на обработку персональных данных<br/>';
             }
             if(!$("#agreeWithData").is(":checked")) {
-                check += 'Пожалуйста, подтвердите корректность введенных данных';
+                check += '-Пожалуйста, подтвердите корректность введенных данных<br/>';
             }
-
+            if(allowedDate != 'true')
+            {
+                check += 'Дата начала действия договора должна быть минимум на 7 дней больше текущей. Пожалуйста перейдите на предыдущий шаг';
+            }
             if(check.length > 0) {
                 showError(check);
                 return;
             }
-
+            $('#modalText').css('color','green');
+            showError('Теперь начинается магия по оплате');
             // $.ajax({
             //     type: "POST",
             //     url: "/engine/ajax/eogpo.php",
