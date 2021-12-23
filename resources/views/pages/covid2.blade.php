@@ -27,7 +27,7 @@
                 <div class="calculator__block bg-grey details">
                     <div class="article__text">
                         <p style="font-size: larger">
-                            <b>Обязательное автострахование: {{$order->premium_sum}} тенге</b>
+                            <b>Страхование от НС: {{$order->premium_sum}} тенге</b>
                         </p>
                         <p>
                             <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
@@ -122,7 +122,7 @@
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithRule" value="yes">
-                                <span class="checkbox__label">С <a href="/rules/GPO_VTS_rules.pdf" target="_blank">Правилами</a> страхования ознакомлен</span>
+                                <span class="checkbox__label">С <a href="{{asset('images/files/rules/policy.pdf')}}" style="text-decoration: underline;" target="_blank">Правилами</a> страхования ознакомлен</span>
                             </label>
                         </fieldset>
                         <fieldset class="field-set col col--full">
