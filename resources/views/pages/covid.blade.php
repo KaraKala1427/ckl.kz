@@ -45,8 +45,8 @@
 
             <div class="col--12-12">
                 <fieldset class="field-set col col--6-12">
-                    <label for="orderIIN" class="field-set__label checkList">ИИН <span id="noticeIIN1"
-                                                                                       style="display: none;">(при наличии)</span>
+                    <label for="orderIIN" class="field-set__label checkList">
+                        ИИН
                     </label>
                     <input class="field field datas iin" id="iin"
                            type="" name="iin" value="{{$dataUrl['subjects'][0]['user']['iin'] ?? ''}}"
@@ -70,7 +70,6 @@
                 <strong><small id="firstName_error" class="form-text text-" style="display: none; color: crimson">
                         Вы не указали ваше имя</small></strong>
             </fieldset>
-
 
             <!-- Фамилия -->
 
@@ -116,7 +115,7 @@
                 <div id="doctypeField">
                     <label for="orderBenefit" class="field-set__label checkList">Тип документа </label>
                     <select name="documentTypeId" id="documentTypeId" tabindex="-1"
-                            class="benefits datas agentData1 field input-check">
+                            class="benefits datas agentData1 field input-check"  onkeyup="showOrHideBlock('documentTypeId_error','documentTypeId')">
                         <option value="documentTypeId-empty">--</option>
                         <option
                             value="1" {{ 'Удостоверение личности гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>
@@ -131,6 +130,9 @@
                             Вид на жительство
                         </option>
                     </select>
+                    <strong><small id="documentTypeId_error" class="form-text text-"
+                                   style="display: none; color: crimson">
+                            Вы не выбрали тип документа</small></strong>
                 </div>
             </fieldset>
 
@@ -209,7 +211,7 @@
             <fieldset class="field-set col col--6-12">
                 <label for="orderBenefit" class="field-set__label">Программа</label>
                 <select name="programISN" id="programISN" tabindex="-1" onchange="showBlock2()"
-                        class="benefits datas agentData1 field input-check">
+                        class="benefits datas agentData1 field input-check"  onkeyup="showOrHideBlock('programISN_error','programISN')">
                     <option value="0">--</option>
                     <option value="898641" {{ 898641 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма
                         1
@@ -221,6 +223,9 @@
                         3
                     </option>
                 </select>
+                <strong><small id="programISN_error" class="form-text text-"
+                               style="display: none; color: crimson">
+                        Вы не выбрали программу</small></strong>
             </fieldset>
 
             <!--    Страховая сумма -->
@@ -267,7 +272,8 @@
                 <label for="orderBenefit" class="field-set__label">
                     Способ уведомления</label><select
                     name="notificationISN" id="notificationISN" tabindex="-1"
-                    class="benefits datas agentData1 field input-check" onchange="showBlock3()">
+                    class="benefits datas agentData1 field input-check" onchange="showBlock3()"
+                    onkeyup="showOrHideBlock('notificationISN_error','notificationISN')" >
                     <option value="0">--</option>
                     <option value="898811" {{ 898811 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
                         Email от Коммеска + Email от ЕСБД
@@ -285,6 +291,8 @@
                         от Коммеска + SMS от ЕСБД
                     </option>
                 </select>
+                <strong><small id="notificationISN_error" class="form-text text-" style="display: none; color: crimson">
+                        Вы не выбрали способ уведомления</small></strong>
             </fieldset>
 
             <!-- Мобильный номер -->
@@ -292,8 +300,10 @@
             <fieldset class="field-set col col--6-12">
                 <label for="orderPhone" class="field-set__label checkList">
                     Мобильный телефон </label>
-                <input type="tel" class="field interTel datas phone_number input-check" id="phone" name="phone"
+                <input type="tel" class="field interTel datas phone_number input-check" id="phone"
+                       name="phone"
                        onkeyup="showOrHideBlock('phone_error','phone')" onchange="showBlock3()"
+                       onkeypress="showBlock3() "
                        value="{{$dataUrl['phone'] ?? ''}}">
                 <strong><small id="phone_error" class="form-text text-" style="display: none; color: crimson">
                         Вы не указали телефон</small></strong>
@@ -305,7 +315,7 @@
                 <label for="orderEmail" class="field-set__label checkList">
                     E-Mail </label>
                 <input type="text" class="field datas keyboardInput agentData1 input-check" id="email" name="email"
-                       onkeyup="showOrHideBlock('email_error','email')" onchange="showBlock3()"
+                       onkeyup="showOrHideBlock('email_error','email')"  onchange="showBlock3()" onkeypress="showBlock3()"
                        value="{{$dataUrl['email'] ?? ''}}">
                 <strong><small id="email_error" class="form-text"
                                style="display: none; color: crimson"></small></strong>
@@ -494,10 +504,59 @@
                 dateFormat: "dd.mm.yyyy"
             });
 
-            // Определение полей checkboxes
+            // Валидация почты
 
-            $('#sendOrder').on('click', async function(event) {
+            function IsEmail(email) {
+                if ((email) == '') {
+                    $("#email_error").html(" Вы не указали email").show();
+                    return false;
+                }
+                var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!regex.test(email)) {
+                    $("#email_error").html("Неверный формат почты").show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            // Валидация номера
+
+            function IsPhone(phone) {
+                if ((phone) == '') {
+                    $("#phone_error").html("Вы не указали телефон").show();
+                    return false;
+                }
+                if (phone.length < 11) {
+                    $("#phone_error").html("Неправильно введен номер").show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            // Маска для поля phone
+
+            $(document).on("keyup change", "[id^=phone]", function () {
+                if ($(this).val().substr(1, 1) == 7 || $(this).val().substr(1, 1) == 3) {
+                    $(this).inputmask('+9 999 999-99-99');
+                } else if ($(this).val().substr(1, 1) == 9) {
+                    $(this).inputmask('+999 99-9999999');
+                }
+
+            });
+
+            $(function () {
+                $('.phone_number').inputmask('+9 999 999-99-99');
+            });
+
+
+            // Click на отправку форму и рассчет
+
+            $('#sendOrder').on('click', async function(event){
                 event.preventDefault();
+
+                // Определение полей checkboxes
                 var checkboxes = '';
                 $(".checkbox-cov").each(function () {
                     if ($(this).is(':checked')) {
@@ -508,21 +567,8 @@
 
                 });
 
-                // Валидация почты
 
-                function IsEmail(email) {
-                    if ((email) == '') {
-                        $("#email_error").html(" Вы не указали email").show();
-                        return false;
-                    }
-                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if (!regex.test(email)) {
-                        $("#email_error").html("Неверный формат почты").show();
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+            // nextStep click
 
                 $(document).on("click", "#nextStep", async function () {
                     $.ajax({
@@ -555,7 +601,7 @@
 
                 var iin = $("#iin").val();
                 var firstName = $("#firstName").val();
-                var phone = $("#phone").val();
+                var phone = $("#phone").val().replace(/\D+/g,"");
                 var email = $("#email").val();
                 var dateBeg = $("#dateBeg").val();
                 var born = $("#born").val();
@@ -618,25 +664,25 @@
                             a = true;
                         }
 
-                        if (phone == '') {
-                            const phoneErrorId = "#phone";
-                            $("#phone_error").show();
-                            scrollToElement = scrollToElement === false ? phoneErrorId : scrollToElement;
+                        if (born == '') {
+                            const bornErrorId = "#born";
+                            $("#born_error").show();
+                            scrollToElement = scrollToElement === false ? bornErrorId : scrollToElement;
                             a = true;
                         }
 
 
-                        if (IsEmail(email) == false) {
-                            const emailErrorId = "#email";
-                            $("#email_error").show();
-                            scrollToElement = scrollToElement === false ? emailErrorId : scrollToElement;
+                        if ($("#documentTypeId").val() < 1) {
+                            const documentTypeIdErrorId = "#documentTypeId";
+                            $("#documentTypeId_error").show();
+                            scrollToElement = scrollToElement === false ? documentTypeIdErrorId : scrollToElement;
                             a = true;
                         }
 
-                        if (dateBeg == '' || !validateData()) {
-                            const dateBegErrorId = "#dateBeg";
-                            $("#dateBeg_error").show();
-                            scrollToElement = scrollToElement === false ? dateBegErrorId : scrollToElement;
+                        if (documentNumber == '') {
+                            const documentNumberErrorId = "#documentNumber";
+                            $("#documentNumber_error").show();
+                            scrollToElement = scrollToElement === false ? documentNumberErrorId : scrollToElement;
                             a = true;
                         }
 
@@ -647,12 +693,6 @@
                             a = true;
                         }
 
-                        if (documentNumber == '') {
-                            const documentNumberErrorId = "#documentNumber";
-                            $("#documentNumber_error").show();
-                            scrollToElement = scrollToElement === false ? documentNumberErrorId : scrollToElement;
-                            a = true;
-                        }
                         if (documentGivedBy == '') {
                             const documentGivedByErrorId = "#documentGivedBy";
                             $("#documentGivedBy_error").show();
@@ -660,10 +700,38 @@
                             a = true;
                         }
 
-                        if (born == '') {
-                            const bornErrorId = "#born";
-                            $("#born_error").show();
-                            scrollToElement = scrollToElement === false ? bornErrorId : scrollToElement;
+                        if ($("#programISN").val() < 1) {
+                            const programIsnErrorId = "#programISN";
+                            $("#programISN_error").show();
+                            scrollToElement = scrollToElement === false ? programIsnErrorId : scrollToElement;
+                            a = true;
+                        }
+
+                        if (dateBeg == '' || !validateData()) {
+                            const dateBegErrorId = "#dateBeg";
+                            $("#dateBeg_error").show();
+                            scrollToElement = scrollToElement === false ? dateBegErrorId : scrollToElement;
+                            a = true;
+                        }
+
+                        if ($("#notificationISN").val() < 1) {
+                            const notificationIsnErrorId = "#notificationISN";
+                            $("#notificationISN_error").show();
+                            scrollToElement = scrollToElement === false ? notificationIsnErrorId : scrollToElement;
+                            a = true;
+                        }
+
+                        if (IsPhone(phone) == false) {
+                            const phoneErrorId = "#phone";
+                            $("#phone_error").show();
+                            scrollToElement = scrollToElement === false ? phoneErrorId : scrollToElement;
+                            a = true;
+                        }
+
+                        if (IsEmail(email) == false) {
+                            const emailErrorId = "#email";
+                            $("#email_error").show();
+                            scrollToElement = scrollToElement === false ? emailErrorId : scrollToElement;
                             a = true;
                         }
 
@@ -733,21 +801,6 @@
 
         });
 
-        // Маска для поля phone
-
-        $(document).on("keyup change", "[id^=phone]", function () {
-            if ($(this).val().substr(1, 1) == 7 || $(this).val().substr(1, 1) == 3) {
-                $(this).inputmask('+9 999 999-99-99');
-            } else if ($(this).val().substr(1, 1) == 9) {
-                $(this).inputmask('+999 99-9999999');
-            }
-
-        });
-
-        $(function () {
-            $('.phone_number').inputmask('+9 999 999-99-99');
-        });
-
         // Валидация поля ИИН
 
         document.oninput = function () {
@@ -757,13 +810,13 @@
 
 
         // После заполнения поля ИИН тянем данные с Kias
-        $(".iin").on('keyup', async function () {
+        $(".iin").on('keyup', async function (event) {
             var iin = $("#iin").val();
             $(".form-text").hide();
             if (window.getClient) {
                 return false;
             }
-            if (iin.length == 12) {
+            if (iin.length == 12 && event.keyCode !== 13) {
                 $.ajax({
                     type: 'POST',
                     url: "{{route('covid.getClient')}}",
@@ -846,7 +899,8 @@
         function showBlock3() {
 
             var email = $("#email").val();
-            var phone = $("#phone").val();
+            var phone = $("#phone").val().replace(/\D+/g,"");
+
 
             let a = false;
 
@@ -854,14 +908,12 @@
                 a = true;
             }
 
-            if (email == '') {
+            if (email.length < 5) {
                 a = true;
-
             }
 
-            if (phone == '') {
+            if (phone.length < 10) {
                 a = true;
-
             }
 
             if (a) return false;
