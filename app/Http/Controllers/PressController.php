@@ -8,18 +8,6 @@ use Illuminate\Routing\Route;
 
 class PressController extends Controller
 {
-//    public function press($page=1){
-//        $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
-////        dd($years);
-//        $id_years = Menu::where('level', 22)->orderBy('id')->get()->pluck('id');
-//        $articles = Article::whereIn('razid',$id_years)->orderBy('id','desc')
-//            ->with('year')
-//            ->paginate(8,['*'], 'page', $page);
-//
-////        dd($articles);
-//        return view('pages.press', compact('years','articles', ));
-//    }
-
     public function press($page=1){
         $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
         if($page >= 2019 and $page <= date("Y")){

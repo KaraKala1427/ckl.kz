@@ -6,13 +6,14 @@
 
 
         <div class="article-page__intro">
-            <div class="article-page__period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</div>
+            <div
+                class="article-page__period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</div>
             <!-- .promo__period -->
             <h2 class="article__title">
                 @if($article->{'name_'.App::getLocale()} =='')
                     {{ $article->name_ru }}
                 @else
-                     {{ $article->{'name_'.App::getLocale()} }}
+                    {{ $article->{'name_'.App::getLocale()} }}
                 @endif
             </h2>
         </div>
@@ -21,15 +22,21 @@
 
         <div class="level_news">
             <article class="left_news_block">
-
-                @if($article->img_ru !='')
-                    <figure class="card__image">
-                        <img src="{{ $article->img_ru }}" alt="упс картинка пропал НАчальника" >
-                    </figure>
-                @else
-                    {{ null }}
+                @if($article->show_image_in_text == 'on')
+                    @if($article->{'img_'.App::getLocale()} !='')
+                        <figure class="card__image">
+                            <img src="{{ asset("storage/".$article->{'img_'.App::getLocale()})}}"
+                                 alt="picture...">
+                        </figure>
+                    @elseif($article->img_ru != '')
+                        <figure class="card__image">
+                            <img src="{{ asset("storage/".$article->img_ru) }}" alt="упс картинка пропал НАчальника">
+                        </figure>
+                    @else
+                        {{ null }}
+                    @endif
                 @endif
-                <!-- Текстовое составляющие блока -->
+            <!-- Текстовое составляющие блока -->
 
                 <section class="article__text">
                     <b>{{$article->{'head_'.App::getLocale()} }}</b>
@@ -49,10 +56,45 @@
 
                     <!-- .card card--promo -->
                     @foreach($other_articles as $other_article)
+                        <div class=" blockblock card--border">
+
+                            <div class="card__body">
+                                <div class="card__period"><span class="period">{{$other_article->pubdat}}</span></div>
+                                <h4 class="card__title">
+                                    <a href="{{ $other_article->route() }}" class="link" style="font-size: 27px;">
+                                        @if($other_article->{'name_'.App::getLocale()} !='')
+                                            {{ $other_article->{'name_'.App::getLocale()} }}
+                                        @else
+                                            {{ $other_article->name_ru }}
+                                        @endif
+                                    </a>
+                                </h4>
+                                <div class="card__desc destroy_text">
+                                    @if($other_article->{'tex_'.App::getLocale()} !='')
+                                        {!! $other_article->{'tex_'.App::getLocale()} !!}
+                                    @else
+                                        {!! $other_article->tex_ru !!}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <br>
+                </div>
+            </article>
+
+            <div class="other_news">
+
+                <h3 class="aside__title">{{ __('navbar.sm') }}</h3>
+
+                <!-- .card card--promo -->
+                @foreach($other_articles as $other_article)
                     <div class=" blockblock card--border">
 
                         <div class="card__body">
-                            <div class="card__period"><span class="period">{{$other_article->pubdat}}</span></div>
+                            <div class="card__period"><span
+                                    class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span>
+                            </div>
                             <h4 class="card__title">
                                 <a href="{{ $other_article->route() }}" class="link" style="font-size: 27px;">
                                     @if($other_article->{'name_'.App::getLocale()} !='')
@@ -71,39 +113,6 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                    <br>
-                </div>
-            </article>
-
-            <div class="other_news">
-
-                <h3 class="aside__title">{{ __('navbar.sm') }}</h3>
-
-                <!-- .card card--promo -->
-                @foreach($other_articles as $other_article)
-                <div class=" blockblock card--border">
-
-                    <div class="card__body">
-                        <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span></div>
-                        <h4 class="card__title">
-                            <a href="{{ $other_article->route() }}" class="link" style="font-size: 27px;">
-                                @if($other_article->{'name_'.App::getLocale()} !='')
-                                    {{ $other_article->{'name_'.App::getLocale()} }}
-                                @else
-                                    {{ $other_article->name_ru }}
-                                @endif
-                            </a>
-                        </h4>
-                        <div class="card__desc destroy_text">
-                            @if($other_article->{'tex_'.App::getLocale()} !='')
-                                {!! $other_article->{'tex_'.App::getLocale()} !!}
-                            @else
-                                {!! $other_article->tex_ru !!}
-                            @endif
-                        </div>
-                    </div>
-                </div>
                 @endforeach
 
             </div>
@@ -114,15 +123,18 @@
             .removejust {
                 display: none;
             }
+
             .article-page__intro {
                 margin-left: 20px;
             }
+
             @media (max-width: 991px) {
                 main {
                     padding: 0 0;
 
                 }
             }
+
             .level_news {
                 display: flex;
                 flex-direction: row;
@@ -131,9 +143,11 @@
                 padding: 20px;
                 justify-content: space-between;
             }
-            .left_news_block  {
+
+            .left_news_block {
                 width: 70%;
             }
+
             .mobile_other_news {
                 display: none;
             }
@@ -154,28 +168,33 @@
                 margin: 10px;
                 width: 100%;
             }
+
             @media (max-width: 767px) {
                 .other_news {
                     display: none;
                 }
+
                 .left_news_block {
                     width: 100%;
                 }
+
                 .mobile_other_news {
                     margin: 40px 0 0 0;
                     display: block;
                 }
+
                 .blockblock {
                     margin: 40px 0;
                 }
+
                 .article-page__period {
                     font-size: 14px;
                 }
+
                 h2 {
                     font-size: 22px;
                 }
             }
-
 
 
         </style>

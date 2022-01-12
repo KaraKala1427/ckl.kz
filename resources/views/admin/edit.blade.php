@@ -19,7 +19,7 @@
                         <div class="" role="document">
                             <div class="">
 
-                                <form action="{{ route('admin.itemUpdate', $article->id) }}" method="post">
+                                <form action="{{ route('admin.itemUpdate', $article->id) }}" method="post" enctype="multipart/form-data">
                                     {{method_field('put')}}
                                     <div>
 
@@ -52,6 +52,24 @@
                                                     <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                     <input value="{{$article->head_ru}}" class="form-control" id="headerr" name="head_ru" rows="3">
 
+                                                </div>
+                                                <div>
+                                                    <label for="img_ru">Картинка </label>
+                                                    <input type="file" value="" class="form-control" id="img_ru" name="img_ru" onchange="loadFile(event)" accept="image/*" rows="3">
+                                                    <img id="preview" src="{{ asset("storage/".$article->img_ru)}}"  style="width: 350px; border:1px solid black"/><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" name="showImageInText" id="showImageInText" class="checkbox-cov" @if($article->show_image_in_text == 'on') checked @endif>
+                                                        <span class="checkbox__label">Показать в тексте</span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select name="showThumb" id="showThumb" class="field input-check">
+                                                        <option value="0" {{ "0" == ($article->show_thumb ?? '') ? 'selected' : ''}}>Не показывать на обложке</option>
+                                                        <option value="1" {{ "1" == ($article->show_thumb ?? '') ? 'selected' : ''}}>Показывать маленькой на обложке</option>
+                                                        <option value="2" {{ "2" == ($article->show_thumb ?? '') ? 'selected' : ''}}>Показывать большой на обложке</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
@@ -90,11 +108,6 @@
                                                     <input value="{{$article->name_kz}}" type="text" class="form-control" id="exampleFormControlInput1"  name="name_kz" >
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Дата</label>
-                                                    <input value="{{(new \Illuminate\Support\Carbon($article->dat))->format('Y-m-d')}}" type="date" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
-
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Description</label>
                                                     <input value="{{$article->description_kz}}" class="form-control" id="descc" name="description_kz" rows="3">
                                                 </div>
@@ -102,6 +115,11 @@
                                                     <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                     <input value="{{$article->head_kz}}" class="form-control" id="headerr" name="head_kz" rows="3">
 
+                                                </div>
+                                                <div>
+                                                    <label for="img_kz">Картинка </label>
+                                                    <input type="file" value="" class="form-control" id="img_kz" name="img_kz" onchange="loadFileKz(event)" accept="image/*" rows="3">
+                                                    <img id="previewkz" src="{{ asset("storage/".$article->img_kz)}}"  style="width: 300px; height: 300px;"/><br><br>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
@@ -116,11 +134,6 @@
                                                     <input value="{{$article->name_en}}" type="text" class="form-control" id="exampleFormControlInput1" name="name_en">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Дата</label>
-                                                    <input value="{{(new \Illuminate\Support\Carbon($article->dat))->format('Y-m-d')}}" type="date" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
-
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Description</label>
                                                     <input value="{{$article->description_en}}" class="form-control" id="descc" name="description_en" rows="3">
                                                 </div>
@@ -128,6 +141,11 @@
                                                     <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                     <input value="{{$article->head_en}}" class="form-control" id="headerr" name="head_en" rows="3">
 
+                                                </div>
+                                                <div>
+                                                    <label for="img_en">Картинка </label>
+                                                    <input type="file" value="" class="form-control" id="img_en" name="img_en" onchange="loadFileEn(event)" accept="image/*" rows="3">
+                                                    <img id="previewen" src="{{ asset("storage/".$article->img_en)}}"  style="width: 300px; height: 300px;"/><br><br>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
@@ -167,6 +185,32 @@
         </div>
 
     </div>
+
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('preview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+        var loadFileKz = function(event) {
+            var outputKz = document.getElementById('previewkz');
+            outputKz.src = URL.createObjectURL(event.target.files[0]);
+            outputKz.onload = function() {
+                URL.revokeObjectURL(outputKz.src) // free memory
+            }
+        };
+
+        var loadFileEn = function(event) {
+            var outputEn = document.getElementById('previewen');
+            outputEn.src = URL.createObjectURL(event.target.files[0]);
+            outputEn.onload = function() {
+                URL.revokeObjectURL(outputEn.src) // free memory
+            }
+        };
+    </script>
 
 
 @endsection

@@ -10,7 +10,7 @@
                     <div class="" id="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="" role="document">
                             <div class="">
-                                <form action="{{route('admin.itemInsert')}}" method="post">
+                                <form action="{{route('admin.itemInsert')}}" method="post" enctype="multipart/form-data">
                                     {{method_field('post')}}
                                     <div>
                                         <!-- Nav tabs -->
@@ -47,7 +47,25 @@
                                                 <div class="form-group">
                                                         <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                         <input value="" class="form-control" id="headerr" name="head_ru" rows="3">
-                                            </div>
+                                                </div>
+                                                <div>
+                                                    <label for="img_ru">Картинка </label>
+                                                    <input type="file" value="" class="form-control" id="img_ru" name="img_ru" onchange="loadFile(event)" accept="image/*" rows="3">
+                                                    <img id="preview" src=""  style="width: 350px; border:1px solid black"/><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" name="showImageInText" id="showImageInText" class="checkbox-cov">
+                                                        <span class="checkbox__label">Показать в тексте</span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select name="showThumb" id="showThumb" class="field input-check">
+                                                        <option value="0">Не показывать на обложке</option>
+                                                        <option value="1">Показывать маленькой на обложке</option>
+                                                        <option value="2">Показывать большой на обложке</option>
+                                                    </select>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Текст</label>
                                                     <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>
@@ -84,13 +102,6 @@
                                                 <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Дата</label>
-                                                <input value="{{(new \Illuminate\Support\Carbon)->format('Y-m-d')}}" type="date" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
-                                                 @error('dat')
-                                                <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
-                                                @enderror
-                                            </div>
                                             <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Описание</label>
@@ -101,7 +112,11 @@
                                                 <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                 <input value="" class="form-control" id="headerr" name="head_kz" rows="3">
                                             </div>
-
+                                            <div>
+                                                <label for="img_kz">Картинка </label>
+                                                <input type="file" value="" class="form-control" id="img_kz" name="img_kz" onchange="loadFileKz(event)" accept="image/*" rows="3">
+                                                <img id="previewkz" src=""  style="width: 300px; height: 300px;"/><br><br>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Текст</label>
                                                 <textarea  class="form-control" id="textt" name="tex_kz" rows="3"></textarea>
@@ -117,13 +132,6 @@
                                                 <small id="emailHelp" class="form-text text-danger">Укажите имя</small>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Дата</label>
-                                                <input value="{{(new \Illuminate\Support\Carbon)->format('Y-m-d')}}" type="date" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">
-                                                @error('dat')
-                                                <small id="emailHelp" class="form-text text-danger">Выберите дату</small>
-                                                @enderror
-                                            </div>
                                             <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Описание</label>
@@ -133,6 +141,11 @@
                                                 <label for="exampleFormControlTextarea1">{{$isCity ? "Координаты" : "Заголовок"}}</label>
                                                 <input value="" class="form-control" id="headerr" name="head_en" rows="3">
 
+                                            </div>
+                                            <div>
+                                                <label for="img_en">Картинка </label>
+                                                <input type="file" value="" class="form-control" id="img_en" name="img_en" onchange="loadFileEn(event)" accept="image/*" rows="3">
+                                                <img id="previewen" src=""  style="width: 300px; height: 300px;"/><br><br>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Текст</label>
@@ -144,7 +157,7 @@
                                     </div>
                                     <div class="">
 
-                                        <button type="submit" class="btn btn-"      style="   background: #0098f0;
+                                        <button type="submit" class="btn btn-" style="   background: #0098f0;
                                         background: linear-gradient(
                                         0deg
                                         ,#0098f0,#00f2c3);">Добавить запись</button>
@@ -163,6 +176,32 @@
         </div>
 
     </div>
+
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('preview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+        var loadFileKz = function(event) {
+            var outputKz = document.getElementById('previewkz');
+            outputKz.src = URL.createObjectURL(event.target.files[0]);
+            outputKz.onload = function() {
+                URL.revokeObjectURL(outputKz.src) // free memory
+            }
+        };
+
+        var loadFileEn = function(event) {
+            var outputEn = document.getElementById('previewen');
+            outputEn.src = URL.createObjectURL(event.target.files[0]);
+            outputEn.onload = function() {
+                URL.revokeObjectURL(outputEn.src) // free memory
+            }
+        };
+    </script>
 
 
 @endsection
