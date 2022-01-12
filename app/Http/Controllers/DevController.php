@@ -14,6 +14,12 @@ class DevController extends Controller
             abort(403);
         }
 
-        return Artisan::call('storage:link');
+        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $exitCode = \Artisan::call('storage:link', [], $output);
+        dump($exitCode);
+        dump($output);
+        dump($output->fetch());
+
+        return $exitCode;
     }
 }
