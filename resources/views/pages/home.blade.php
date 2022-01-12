@@ -30,7 +30,6 @@
                     </nav>
                 </div>
 
-
                 <div class="for_block">
                     <div class="block_main">
                         <div class="under_block1"><a href='{{ route('product') }}'> {{ __('navbar.osns_tit')}} </a></div>
@@ -49,9 +48,6 @@
                         <div class="under_block"><img src="{{ asset('images/main/4.jpg')}}"></div>
                     </div>
                 </div>
-
-
-
                 <!-- end tiles -->
                 <section class="news">
                     <h2 class="news__title">{{ __('navbar.newsd') }}</h2>
@@ -60,29 +56,27 @@
                         @foreach($articles as $article)
                         <div class="col col--3-12">
                             <div class="news__item">
-                                <div class=" blockblock card--border " >
-                                    @if($article->img_ru != '')
-                                    <a href="{{route('press_detail', ['id'=>$article->id, "language" => App::getLocale() ]) }}-{{str_slug($article->name_ru, '-' )}}" >
+                                <div class=" blockblock @if($article->show_thumb == '2') card--image @else card--border @endif">
+                                    @if($article->show_thumb == '1' || $article->show_thumb == '2')
                                         <figure class="card__image">
-                                            <img src="{{$article->img_ru}}" alt="" >
+                                            <a href="{{ $article->route() }}"
+                                               class="overlay">
+                                            </a>
+                                            <img src="{{ asset("storage/".$article->{'img_'.App::getLocale()})}}"
+                                                 alt="">
                                         </figure>
-                                    </a>
-                                    @else
-                                        {{null}}
                                     @endif
 
                                     <div class="card__body">
                                         <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span></div>
                                         <h4 class="card__title">
-                                            <a href="{{route('press_detail', ['id'=>$article->id, "language" => App::getLocale(), "year" => $article->year->name_ru , "alias"=>str_slug($article->name_ru, '-' ) ]) }}-{{str_slug($article->name_ru, '-' )}}"
-
-                                               class="link" style="font-size: 27px;">
+                                            <a href="{{ $article->route() }}" class="link" style="font-size: 27px;">
                                                 @if($article-> {'name_'.App::getLocale() } != '')
                                                     {{$article-> {'name_'.App::getLocale() } }}
                                                 @else
                                                     {{$article-> {'name_ru' } }}
                                                 @endif
-                                               </a>
+                                            </a>
                                         </h4>
                                         @if($article-> {'head_'.App::getLocale() } != '')
                                             {{$article-> {'head_'.App::getLocale() } }}
