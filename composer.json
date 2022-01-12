@@ -49,7 +49,16 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "@php artisan storage:link"
+        ],
+        "post-install-cmd": [
+            "@php artisan optimize",
+            "@php artisan storage:link"
+        ],
+        "post-update-cmd": [
+            "@php artisan optimize",
+            "@php artisan storage:link"
         ]
     },
     "extra": {
