@@ -5,8 +5,16 @@
     <div class="tiles">
 
         @foreach($articles as $article)
-            <div class="tiles__card card card--promo card--border ">
-
+            <div class="tiles__card card card--promo @if($article->show_thumb == '2') card--image @else card--border @endif">
+                @if($article->show_thumb == '1' || $article->show_thumb == '2')
+                    <figure class="card__image">
+                        <a href="{{ $article->route() }}"
+                           class="overlay">
+                        </a>
+                        <img src="{{ asset("storage/".$article->{'img_'.App::getLocale()})}}"
+                             alt="">
+                    </figure>
+                @endif
                 <div class="card__body">
                     @if($article->{'pubdat'} != '')
                         <div class="card__period"><span class="period">{{ (new \Illuminate\Support\Carbon($article->pubdat))->format('Y-m-d') }}</span></div>

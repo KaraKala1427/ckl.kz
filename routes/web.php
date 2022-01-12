@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiConnectController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CovidController;
 use App\Http\Controllers\SandBoxController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'a
 Route::get('/migrate', [\App\Http\Controllers\MigrateController::class, 'index']);
 Route::get('/runseeder', [\App\Http\Controllers\MigrateController::class, 'run_seeder']);
 Route::get('/link', [\App\Http\Controllers\DevController::class, 'link']);
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
 Route::get('/curltest', [\App\Http\Controllers\MailController::class, 'test']);
 
 Auth::routes();
