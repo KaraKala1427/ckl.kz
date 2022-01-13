@@ -53,7 +53,12 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
-
+        'payment' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/payment/payment.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 31,
+        ],
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
