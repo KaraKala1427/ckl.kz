@@ -209,23 +209,25 @@
             <!-- Программа -->
 
             <fieldset class="field-set col col--6-12">
+                <div id="programField">
                 <label for="orderBenefit" class="field-set__label">Программа</label>
                 <select name="programISN" id="programISN" tabindex="-1" onchange="showBlock2()"
-                        class="benefits datas agentData1 field input-check"  onkeyup="showOrHideBlock('programISN_error','programISN')">
-                    <option value="0">--</option>
-                    <option value="898641" {{ 898641 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма
+                        class="benefits datas agentData1 field input-check programIsn"  onkeyup="showOrHideBlock('programISN_error','programISN')">
+                    <option value="0" >--</option>
+                    <option value="898641" {{ 898641 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Программа
                         1
                     </option>
-                    <option value="898651" {{ 898651 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма
+                    <option value="898651" {{ 898651 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Программа
                         2
                     </option>
-                    <option value="898661" {{ 898661 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Прогрмма
+                    <option value="898661" {{ 898661 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Программа
                         3
                     </option>
                 </select>
                 <strong><small id="programISN_error" class="form-text text-"
                                style="display: none; color: crimson">
                         Вы не выбрали программу</small></strong>
+                </div>
             </fieldset>
 
             <!--    Страховая сумма -->
@@ -272,14 +274,13 @@
                 <label for="orderBenefit" class="field-set__label">
                     Способ уведомления</label><select
                     name="notificationISN" id="notificationISN" tabindex="-1"
-                    class="benefits datas agentData1 field input-check" onchange="showBlock3()"
+                    class="benefits datas agentData1 field input-check sms" onchange="showBlock3()"
                     onkeyup="showOrHideBlock('notificationISN_error','notificationISN')" >
-                    <option value="0">--</option>
-                    <option value="898811" {{ 898811 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
-                        Email от Коммеска + Email от ЕСБД
-                    </option>
                     <option value="898821" {{ 898821 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
                         Email от Коммеска + SMS от ЕСБД
+                    </option>
+                    <option value="898811" {{ 898811 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
+                        Email от Коммеска + Email от ЕСБД
                     </option>
                     <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
                         от ЕСБД
@@ -297,7 +298,7 @@
 
             <!-- Мобильный номер -->
 
-            <fieldset class="field-set col col--6-12">
+            <fieldset class="field-set col col--6-12" id="phone-field">
                 <label for="orderPhone" class="field-set__label checkList">
                     Мобильный телефон </label>
                 <input type="tel" class="field interTel datas phone_number input-check" id="phone"
@@ -311,7 +312,8 @@
 
             <!-- E-Mail -->
 
-            <fieldset class="field-set col col--6-12">
+            <fieldset class="field-set col col--6-12 email-field" style="display:@if(($dataUrl['email'] ?? '') == '' && ($dataUrl['phone'] ?? '' < 0)) none  @else block  @endif;" >
+
                 <label for="orderEmail" class="field-set__label checkList">
                     E-Mail </label>
                 <input type="text" class="field datas keyboardInput agentData1 input-check" id="email" name="email"
@@ -341,7 +343,7 @@
 							<h5>
 								<label for="calcPlus" class="checkbox">
 									<label for="hasInvalid" class="checkbox">
-									<input type="checkbox" class="checkbox-cov" name="hasInvalid" value=""
+									<input type="checkbox" class="checkbox-cov input-check" name="hasInvalid" value=""
                                            id="hasInvalid">
                                         <span class="checkbox__label">Имеет ли Застрахованный инвалидность?</span>
                                     </label>
@@ -359,7 +361,7 @@
 							<h5>
 								<label for="hasPsycho" class="checkbox">
 									<input type="checkbox" name="hasPsycho" value="" id="hasPsycho"
-                                           class="checkbox-cov">
+                                           class="checkbox-cov input-check">
                                     <span class="checkbox__label">Состоит ли Застрахованный на учете в психоневрологическом диспансере?</span>
                                 </label>
 							</h5>
@@ -375,7 +377,7 @@
 							<h5>
 								<label for="hasSport" class="checkbox">
 									<input type="checkbox" name="hasSport" value="" id="hasSport"
-                                           class="checkbox-cov">
+                                           class="checkbox-cov input-check">
                                     <span class="checkbox__label">Занимается ли Застрахованный спортом?</span>
                                 </label>
 							</h5>
@@ -390,7 +392,7 @@
 						<span>
 							<h5>
                 <label for="hasChronic" class="checkbox">
-                    <input type="checkbox" name="hasChronic" value="" id="hasChronic" class="checkbox-cov">
+                    <input type="checkbox" name="hasChronic" value="" id="hasChronic" class="checkbox-cov input-check">
                     <span
                         class="checkbox__label">Имеет ли Застрахованный хронические или наследственные заболевания?</span>
                 </label>
@@ -407,7 +409,7 @@
                                 <span>
                                     <h5>
                          <label for="hasCriminal" class="checkbox">
-                     <input type="checkbox" name="hasCriminal" value="" id="hasCriminal" class="checkbox-cov">
+                     <input type="checkbox" name="hasCriminal" value="" id="hasCriminal" class="checkbox-cov input-check">
                     <span class="checkbox__label">
                      Является ли Застрахованный лицом,
                    отбывающим наказание за совершение уголовных преступлений
@@ -492,7 +494,20 @@
 
         //
 
+
         $(document).ready(function () {
+            $('.input-check').on("change keypress", function () {
+
+                $("#sendOrder").prop("disabled", false)
+
+            });
+
+            if ($('.email-field').css('display') == 'none'){
+
+                $("#phone-field").attr('class', 'col col-12');
+
+            }
+
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const orderId = urlParams.get('productOrderId')
@@ -713,13 +728,13 @@
                             scrollToElement = scrollToElement === false ? dateBegErrorId : scrollToElement;
                             a = true;
                         }
-
-                        if ($("#notificationISN").val() < 1) {
-                            const notificationIsnErrorId = "#notificationISN";
-                            $("#notificationISN_error").show();
-                            scrollToElement = scrollToElement === false ? notificationIsnErrorId : scrollToElement;
-                            a = true;
-                        }
+                        //
+                        // if ($("#notificationISN").val() < 1) {
+                        //     const notificationIsnErrorId = "#notificationISN";
+                        //     $("#notificationISN_error").show();
+                        //     scrollToElement = scrollToElement === false ? notificationIsnErrorId : scrollToElement;
+                        //     a = true;
+                        // }
 
                         if (IsPhone(phone) == false) {
                             const phoneErrorId = "#phone";
@@ -728,7 +743,8 @@
                             a = true;
                         }
 
-                        if (IsEmail(email) == false) {
+                        if (IsEmail(email) == false && $("#notificationISN").val() != 898831 &&
+                            $("#notificationISN").val() != 898851) {
                             const emailErrorId = "#email";
                             $("#email_error").show();
                             scrollToElement = scrollToElement === false ? emailErrorId : scrollToElement;
@@ -742,7 +758,7 @@
                                 duration: 550,
                                 easing: "linear"
                             });
-
+                            console.log(a);
                             if (a) return false; // Если a = true - вернется false, если а = false - вернется true
                         }
                         window.setClient = true;
@@ -761,7 +777,9 @@
                                 return `${(+premium).toLocaleString('ru-RU')}`;
                             });
                             history.pushState({}, '', "?productOrderId=" + data.order_id + "&hash=" + data.hash + "&step=1");
+                            $("#sendOrder").prop('disabled', true)
                             $("#nextStepShow").show();
+
                         } else {
                             showError(data.error);
                             $('#overLoader').hide();
@@ -890,38 +908,72 @@
             }
 
             if (a) return false;
+            $("#programISN option[value='0']").remove()
             $("#block2").show();
 
-        }
 
-        // Show block 3
+        }
 
         function showBlock3() {
 
             var email = $("#email").val();
-            var phone = $("#phone").val().replace(/\D+/g,"");
+            var phone = $("#phone").val().replace(/\D+/g, "");
 
 
             let a = false;
 
-            if ($("#notificationISN").val() < 1) {
+            if (email.length < 5 && $('.email-field').css('display') != 'none') {
                 a = true;
-            }
 
-            if (email.length < 5) {
-                a = true;
             }
 
             if (phone.length < 10) {
                 a = true;
+
             }
 
             if (a) return false;
+
             $("#block3").show();
             $("#calculateSum").show();
-
         }
 
+
+
+
+        $(".sms").on('change', function() {
+
+
+            if ($("#notificationISN").val() == 898811) {
+
+                $(".email-field").show();
+                $("#phone-field").attr('class', 'col col--6-12');
+
+
+            } else if ($("#notificationISN").val() == 898821) {
+
+                $(".email-field").show();
+                $("#phone-field").attr('class', 'col col--6-12');
+
+            } else if ($("#notificationISN").val() == 898831) {
+
+                $(".email-field").hide();
+                $("#phone-field").attr('class', 'col col-12');
+
+
+            } else if ($("#notificationISN").val() == 898841) {
+
+                $(".email-field").show();
+                $("#phone-field").attr('class', 'col col--6-12');
+
+            } else if ($("#notificationISN").val() == 898851) {
+
+                $(".email-field").hide();
+                $("#phone-field").attr('class', 'col col--12-12');
+
+            }
+
+        });
 
         //ProgramISN get limitSum
 
@@ -946,6 +998,7 @@
                 }
             });
         });
+
 
         // Делаем disabled прошедшие дни и текущий
 
@@ -1069,6 +1122,7 @@
             }
             return true;
         }
+
 
     </script>
 
