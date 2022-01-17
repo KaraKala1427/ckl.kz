@@ -31,14 +31,14 @@ class EpayController extends Controller
             "currency"      => "KZT",
             "terminal"      => "67e34d63-102f-4bd1-898e-370781d0074d"
         ])->json();
-//        return redirect()->route('covid.epay-redirect',['auth' => $auth, 'order_id' => $order_id, 'amount' => $amount]);
+        return redirect()->route('covid.epay-redirect',['auth' => $auth, 'order_id' => $order_id, 'amount' => $amount]);
 
-        return view('pages.test.epay_redirect', compact('auth', 'order_id', 'amount'));
+//        return view('pages.test.epay_redirect', compact('auth', 'order_id', 'amount'));
     }
 
-    public function epayRedirect()
+    public function epayRedirect($auth, $order_id, $amount)
     {
-        return view('pages.test.epay_redirect');
+        return view('pages.test.epay_redirect')->with(['auth' => $auth, 'order_id' => $order_id, 'amount' => $amount]);
     }
 
     public function successPayment()
