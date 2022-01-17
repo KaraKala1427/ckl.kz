@@ -3,22 +3,25 @@
 @section('content')
     <script type="text/javascript" src="https://test-epay.homebank.kz/payform/payment-api.js"></script>
     <script>
-        var invoiceId = "002300020";
+        var invoiceId = "002300024";
         var amount = 150;
         var auth = {
-            "access_token": "QESNU3GSC8W8D6QPIMJCZG",
+            "access_token": "GT51F8UFU702W6LKG57MFM",
             "expires_in": "5000",
             "refresh_token": "",
             "scope": "payment",
             "token_type": "Bearer"
         };
+
+        var hostname = window.location.hostname;
+        alert(hostname);
         var createPaymentObject = function(auth, invoiceId, amount) {
             var paymentObject = {
                 invoiceId: invoiceId,
-                backLink: "http://127.0.0.1:8000/covid/success-payment",
-                failureBackLink: "http://127.0.0.1:8000/covid/failure-payment",
-                postLink: "http://127.0.0.1:8000/api/covid/payment-response",
-                failurePostLink: "http://127.0.0.1:8000/api/covid/payment-response",
+                backLink: "https://" + hostname + "/covid/success-payment",
+                failureBackLink: "https://" + hostname + "/covid/failure-payment",
+                postLink: "https://" + hostname + "/api/covid/payment-response",
+                failurePostLink: "https://" + hostname + "/api/covid/payment-response",
                 language: "RU",
                 description: "Оплата в интернет магазине",
                 accountId: "testuser1",

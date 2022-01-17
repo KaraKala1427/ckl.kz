@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CovidController;
+use App\Http\Controllers\EpayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/covid/payment-auth', [CovidController::class, 'paymentAuth'])->name('covid.payment-auth');
-Route::post('/covid/payment-response', [CovidController::class, 'paymentResponse'])->name('covid.payment-response');
+Route::post('/epay/auth', [EpayController::class, 'paymentAuth'])->name('epay.payment-auth');
+Route::post('/epay/response', [EpayController::class, 'paymentResponse'])->name('covid.payment-response');

@@ -618,44 +618,5 @@ class  CovidController extends Controller
         return $response;
     }
 
-    public function paymentAuth(Request $request)
-    {
-        $data = $request->toArray();
-        $response = Http::withOptions(['verify' => false])->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
-            "grant_type"    => $data["grant_type"],
-            "scope"         => $data["scope"],
-            "client_id"     => $data["client_id"],
-            "client_secret" => $data["client_secret"],
-            "invoiceID"     => $data["invoiceID"],
-            "amount"        => $data["amount"],
-            "currency"      => $data["currency"],
-            "terminal"      => $data["terminal"],
-            "postLink"      => $data["postLink"] ?? '',
-            "failurePostLink"=> $data["failurePostLink"] ?? ''
-        ])->json();
-
-        return $response;
-    }
-
-    public function epayRedirect()
-    {
-        return view('pages.test.epay_redirect');
-    }
-
-    public function successPayment()
-    {
-        return view('pages.test.success-payment');
-    }
-
-    public function failurePayment()
-    {
-        return view('pages.test.failure-payment');
-    }
-
-    public function paymentResponse(Request $request)
-    {
-        $response = $request->getContent();
-        Log::channel('payment')->info("{$response}");
-    }
 
  }

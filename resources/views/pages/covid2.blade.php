@@ -146,32 +146,7 @@
                         </fieldset>
                     </div>
 
-
-                    <fieldset class="field-set col col--4-12" style="display: none">
-                        <label for="payWith" class="field-set__label">
-                            Способ оплаты </label>
-                        <div class="radio-button-group">
-                            <label class="radio-button">
-                                <input type="radio" class="radio-button__input payWith" name="payWith[]" id="kaspi"
-                                       value="kaspi"/>
-                                <div class="radio-button__label" style="display: flex">
-                                    <div><img style="right: 3px;
-    top: -7px;
-    height: 31px;
-    position: relative;" src="/templates/assets/images/logo_kaspi.png"></div>
-                                    <span style="font-weight: bold">Kaspi.kz</span></div>
-
-
-                            </label>
-                            <label class="radio-button">
-                                <input type="radio" class="radio-button__input payWith" name="payWith[]" id="card"
-                                       value="card"/>
-                                <span class="radio-button__label">Банковской картой</span>
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <button class="button button--prime" id="setNotifyButton">Оплатить</button>
+                    <button class="button button--prime" id="paymentButton">Оплатить</button>
                     <form action="https://epay.kkb.kz/jsp/process/logon.jsp" method="post">
                         <input type="hidden" name="Signed_Order_B64"
                                value="PGRvY3VtZW50PjxtZXJjaGFudCBjZXJ0X2lkPSJjMTgzYzZkZiIgbmFtZT0iS29tbWVzay1PbWlyIj48b3JkZXIgb3JkZXJfaWQ9IjQ3MjAwODIiIGFtb3VudD0iMTAyMDYiIGN1cnJlbmN5PSIzOTgiPjxkZXBhcnRtZW50IG1lcmNoYW50X2lkPSI5ODc0NTcwMSIgYW1vdW50PSIxMDIwNiIvPjwvb3JkZXI+PC9tZXJjaGFudD48bWVyY2hhbnRfc2lnbiB0eXBlPSJSU0EiPnBKNDdScFZCMkFWeitqcm5qZW5iYlJPdjFXSldzQ29PR013M2NnRVc1dWJNbEtKUFVJV1pGeWh2dXR5dUMySXVBcUtWUUhBL0tKRGVKZmJhbU9EaWxyR2pKK1dKSzhKejM0bWh2aEU4ckZtTUgwL2tESE9zMDVWUkdiNlhUdTFFV0g0UjdvcWRSajRBcnNDU1ZKVTZwLzZ5MURMdmRQanI0akQ0aVUzUTJKTT08L21lcmNoYW50X3NpZ24+PC9kb2N1bWVudD4=">
@@ -188,20 +163,6 @@
                                data-behavior="analytics" data-analytics-action="pay_kkb" value="Оплатить"/>
                     </form>
 
-                    <form action="https://kaspi.kz/online" method="post" id="kaspikz-form">
-                        <input type="hidden" name="TranId" value="4720082">
-                        <input type="hidden" name="OrderId" value="4720082">
-                        <input type="hidden" name="Amount" value="1020600">
-                        <input type="hidden" name="Service" value="KommeskOrder">
-                        <input type="hidden" name="FIO" value="НАТАЛЬЯ СЕРГЕЕВНА Н.">
-                        <input type="hidden" name="Signature"
-                               value="Amount=10206&FIO=%D0%9D%D0%90%D0%A2%D0%90%D0%9B%D0%AC%D0%AF+%D0%A1%D0%95%D0%A0%D0%93%D0%95%D0%95%D0%92%D0%9D%D0%90+%D0%9D.&OrderId=4720082&Service=test&TranId=4720082&returnUrl=https%3A%2F%2Fkommesk.kz%2Feogpo-result.html&Signature=">
-                        <input type="hidden" name="returnUrl" value="https://kommesk.kz/eogpo-result.html">
-                        <input type="submit" style="display: none" class="button button--prime" id="payKaspi"
-                               value="Оплатить"/>
-                    </form>
-                    <div id="overLoader" class="wheel-loading" style="display: none"><img
-                            src="/templates/assets/images/wheel-2.svg" alt="Loading..."/></div>
                 </div>
 
                 <br/>
@@ -406,7 +367,7 @@
             });
         }
 
-        $(document).on("click", "#setNotifyButton", function() {
+        $(document).on("click", "#paymentButton", function() {
 
             var check = '';
             let allowedDate = @json($allowedDate ?? '');
@@ -427,32 +388,21 @@
                 showError(check);
                 return;
             }
-            $('#modalText').css('color','green');
-            showError('Теперь начинается магия по оплате');
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/engine/ajax/eogpo.php",
-            //     dataType: "json",
-            //     data: {
-            //         action: "setNotify",
-            //         notify: $("#notifyType").val(),
-            //         pid: '4720082',
-            //         hash: '562441748c789c5edbbfb99647461c3d',
-            //         sum: '10206'
-            //     },
-            //     success: function(data) {
-            //         if(data.status) {
-            //             if($('.payWith').closest('fieldset').find(':checked').val() == 'kaspi')
-            //                 $('#payKaspi').click();
-            //             else if($('.payWith').closest('fieldset').find(':checked').val() == 'card')
-            //                 $("#payButton").click();
-            //             else
-            //                 showError('Выберите способ оплаты');
-            //         } else {
-            //             showError(data.error);
-            //         }
-            //     }
-            // });
+            // $('#modalText').css('color','green');
+            // showError('Теперь начинается магия по оплате');
+            $.ajax({
+                type: "POST",
+                url: "{{route('epay.payment-auth')}}",
+                dataType: "json",
+                data: {
+                    order_id: {{$order_id}},
+                    _token: '{{csrf_token()}}',
+                    hash: '{{$hash}}'
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
         });
 
 

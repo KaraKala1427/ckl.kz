@@ -95,6 +95,11 @@ class CovidService
         return $data[$param];
     }
 
+    public function getFieldData(Order $order, $param = null)
+    {
+        return $order->getAttributeValue($param);
+    }
+
     public function getLastTimeOfSms($order_id)
     {
         $model = $this->phoneRepository->getByOrderId($order_id);

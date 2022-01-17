@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiConnectController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CovidController;
+use App\Http\Controllers\EpayController;
 use App\Http\Controllers\SandBoxController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -119,9 +120,9 @@ Route::group([
     Route::post('/covid/prev-step', [CovidController::class, 'prevStep'])->name('covid.prevStep');
     Route::post('/covid/send-sms', [CovidController::class, 'sendSms'])->name('covid.sendSms');
     Route::post('/covid/confirm-sms', [CovidController::class, 'confirmCode'])->name('covid.confirmCode');
-    Route::get('/covid/epay-redirect', [CovidController::class, 'epayRedirect'])->name('covid.epay-redirect');
-    Route::get('/covid/success-payment', [CovidController::class, 'successPayment'])->name('covid.success-payment');
-    Route::get('/covid/failure-payment', [CovidController::class, 'failurePayment'])->name('covid.failure-payment');
+    Route::get('/covid/epay-redirect', [EpayController::class, 'epayRedirect'])->name('covid.epay-redirect');
+    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
+    Route::get('/covid/failure-payment', [EpayController::class, 'failurePayment'])->name('covid.failure-payment');
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
