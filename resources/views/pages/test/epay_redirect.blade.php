@@ -3,18 +3,11 @@
 @section('content')
     <script type="text/javascript" src="https://test-epay.homebank.kz/payform/payment-api.js"></script>
     <script>
-        var invoiceId = "002300024";
-        var amount = 150;
-        var auth = {
-            "access_token": "GT51F8UFU702W6LKG57MFM",
-            "expires_in": "5000",
-            "refresh_token": "",
-            "scope": "payment",
-            "token_type": "Bearer"
-        };
-
+        var auth = @json($auth);
+        var invoiceId = @json($order_id);
+        var amount = @json($amount);
         var hostname = window.location.hostname;
-        alert(hostname);
+
         var createPaymentObject = function(auth, invoiceId, amount) {
             var paymentObject = {
                 invoiceId: invoiceId,
@@ -35,6 +28,7 @@
             paymentObject.auth = auth;
             return paymentObject;
         };
+
         halyk.pay(createPaymentObject(auth, invoiceId, amount));
     </script>
 @endsection

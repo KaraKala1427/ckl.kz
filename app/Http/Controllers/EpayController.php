@@ -19,22 +19,21 @@ class EpayController extends Controller
 
     public function paymentAuth(Request $request)
     {
-        $order_id = $request->order_id;
+        $order_id = (int)$request->order_id;
         $amount   = $this->covidService->getFieldData($order_id, 'premium_sum');
-        dd($amount);
-        $data = $request->toArray();
-        $response = Http::withOptions(['verify' => false])->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
+        $auth = Http::asForm()->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
             "grant_type"    => "client_credentials",
             "scope"         => "payment",
             "client_id"     => "test",
             "client_secret" => "yF587AV9Ms94qN2QShFzVR3vFnWkhjbAK3sG",
-            "invoiceID"     => "002300030",
-            "amount"        => 150,
+            "invoiceID"     => (string)$order_id,
+            "amount"        => (int)$amount,
             "currency"      => "KZT",
             "terminal"      => "67e34d63-102f-4bd1-898e-370781d0074d"
         ])->json();
+//        return redirect()->route('covid.epay-redirect',['auth' => $auth, 'order_id' => $order_id, 'amount' => $amount]);
 
-        return $response;
+        return view('pages.test.epay_redirect', compact('auth', 'order_id', 'amount'));
     }
 
     public function epayRedirect()

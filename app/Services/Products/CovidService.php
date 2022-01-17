@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Phone;
 use App\Repositories\PhoneRepository;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CovidService
 {
@@ -95,9 +96,16 @@ class CovidService
         return $data[$param];
     }
 
-    public function getFieldData(Order $order, $param = null)
+    public function getFieldData($order_id, $param = null)
     {
-        return $order->getAttributeValue($param);
+        try {
+            $order = Order::findOrFail($order_id);
+            return $order->getAttributeValue($param);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            return view('pages.covid');
+        }
     }
 
     public function getLastTimeOfSms($order_id)
