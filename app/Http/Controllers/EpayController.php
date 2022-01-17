@@ -53,8 +53,6 @@ class EpayController extends Controller
     public function paymentResponse(Request $request)
     {
         $response = $request->getContent();
-        $token = $request->bearerToken();
-        $headers = $request->header();
-        Log::channel('payment')->info("{$response} , token : $token,  headers : $headers");
+        Log::channel('payment')->info("{$response}");
     }
 }
