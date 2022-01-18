@@ -408,18 +408,18 @@
                     var createPaymentObject = function(auth, invoiceId, amount) {
                         var paymentObject = {
                             invoiceId: invoiceId,
-                            backLink: "https://" + hostname + "/covid/success-payment",
+                            backLink: "https://" + hostname + "/covid/success-payment/?productOrderId=" + invoiceId +"&hash=" + '{{$hash}}',
                             failureBackLink: "https://" + hostname + "/covid/failure-payment",
-                            postLink: "https://" + hostname + "/api/covid/payment-response",
-                            failurePostLink: "https://" + hostname + "/api/covid/payment-response",
+                            postLink: "https://" + hostname + "/api/epay/response",
+                            failurePostLink: "https://" + hostname + "/api/epay/response",
                             language: "RU",
                             description: "Оплата в интернет магазине",
                             accountId: "testuser1",
                             terminal: "67e34d63-102f-4bd1-898e-370781d0074d",
                             amount: amount,
                             currency: "KZT",
-                            phone: "77777777777",
-                            email: "example@example.com",
+                            phone: "{{$dataUrl['phone'] ?? ''}}",
+                            email: "{{$dataUrl['email'] ?? ''}}",
                             cardSave: true
                         };
                         paymentObject.auth = auth;

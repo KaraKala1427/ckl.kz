@@ -53,6 +53,31 @@ class EpayController extends Controller
     public function paymentResponse(Request $request)
     {
         $response = $request->getContent();
-        Log::channel('payment')->info("{$response}");
+        $auth = $this->statusAuth();
+        $status = $this->getStatus($auth);
+        Log::channel('payment')->info("Postlink: {$response}, Status: {$status}");
+        if ($response == $status) {
+            Log::channel('payment')->info("All Right");
+        }
     }
+
+    public function statusAuth()
+    {
+        $auth = Http::asForm()->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
+            "grant_type"    => "client_credentials",
+            "scope"         => "webapi",
+            "client_id"     => "test",
+            "client_secret" => "yF587AV9Ms94qN2QShFzVR3vFnWkhjbAK3sG"
+        ])->json();
+
+        return $auth;
+    }
+
+    public function getStatus($auth = null)
+    {
+        $token = $auth->access_token;
+        $status = Http::withToken($token)->get('https://testepay.homebank.kz/api/operation/2000000')->json();
+        return $status;
+    }
+
 }

@@ -11,8 +11,15 @@
                         <a href="{{ $article->route() }}"
                            class="overlay">
                         </a>
-                        <img src="{{ asset("storage/".$article->{'img_'.App::getLocale()})}}"
-                             alt="">
+                        @if($article->{'img_'.App::getLocale()} !='')
+                            <img src="{{ asset("storage/".$article->{'img_'.App::getLocale()})}}"
+                                 alt="">
+                        @elseif($article->img_ru != '')
+                            <img src="{{ asset("storage/".$article->img_ru)}}"
+                                 alt="">
+                        @else
+                            {{ null }}
+                        @endif
                     </figure>
                 @endif
                 <div class="card__body">

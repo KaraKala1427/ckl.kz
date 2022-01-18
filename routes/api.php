@@ -23,3 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/epay/auth', [EpayController::class, 'paymentAuth'])->name('epay.payment-auth');
 Route::post('/epay/response', [EpayController::class, 'paymentResponse'])->name('covid.payment-response');
+Route::get('/epay/status', [EpayController::class, 'getStatus']);
+
+
