@@ -21,7 +21,7 @@ Route::redirect('/','/ru');
 
 Route::get('sendbasicemail',[MailController::class, 'basic_email']);
 Route::get('sendhtmlemail',[MailController::class, 'html_email']);
-Route::post('/send-order-email',[MailController::class, 'sendOrderToEmail'])->name('covid.send-email');
+Route::get('/send-order-email',[MailController::class, 'sendOrderToEmail'])->name('covid.send-email');
 Route::get('sendattachmentemail',[MailController::class, 'attachment_email']);
 
 Route::get('sendbasicmail',[MailController::class, 'basic_mail']);

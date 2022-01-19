@@ -318,7 +318,7 @@ class  CovidController extends Controller
                 }
                 if($responseCalc['code'] == 200){
                     $order_data = json_decode($order->order_data,true)[0];
-                    $emailResponse = Http::post(route('covid.send-email'),[
+                    $emailResponse = Http::get('/send-order-email',[
                         'order_id' => $order->id,
                         'premium' => $responseCalc['premium'],
                         'phone' => $order->phone,
@@ -328,7 +328,7 @@ class  CovidController extends Controller
                         'last_name' => $order->last_name,
                         'agr_isn' => $order->agr_isn,
                         'programISN' => $order_data['programISN']
-                    ]);
+                    ])->json();
                     $hash = md5($order->id."mySuperPassword123");
                     $data = [
                         'code' => 200,

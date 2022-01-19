@@ -125,11 +125,13 @@ class MailController extends Controller
     {
         $data = $request->toArray();
         Mail::send('mail_views.order_covid', $data, function ($message) {
-            $message->to('ernarerbol027@gmail.com')->subject('Заказ по страховку Ковид');
+            $message->to('ernarerbol027@gmail.com')
+                ->cc('bbopi70@gmail.com')
+                ->subject('Заказ по страховку Ковид');
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
-        return 'send email';
+        echo 'send email';
 
     }
 
