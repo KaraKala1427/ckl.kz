@@ -4,6 +4,7 @@
 <p>Номер : {{$data['phone']}}</p>
 <p>Почта : {{$data['email']}}</p>
 <p>На сумму : {{$data['premium']}}</p>
+<p>ИСН программы : {{$data['programISN']}}</p>
 <p>ИСН договора : {{$data['agr_isn']}}</p>
 
 
