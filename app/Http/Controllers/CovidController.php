@@ -325,6 +325,17 @@ class  CovidController extends Controller
                         'premium' => $responseCalc['premium']
                     ];
                     session()->put('data', $data);
+                    Http::post(route('covid.send-email'),[
+                        'order_id' => $order->id,
+                        'premium' => $responseCalc['premium'],
+                        'phone' => $order->phone,
+                        'email' => $order->email,
+                        'iin' => $order->iin,
+                        'first_name' => $order->first_name,
+                        'last_name' => $order->last_name,
+                        'agr_isn' => $order->agr_isn
+                    ]);
+
                     return response()->json($data);   // при успешном прохождении цепочки запросов (endpoint)
                 }
 

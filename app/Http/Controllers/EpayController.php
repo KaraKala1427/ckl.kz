@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Services\Products\CovidService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use mysql_xdevapi\Exception;
 
 class EpayController extends Controller
 {
@@ -52,32 +54,55 @@ class EpayController extends Controller
 
     public function paymentResponse(Request $request)
     {
-        $response = $request->getContent();
-        $auth = $this->statusAuth();
-        $status = $this->getStatus($auth);
-        Log::channel('payment')->info("Postlink: {$response}, Status: {$status}");
-        if ($response == $status) {
-            Log::channel('payment')->info("All Right");
+        try {
+            $response = $request->getContent();
+            $data = $request->toArray();
+            Log::channel('payment')->info("Postlink: {$response}");
+            $invoiceId = $data['invoiceId'] ?? 'emptyID';
+            $auth = json_encode($this->statusAuth());
+            $status = json_encode($this->getStatus($auth, $invoiceId));
+            $statusArray = json_decode($status,true);
+            Log::channel('payment')->info("Status: {$status}");
+            if ($data['invoiceId'] == $statusArray['invoiceId'] && $data['amount'] == $statusArray['amount']) {
+                $order = Order::findOrFail((int)$statusArray['invoiceId']);
+                $order->status = Order::STATUS_IN_PROCESS;
+                $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
+                $order->save();
+            }
+        }
+        catch (\Exception $e){
+            Log::debug("Payment response failed ".$e->getMessage()." Code: ".$e->getCode()." Line: ".$e->getLine());
         }
     }
 
     public function statusAuth()
     {
-        $auth = Http::asForm()->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
-            "grant_type"    => "client_credentials",
-            "scope"         => "webapi",
-            "client_id"     => "test",
-            "client_secret" => "yF587AV9Ms94qN2QShFzVR3vFnWkhjbAK3sG"
-        ])->json();
+        try {
+            $auth = Http::asForm()->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
+                "grant_type"    => "client_credentials",
+                "scope"         => "webapi usermanagement email_send verification statement statistics payment",
+                "client_id"     => "test",
+                "client_secret" => "yF587AV9Ms94qN2QShFzVR3vFnWkhjbAK3sG"
+            ])->json();
 
-        return $auth;
+            return $auth;
+        }
+        catch (\Exception $e){
+            Log::debug("statusAuth failed ".$e->getMessage());
+        }
     }
 
-    public function getStatus($auth = null)
+    public function getStatus($auth, $invoiceId)
     {
-        $token = $auth->access_token;
-        $status = Http::withToken($token)->get('https://testepay.homebank.kz/api/operation/2000000')->json();
-        return $status;
+        try {
+            $array = json_decode($auth,true);
+            $token = $array['access_token'];
+            $status = Http::withToken($token)->get("https://testepay.homebank.kz/api/operation/$invoiceId")->json();
+            return $status;
+        }
+        catch (\Exception $e){
+            Log::debug("getStatus ".$array." token: ".$token." ".$e->getMessage());
+        }
     }
 
 }

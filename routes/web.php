@@ -3,7 +3,10 @@
 use App\Http\Controllers\ApiConnectController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CovidController;
+use App\Http\Controllers\DevController;
 use App\Http\Controllers\EpayController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\MigrateController;
 use App\Http\Controllers\SandBoxController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -16,20 +19,21 @@ use App\Http\Controllers\PressController;
 
 Route::redirect('/','/ru');
 
-Route::get('sendbasicemail',[\App\Http\Controllers\MailController::class, 'basic_email']);
-Route::get('sendhtmlemail',[\App\Http\Controllers\MailController::class, 'html_email']);
-Route::get('sendattachmentemail',[\App\Http\Controllers\MailController::class, 'attachment_email']);
+Route::get('sendbasicemail',[MailController::class, 'basic_email']);
+Route::get('sendhtmlemail',[MailController::class, 'html_email']);
+Route::post('/send-order-email',[MailController::class, 'sendOrderToEmail'])->name('covid.send-email');
+Route::get('sendattachmentemail',[MailController::class, 'attachment_email']);
 
-Route::get('sendbasicmail',[\App\Http\Controllers\MailController::class, 'basic_mail']);
-Route::get('sendhtmlmail',[\App\Http\Controllers\MailController::class, 'html_mail'])->name('lol');
-Route::get('sendattachmentmail',[\App\Http\Controllers\MailController::class, 'attachment_mail']);
-Route::get('/migrate', [\App\Http\Controllers\MigrateController::class, 'index']);
-Route::get('/runseeder', [\App\Http\Controllers\MigrateController::class, 'run_seeder']);
-Route::get('/link', [\App\Http\Controllers\DevController::class, 'link']);
+Route::get('sendbasicmail',[MailController::class, 'basic_mail']);
+Route::get('sendhtmlmail',[MailController::class, 'html_mail'])->name('lol');
+Route::get('sendattachmentmail',[MailController::class, 'attachment_mail']);
+Route::get('/migrate', [MigrateController::class, 'index']);
+Route::get('/runseeder', [MigrateController::class, 'run_seeder']);
+Route::get('/link', [DevController::class, 'link']);
 Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
-Route::get('/curltest', [\App\Http\Controllers\MailController::class, 'test']);
+Route::get('/curltest', [MailController::class, 'test']);
 
 Auth::routes();
 
