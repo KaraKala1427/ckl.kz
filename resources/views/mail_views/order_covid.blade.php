@@ -1,10 +1,11 @@
-<p>Номер заказа : {{$data['order_id']}}</p>
-<p>Имя и Фамилия : {{$data['first_name']}} {{$data['last_name']}}</p>
-<p>ИИН   :   {{$data['iin']}}</p>
-<p>Номер : {{$data['phone']}}</p>
-<p>Почта : {{$data['email']}}</p>
-<p>На сумму : {{$data['premium']}}</p>
-<p>ИСН программы : {{$data['programISN']}}</p>
-<p>ИСН договора : {{$data['agr_isn']}}</p>
+<p>Номер заказа          : {{$order_id}}</p>
+<p>ФИО                   : {{$first_name}} {{$last_name}}</p>
+<p>ИИН                   : {{$iin}}</p>
+<p>Номер                 : {{$phone}}</p>
+<p>Почта                 : {{$email}}</p>
+<p>На сумму              : {{$premium}} тг</p>
+<p>ИСН программы         : {{$programISN}}</p>
+<p>ИСН договора          : {{$agr_isn}}</p>
+<p>Дата начало договора  : {{$date_start}}</p>
 
 
