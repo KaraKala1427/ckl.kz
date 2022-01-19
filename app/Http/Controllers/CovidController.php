@@ -317,16 +317,8 @@ class  CovidController extends Controller
                     ]);
                 }
                 if($responseCalc['code'] == 200){
-                    $hash = md5($order->id."mySuperPassword123");
-                    $data = [
-                        'code' => 200,
-                        'order_id' => $order->id,
-                        'hash' =>$hash,
-                        'premium' => $responseCalc['premium']
-                    ];
-                    session()->put('data', $data);
                     $order_data = json_decode($order->order_data,true)[0];
-                    Http::post(route('covid.send-email'),[
+                    $emailResponse = Http::post(route('covid.send-email'),[
                         'order_id' => $order->id,
                         'premium' => $responseCalc['premium'],
                         'phone' => $order->phone,
@@ -335,8 +327,18 @@ class  CovidController extends Controller
                         'first_name' => $order->first_name,
                         'last_name' => $order->last_name,
                         'agr_isn' => $order->agr_isn,
-                        'programISN' => $order_data->programISN
+                        'programISN' => $order_data['programISN']
                     ]);
+                    $hash = md5($order->id."mySuperPassword123");
+                    $data = [
+                        'code' => 200,
+                        'order_id' => $order->id,
+                        'hash' =>$hash,
+                        'premium' => $responseCalc['premium'],
+                        'email_response' => $emailResponse
+                    ];
+                    session()->put('data', $data);
+
 
                     return response()->json($data);   // при успешном прохождении цепочки запросов (endpoint)
                 }
