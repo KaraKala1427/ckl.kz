@@ -328,8 +328,10 @@ class  CovidController extends Controller
                         'last_name' => $order->last_name,
                         'agr_isn' => $order->agr_isn,
                         'programISN' => $order_data['programISN'],
-                        'date_start' => $order_data['dateBeg']
+                        'date_start' => $order_data['dateBeg'],
+                        'date_end' => $order_data['dateEnd']
                     ]);
+
                     $hash = md5($order->id."mySuperPassword123");
                     $data = [
                         'code' => 200,
