@@ -231,7 +231,7 @@
                 <strong><small id="programISN_error" class="form-text text-"
                                style="display: none; color: crimson">
                         Вы не выбрали программу</small></strong>
-                    <p><a href="{{ route('programcovid')}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
+                    <p><a href="{{ route('program-covid')}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
                 </div>
             </fieldset>
 
@@ -278,7 +278,7 @@
                     <th>Годовой тариф</th>
                     <td>0,99%</td>
                 </tr>
-
+                <p id="programLink1" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'1'])}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
                 </tbody>
             </table>
 
@@ -315,6 +315,7 @@
                     <td>0,90%</td>
                 </tr>
                 </tbody>
+                <p id="programLink2" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'2'])}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
             </table>
 
             <!-- table programm 3 -->
@@ -351,6 +352,7 @@
                     <td>0,87%</td>
                 </tr>
                 </tbody>
+                <p id="programLink3" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'3'])}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
             </table>
 
             <!-- Дата начала договора -->
@@ -686,18 +688,21 @@
                     $("#program2").hide();
                     $("#program3").hide();
                     $("#program1").show();
+                    $("#programLink1").show();
 
                 } else if ($("#programISN").val() == 898651) {
 
                     $("#program1").hide();
                     $("#program3").hide();
                     $("#program2").show();
+                    $("#programLink2").show();
 
                 } else if ($("#programISN").val() == 898661) {
 
                     $("#program1").hide();
                     $("#program2").hide();
                     $("#program3").show();
+                    $("#programLink3").show();
 
                 }else if($("#programISN").val() == 0){
 
@@ -710,7 +715,7 @@
 
              // Валидация почты
 
-            function IsEmail(email) {
+            function isEmail(email) {
                 if ((email) == '') {
                     $("#email_error").html(" Вы не указали email").show();
                     return false;
@@ -726,7 +731,7 @@
 
             // Валидация номера
 
-            function IsPhone(phone) {
+            function isPhone(phone) {
                 if ((phone) == '') {
                     $("#phone_error").html("Вы не указали телефон").show();
                     return false;
@@ -925,14 +930,14 @@
                         //     a = true;
                         // }
 
-                        if (IsPhone(phone) == false) {
+                        if (isPhone(phone) == false) {
                             const phoneErrorId = "#phone";
                             $("#phone_error").show();
                             scrollToElement = scrollToElement === false ? phoneErrorId : scrollToElement;
                             a = true;
                         }
 
-                        if (IsEmail(email) == false && $("#notificationISN").val() != 898831 &&
+                        if (isEmail(email) == false && $("#notificationISN").val() != 898831 &&
                             $("#notificationISN").val() != 898851) {
                             const emailErrorId = "#email";
                             $("#email_error").show();

@@ -49,46 +49,54 @@
         <tr>
             <th colspan="5" class="font-weight-bolder">2.Расчет</th>
         </tr>
-        <tr>
-            <th>Период страхования</th>
-            <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
-        </tr>
-        <tr>
-            <th>Условия</th>
-            <th>Программа 1</th>
-            <th>Программа 2</th>
-            <th>Программа 3</th>
-        </tr>
-        <tr>
-            <th>Общая страховая сумма</th>
-            <td>1 000 000</td>
-            <td>2 000 000</td>
-            <td>3 000 000</td>
-        </tr>
-        <tr>
-            <th>Госпитализация</th>
-            <td>100 000</td>
-            <td>200 000</td>
-            <td>300 000</td>
-        </tr>
-        <tr>
-            <th>Смерть</th>
-            <td>900 000</td>
-            <td>1 800 000</td>
-            <td>2 700 000</td>
-        </tr>
-        <tr>
-            <th>Страховая премия</th>
-            <td>9 900</td>
-            <td>18 000</td>
-            <td>26 100</td>
-        </tr>
-        <tr>
-            <th>Годовой тариф</th>
-            <td>0,99%</td>
-            <td>0,90%</td>
-            <td>0,87%</td>
-        </tr>
+        @if(request('id') == "1")
+            @include('mini_parts.program_1')
+        @elseif(request('id') == "2")
+            @include('mini_parts.program_2')
+        @elseif(request('id') == "3")
+            @include('mini_parts.program_3')
+        @else
+            <tr>
+                <th>Период страхования</th>
+                <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+            </tr>
+            <tr>
+                <th>Условия</th>
+                <th>Программа 1</th>
+                <th>Программа 2</th>
+                <th>Программа 3</th>
+            </tr>
+            <tr>
+                <th>Общая страховая сумма</th>
+                <td>1 000 000</td>
+                <td>2 000 000</td>
+                <td>3 000 000</td>
+            </tr>
+            <tr>
+                <th>Госпитализация</th>
+                <td>100 000</td>
+                <td>200 000</td>
+                <td>300 000</td>
+            </tr>
+            <tr>
+                <th>Смерть</th>
+                <td>900 000</td>
+                <td>1 800 000</td>
+                <td>2 700 000</td>
+            </tr>
+            <tr>
+                <th>Страховая премия</th>
+                <td>9 900</td>
+                <td>18 000</td>
+                <td>26 100</td>
+            </tr>
+            <tr>
+                <th>Годовой тариф</th>
+                <td>0,99%</td>
+                <td>0,90%</td>
+                <td>0,87%</td>
+            </tr>
+        @endif
         <tr>
             <th colspan="5" class="font-weight-bolder">3. Страховые выплаты</th>
         </tr>
