@@ -80,7 +80,6 @@ class MailController extends Controller
     public function html_mail(Request $request)
     {
 
-//        dd($request->request->all());
         $array = ($request->request->all());
         $data = array(
             'frompage' => $array['frompage'],
@@ -121,10 +120,9 @@ class MailController extends Controller
     }
 
 
-    public function sendOrderToEmail(Request $request)
+    public static function sendOrderToEmail($data)
     {
-        $data = $request->toArray();
-        Mail::send('mail_views.order_covid', $data, function ($message, $data) {
+        Mail::send('mail_views.order_covid', $data, function ($message) use ($data) {
             $message->to('ernarerbol027@gmail.com')
                 ->cc('r.pomogalov@kommesk-omir.kz')
                 ->subject($data['order_id']." Е-Полис «СЖ-ковид»");

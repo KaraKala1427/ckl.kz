@@ -226,7 +226,6 @@ class  CovidController extends Controller
         }
         $responseSubjISN = $this->setSubject($order);
         if($responseSubjISN['code'] != 200) {
-            session()->put('data',$responseSubjISN['error']);
             return response()->json([
                 'code' => 404,
                 'error' => $responseSubjISN['error'],
@@ -238,7 +237,6 @@ class  CovidController extends Controller
         self::updateOrder($order, $subjISN, $key);
         $responseDoc  = $this->setDocs($subjISN, $order);
         if($responseDoc['code'] != 200) {
-            session()->put('data',$responseDoc['error']);
             return response()->json([
                 'code' => 404,
                 'error' => $responseDoc['error'],
@@ -254,7 +252,6 @@ class  CovidController extends Controller
             if($order->agr_isn == null){
                 $responseAgr = $this->setAgreement($subjISN, $dateBeg, $dateEnd, $order);
                 if($responseAgr['code'] != 200) {
-                    session()->put('data',$responseAgr['error']);
                     return response()->json([
                         'code' => 404,
                         'error' => $responseAgr['error'],
@@ -265,7 +262,6 @@ class  CovidController extends Controller
             else {
                 $responseUpdate = $this->updateAgreement($subjISN, $order, $dateBeg, $dateEnd);
                 if($responseUpdate['code'] != 200) {
-                    session()->put('data',$responseUpdate['error']);
                     return response()->json([
                         'code' => 404,
                         'error' => $responseUpdate['error'],
@@ -274,7 +270,6 @@ class  CovidController extends Controller
                 }
                 $responseClear = $this->clearAgreement($order->agr_isn);
                 if($responseClear['code'] != 200) {
-                    session()->put('data',$responseClear['error']);
                     return response()->json([
                         'code' => 404,
                         'error' => $responseClear['error'],
@@ -284,7 +279,6 @@ class  CovidController extends Controller
             }
             $responseObj = $this->setAgrObj($subjISN, $order);
             if($responseObj['code'] != 200) {
-                session()->put('data',$responseObj['error']);
                 return response()->json([
                     'code' => 404,
                     'error' => $responseObj['error'],
@@ -300,7 +294,6 @@ class  CovidController extends Controller
             if($responseAttributes['data'] == 'ok'){
                 $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
                 if($responseCond['code'] != 200) {
-                    session()->put('data',$responseCond['error']);
                     return response()->json([
                         'code' => 404,
                         'error' => $responseCond['error'],
@@ -317,20 +310,8 @@ class  CovidController extends Controller
                     ]);
                 }
                 if($responseCalc['code'] == 200){
-                    $order_data = json_decode($order->order_data,true)[0];
-                    Http::get('https://dev.ckl.kz/send-order-email',[
-                        'order_id' => $order->id,
-                        'premium' => $responseCalc['premium'],
-                        'phone' => $order->phone,
-                        'email' => $order->email,
-                        'iin' => $order->iin,
-                        'first_name' => $order->first_name,
-                        'last_name' => $order->last_name,
-                        'agr_isn' => $order->agr_isn,
-                        'programISN' => $order_data['programISN'],
-                        'date_start' => $order_data['dateBeg'],
-                        'date_end' => $order_data['dateEnd']
-                    ]);
+                    if($order->email_calculation_sent == 'false')
+                        $this->covidService->sendOrderEmail($order, $responseCalc['premium']);
 
                     $hash = md5($order->id."mySuperPassword123");
                     $data = [
@@ -340,14 +321,11 @@ class  CovidController extends Controller
                         'premium' => $responseCalc['premium']
                     ];
                     session()->put('data', $data);
-
-
                     return response()->json($data);   // при успешном прохождении цепочки запросов (endpoint)
                 }
 
             }
             else   {
-                session()->put('data',$responseAttributes['error']);
                 return response()->json([
                     'code' => 404,
                     'error' => $responseAttributes['error'],
@@ -356,7 +334,6 @@ class  CovidController extends Controller
             }
         }
         else {
-            session()->put('data',$responseESBD['error']);
             return response()->json([
                 'code' => 404,
                 'error' => $responseESBD['error'],
@@ -484,6 +461,7 @@ class  CovidController extends Controller
             "phone"           => $this->getFieldOrderData($order, 'phone'),
             "programISN"      => (int)$this->getFieldOrderData($order, 'programISN'),
             "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
+            "order_id"        => (string)$order->id
         ])->json();
         return $response;
     }

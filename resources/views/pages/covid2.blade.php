@@ -409,7 +409,7 @@
                         var paymentObject = {
                             invoiceId: invoiceId,
                             backLink: "https://" + hostname + "/covid/success-payment/?productOrderId=" + invoiceId +"&hash=" + '{{$hash}}',
-                            failureBackLink: "https://" + hostname + "/covid/failure-payment",
+                            failureBackLink: "https://" + hostname + "/covid/failure-payment?productOrderId=" + invoiceId +"&hash=" + '{{$hash}}',
                             postLink: "https://" + hostname + "/api/epay/response",
                             failurePostLink: "https://" + hostname + "/api/epay/response",
                             language: "RU",

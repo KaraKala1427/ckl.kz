@@ -4,6 +4,7 @@
 namespace App\Services\Products;
 
 
+use App\Http\Controllers\MailController;
 use App\Models\Order;
 use App\Models\Phone;
 use App\Repositories\PhoneRepository;
@@ -180,6 +181,28 @@ class CovidService
             }
             return null;
         }
+    }
+
+
+    public function sendOrderEmail(Order $order, $premium_sum)
+    {
+        $order_data = json_decode($order->order_data,true)[0];
+        $email_array = [
+            'order_id' => $order->id,
+            'premium' => $premium_sum,
+            'phone' => $order->phone,
+            'email' => $order->email,
+            'iin' => $order->iin,
+            'first_name' => $order->first_name,
+            'last_name' => $order->last_name,
+            'agr_isn' => $order->agr_isn,
+            'programISN' => $order_data['programISN'],
+            'date_start' => $order_data['dateBeg'],
+            'date_end' => $order_data['dateEnd']
+        ];
+        MailController::sendOrderToEmail($email_array);
+        $order->email_calculation_sent = 'true';
+        $order->save();
     }
 
 }

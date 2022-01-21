@@ -52,7 +52,7 @@ class AboutController extends Controller
 
     public function get_corporate_events()
     {
-        $articles = Article::where('razid', '17')->orderBy('orderid', 'desc')->get();
+        $articles = Article::where('razid', '17')->orderBy('id', 'desc')->get();
         $articles = (new ProductController())->convertClassTinyMce($articles);
         return view('pages.about_corporate_events', compact('articles'));
     }
