@@ -35,6 +35,22 @@ Route::get('/linkstorage', function () {
 });
 Route::get('/curltest', [MailController::class, 'test']);
 
+
+Route::get('/agentlogin', function () {
+    return view('pages.agentlogin');
+})->name('login');
+
+Route::get('/programcovid', function () {
+    return view('pages.programcovid');
+})->name('programcovid');
+
+Route::post('/agentlogin', [CovidController::class, 'forteLogin'])->name('forteLogin');
+
+Route::get('/agenthome', function () {
+    return view('agenthome');
+});
+
+
 Auth::routes();
 
 Route::group([

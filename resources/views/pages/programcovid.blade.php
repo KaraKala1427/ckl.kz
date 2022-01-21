@@ -1,0 +1,211 @@
+@extends('layouts.general')
+
+@section('content')
+
+    <table class="table table-bordered">
+        <tr>
+            <th colspan="5" class="font-weight-bolder">Условия страхования ненакопительного (срочного) страхования жизни
+                на случай заболевания
+                COVID-19
+            </th>
+        </tr>
+        <tbody>
+        <tr>
+            <th colspan="5" class="font-weight-bolder">1.Описание</th>
+        </tr>
+        <tr>
+            <th scope="row">Условия оплаты</th>
+            <td colspan="5" style="border: none;">единовременно</td>
+        </tr>
+        <tr>
+            <th scope="row">Срок страхования</th>
+            <td style="border: none;">12 месяцев</td>
+        </tr>
+        <tr>
+            <th>Покрываемые риски</th>
+            <td colspan="5" style="border: none">- диагностированное и приведшее к госпитализации Застрахованного
+                заболевание, вызванное коронавирусной инфекцией COVID-19, один раз в
+                период действия страховой защиты;
+                <br>
+                - смерть Застрахованного, наступившая в период действия договора
+                страхования в результате заболевания, вызванного коронавирусной
+                инфекцией COVID-19, за исключением случаев, предусмотренных Договором
+                и/или Правилами.
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Возрастные ограничения</th>
+            <td colspan="5" style="border: none">от 18 года до 65 лет</td>
+        </tr>
+        <tr>
+            <th scope="row">Лимиты ответственности</th>
+            <td colspan="5" style="border: none">100% от страховой суммы установленной риску</td>
+        </tr>
+        <tr>
+            <th scope="row">Территория покрытия</th>
+            <td colspan="5" style="border: none">Республика Казахстан</td>
+        </tr>
+        </tbody>
+        <tr>
+            <th colspan="5" class="font-weight-bolder">2.Расчет</th>
+        </tr>
+        <tr>
+            <th>Период страхования</th>
+            <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+        </tr>
+        <tr>
+            <th>Условия</th>
+            <th>Программа 1</th>
+            <th>Программа 2</th>
+            <th>Программа 3</th>
+        </tr>
+        <tr>
+            <th>Общая страховая сумма</th>
+            <td>1 000 000</td>
+            <td>2 000 000</td>
+            <td>3 000 000</td>
+        </tr>
+        <tr>
+            <th>Госпитализация</th>
+            <td>100 000</td>
+            <td>200 000</td>
+            <td>300 000</td>
+        </tr>
+        <tr>
+            <th>Смерть</th>
+            <td>900 000</td>
+            <td>1 800 000</td>
+            <td>2 700 000</td>
+        </tr>
+        <tr>
+            <th>Страховая премия</th>
+            <td>9 900</td>
+            <td>18 000</td>
+            <td>26 100</td>
+        </tr>
+        <tr>
+            <th>Годовой тариф</th>
+            <td>0,99%</td>
+            <td>0,90%</td>
+            <td>0,87%</td>
+        </tr>
+        <tr>
+            <th colspan="5" class="font-weight-bolder">3. Страховые выплаты</th>
+        </tr>
+        <tr>
+            <th scope="row">Госпитализация</th>
+            <td colspan="" style="border: none">100% от страховой суммы по данному риску</td>
+        </tr>
+        <tr>
+            <th scope="row">Смерть</th>
+            <td style="border: none">100% от страховой суммы по данному риску</td>
+        </tr>
+        <tr>
+            <th colspan="5" class="font-weight-bolder">4. Особые условия:</th>
+        </tr>
+        <tr>
+            <td colspan="5" style="border: none;">1. Страхователем является Резидент Республики Казахстан.
+                Застрахованный
+                является Страхователем.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="border: none">2. Выгодоприобретателем по госпитализации является Страхователь.
+                Выгодоприобретателями в случае смерти являются
+                наследники Застрахованного в соответсвии с законодательством РК.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border: none">3. Период страхования
+                равен периоду страховой защиты.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="border: none">4. Период действия страховой защиты начинается по истечении 7 (семи)
+                календарных дней после
+                подписания/заключения договора страхования.
+            </td>
+        </tr>
+    </table>
+
+
+    <style>
+
+        @media only screen
+        and (max-width: 760px), (min-device-width: 768px)
+        and (max-device-width: 1024px) {
+
+            table, thead, tr, th, tbody, td {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin: 0 0 1rem 0;
+            }
+
+            th {
+                background-color: silver;
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                top: 0;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+
+        }
+
+        .removejust {
+            display: none;
+        }
+
+        section.nav-section {
+            display: none;
+        }
+
+        .card-body {
+            display: none;
+        }
+
+        .nav__list {
+            display: none;
+        }
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        // $(document).load($(window).bind("resize", checkPosition))
+        //
+        // function checkPosition() {
+        //     if (window.matchMedia('(max-width: 767px)').matches) {
+        //         $("table tr  th[colspan=5]").removeAttr('colspan');
+        //         $("table tr  td[colspan=5]").removeAttr('colspan');
+        //     }else if(window.matchMedia('(max-width: 798px)').matches) {
+        //         $("table tr  th[colspan=5]").removeAttr('colspan');
+        //         $("table tr  td[colspan=5]").removeAttr('colspan');
+        //     }
+        // }
+
+    </script>
+
+    </main>
+
+@endsection

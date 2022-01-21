@@ -35,6 +35,7 @@
 
     <div class="calculator__block bg-grey entry agentBlock agentHasError" id="section1">
         @include('mini_parts.overloader')
+        <h3 class="calculator__title col--12-12 p-3">Ненакопительное (срочное) страхование жизни на случай заболевания COVID-19</h3>
         <h3 class="calculator__title col--12-12 p-3">
             Личные данные</h3>
         @csrf
@@ -63,7 +64,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderfirstName" class="field-set__label checkList">Имя </label>
-                <input class="field datas keyboardInput agentData1 input-check" type="text" name="firstName"
+                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text" name="firstName"
                        id="firstName"
                        onkeyup="showOrHideBlock('firstName_error','firstName')"
                        value="{{$dataUrl['subjects'][0]['user']['first_name'] ?? ''}}">
@@ -75,7 +76,7 @@
 
             <fieldset class="field-set col col--3-12 ">
                 <label for="orderlastName" class="field-set__label checkList">Фамилия </label>
-                <input class="field datas keyboardInput agentData1 input-check" type="text"
+                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text"
                        name="lastName" id="lastName" value="{{$dataUrl['subjects'][0]['user']['last_name'] ?? ''}}"
                        onkeyup="showOrHideBlock('lastName_error','lastName')">
                 <strong><small id="lastName_error" class="form-text text-" style="display: none; color: crimson">
@@ -86,7 +87,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="patronymicName" class="field-set__label checkList">Отчество</label>
-                <input class="field datas keyboardInput agentData1 input-check" type="text"
+                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text"
                        name="patronymicName" id="patronymicName"
                        onkeyup="showOrHideBlock('patronymicName_error','patronymicName')"
                        value="{{$dataUrl['subjects'][0]['user']['patronymic_name'] ?? ''}}">
@@ -99,7 +100,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderDocDate" class="field-set__label checkList">Дата рождения </label>
-                <input class="field field--date datas edate input-check" id="born" type="tel"
+                <input class="field field--date datas edate input-check clearFields" id="born" type="tel"
                        name="born" maxlength="10" placeholder="dd.mm.yyyy"
                        onkeyup="showOrHideBlock('born_error','born')"
                        value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
@@ -115,7 +116,7 @@
                 <div id="doctypeField">
                     <label for="orderBenefit" class="field-set__label checkList">Тип документа </label>
                     <select name="documentTypeId" id="documentTypeId" tabindex="-1"
-                            class="benefits datas agentData1 field input-check"  onkeyup="showOrHideBlock('documentTypeId_error','documentTypeId')">
+                            class="benefits datas agentData1 field input-check clearFields"  onkeyup="showOrHideBlock('documentTypeId_error','documentTypeId')">
                         <option value="documentTypeId-empty">--</option>
                         <option
                             value="1" {{ 'Удостоверение личности гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>
@@ -141,7 +142,7 @@
             <fieldset class="field-set col col--3-12">
                 <label for="orderDocNumber" class="field-set__label checkList">
                     Номер документа </label>
-                <input class="field field-- datas input-check" id="documentNumber" type="text" name="documentNumber"
+                <input class="field field-- datas input-check clearFields" id="documentNumber" type="text" name="documentNumber"
                        onkeyup="showOrHideBlock('documentNumber_error','documentNumber')"
                        value="{{$dataUrl['subjects'][0]['user']['document_number'] ?? ''}}">
                 <strong><small id="documentNumber_error" class="form-text text-"
@@ -153,7 +154,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="documentGivedDate" class="field-set__label checkList">Дата выдачи документа </label>
-                <input class="field field--date datas edate input-check" id="documentGivedDate"
+                <input class="field field--date datas edate input-check clearFields" id="documentGivedDate"
                        name="documentGivedDate" maxlength="10" placeholder="dd.mm.yyyy"
                        onkeyup="showOrHideBlock('documentGivedDate_error','documentGivedDate')"
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}" autocomplete="off">
@@ -166,7 +167,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderdocumentGivedBy" class="field-set__label checkList">Кем выдан </label>
-                <input class="field datas keyboardInput agentData1 input-check" id="documentGivedBy" type="text"
+                <input class="field datas keyboardInput agentData1 input-check clearFields" id="documentGivedBy" type="text"
                        name="documentGivedBy" maxlength="10"
                        onkeyup="showOrHideBlock('documentGivedBy_error','documentGivedBy')"
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_by'] ?? ''}}" autocomplete="off">
@@ -198,9 +199,12 @@
                     <input type="checkbox" name="notResidentUSA" id="notResidentUSA" value="no" class="checkbox-cov"
                            checked="checked" disabled>
                     <span
-                        class="checkbox__label">Застрахованный  НЕ является  резидентом США/Гражданином США</span>
+                        class="checkbox__label">Застрахованный  НЕ является  резидентом США/гражданином США</span>
                 </label>
             </fieldset>
+            <p class="p-3" style="margin-top: -25px;">«Выгодоприобретателем (-ями) (лицом, назначенным для получения
+                страховой выплаты по страховому случаю &quot;смерть Застрахованного&quot;) является (-ются) наследник
+                (-и) по Закону РК.».</p>
         </div>
 
 
@@ -227,6 +231,7 @@
                 <strong><small id="programISN_error" class="form-text text-"
                                style="display: none; color: crimson">
                         Вы не выбрали программу</small></strong>
+                    <p><a href="{{ route('programcovid')}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
                 </div>
             </fieldset>
 
@@ -239,6 +244,114 @@
                        name="limitSum" disabled
                        value="{{$dataUrl['limitSum'] ?? ''}}">
             </fieldset>
+
+            <!-- table programm 1 -->
+
+            <table class="table table-bordered" style="display: none" id="program1">
+                <tbody>
+                <tr>
+                    <th colspan="">Период страхования</th>
+                    <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+                </tr>
+
+                <tr>
+                    <th>Условия</th>
+                    <th>Программа 1</th>
+                </tr>
+                <tr>
+                    <th>Общая страховая сумма</th>
+                    <td>1 000 000</td>
+                </tr>
+                <tr>
+                    <th>Госпитализация</th>
+                    <td>100 000</td>
+                </tr>
+                <tr>
+                    <th>Смерть</th>
+                    <td>900 000</td>
+                </tr>
+                <tr>
+                    <th>Страховая премия</th>
+                    <td>9 900</td>
+                </tr>
+                <tr>
+                    <th>Годовой тариф</th>
+                    <td>0,99%</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!-- table programm 2 -->
+
+            <table class="table table-bordered" style="display: none" id="program2">
+                <tbody>
+                <tr>
+                    <th>Период страхования</th>
+                    <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+                </tr>
+                <tr>
+                    <th>Условия</th>
+                    <th>Программа 2</th>
+                </tr>
+                <tr>
+                    <th>Общая страховая сумма</th>
+                    <td>2 000 000</td>
+                </tr>
+                <tr>
+                    <th>Госпитализация</th>
+                    <td>200 000</td>
+                </tr>
+                <tr>
+                    <th>Смерть</th>
+                    <td>1 800 000</td>
+                </tr>
+                <tr>
+                    <th>Страховая премия</th>
+                    <td>18 000</td>
+                </tr>
+                <tr>
+                    <th>Годовой тариф</th>
+                    <td>0,90%</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- table programm 3 -->
+
+            <table class="table table-bordered" style="display: none" id="program3">
+                <tbody>
+                <tr>
+                    <th>Период страхования</th>
+                    <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+                </tr>
+                <tr>
+                    <th>Условия</th>
+                    <th>Программа 3</th>
+                </tr>
+                <tr>
+                    <th>Общая страховая сумма</th>
+                    <td>3 000 000</td>
+                </tr>
+                <tr>
+                    <th>Госпитализация</th>
+                    <td>300 000</td>
+                </tr>
+                <tr>
+                    <th>Смерть</th>
+                    <td>2 700 000</td>
+                </tr>
+                <tr>
+                    <th>Страховая премия</th>
+                    <td>26 100</td>
+                </tr>
+                <tr>
+                    <th>Годовой тариф</th>
+
+                    <td>0,87%</td>
+                </tr>
+                </tbody>
+            </table>
 
             <!-- Дата начала договора -->
 
@@ -253,8 +366,11 @@
                     <strong><small id="dateBeg_error" class="form-text text- dateBeg"
                                    style="display: none; color: crimson">
                             Вы не указали дату</small></strong>
+                    <p>«Договор страхования начинает действовать по истечении 7 (семи)
+                        календарных дней с даты заключения договора страхования.»</p>
                 </div>
             </fieldset>
+
 
             <!-- Дата окончания договора -->
 
@@ -265,7 +381,6 @@
                        maxlength="10" value="{{$dataUrl['dateEnd'] ?? ''}}" placeholder="dd.mm.yyyy"
                        autocomplete="off" disabled="">
             </fieldset>
-
         </div>
 
         <div class="grid" id="block2" style="display:{{$dataUrl['subjects'][0]['user']['iin'] ?? 'none'}}">
@@ -294,6 +409,7 @@
                 </select>
                 <strong><small id="notificationISN_error" class="form-text text-" style="display: none; color: crimson">
                         Вы не выбрали способ уведомления</small></strong>
+                <p>«Просим указать куда направлять информацию о заключении договора страхования»</p>
             </fieldset>
 
             <!-- Мобильный номер -->
@@ -345,7 +461,7 @@
 									<label for="hasInvalid" class="checkbox">
 									<input type="checkbox" class="checkbox-cov input-check" name="hasInvalid" value=""
                                            id="hasInvalid">
-                                        <span class="checkbox__label">Имеет ли Застрахованный инвалидность?</span>
+                                        <span class="checkbox__label">Застрахованный имеет инвалидность.</span>
                                     </label>
 								</label>
 							</h5>
@@ -362,7 +478,7 @@
 								<label for="hasPsycho" class="checkbox">
 									<input type="checkbox" name="hasPsycho" value="" id="hasPsycho"
                                            class="checkbox-cov input-check">
-                                    <span class="checkbox__label">Состоит ли Застрахованный на учете в психоневрологическом диспансере?</span>
+                                    <span class="checkbox__label">Застрахованный стоит на учете в психоневрологическом диспансере.</span>
                                 </label>
 							</h5>
 						</span>
@@ -378,7 +494,7 @@
 								<label for="hasSport" class="checkbox">
 									<input type="checkbox" name="hasSport" value="" id="hasSport"
                                            class="checkbox-cov input-check">
-                                    <span class="checkbox__label">Занимается ли Застрахованный спортом?</span>
+                                    <span class="checkbox__label">Застрахованному диагностировались онкологические заболевания</span>
                                 </label>
 							</h5>
 						</span>
@@ -394,7 +510,8 @@
                 <label for="hasChronic" class="checkbox">
                     <input type="checkbox" name="hasChronic" value="" id="hasChronic" class="checkbox-cov input-check">
                     <span
-                        class="checkbox__label">Имеет ли Застрахованный хронические или наследственные заболевания?</span>
+                        class="checkbox__label">Застрахованному проводились консультации/медицинское обследование/лечение по СПИД,
+ВИЧ.</span>
                 </label>
 							</h5>
 						</span>
@@ -411,9 +528,8 @@
                          <label for="hasCriminal" class="checkbox">
                      <input type="checkbox" name="hasCriminal" value="" id="hasCriminal" class="checkbox-cov input-check">
                     <span class="checkbox__label">
-                     Является ли Застрахованный лицом,
-                   отбывающим наказание за совершение уголовных преступлений
-                   в учреждениях уголовно-исполнительной системы?
+                    Застрахованный является лицом, отбывающим наказание за совершение уголовных
+преступлений в учреждениях уголовно-исполнительной системы.
               </span>
                </label></h5>
                                 </span>
@@ -460,6 +576,46 @@
     </div>
 
     <style>
+
+        @media only screen
+        and (max-width: 760px), (min-device-width: 768px)
+        and (max-device-width: 1024px) {
+
+            table, thead, tr, th, tbody, td {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin: 0 0 1rem 0;
+            }
+
+            th {
+                background-color: silver;
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                top: 0;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+
+        }
         .removejust {
             display: none;
         }
@@ -498,7 +654,10 @@
         $(document).ready(function () {
             $('.input-check').on("change keypress", function () {
 
-                $("#sendOrder").prop("disabled", false)
+                $("#nextStepShow").hide();
+
+                $("#sendOrder").prop("disabled", false);
+
 
             });
 
@@ -519,7 +678,37 @@
                 dateFormat: "dd.mm.yyyy"
             });
 
-            // Валидация почты
+
+            $("#programISN").on('change', function () {
+
+                if ($("#programISN").val() == 898641) {
+
+                    $("#program2").hide();
+                    $("#program3").hide();
+                    $("#program1").show();
+
+                } else if ($("#programISN").val() == 898651) {
+
+                    $("#program1").hide();
+                    $("#program3").hide();
+                    $("#program2").show();
+
+                } else if ($("#programISN").val() == 898661) {
+
+                    $("#program1").hide();
+                    $("#program2").hide();
+                    $("#program3").show();
+
+                }else if($("#programISN").val() == 0){
+
+                    $("#program1").hide();
+                    $("#program2").hide();
+                    $("#program3").hide();
+
+                }
+            });
+
+             // Валидация почты
 
             function IsEmail(email) {
                 if ((email) == '') {
@@ -715,12 +904,12 @@
                             a = true;
                         }
 
-                        if ($("#programISN").val() < 1) {
-                            const programIsnErrorId = "#programISN";
-                            $("#programISN_error").show();
-                            scrollToElement = scrollToElement === false ? programIsnErrorId : scrollToElement;
-                            a = true;
-                        }
+                        // if ($("#programISN").val() < 1) {
+                        //     const programIsnErrorId = "#programISN";
+                        //     $("#programISN_error").show();
+                        //     scrollToElement = scrollToElement === false ? programIsnErrorId : scrollToElement;
+                        //     a = true;
+                        // }
 
                         if (dateBeg == '' || !validateData()) {
                             const dateBegErrorId = "#dateBeg";
@@ -844,7 +1033,7 @@
                         _token: '{{csrf_token()}}'
                     },
                     beforeSend: function () {
-                        $('.input-check').val('');
+                        $('.clearFields').val('');
                         window.getClient = true;
                         $('#overLoader').show();
                     },
@@ -933,7 +1122,6 @@
             }
 
             if (a) return false;
-
             $("#block3").show();
             $("#calculateSum").show();
         }
@@ -1029,6 +1217,7 @@
 
             $('#dateBeg').on("change", function () {
                 validateData();
+
             })
 
 
@@ -1144,7 +1333,5 @@
     </div>
 
     </main>
-
-
 
 @endsection
