@@ -289,7 +289,6 @@ class  CovidController extends Controller
             }
             $responseRole = $this->setAgrRole($subjISN, $order);
             if($responseRole['code'] != 200) {
-                session()->put('data',$responseRole['error']);
 //                return $responseRole['error'];
             }
             $responseAttributes = $this->setAttributes($subjISN, $order);
@@ -304,7 +303,6 @@ class  CovidController extends Controller
                 }
                 $responseCalc = $this->agrCalculate($order);
                 if($responseCalc['code'] != 200) {
-                    session()->put('data',$responseCalc['error']);
                     return response()->json([
                         'code' => 404,
                         'error' => $responseCalc['error'],
@@ -312,7 +310,7 @@ class  CovidController extends Controller
                     ]);
                 }
                 if($responseCalc['code'] == 200){
-                    if($order->email_calculation_sent == 'false')
+                    if($order->email_calculation_sent != 'true')
                         $this->covidService->sendOrderEmail($order, $responseCalc['premium']);
 
                     $hash = md5($order->id."mySuperPassword123");
@@ -322,7 +320,6 @@ class  CovidController extends Controller
                         'hash' =>$hash,
                         'premium' => $responseCalc['premium']
                     ];
-                    session()->put('data', $data);
                     return response()->json($data);   // при успешном прохождении цепочки запросов (endpoint)
                 }
 
