@@ -91,6 +91,7 @@ class CovidService
         if ($difference >= 6)  return 'true';
         return 'false';
     }
+
     public function getFieldOrderData(Order $order, $param , $key = 0)
     {
         $data = json_decode($order->order_data, true)[$key];

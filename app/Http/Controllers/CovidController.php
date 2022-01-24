@@ -392,7 +392,8 @@ class  CovidController extends Controller
             "token"     => "wesvk345sQWedva55sfsd*g",
             "subjISN"   => $subjISN,
             "agrBeg"    => $dateBeg,
-            "agrEnd"    => $dateEnd
+            "agrEnd"    => $dateEnd,
+            "systemISN" => 624841
         ])->json();
         if($response['code'] == 200) {
             $order->agr_isn = $response['agr_isn'];
