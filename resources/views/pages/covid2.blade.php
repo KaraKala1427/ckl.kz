@@ -388,7 +388,6 @@
                 showError(check);
                 return;
             }
-            alert(111);
             $.ajax({
                 type: "POST",
                 url: "{{route('epay.payment-auth')}}",
