@@ -652,19 +652,15 @@
                     $("#program3").hide();
                     $("#program1").show();
                     $("#programLink1").show();
-                    $("#programLink3").hide();
-                    $("#programLink2").hide();
 
                 } else if ($("#programISN").val() == 898651) {
 
+                    $("#program1").hide();
+                    $("#program3").hide();
                     $("#programLink").hide();
                     $("#programLink1").hide();
                     $("#programLink3").hide();
-                    $("#program1").hide();
-                    $("#program3").hide();
                     $("#program2").show();
-                    $("#programLink1").hide();
-                    $("#programLink3").hide();
                     $("#programLink2").show();
 
                 } else if ($("#programISN").val() == 898661) {
@@ -674,16 +670,11 @@
                     $("#programLink2").hide();
                     $("#program1").hide();
                     $("#program2").hide();
-                    $("#program3").show();
-                    $("#programLink1").hide();
-                    $("#programLink2").hide();
                     $("#programLink3").show();
+                    $("#program3").show();
 
                 }else if($("#programISN").val() == 0){
 
-                    $("#programLink1").hide();
-                    $("#programLink2").hide();
-                    $("#programLink3").hide();
                     $("#program1").hide();
                     $("#program2").hide();
                     $("#program3").hide();

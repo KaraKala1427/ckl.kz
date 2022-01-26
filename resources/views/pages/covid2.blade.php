@@ -388,8 +388,7 @@
                 showError(check);
                 return;
             }
-            // $('#modalText').css('color','green');
-            // showError('Теперь начинается магия по оплате');
+            alert(111);
             $.ajax({
                 type: "POST",
                 url: "{{route('epay.payment-auth')}}",

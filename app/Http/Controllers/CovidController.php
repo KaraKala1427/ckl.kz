@@ -472,7 +472,7 @@ class  CovidController extends Controller
             "token"      => "wesvk345sQWedva55sfsd*g",
             "agrISN"     => $agrISN,
             "objISN"     => $objISN,
-            "limitSum"   => $limitSum
+            "limitSum"   => (int)$limitSum
         ])->json();
 
         return $response;
