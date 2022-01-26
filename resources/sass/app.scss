@@ -609,6 +609,47 @@ pre code {
     max-width: 25%
 }
 
+@media only screen
+and (max-width: 760px), (min-device-width: 768px)
+and (max-device-width: 1024px) {
+
+    .covid-program table, thead, tr, th, tbody, td {
+        display: block;
+    }
+
+    .covid-program thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .covid-program tr {
+        margin: 0 0 1rem 0;
+    }
+
+    .covid-program th {
+        background-color: silver;
+    }
+
+    .covid-program td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .covid-program td:before {
+        position: absolute;
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+}
+
+
 .row-cols-5 > * {
     flex: 0 0 20%;
     max-width: 20%

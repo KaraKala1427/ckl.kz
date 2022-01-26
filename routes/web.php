@@ -37,14 +37,13 @@ Route::get('/curltest', [MailController::class, 'test']);
 
 
 Route::get('/agent-login', function () {
-    return view('pages.agentlogin');
+    return view('pages.agent_login');
 })->name('agent.login');
 
 Route::view('/program-covid','pages.program_covid')->name('program-covid');
 
-Route::post('/agentlogin', [CovidController::class, 'forteLogin'])->name('forteLogin');
+Route::post('/agent-login', [CovidController::class, 'forteLogin'])->name('forteLogin');
 
-Route::view('/agenthome', 'agenthome');
 
 
 

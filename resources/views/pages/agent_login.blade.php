@@ -76,7 +76,7 @@
                 success: function (data) {
                     if (data.code == 200) {
 
-                        window.location.href = '/agenthome';
+                        window.location.href = '/agent-home';
 
                     } else {
                         showError("Ошибка аунтефикации");

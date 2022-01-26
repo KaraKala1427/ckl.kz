@@ -190,9 +190,9 @@ class  CovidController extends Controller
 
         $programIsn = $request->programISN;
         if($programIsn == '0') $limitSum = '';
-        elseif($programIsn == '898641') $limitSum = 1000000;
-        elseif ($programIsn == '898651') $limitSum = 2000000;
-        elseif ($programIsn == '898661') $limitSum = 3000000;
+        elseif($programIsn == '898641') $limitSum = "1 000 000";
+        elseif ($programIsn == '898651') $limitSum = "2 000 000";
+        elseif ($programIsn == '898661') $limitSum = "3 000 000";
         $response = ['code' => 200, 'limitSum' => $limitSum];
 
         if ($response['code'] == 200) {
@@ -481,7 +481,6 @@ class  CovidController extends Controller
     public function forteLogin(Request $request)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/forte-bank/login', [
-            "token" => "wesvk345sQWedva55sfsd*g",
             "username" => $request->username,
             "password" => $request->password
         ])->json();

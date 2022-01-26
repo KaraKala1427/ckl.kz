@@ -231,7 +231,10 @@
                 <strong><small id="programISN_error" class="form-text text-"
                                style="display: none; color: crimson">
                         Вы не выбрали программу</small></strong>
-                    <p><a href="{{ route('program-covid')}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
+                    <p id="programLink"><a href="{{ route('program-covid')}}" target="_blank">«Ознакомиться с полными условиями».</a></p>
+                    <p id="programLink1" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'1'])}}" target="_blank">«Ознакомиться с полными условиями по программе 1».</a></p>
+                    <p id="programLink2" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'2'])}}" target="_blank">«Ознакомиться с полными условиями по программе 2».</a></p>
+                    <p id="programLink3" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'3'])}}" target="_blank">«Ознакомиться с полными условиями по программе 3».</a></p>
                 </div>
             </fieldset>
 
@@ -247,7 +250,7 @@
 
             <!-- table programm 1 -->
 
-            <table class="table table-bordered" style="display: none" id="program1">
+            <table class="table table-bordered covid-program" style="display: none" id="program1">
                 <tbody>
                 <tr>
                     <th colspan="">Период страхования</th>
@@ -278,13 +281,12 @@
                     <th>Годовой тариф</th>
                     <td>0,99%</td>
                 </tr>
-                <p id="programLink1" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'1'])}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
                 </tbody>
             </table>
 
             <!-- table programm 2 -->
 
-            <table class="table table-bordered" style="display: none" id="program2">
+            <table class="table table-bordered covid-program" style="display: none" id="program2">
                 <tbody>
                 <tr>
                     <th>Период страхования</th>
@@ -315,12 +317,11 @@
                     <td>0,90%</td>
                 </tr>
                 </tbody>
-                <p id="programLink2" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'2'])}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
             </table>
 
             <!-- table programm 3 -->
 
-            <table class="table table-bordered" style="display: none" id="program3">
+            <table class="table table-bordered covid-program" style="display: none" id="program3">
                 <tbody>
                 <tr>
                     <th>Период страхования</th>
@@ -352,7 +353,6 @@
                     <td>0,87%</td>
                 </tr>
                 </tbody>
-                <p id="programLink3" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'3'])}}" target="_blank">«Ознакомиться с условиями страхования».</a></p>
             </table>
 
             <!-- Дата начала договора -->
@@ -578,46 +578,6 @@
     </div>
 
     <style>
-
-        @media only screen
-        and (max-width: 760px), (min-device-width: 768px)
-        and (max-device-width: 1024px) {
-
-            table, thead, tr, th, tbody, td {
-                display: block;
-            }
-
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-
-            tr {
-                margin: 0 0 1rem 0;
-            }
-
-            th {
-                background-color: silver;
-            }
-
-            td {
-                border: none;
-                border-bottom: 1px solid #eee;
-                position: relative;
-                padding-left: 50%;
-            }
-
-            td:before {
-                position: absolute;
-                top: 0;
-                left: 6px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-            }
-
-        }
         .removejust {
             display: none;
         }
@@ -685,6 +645,9 @@
 
                 if ($("#programISN").val() == 898641) {
 
+                    $("#programLink").hide();
+                    $("#programLink2").hide();
+                    $("#programLink3").hide();
                     $("#program2").hide();
                     $("#program3").hide();
                     $("#program1").show();
@@ -694,6 +657,9 @@
 
                 } else if ($("#programISN").val() == 898651) {
 
+                    $("#programLink").hide();
+                    $("#programLink1").hide();
+                    $("#programLink3").hide();
                     $("#program1").hide();
                     $("#program3").hide();
                     $("#program2").show();
@@ -703,6 +669,9 @@
 
                 } else if ($("#programISN").val() == 898661) {
 
+                    $("#programLink").hide();
+                    $("#programLink1").hide();
+                    $("#programLink2").hide();
                     $("#program1").hide();
                     $("#program2").hide();
                     $("#program3").show();
@@ -712,13 +681,16 @@
 
                 }else if($("#programISN").val() == 0){
 
+                    $("#programLink1").hide();
+                    $("#programLink2").hide();
+                    $("#programLink3").hide();
                     $("#program1").hide();
                     $("#program2").hide();
                     $("#program3").hide();
                     $("#programLink1").hide();
                     $("#programLink2").hide();
                     $("#programLink3").hide();
-
+                    $("#programLink").show();
                 }
             });
 
