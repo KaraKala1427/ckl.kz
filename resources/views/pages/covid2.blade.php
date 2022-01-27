@@ -122,7 +122,7 @@
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithRule" value="yes">
-                                <span class="checkbox__label">С <a href="{{asset('images/files/rules/policy.pdf')}}" style="text-decoration: underline;" target="_blank">Правилами</a> страхования ознакомлен</span>
+                                <span class="checkbox__label">С <a href="https://ckl.kz/files/rules/sj_covid_rules.pdf" style="text-decoration: underline;" target="_blank">Правилами</a> страхования ознакомлен</span>
                             </label>
                         </fieldset>
                         <fieldset class="field-set col col--full">
@@ -388,8 +388,6 @@
                 showError(check);
                 return;
             }
-            // $('#modalText').css('color','green');
-            // showError('Теперь начинается магия по оплате');
             $.ajax({
                 type: "POST",
                 url: "{{route('epay.payment-auth')}}",
