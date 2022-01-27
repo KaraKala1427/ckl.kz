@@ -10,6 +10,7 @@ use App\Models\Phone;
 use App\Repositories\PhoneRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Http;
 
 class CovidService
 {
@@ -203,6 +204,40 @@ class CovidService
         ];
         MailController::sendOrderToEmail($email_array);
         $order->email_calculation_sent = 'true';
+        $order->save();
+    }
+
+
+    public function saveAgrToEsbd($orderId)
+    {
+        $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/save-agr-to-esbd',[
+            "token"     => "wesvk345sQWedva55sfsd*g",
+            "agrISN"   => $agrIsn
+        ])->json();
+
+        return $response;
+    }
+
+    public function setAgrStatus($orderId)
+    {
+        $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/set-agr-status',[
+            "token"    => "wesvk345sQWedva55sfsd*g",
+            "agrISN"   => $agrIsn,
+            "status"   => 'П'
+        ])->json();
+
+        return $response;
+    }
+
+    public function savePostLink($id, $status, $response)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = Order::STATUS_IN_PROCESS;
+        $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
         $order->save();
     }
 

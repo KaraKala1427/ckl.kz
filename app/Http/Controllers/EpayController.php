@@ -62,16 +62,22 @@ class EpayController extends Controller
             $auth = json_encode($this->statusAuth());
             $status = json_encode($this->getStatus($auth, $invoiceId));
             $statusArray = json_decode($status,true);
+            $orderId = (int)$statusArray['invoiceId'];
             Log::channel('payment')->info("Status: {$status}");
             if ($data['invoiceId'] == $statusArray['invoiceId'] && $data['amount'] == $statusArray['amount']) {
-                $order = Order::findOrFail((int)$statusArray['invoiceId']);
-                $order->status = Order::STATUS_IN_PROCESS;
-                $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
-                $order->save();
+                $this->covidService->savePostLink($orderId, $status, $response);
+                $responseSaveEsbd = $this->covidService->saveAgrToEsbd($orderId);
+                if($responseSaveEsbd['code'] == 200){
+                    $resultStatusKias = $this->covidService->setAgrStatus($orderId);
+                    if($resultStatusKias['code'] == 200){
+
+                    }
+                }
+
             }
         }
         catch (\Exception $e){
-            Log::debug("Payment response failed ".$e->getMessage()." Code: ".$e->getCode()." Line: ".$e->getLine());
+            Log::debug("PaymentResponse/SaveAgrToEsbd/setAgrStatus failed ".$e->getMessage()." Code: ".$e->getCode()." Line: ".$e->getLine());
         }
     }
 
@@ -104,5 +110,7 @@ class EpayController extends Controller
             Log::debug("getStatus ".$array." token: ".$token." ".$e->getMessage());
         }
     }
+
+
 
 }

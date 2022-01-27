@@ -380,7 +380,6 @@ class  CovidController extends Controller
             "subjISN"   => $subjISN
         ])->json();
         return $response;
-
     }
 
     public function setAgreement($subjISN, $dateBeg, $dateEnd, Order $order)
