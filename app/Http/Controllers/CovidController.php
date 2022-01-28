@@ -658,4 +658,11 @@ class  CovidController extends Controller
 
     }
 
-}
+
+
+    public function setAgrStatus(Request $request)
+    {
+        $orderId = $request->order_id;
+        return $this->covidService->setAgrStatus($orderId);
+    }
+ }
