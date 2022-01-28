@@ -45,6 +45,18 @@ Route::view('/program-covid','pages.program_covid')->name('program-covid');
 Route::post('/agent-login', [CovidController::class, 'forteLogin'])->name('forteLogin');
 
 
+Route::group(['middleware' => ['web', 'custom_auth']], function () {
+    Route::view('/agent-home', 'agent_home')->name("agent_home");
+    Route::get('/logout', function () {
+        if (session()->has('authenticated')) {
+
+            session()->pull('authenticated');
+        }
+        return redirect('agent-login');
+
+    });
+
+});
 
 
 Auth::routes();
@@ -136,12 +148,13 @@ Route::group([
     Route::post('/covid/prev-step', [CovidController::class, 'prevStep'])->name('covid.prevStep');
     Route::post('/covid/send-sms', [CovidController::class, 'sendSms'])->name('covid.sendSms');
     Route::post('/covid/confirm-sms', [CovidController::class, 'confirmCode'])->name('covid.confirmCode');
+    Route::get('/covid/success-payment', [CovidController::class, 'successPaymentPage'])->name('covid.getResult');
 
     Route::post('/covid/sendSmsToPhone', [CovidController::class, 'sendSmsToPhone']);
     Route::post('/covid/setAgrStatus', [CovidController::class, 'setAgrStatus']);
 
     Route::get('/covid/epay-redirect', [EpayController::class, 'epayRedirect'])->name('covid.epay-redirect');
-    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
+//    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
     Route::get('/covid/failure-payment', [EpayController::class, 'failurePayment'])->name('covid.failure-payment');
 
 

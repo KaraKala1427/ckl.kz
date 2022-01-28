@@ -1,4 +1,4 @@
-@auth
+
 
     <div class="container">
         <div class="row justify-content-center">
@@ -14,6 +14,8 @@
                         @endif
 
                         <h1>Привет Вася Пупкин</h1>
+
+                            <a href="/logout">Logout</a>
                     </div>
                 </div>
             </div>
@@ -21,4 +23,3 @@
     </div>
 
 
-@endauth
