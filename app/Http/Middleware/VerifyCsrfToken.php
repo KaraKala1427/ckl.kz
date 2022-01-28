@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'covid/sendSmsToPhone'
+        'covid/sendSmsToPhone',
+        'covid/setAgrStatus'
     ];
 }

@@ -288,10 +288,10 @@ class  CovidController extends Controller
                     'function' => 'setAgrObject'
                 ]);
             }
-            $responseRole = $this->setAgrRole($subjISN, $order);
-            if($responseRole['code'] != 200) {
-//                return $responseRole['error'];
-            }
+            $this->setAgrRole($subjISN, $order, "insurer");
+            $this->setAgrRole($subjISN, $order, "beneficiary");
+            $this->setAgrClause($order->agr_isn);
+
             $responseAttributes = $this->setAttributes($subjISN, $order);
             if($responseAttributes['data'] == 'ok'){
                 $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
@@ -440,13 +440,13 @@ class  CovidController extends Controller
         return $response;
     }
 
-    public function setAgrRole($subjISN, Order $order)
+    public function setAgrRole($subjISN, Order $order, $who)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrRole',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "subjISN"   => $subjISN,
             "agrISN"    => $order->agr_isn,
-            "role"      => "insurer",
+            "role"      => $who,
         ])->json();
          return $response;
     }
@@ -473,6 +473,16 @@ class  CovidController extends Controller
             "agrISN"     => $agrISN,
             "objISN"     => $objISN,
             "limitSum"   => (int)$limitSum
+        ])->json();
+
+        return $response;
+    }
+
+    public function setAgrClause($agrISN)
+    {
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrClause',[
+            "token"      => "wesvk345sQWedva55sfsd*g",
+            "agrISN"     => $agrISN
         ])->json();
 
         return $response;
@@ -657,8 +667,6 @@ class  CovidController extends Controller
         }
 
     }
-
-
 
     public function setAgrStatus(Request $request)
     {
