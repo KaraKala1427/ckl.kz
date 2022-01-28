@@ -211,11 +211,16 @@ class CovidService
     {
         $order_data = json_decode($order->order_data,true)[0];
         $email_array = [
-            'order_id' => $order->id,
             'agr_id' => $order->policy_result,
+            'order_id' => $order->id,
+            'premium' => $order->premium_sum,
+            'phone' => $order->phone,
+            'email' => $order->email,
             'iin' => $order->iin,
             'first_name' => $order->first_name,
             'last_name' => $order->last_name,
+            'agr_isn' => $order->agr_isn,
+            'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd']
         ];
