@@ -27,7 +27,7 @@
                 <div class="calculator__block bg-grey details">
                     <div class="article__text">
                         <p style="font-size: larger">
-                            <b>Страхование от НС: {{$order->premium_sum}} тенге</b>
+                            <b>«Страхование жизни на случай заболевания COVID-19» {{$order->premium_sum}} тенге</b>
                         </p>
                         <p>
                             <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
@@ -122,7 +122,20 @@
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithRule" value="yes">
-                                <span class="checkbox__label">С <a href="https://ckl.kz/files/rules/sj_covid_rules.pdf" style="text-decoration: underline;" target="_blank">Правилами</a> страхования ознакомлен</span>
+                                <span class="checkbox__label">«С  <a href="@if(($dataUrl['programISN'] ?? '') == 898641)
+
+                                    {{ route('program-covid',[ 'id' =>'1'])}}
+                                    @elseif(($dataUrl['programISN'] ?? '') == 898651)
+
+                                    {{ route('program-covid',[ 'id' =>'2'])}}
+
+                                    @elseif(($dataUrl['programISN'] ?? '') == 898661)
+
+                                    {{ route('program-covid',[ 'id' =>'3'])}}
+
+                                    @endif" style="text-decoration: underline;" target="_blank">Условиями</a> и <a
+                                        href="https://ckl.kz/files/rules/sj_covid_rules.pdf"
+                                        style="text-decoration: underline;">Правилами</a> страхования ознакомлен»</span>
                             </label>
                         </fieldset>
                         <fieldset class="field-set col col--full">

@@ -481,11 +481,13 @@ class  CovidController extends Controller
     public function forteLogin(Request $request)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/forte-bank/login', [
+            "token" => "wesvk345sQWedva55sfsd*g",
             "username" => $request->username,
             "password" => $request->password
         ])->json();
 
         if ($response['code'] == 200) {
+            session()->put('authenticated', time());
             return response()->json($response);
         } else {
             return response()->json([
@@ -637,4 +639,23 @@ class  CovidController extends Controller
         $code = $request->code;
         return $this->covidService->sendSmsToPhone($phone, $code);
     }
- }
+
+    public function successPaymentPage(Request $request)
+    {
+        $order_id = $request->productOrderId;
+        $hash = $request->hash;
+        if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
+            $order = Order::findOrFail($order_id);
+            if ($order->status == Order::STATUS_ACCEPTED) {
+                $dataUrl = json_decode($order->order_data, true)[0];
+                return view('pages.test.success-payment', compact('dataUrl', 'order'));
+            } elseif ($order->status == Order::STATUS_IN_PROCESS) {
+                return view('pages.test.not_accepted');
+            }
+        } else {
+            return view('pages.test.not_allowed');
+        }
+
+    }
+
+}

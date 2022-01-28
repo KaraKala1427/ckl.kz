@@ -360,7 +360,7 @@
             <fieldset class="field-set col col--6-12">
                 <div id="forAgrBeg">
                     <h3 class="col--12-12">Дата начала договора</h3>
-                    <input class="field field--date edate dateBeg col--6-12 input-check" id="dateBeg" type="text"
+                    <input class="field field--date edate dateBeg col--6-12 input-check dateBegChange" id="dateBeg" type="text"
                            name="dateBeg"
                            maxlength="10" placeholder="dd.mm.yyyy" onchange="showBlock2()" onkeypress="showBlock2()"
                            onkeyup="showOrHideBlock('dateBeg_error','dateBeg')"
@@ -378,7 +378,7 @@
 
             <fieldset class="field-set col col--6-12">
                 <h3 class="col--12-12">Дата окончания договора</h3>
-                <input class="field col--6-12 edate dateEnd field--date input-check" id="dateEnd" type="text"
+                <input class="field col--6-12 edate dateEnd field--date input-check dateBegChange" id="dateEnd" type="text"
                        name="dateEnd"
                        maxlength="10" value="{{$dataUrl['dateEnd'] ?? ''}}" placeholder="dd.mm.yyyy"
                        autocomplete="off" disabled="">
@@ -402,7 +402,7 @@
                     <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
                         от ЕСБД
                     </option>
-                    <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '  ') ? 'selected' : ''}}>SMS
+                    <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
                         от Коммеска + Email от ЕСБД
                     </option>
                     <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
@@ -1196,6 +1196,34 @@
                 validateData();
 
             })
+
+            $('.dateBegChange').datepicker({
+                onSelect: function (date, e, calendar) {
+                    calendar.hide();
+                    showBlock2();
+
+                    $("#nextStepShow").hide();
+                    $("#sendOrder").prop("disabled", false);
+
+                    var parts = $('#dateBeg').val().split(".");
+                    var day = parts[0] && parseInt(parts[0], 10);
+                    var month = parts[1] && parseInt(parts[1], 10);
+                    var year = parts[2] && parseInt(parts[2], 10);
+
+                    if (day <= 31 && day >= 1 && month <= 12 && month >= 1) {
+
+                        var expiryDate = new Date(year, month - 1, day);
+                        expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                        expiryDate.setDate(expiryDate.getDate() - 1);
+
+                        var day = ('0' + expiryDate.getDate()).slice(-2);
+                        var month = ('0' + (expiryDate.getMonth() + 1)).slice(-2);
+                        var year = expiryDate.getFullYear();
+
+                        $("#dateEnd").val(day + "." + month + "." + year);
+                    }
+                }
+            });
 
 
             $('#born').datepicker({
