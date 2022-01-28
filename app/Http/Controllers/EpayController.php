@@ -70,10 +70,15 @@ class EpayController extends Controller
                 if($responseSaveEsbd['code'] == 200){
                     $resultStatusKias = $this->covidService->setAgrStatus($orderId);
                     if($resultStatusKias['code'] == 200){
-                        $this->covidService->savePolicyResult($orderId, $this->covidService->getAgrId($orderId));
-                        $this->covidService->sendOrderPaidEmail($this->covidService->getById($orderId));
+                        $policyResult = $this->covidService->savePolicyResult($orderId, $this->covidService->getAgrId($orderId));
+                        if($policyResult != 'false'){
+                            $this->covidService->sendOrderPaidEmailSuccess($this->covidService->getById($orderId));
+                        }
+                        else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Не записался номер договора");
                     }
+                    else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не подписался");
                 }
+                else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не сел в ЕСБД");
 
             }
         }

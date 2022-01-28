@@ -207,7 +207,7 @@ class CovidService
         $order->save();
     }
 
-    public function sendOrderPaidEmail(Order $order)
+    public function sendOrderPaidEmailSuccess(Order $order)
     {
         $order_data = json_decode($order->order_data,true)[0];
         $email_array = [
@@ -225,6 +225,27 @@ class CovidService
             'date_end' => $order_data['dateEnd']
         ];
         MailController::sendOrderPaidEmail($email_array);
+    }
+
+    public function sendOrderPaidEmailFail(Order $order, $message)
+    {
+        $order_data = json_decode($order->order_data,true)[0];
+        $email_array = [
+            'agr_id' => $order->policy_result,
+            'order_id' => $order->id,
+            'premium' => $order->premium_sum,
+            'phone' => $order->phone,
+            'email' => $order->email,
+            'iin' => $order->iin,
+            'first_name' => $order->first_name,
+            'last_name' => $order->last_name,
+            'agr_isn' => $order->agr_isn,
+            'programISN' => $order_data['programISN'],
+            'date_start' => $order_data['dateBeg'],
+            'date_end' => $order_data['dateEnd'],
+            'message' => $message
+        ];
+        MailController::sendOrderPaidEmailFail($email_array);
     }
 
 
@@ -250,6 +271,10 @@ class CovidService
             "status"   => 'П'
         ])->json();
 
+        $order = Order::findOrFail($orderId);
+        $order->status = Order::STATUS_ACCEPTED;
+        $order->save();
+
         return $response;
     }
 
@@ -274,11 +299,16 @@ class CovidService
 
     public function savePolicyResult($id, $array)
     {
-        $agrId = $array['agr_id'];
-        $order = Order::findOrFail($id);
-        $order->policy_result = $agrId;
-        $order->status = Order::STATUS_ACCEPTED;
-        $order->save();
+        try {
+            $agrId = $array['agr_id'];
+            $order = Order::findOrFail($id);
+            $order->policy_result = $agrId;
+            $order->save();
+        }
+        catch (\Exception $e)
+        {
+            return 'false';
+        }
     }
 
     public function getById($id)
@@ -288,14 +318,13 @@ class CovidService
 
     public function sendSmsToPhone($phone, $code)
     {
-//        https://www2.smsc.kz/sys/send.php?fmt=3&login=CKL_KZ&psw=Uh46ss189&phones=+77770107543&mes=".urlencode($text);
         $text = "Вы заключаете договор страхования жизни на случай заболевания COVID-19. Ваш проверочный код $code";
         $response = Http::withOptions(['verify' => false])->get('https://www2.smsc.kz/sys/send.php',[
             "fmt"     => "3",
             "login"   => "CKL_KZ",
             "psw"     => "Uh46ss189",
             "phones"  => "+$phone",
-            "mes"     => urlencode($text)
+            "mes"     =>  $text
         ])->json();
         return $response;
     }
