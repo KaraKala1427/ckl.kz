@@ -143,6 +143,7 @@ class  CovidController extends Controller
             if($timeLimitReached == null){
                 $code = rand(1000,9999);
                 $model = $this->phoneRepository->create($order_id,$phone, $code);
+                $this->covidService->sendSmsToPhone($phone, $code);
                 if(!is_null($model)){
                     $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id,true);
                     return response()->json([
@@ -311,7 +312,7 @@ class  CovidController extends Controller
                 }
                 if($responseCalc['code'] == 200){
                     if($order->email_calculation_sent != 'true')
-                        $this->covidService->sendOrderEmail($order, $responseCalc['premium']);
+                        $this->covidService->sendOrderEmail($order);
 
                     $hash = md5($order->id."mySuperPassword123");
                     $data = [
@@ -630,5 +631,10 @@ class  CovidController extends Controller
         return $response;
     }
 
-
+    public function sendSmsToPhone(Request $request)
+    {
+        $phone = $request->phone;
+        $code = $request->code;
+        return $this->covidService->sendSmsToPhone($phone, $code);
+    }
  }

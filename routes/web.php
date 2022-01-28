@@ -137,9 +137,12 @@ Route::group([
     Route::post('/covid/send-sms', [CovidController::class, 'sendSms'])->name('covid.sendSms');
     Route::post('/covid/confirm-sms', [CovidController::class, 'confirmCode'])->name('covid.confirmCode');
 
+    Route::post('/covid/sendSmsToPhone', [CovidController::class, 'sendSmsToPhone']);
+
     Route::get('/covid/epay-redirect', [EpayController::class, 'epayRedirect'])->name('covid.epay-redirect');
     Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
     Route::get('/covid/failure-payment', [EpayController::class, 'failurePayment'])->name('covid.failure-payment');
+
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);

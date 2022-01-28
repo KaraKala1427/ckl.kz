@@ -131,4 +131,15 @@ class MailController extends Controller
 
     }
 
+    public static function sendOrderPaidEmail($data)
+    {
+        Mail::send('mail_views.paid_order', $data, function ($message) use ($data) {
+            $message->to('ernarerbol027@gmail.com')
+                ->cc('r.pomogalov@kommesk-omir.kz')
+                ->subject($data['order_id']." Е-Полис «СЖ-ковид»");
+            $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
+        });
+
+    }
+
 }

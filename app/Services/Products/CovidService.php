@@ -186,12 +186,12 @@ class CovidService
     }
 
 
-    public function sendOrderEmail(Order $order, $premium_sum)
+    public function sendOrderEmail(Order $order)
     {
         $order_data = json_decode($order->order_data,true)[0];
         $email_array = [
             'order_id' => $order->id,
-            'premium' => $premium_sum,
+            'premium' => $order->premium_sum,
             'phone' => $order->phone,
             'email' => $order->email,
             'iin' => $order->iin,
@@ -205,6 +205,21 @@ class CovidService
         MailController::sendOrderToEmail($email_array);
         $order->email_calculation_sent = 'true';
         $order->save();
+    }
+
+    public function sendOrderPaidEmail(Order $order)
+    {
+        $order_data = json_decode($order->order_data,true)[0];
+        $email_array = [
+            'order_id' => $order->id,
+            'agr_id' => $order->policy_result,
+            'iin' => $order->iin,
+            'first_name' => $order->first_name,
+            'last_name' => $order->last_name,
+            'date_start' => $order_data['dateBeg'],
+            'date_end' => $order_data['dateEnd']
+        ];
+        MailController::sendOrderPaidEmail($email_array);
     }
 
 
@@ -233,12 +248,51 @@ class CovidService
         return $response;
     }
 
+    public function getAgrId($orderId)
+    {
+        $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/get-agr-id',[
+            "token"    => "wesvk345sQWedva55sfsd*g",
+            "agr_isn"   => $agrIsn
+        ])->json();
+
+        return $response;
+    }
+
     public function savePostLink($id, $status, $response)
     {
         $order = Order::findOrFail($id);
         $order->status = Order::STATUS_IN_PROCESS;
         $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
         $order->save();
+    }
+
+    public function savePolicyResult($id, $array)
+    {
+        $agrId = $array['agr_id'];
+        $order = Order::findOrFail($id);
+        $order->policy_result = $agrId;
+        $order->status = Order::STATUS_ACCEPTED;
+        $order->save();
+    }
+
+    public function getById($id)
+    {
+        return Order::findOrFail($id);
+    }
+
+    public function sendSmsToPhone($phone, $code)
+    {
+//        https://www2.smsc.kz/sys/send.php?fmt=3&login=CKL_KZ&psw=Uh46ss189&phones=+77770107543&mes=".urlencode($text);
+        $text = "Вы заключаете договор страхования жизни на случай заболевания COVID-19. Ваш проверочный код $code";
+        $response = Http::withOptions(['verify' => false])->get('https://www2.smsc.kz/sys/send.php',[
+            "fmt"     => "3",
+            "login"   => "CKL_KZ",
+            "psw"     => "Uh46ss189",
+            "phones"  => "+$phone",
+            "mes"     => urlencode($text)
+        ])->json();
+        return $response;
     }
 
 }
