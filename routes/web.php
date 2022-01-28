@@ -138,6 +138,7 @@ Route::group([
     Route::post('/covid/confirm-sms', [CovidController::class, 'confirmCode'])->name('covid.confirmCode');
 
     Route::post('/covid/sendSmsToPhone', [CovidController::class, 'sendSmsToPhone']);
+    Route::post('/covid/setAgrStatus', [CovidController::class, 'setAgrStatus']);
 
     Route::get('/covid/epay-redirect', [EpayController::class, 'epayRedirect'])->name('covid.epay-redirect');
     Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');

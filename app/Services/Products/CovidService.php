@@ -243,7 +243,7 @@ class CovidService
             'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd'],
-            'message' => $message
+            'message1' => $message
         ];
         MailController::sendOrderPaidEmailFail($email_array);
     }

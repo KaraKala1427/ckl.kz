@@ -637,4 +637,10 @@ class  CovidController extends Controller
         $code = $request->code;
         return $this->covidService->sendSmsToPhone($phone, $code);
     }
+
+    public function setAgrStatus(Request $request)
+    {
+        $orderId = $request->order_id;
+        return $this->covidService->setAgrStatus($orderId);
+    }
  }
