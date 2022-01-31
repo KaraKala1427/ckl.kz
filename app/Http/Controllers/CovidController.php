@@ -224,7 +224,7 @@ class  CovidController extends Controller
         if($this->startOrNot($array['checkboxes'])){
             return response()->json([
                 'code' => 422,
-                'error' => "Позвоните в call-center."
+                'error' => "К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на https://kommesk.kz/ns.html"
             ]);
         }
         $responseSubjISN = $this->setSubject($order);
@@ -665,7 +665,6 @@ class  CovidController extends Controller
         } else {
             return view('pages.test.not_allowed');
         }
-
     }
 
     public function setAgrStatus(Request $request)
