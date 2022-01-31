@@ -120,7 +120,6 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Текст</label>
                                                 <textarea  class="form-control" id="textt" name="tex_kz" rows="3"></textarea>
-
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="en">

@@ -24,6 +24,10 @@
                                 <a href="{{route('admin.thumbAdd',["link" => $link1])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                     <i class="tim-icons icon-simple-add"></i>
                                 </a>
+                            @elseif(!empty($link1) && $link1=='link111')
+                                <a href="{{route('admin.plug-covid',["link" => $link1])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
+                                    <i class="tim-icons icon-simple-add"></i>
+                                </a>
                             @endif
 
                         </div>

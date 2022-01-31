@@ -169,6 +169,12 @@ class AdminController extends Controller
         return view('admin.insertThumb', compact('menu', 'link'));
     }
 
+    public function getPlugCovid($link)
+    {
+        $menu = Menu::where('level', 0)->get();
+        return view('admin.insertPlug', compact('menu', 'link'));
+    }
+
     protected $dates = [
         'dat'
     ];
@@ -279,6 +285,15 @@ class AdminController extends Controller
 //        dd($article);
         $article->save();
 
+        return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success', 'Успешно создано');
+    }
+
+    public function postPlug(Request $request, $id)
+    {
+        $article = Article::findOrFail($id);
+        $article->show_thumb = $request->get('showThumb');
+        $article->show_image_in_text = $request->get('showImageInText') ?? 'off';
+        $article->save();
         return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success', 'Успешно создано');
     }
 

@@ -138,7 +138,7 @@ class MailController extends Controller
             $message->to('ernarerbol027@gmail.com')
                 ->cc('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
-                ->subject($data['order_id']." Е-Полис «СЖ-ковид»");
+                ->subject($data['order_id']." ОПЛАЧЕН Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
 
