@@ -61,69 +61,6 @@
                                                 <input type="hidden"  class="form-control" value="{{$link}}" name="link" >
                                             </div>
                                         </div>
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="exampleFormControlInput1">Имя</label>--}}
-{{--                                            <input value="" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" name="name_ru">--}}
-{{--                                            @error('name_ru')--}}
-{{--                                            <small id="emailHelp" class="form-text text-danger">Укажите имя</small>--}}
-{{--                                            @enderror--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="exampleFormControlSelect1">Дата</label>--}}
-{{--                                            <input value="{{Carbon\Carbon::now()->addHour(6)->format('Y-m-d\TH:i')}}" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="item name" name="dat" style="width:200px">--}}
-{{--                                            @error('dat')--}}
-{{--                                            <small id="emailHelp" class="form-text text-danger">Выберите дату</small>--}}
-{{--                                            @enderror--}}
-{{--                                        </div>--}}
-
-
-
-{{--                                        <input type="hidden"  class="form-control" value="{{$link}}" name="link" >--}}
-
-
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="exampleFormControlTextarea1">Описание</label>--}}
-{{--                                            <input  class="form-control" id="descc" name="description_ru" rows="3"></input>--}}
-
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="exampleFormControlTextarea1">Заголовок</label>--}}
-{{--                                            <input  class="form-control" id="headerr" name="head_ru" rows="3"></input>--}}
-
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="exampleFormControlTextarea1">Текст</label>--}}
-{{--                                            <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
-{{--                                            <script>--}}
-{{--                                                window.onload = function () {--}}
-
-{{--                                                    tinymce.init({--}}
-
-{{--                                                        selector: '#textt',--}}
-{{--                                                        height: 300,--}}
-{{--                                                        plugins: 'image',--}}
-{{--                                                        menubar: 'insert',--}}
-{{--                                                        toolbar: 'bold italic underline | image',--}}
-{{--                                                        image_caption: true,--}}
-{{--                                                        file_browser_callback_types: 'file image media',--}}
-{{--                                                        file_picker_callback: filemanager.tinyMceCallback,--}}
-{{--                                                    });--}}
-{{--                                                    // tinymce.init({--}}
-{{--                                                    //     selector: 'textarea',  // change this value according to your HTML--}}
-{{--                                                    //     file_browser_callback_types: 'file image media'--}}
-{{--                                                    // });--}}
-
-
-
-{{--                                                };--}}
-{{--                                            </script>--}}
-{{--                                            <textarea  class="form-control" id="textt" name="tex_ru" rows="3"></textarea>--}}
-
-{{--                                        </div>--}}
-
-
-
-
                                     <div class="">
                                         <button type="submit" class="btn btn-"      style="   background: #0098f0;
                                         background: linear-gradient(

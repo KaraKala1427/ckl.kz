@@ -169,10 +169,11 @@ class AdminController extends Controller
         return view('admin.insertThumb', compact('menu', 'link'));
     }
 
-    public function getPlugCovid($link)
+    public function getPlugCovid($link, $id)
     {
         $menu = Menu::where('level', 0)->get();
-        return view('admin.insertPlug', compact('menu', 'link'));
+        $article = Article::where('id', $id)->get()->first();
+        return view('admin.insertPlug', compact('menu', 'link', 'article'));
     }
 
     protected $dates = [

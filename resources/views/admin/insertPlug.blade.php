@@ -43,7 +43,7 @@
                                         <button type="submit" class="btn btn-"      style="   background: #0098f0;
                                         background: linear-gradient(
                                         0deg
-                                        ,#0098f0,#00f2c3);">Добавить запись</button>
+                                        ,#0098f0,#00f2c3);">Сохранить</button>
 
                                     </div>
                                 </form>
