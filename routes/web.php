@@ -46,7 +46,6 @@ Route::post('/agent-login', [CovidController::class, 'forteLogin'])->name('forte
 
 
 Route::group(['middleware' => ['web', 'custom_auth']], function () {
-    Route::view('/agent-home', 'agent_home')->name("agent_home");
     Route::get('/logout', function () {
         if (session()->has('authenticated')) {
 
@@ -149,7 +148,7 @@ Route::group([
     Route::post('/covid/send-sms', [CovidController::class, 'sendSms'])->name('covid.sendSms');
     Route::post('/covid/confirm-sms', [CovidController::class, 'confirmCode'])->name('covid.confirmCode');
 
-
+    Route::post('/covid/sendSmsLinkToPhone', [CovidController::class, 'sendSmsLinkToPhone'])->name('covid.sendSmsLinkToPhone');
     Route::post('/covid/sendSmsToPhone', [CovidController::class, 'sendSmsToPhone']);
     Route::post('/covid/setAgrStatus', [CovidController::class, 'setAgrStatus']);
 

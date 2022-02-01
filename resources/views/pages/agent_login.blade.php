@@ -76,7 +76,7 @@
                 success: function (data) {
                     if (data.code == 200) {
 
-                        window.location.href = '/agent-home';
+                        window.location.href = '/covid';
 
                     } else {
                         showError("Ошибка аунтефикации");

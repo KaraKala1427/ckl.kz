@@ -78,6 +78,15 @@
                 <br>
                 @endforeach
 
+
+                <div class="grid localgrid">
+
+                    <!-- .contacts__mails -->
+                    <div class="contacts__feedback">
+                        @include('mini_parts.callback_mail', ['frompage' => 'OCPHC https://ckl.kz/product'])
+                    </div>
+                </div>
+
                 <div id="hcp_page" class="blocker">
 
                     <section class="faq">
@@ -92,13 +101,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="grid localgrid">
 
-                    <!-- .contacts__mails -->
-                    <div class="contacts__feedback">
-                        @include('mini_parts.callback_mail', ['frompage' => 'OCPHC https://ckl.kz/product'])
-                    </div>
-                </div>
 
         <!-- end container -->
     </main>
