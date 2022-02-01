@@ -20,7 +20,7 @@
                                                 @csrf
                                                 <div class="form-group">
                                                     <label class="checkbox">
-                                                        <input type="checkbox" name="showImageInText" id="showImageInText" class="checkbox-cov">
+                                                        <input type="checkbox" name="showImageInText" id="showImageInText" class="checkbox-cov" @if($article->show_image_in_text == 'on') checked @endif>
                                                         <span class="checkbox__label">Включить заглушку</span>
                                                     </label>
                                                 </div>
