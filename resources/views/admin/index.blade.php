@@ -45,7 +45,7 @@
                                     <td>{{$article->dat}}</td>
                                     {{--                                <td class="text-right"></td>--}}
                                     <td class="td-actions text-right">
-                                        @if($article->raz != 'link110')
+                                        @if($article->raz != 'link110' && $article->raz != 'link111')
                                         <a href="{{route('admin.one.menu.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                             <i class="tim-icons icon-settings"></i>
                                         </a>
@@ -59,6 +59,7 @@
                                             </a>
                                         @endif
 
+                                        @if($article->raz != 'link111')
                                         <form method="post" action="{{url('/admin/link/' . $article->id)}}">
 
                                             @csrf
@@ -68,6 +69,7 @@
                                                 <i class="tim-icons icon-simple-remove"></i>
                                             </button>
                                         </form>
+                                            @endif
                                     </td>
                                 </tr>
                             @endforeach

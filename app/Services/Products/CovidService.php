@@ -5,6 +5,7 @@ namespace App\Services\Products;
 
 
 use App\Http\Controllers\MailController;
+use App\Models\Article;
 use App\Models\Order;
 use App\Models\Phone;
 use App\Repositories\PhoneRepository;
@@ -327,6 +328,14 @@ class CovidService
             "mes"     =>  $text
         ])->json();
         return $response;
+    }
+
+    public function checkServerOnline()
+    {
+        $article = Article::where('raz', 'link111')->get()->first();
+        if($article->show_image_in_text == 'on')
+            return $article->show_thumb;
+        return 'true';
     }
 
 }

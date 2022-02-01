@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Repositories\PhoneRepository;
 use App\Services\Helpers\EnsOrderHelper;
 use App\Services\Products\CovidService;
@@ -32,6 +33,10 @@ class  CovidController extends Controller
 
     public function index(Request $request)
     {
+        $checkServerResult = $this->covidService->checkServerOnline();
+        if($checkServerResult != 'true')
+            return view('pages.covid_server_error', compact('checkServerResult'));
+
         $order_id = $request->productOrderId;
         $hash = $request->hash;
         $urlStep = $request->step;

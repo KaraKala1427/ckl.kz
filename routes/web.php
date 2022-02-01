@@ -180,7 +180,7 @@ Route::group([
     Route::get('/{link}/edd/{id}/thumb', [App\Http\Controllers\AdminController::class, 'getThumbEdit'])->name('thumb.edit');
     Route::get('/{link}/add', [App\Http\Controllers\AdminController::class, 'getAdd'])->name('one.menu.add');
     Route::get('/{link}/addThumb', [App\Http\Controllers\AdminController::class, 'getThumbAdd'])->name('thumbAdd');
-    Route::get('/{link}/plug-covid', [App\Http\Controllers\AdminController::class, 'getPlugCovid'])->name('plug-covid');
+    Route::get('/{link}/edit/{id}/plug-covid', [App\Http\Controllers\AdminController::class, 'getPlugCovid'])->name('plug-covid');
 
     Route::get('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordEdit'])->name('password.edit');
     Route::post('/edit/password/', [App\Http\Controllers\ResetController::class, 'passwordUpdate'])->name('password.update');

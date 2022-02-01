@@ -283,7 +283,6 @@ class AdminController extends Controller
             $article->orderid = $menu->orderid;
             $article->razid = $menu->id;
         }
-//        dd($article);
         $article->save();
 
         return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success', 'Успешно создано');
@@ -295,7 +294,7 @@ class AdminController extends Controller
         $article->show_thumb = $request->get('showThumb');
         $article->show_image_in_text = $request->get('showImageInText') ?? 'off';
         $article->save();
-        return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success', 'Успешно создано');
+        return redirect()->route('admin.one.menu', ["link" => $article->raz])->with('success', 'Успешно');
     }
 
     public function destroy(Request $request, $link, $id)
