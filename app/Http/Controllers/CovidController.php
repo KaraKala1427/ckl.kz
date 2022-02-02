@@ -466,7 +466,7 @@ class  CovidController extends Controller
             "subjISN"         => $subjISN,
             "agrISN"          => $this->getFieldOrderData($order, 'agrISN'),
             "email"           => $this->getFieldOrderData($order, 'email'),
-            "phone"           => "+".$this->getFieldOrderData($order, 'phone'),
+            "phone"           => $this->getFieldOrderData($order, 'phone'),
             "programISN"      => (int)$this->getFieldOrderData($order, 'programISN'),
             "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
             "order_id"        => (string)$order->id
@@ -534,7 +534,7 @@ class  CovidController extends Controller
         $order->iin = $array['iin'];
         $order->first_name = $array['firstName'];
         $order->last_name = $array['lastName'];
-        $order->phone = $array['phone'];
+        $order->phone = "+".$array['phone'];
         $order->email = $array['email'];
         $order->order_data = json_encode($dataOrder);
         return $order->save();
@@ -545,7 +545,7 @@ class  CovidController extends Controller
         $this->kiasClient = session()->get('kiasClient');
         $dataOrder = array([
             'code' => 200,
-            'phone' => $array['phone'],
+            'phone' => "+".$array['phone'],
             'email' => $array['email'],
             'notificationISN' => $array['notificationISN'],
             'programISN' => $array['programISN'],
