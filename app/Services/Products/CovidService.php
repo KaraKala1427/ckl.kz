@@ -338,4 +338,15 @@ class CovidService
         return 'true';
     }
 
+    public function isAllowedAge($dateBorn)
+    {
+        $dateBorn = Carbon::parse($dateBorn);
+        $today = Carbon::parse(Carbon::now());
+        $difference = $today->diffInYears($dateBorn);
+
+        if($difference < 66)
+            return true;
+        return false;
+    }
+
 }

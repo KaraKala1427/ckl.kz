@@ -35,8 +35,10 @@ class EnsOrderHelper
 
     public static function secret($response)
     {
-        $response['client']['DOCUMENT_GIVED_DATE'] = substr($response['client']['DOCUMENT_GIVED_DATE'], 0, 1) . "*.**.***" . substr($response['client']['DOCUMENT_GIVED_DATE'], -1);
-        $response['client']['DOCUMENT_NUMBER'] = substr($response['client']['DOCUMENT_NUMBER'], 0, 2) . "*****" . substr($response['client']['DOCUMENT_NUMBER'], -2);
+        if(isset($response['client']['DOCUMENT_GIVED_DATE']))
+            $response['client']['DOCUMENT_GIVED_DATE'] = substr($response['client']['DOCUMENT_GIVED_DATE'], 0, 1) . "*.**.***" . substr($response['client']['DOCUMENT_GIVED_DATE'], -1);
+        if(isset($response['client']['DOCUMENT_NUMBER']))
+            $response['client']['DOCUMENT_NUMBER'] = substr($response['client']['DOCUMENT_NUMBER'], 0, 2) . "*****" . substr($response['client']['DOCUMENT_NUMBER'], -2);
         return $response;
     }
 

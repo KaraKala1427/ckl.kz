@@ -75,6 +75,10 @@ class  CovidController extends Controller
         if($response['code'] == 404){
             return response()->json($response);
         }
+        if (!$this->covidService->isAllowedAge($response['client']['Born'])){
+            $response['code'] = 406;
+            return response()->json($response);
+        }
         $this->kiasClient =  $response['client'];
         session()->put('kiasClient', $response['client']);
         $response = EnsOrderHelper::secret($response);
@@ -463,7 +467,7 @@ class  CovidController extends Controller
             "subjISN"         => $subjISN,
             "agrISN"          => $this->getFieldOrderData($order, 'agrISN'),
             "email"           => $this->getFieldOrderData($order, 'email'),
-            "phone"           => $this->getFieldOrderData($order, 'phone'),
+            "phone"           => "+".$this->getFieldOrderData($order, 'phone'),
             "programISN"      => (int)$this->getFieldOrderData($order, 'programISN'),
             "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
             "order_id"        => (string)$order->id

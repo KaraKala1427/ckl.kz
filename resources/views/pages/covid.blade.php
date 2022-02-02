@@ -782,7 +782,7 @@
 
                 var iin = $("#iin").val();
                 var firstName = $("#firstName").val();
-                var phone = $("#phone").val().replace(/\D+/g,"");
+                var phone = $('#phone').val().replace(/\D/g, '');
                 var email = $("#email").val();
                 var dateBeg = $("#dateBeg").val();
                 var born = $("#born").val();
@@ -809,7 +809,7 @@
                         firstName: $("#firstName").val(),
                         lastName: $("#lastName").val(),
                         patronymicName: $("#patronymicName").val(),
-                        phone: $("#phone").val(),
+                        phone: phone,
                         email: $("#email").val(),
                         programISN: $("#programISN").val(),
                         notificationISN: $("#notificationISN").val(),
@@ -1048,7 +1048,15 @@
                                 $("#block2").hide();
                                 $("#block3").hide();
                                 $("#calculateSum").hide();
-                            } else {
+                            }
+                            else if (data.code === 406){
+                                showError("На страхование принимаются лица НЕ старше 65 лет на момент заключения Договора");
+                                $("#block1").hide();
+                                $("#block2").hide();
+                                $("#block3").hide();
+                                $("#calculateSum").hide();
+                            }
+                            else {
                                 showError("Ошибка доступа к серверу");
                             }
                             $('#overLoader').hide()
