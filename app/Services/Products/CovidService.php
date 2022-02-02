@@ -198,6 +198,7 @@ class CovidService
             'iin' => $order->iin,
             'first_name' => $order->first_name,
             'last_name' => $order->last_name,
+            'middle_name' => $order->patronymic_name,
             'agr_isn' => $order->agr_isn,
             'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
@@ -220,6 +221,7 @@ class CovidService
             'iin' => $order->iin,
             'first_name' => $order->first_name,
             'last_name' => $order->last_name,
+            'middle_name' => $order->patronymic_name,
             'agr_isn' => $order->agr_isn,
             'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
@@ -240,6 +242,7 @@ class CovidService
             'iin' => $order->iin,
             'first_name' => $order->first_name,
             'last_name' => $order->last_name,
+            'middle_name' => $order->patronymic_name,
             'agr_isn' => $order->agr_isn,
             'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
@@ -343,8 +346,7 @@ class CovidService
         $dateBorn = Carbon::parse($dateBorn);
         $today = Carbon::parse(Carbon::now());
         $difference = $today->diffInYears($dateBorn);
-
-        if($difference < 66)
+        if($difference < 65)
             return true;
         return false;
     }

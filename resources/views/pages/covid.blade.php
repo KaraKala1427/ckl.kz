@@ -1066,7 +1066,7 @@
                             data = data.client;
                             $("#lastName").val(data.Last_Name);
                             $("#firstName").val(data.First_Name);
-                            $("#patronymicName").val(data.Patronymic_Name);
+                            $("#patronymicName").val(data.Middle_Name);
                             $("#born").val(data.Born);
                             $("#documentGivedDate").val(data.DOCUMENT_GIVED_DATE);
                             $("#documentNumber").val(data.DOCUMENT_NUMBER);
