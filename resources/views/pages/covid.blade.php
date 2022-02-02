@@ -24,6 +24,10 @@
                                class="link nav__item nav__item--tab">{{ __('navbar.mf18')}}</a></li>
                         <li><a href="{{ route('covid') }}" data-link="live_page"
                                class="link nav__item nav__item--tab active">{{ __('navbar.mf26')}}</a></li>
+                        @if(session()->has('authenticated'))
+                        <li><a href="/logout" data-link="live_page"
+                               class="link nav__item nav__item--tab active">Выйти</a></li>
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -557,12 +561,22 @@
                                      style="font-size: larger;">{{$premiumSum ?? ''}}</span> тг
                     </div>
                 </div>
+
+                @if(session()->has('authenticated'))
+                    <div  id="sendLinkShow" class="col col--6-12" style="display:none;">
+                        <button onclick="" id="sendLink"
+                                class="button button--prime">
+                         Отравить ссылку
+                        </button>
+                    </div>
+                @else
                 <div  id="nextStepShow" class="col col--6-12" style="display:none;">
                     <button onclick="" id="nextStep"
                             class="button button--prime">
                         Следующий шаг
                     </button>
                 </div>
+                @endif
                 <input type="hidden" id="bornHidden"
                        value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}">
                 <input type="hidden" id="documentGivedDateHidden"
@@ -617,6 +631,7 @@
             $('.input-check').on("change keypress", function () {
 
                 $("#nextStepShow").hide();
+                $("#sendLinkShow").hide();
 
                 $("#sendOrder").prop("disabled", false);
 
@@ -770,6 +785,35 @@
                             $('#overLoader').hide();
                             if (data.code == 200) {
                                 window.location.href = "/covid?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + "&step=2";
+                            }
+                        },
+                        failure: function () {
+                            showError("Неизвестная ошибка");
+                        }
+                    });
+                });
+
+                $(document).on("click", "#sendLink", async function () {
+                    var hostname = window.location.hostname;
+
+                    const url = "https://" + hostname + "/covid?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + "&step=2";
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('covid.sendSmsLinkToPhone')}}",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            phone: $("#phone").val(),
+                            url: url
+                        },
+
+                        beforeSend: function () {
+                            $('#overLoader').show();
+                        },
+
+                        success: await function (data) {
+                            $('#overLoader').hide();
+                            if (data.code == 200) {
+                                window.location.href = url;
                             }
                         },
                         failure: function () {
@@ -945,6 +989,7 @@
                             history.pushState({}, '', "?productOrderId=" + data.order_id + "&hash=" + data.hash + "&step=1");
                             $("#sendOrder").prop('disabled', true)
                             $("#nextStepShow").show();
+                            $("#sendLinkShow").show();
 
                         } else {
                             showError(data.error);
@@ -1211,6 +1256,7 @@
                     showBlock2();
 
                     $("#nextStepShow").hide();
+                    $("#sendLinkShow").hide();
                     $("#sendOrder").prop("disabled", false);
 
                     var parts = $('#dateBeg').val().split(".");

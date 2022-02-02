@@ -24,8 +24,6 @@
                                        class="link nav__item nav__item--tab live">{{ __('navbar.mf17')}}</a></li>
                                 <li><a href="{{ route('retirementinsurance') }}" data-link="live_page"
                                        class="link nav__item nav__item--tab">{{ __('navbar.mf18')}}</a></li>
-                                <li><a href="{{ route('covid') }}" data-link="live_page"
-                                       class="link nav__item nav__item--tab">{{ __('navbar.mf26')}}</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -77,6 +75,16 @@
             </div>
             <br>
             @endforeach
+
+
+            <div class="grid localgrid">
+
+                <!-- .contacts__mails -->
+                <div class="contacts__feedback">
+                    @include('mini_parts.callback_mail', ['frompage' => 'Аннуитетное страхование https://ckl.kz/annuitet'])
+                </div>
+            </div>
+
             <div id="ann_page" class="blocker">
 
                 <section class="faq">
@@ -91,13 +99,7 @@
                     </div>
                 </section>
             </div>
-            <div class="grid localgrid">
 
-                <!-- .contacts__mails -->
-                <div class="contacts__feedback">
-                    @include('mini_parts.callback_mail', ['frompage' => 'Аннуитетное страхование https://ckl.kz/annuitet'])
-                </div>
-            </div>
         <!-- end container -->
     </main>
     <!-- end main -->

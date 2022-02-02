@@ -59,6 +59,13 @@
     @endforeach
     <br><br>
 
+    <div class="grid localgrid">
+        <!-- .contacts__mails -->
+        <div class="contacts__feedback">
+            @include('mini_parts.callback_mail', ['frompage' => 'Страхование жизни https://ckl.kz/live'])
+        </div>
+    </div>
+
     <section class="faq">
         <h2 class="faq__title">Часто задаваемые вопросы</h2>
         <div class="faq__list grid">
@@ -70,12 +77,6 @@
             @endforeach
         </div>
     </section>
-    <div class="grid localgrid">
-        <!-- .contacts__mails -->
-        <div class="contacts__feedback">
-             @include('mini_parts.callback_mail', ['frompage' => 'Страхование жизни https://ckl.kz/live'])
-        </div>
-    </div>
     <!-- end container -->
     </main>
     <!-- end main -->

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Repositories\PhoneRepository;
 use App\Services\Helpers\EnsOrderHelper;
 use App\Services\Products\CovidService;
@@ -681,4 +680,12 @@ class  CovidController extends Controller
         $orderId = $request->order_id;
         return $this->covidService->setAgrStatus($orderId);
     }
- }
+
+
+    public function sendSmsLinkToPhone(Request $request)
+    {
+        $phone = $request->phone;
+        $url = $request->url;
+        return $this->covidService->sendSmsLinkToPhone($phone, $url);
+    }
+}

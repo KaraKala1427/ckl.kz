@@ -73,6 +73,15 @@
                 <!-- the end page_grind-->
             </div><br><br>
             @endforeach
+
+            <div class="grid localgrid">
+
+                <!-- .contacts__mails -->
+                <div class="contacts__feedback">
+                    @include('mini_parts.callback_mail', ['frompage' => 'Пенсионный аннуитет https://ckl.kz/retirementinsurance'])
+                </div>
+            </div>
+
             <div id="ann_page" class="blocker">
 
                 <section class="faq">
@@ -87,13 +96,7 @@
                     </div>
                 </section>
             </div>
-            <div class="grid localgrid">
 
-                <!-- .contacts__mails -->
-                <div class="contacts__feedback">
-                    @include('mini_parts.callback_mail', ['frompage' => 'Пенсионный аннуитет https://ckl.kz/retirementinsurance'])
-                </div>
-            </div>
         <!-- end container -->
     </main>
     <!-- end main -->
