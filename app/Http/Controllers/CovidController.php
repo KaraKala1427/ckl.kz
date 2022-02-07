@@ -540,10 +540,10 @@ class  CovidController extends Controller
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
             'dateEnd' => $array['dateEnd'],
-            'isn' => $this->forteBankSession['ISN'] ?? null,
-            'agentISN' => $this->forteBankSession['agentISN'] ?? null,
-            'agentFio' => $this->forteBankSession['FIO'] ?? null,
-            'agentEmail' => $this->forteBankSession['email'] ?? null,
+            'isn' => session()->get('forteBankSession')['ISN'] ?? null,
+            'agentISN' => session()->get('forteBankSession')['agentISN'] ?? null,
+            'agentFio' => session()->get('forteBankSession')['FIO'] ?? null,
+            'agentEmail' => session()->get('forteBankSession')['email'] ?? null,
             'agrISN' => null,
             'subjects' => [
                 0 => [

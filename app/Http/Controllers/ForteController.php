@@ -30,8 +30,8 @@ class ForteController extends Controller
     public function forteLogout()
     {
         if (session()->has('authenticated')) {
-
             session()->pull('authenticated');
+            session()->pull('forteBankSession');
         }
         return redirect(route('forteLogin'));
     }
