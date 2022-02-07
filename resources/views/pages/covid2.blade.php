@@ -2,6 +2,7 @@
 
 @section('content')
     {{--    @dd($wrongAttempts)--}}
+
     <div class="calculator__section">
         <div class="calculator__block bg-grey">
             <div class="container2" style="display:none;">
@@ -27,7 +28,7 @@
                 <div class="calculator__block bg-grey details">
                     <div class="article__text">
                         <p style="font-size: larger">
-                            <b>«Страхование жизни на случай заболевания COVID-19» {{$order->premium_sum}} тенге</b>
+                            <b>«Страхование жизни на случай заболевания COVID-19» <span class="premium">{{$order->premium_sum}}</span> тенге</b>
                         </p>
                         <p>
                             <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
@@ -35,13 +36,13 @@
                         <p>
                             <b>Период действия:</b> {{$dataUrl['dateBeg'] ?? ''}} - {{$dataUrl['dateEnd'] ?? ''}} </p>
                         <p>
-                            <b>Програма:</b>
+                            <b>Программа:</b>
                             @if(($dataUrl['programISN'] ?? '') == 898641)
-                                Програма 1
+                                Программа 1
                             @elseif(($dataUrl['programISN'] ?? '') == 898651)
-                                Програма 2
+                                Программа 2
                             @elseif(($dataUrl['programISN'] ?? '') == 898661)
-                                Програма 3
+                                Программа 3
                             @endif
                         </p>
                         <p>
@@ -51,15 +52,15 @@
                         <p>
                             <b>Способ уведомления:</b>
                             @if(($dataUrl['notificationISN'] ?? '') == 898811)
-                                Email от Коммеска + Email от ЕСБД
+                                Email от Сентрас Коммеск Life + Email от ЕСБД
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898821)
-                                Email от Коммеска + SMS от ЕСБД
+                                Email от Сентрас Коммеск Life + SMS от ЕСБД
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898831)
                                 SMS от ЕСБД
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898841)
-                                SMS от Коммеска + Email от ЕСБД
+                                SMS от Сентрас Коммеск Life + Email от ЕСБД
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898851)
-                                SMS от Коммеска + SMS от ЕСБД
+                                SMS от Сентрас Коммеск Life + SMS от ЕСБД
                             @endif
                         </p>
                         <p>
@@ -67,25 +68,25 @@
                             {{$dataUrl['email'] ?? ''}}
                         </p>
                     </div>
-                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span>{{$order->premium_sum}}
+                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span><span class="premium">{{$order->premium_sum}}</span>
+                        тг
                     </div>
-                </div>
-
-                <div class="grid">
-                    <div class="col col--6-12 teldiv">
-                        <label for="phone" class="field-set__label NumpadInputMaster">Для перехода к оплате подтвердите
-                            свой номер телефона</label>
-                        <input type="tel" class="field interTel" id="phone" name="confirmTel"
-                               value="{{$dataUrl['phone'] ?? ''}}" disabled>
-                    </div>
-                    <div class="col col--6-12 telbuttondiv"><br/>
-                        <button class="buttonSmsFirst button button--hollow" style="display: none"><a
-                                href="javascript:void(0)" onClick="sendSMS()"
-                                class='sendLink'><b>Получить код проверки</b></a>
-                        </button>
-                        <span class='smswaiting' style='display:none;'>До повторной отправки  СМС осталось
+                    <div class="grid">
+                        <div class="col col--6-12 teldiv">
+                            <label for="phone" class="field-set__label NumpadInputMaster">Для перехода к оплате
+                                подтвердите
+                                свой номер телефона</label>
+                            <input type="tel" class="field interTel" id="phone" name="confirmTel"
+                                   value="{{$dataUrl['phone'] ?? ''}}" disabled>
+                        </div>
+                        <div class="col col--6-12 telbuttondiv"><br/>
+                            <button class="buttonSmsFirst button button--hollow" style="display: none"><a
+                                    href="javascript:void(0)" onClick="sendSMS()"
+                                    class='sendLink'><b>Получить код проверки</b></a>
+                            </button>
+                            <span class='smswaiting' style='display:none;'>До повторной отправки  СМС осталось
                             <span id='sec'></span> <span id="timeType">сек.</span></span>
-                    </div>
+                        </div>
 
                     <div class="col col--6-12 codedivs" style="display:none;">
                         <input type="text" class="field" id="code" value="" placeholder="Введите код" onkeyup="showOrHideBlock('code_error','code')">
@@ -99,9 +100,8 @@
                     </div>
 
                 </div>
-
                 <div id="step3" style="display: none">
-                    <h3 class="calculator__title">Номер заказа: {{$order_id}}<br/>К оплате: {{$order->premium_sum}} ₸
+                    <h3 class="calculator__title premium">Номер заказа: {{$order_id}}<br/>К оплате: <span class="premium">{{$order->premium_sum}}</span> ₸
                     </h3>
                     <div class="delivery-disq text-grey">
                         <p>
@@ -188,6 +188,12 @@
     </div>
     <script type="text/javascript" src="https://test-epay.homebank.kz/payform/payment-api.js"></script>
     <script>
+
+        $('.premium').text((i, text) => {
+            const [premium] = text.split(' ');
+            return `${(+premium).toLocaleString('ru-RU')}`;
+        });
+
         function showError(text) {
             $('#modalText').html(text);
             $('#modalError').modal('show');

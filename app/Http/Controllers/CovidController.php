@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use GuzzleHttp\Client;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Session;
 
 
 class  CovidController extends Controller
@@ -552,7 +554,11 @@ class  CovidController extends Controller
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
             'dateEnd' => $array['dateEnd'],
-            'agrISN'  => null,
+            'isn' => null,
+            'agentISN' => null,
+            'agentFio' => null,
+            'agentEmail' => null,
+            'agrISN' => null,
             'subjects' => [
                 0 => [
                     'kias' => [
@@ -686,6 +692,18 @@ class  CovidController extends Controller
     {
         $phone = $request->phone;
         $url = $request->url;
-        return $this->covidService->sendSmsLinkToPhone($phone, $url);
+        $order_id = $request->productOrderId;
+        $hash = $request->hash;
+        $urlStep = $request->step;
+        if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
+            $order = Order::findOrFail($order_id);
+            $order->step = $urlStep;
+            $order->save();
+
+            return $this->covidService->sendSmsLinkToPhone($phone, $url);
+
+        }
     }
+
 }
+

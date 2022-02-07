@@ -398,19 +398,19 @@
                     class="benefits datas agentData1 field input-check sms" onchange="showBlock3()"
                     onkeyup="showOrHideBlock('notificationISN_error','notificationISN')" >
                     <option value="898821" {{ 898821 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
-                        Email от Коммеска + SMS от ЕСБД
+                        Email от Сентрас Коммеск Life + SMS от ЕСБД
                     </option>
                     <option value="898811" {{ 898811 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
-                        Email от Коммеска + Email от ЕСБД
+                        Email от Сентрас Коммеск Life + Email от ЕСБД
                     </option>
                     <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
                         от ЕСБД
                     </option>
                     <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                        от Коммеска + Email от ЕСБД
+                        от Сентрас Коммеск Life + Email от ЕСБД
                     </option>
                     <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                        от Коммеска + SMS от ЕСБД
+                        от Сентрас Коммеск Life + SMS от ЕСБД
                     </option>
                 </select>
                 <strong><small id="notificationISN_error" class="form-text text-" style="display: none; color: crimson">
@@ -555,10 +555,10 @@
                             class="button button--prime">
                         Рассчитать
                     </button>
-                    <div style="display: @if(($premiumSum ?? '') > 0) block @else none @endif; font-weight: bold; margin-top: 13px;"
+                    <div class="" style="display: @if(($premiumSum ?? '') > 0) block @else none @endif; font-weight: bold; margin-top: 13px;"
                         id="premiumWrapper">
                         Итого: <span id="premium" class="premium"
-                                     style="font-size: larger;">{{$premiumSum ?? ''}}</span> тг
+                                     style="font-size: larger;">@if(($premiumSum ?? '') > 0) {{ number_format($premiumSum ?? '', 0, ',', ' ')}} @endif</span> тг
                     </div>
                 </div>
 
@@ -587,6 +587,14 @@
                        value="" style="display: none">
                 <input type="text" name="hash" id="hash"
                        value="" style="display: none">
+                <input type="text" name="hash" id="hash"
+                       value="" style="display: none">
+                <input type="text" name="hash" id="hash"
+                       value="" style="display: none">
+                <input type="text" name="hash" id="hash"
+                       value="" style="display: none">
+                <input type="text" name="hash" id="hash"
+                       value="" style="display: none">
             </div>
         </div>
     </div>
@@ -610,6 +618,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/imask"></script>
     <script type="text/javascript">
+
 
         // возврат оишбок в формате json через модальное окно
 
@@ -801,6 +810,9 @@
                         type: "POST",
                         url: "{{route('covid.sendSmsLinkToPhone')}}",
                         data: {
+                            step: 2,
+                            productOrderId: $("#order_id").val(),
+                            hash: $("#hash").val(),
                             _token: '{{csrf_token()}}',
                             phone: $("#phone").val(),
                             url: url
