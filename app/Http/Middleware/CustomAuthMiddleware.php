@@ -16,7 +16,7 @@ class CustomAuthMiddleware
             return $next($request);
 
         }
-        return redirect('/agent-login');
+        return redirect('covid/agent-login');
 
     }
 

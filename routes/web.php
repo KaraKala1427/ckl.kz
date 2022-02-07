@@ -36,10 +36,6 @@ Route::get('/linkstorage', function () {
 Route::get('/curltest', [MailController::class, 'test']);
 
 
-Route::get('/agent-login', function () {
-    return view('pages.agent_login');
-})->name('agent.login');
-
 Route::view('/program-covid','pages.program_covid')->name('program-covid');
 
 Route::post('/agent-login', [CovidController::class, 'forteLogin'])->name('forteLogin');
@@ -161,6 +157,7 @@ Route::group([
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
     Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
+    Route::view('/agent-login','pages.agent_login')->name('agent.login');
 });
 
 Route::group([

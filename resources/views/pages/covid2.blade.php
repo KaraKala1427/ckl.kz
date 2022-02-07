@@ -67,10 +67,15 @@
                             <b>Email:</b>
                             {{$dataUrl['email'] ?? ''}}
                         </p>
+{{--                        <p>--}}
+{{--                            <b>Номер телефона:</b>--}}
+{{--                            {{$dataUrl['phone'] ?? ''}}--}}
+{{--                        </p>--}}
                     </div>
                     <div class="details__total"><span class="text-grey">Сумма к оплате: </span><span class="premium">{{$order->premium_sum}}</span>
                         тг
                     </div>
+                    @if(($forteBankSession['code'] ?? '') != 200)
                     <div class="grid">
                         <div class="col col--6-12 teldiv">
                             <label for="phone" class="field-set__label NumpadInputMaster">Для перехода к оплате
@@ -88,18 +93,18 @@
                             <span id='sec'></span> <span id="timeType">сек.</span></span>
                         </div>
 
-                    <div class="col col--6-12 codedivs" style="display:none;">
-                        <input type="text" class="field" id="code" value="" placeholder="Введите код" onkeyup="showOrHideBlock('code_error','code')">
-                        <strong><small id="code_error" class="form-text text-" style="display: none; color: crimson">
-                                Вы не указали код</small></strong>
+                        <div class="col col--6-12 codedivs" style="display:none;">
+                            <input type="text" class="field" id="code" value="" placeholder="Введите код" onkeyup="showOrHideBlock('code_error','code')">
+                            <strong><small id="code_error" class="form-text text-" style="display: none; color: crimson">
+                                    Вы не указали код</small></strong>
+                        </div>
+                        <div class="col col--6-12 codedivs" style="display:none;">
+                            <button class="buttonSmsSecond button button--hollow"><a href="javascript:void(0)"
+                                                                                     onClick="confirmcode()">Подтвердить</a>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col col--6-12 codedivs" style="display:none;">
-                        <button class="buttonSmsSecond button button--hollow"><a href="javascript:void(0)"
-                                                                                 onClick="confirmcode()">Подтвердить</a>
-                        </button>
-                    </div>
-
-                </div>
+                    @endif
                 <div id="step3" style="display: none">
                     <h3 class="calculator__title premium">Номер заказа: {{$order_id}}<br/>К оплате: <span class="premium">{{$order->premium_sum}}</span> ₸
                     </h3>
@@ -148,8 +153,6 @@
                                         style="text-decoration: underline;">персональных данных</a> </span>
                             </label>
                         </fieldset>
-
-
                         <fieldset class="field-set col col--full">
                             <label class="field-set__label"></label>
                             <label class="checkbox">
@@ -157,6 +160,15 @@
                                 <span class="checkbox__label">Подтверждаю корректность введенных данных</span>
                             </label>
                         </fieldset>
+                        @if(($forteBankSession['code'] ?? '') != 200)
+                        <fieldset class="field-set col col--full">
+                            <label class="field-set__label"></label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="agreeWithData" value="yes">
+                                <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$forteBankSession['email']}}</span>
+                            </label>
+                        </fieldset>
+                        @endif
                     </div>
 
                     <button class="button button--prime" id="paymentButton">Оплатить</button>
@@ -207,8 +219,9 @@
         var timerId;
         var timeOut;
         $(document).ready(function () {
-            wrongAttempts = @json($wrongAttempts ?? '');
-            verified = @json($verified ?? '') === true ? true : false;
+            let wrongAttempts = @json($wrongAttempts ?? '');
+            let verified = @json($verified ?? '') === true ? true : false;
+            let forteBankSession = @json($forteBankSession ?? '');
             if (verified) {
                 $('.codedivs').hide();
                 $(".sendLink").hide();

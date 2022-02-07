@@ -76,6 +76,13 @@ class CovidService
         $model->save();
     }
 
+    public function verifyPhone($orderId)
+    {
+        $phone = Phone::where('order_id', $orderId)->get();
+        $phone->verified = true;
+        $phone->save();
+    }
+
     public function getWrongAttempts($order_id)
     {
         $model = $this->phoneRepository->getByOrderId($order_id);
@@ -354,7 +361,6 @@ class CovidService
 
     public function sendSmsLinkToPhone($phone, $url)
     {
-
         $text = "Для оплаты вашего договора перейдите по ссылке url $url";
         $response = Http::withOptions(['verify' => false])->get('https://www2.smsc.kz/sys/send.php', [
             "fmt" => "3",

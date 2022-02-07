@@ -25,6 +25,7 @@ class  CovidController extends Controller
     protected $kiasClient = [];
     protected $phoneRepository;
     protected $covidService;
+    protected $forteBankSession = [];
 
     public function __construct(PhoneRepository $phoneRepository, CovidService $service)
     {
@@ -47,15 +48,18 @@ class  CovidController extends Controller
                 $premiumSum = $order->premium_sum;
                 $step  = $order->step;
                 $dataUrl = json_decode($order->order_data,true)[0];
-                $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
-                $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
-                $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
-                $allowedDate  = $this->covidService->IsAllowedDate($order);
                 if ($urlStep == 1){
                     return view('pages.covid',compact('dataUrl','premiumSum'));
                 }
                 elseif ($step == 2 && $urlStep == $step){
-                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts','allowedDate'));
+                    $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
+                    $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
+                    $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
+                    $allowedDate  = $this->covidService->IsAllowedDate($order);
+                    $forteBankSession  = $this->forteBankSession;
+                    if($forteBankSession['code'] == 200)
+                        $verified = true;
+                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts','allowedDate','forteBankSession'));
                 }
                 return redirect()->route('covid',['productOrderId'=> $order_id, 'hash' => $hash, 'step' => 1]);
             }
@@ -508,6 +512,7 @@ class  CovidController extends Controller
 
         if ($response['code'] == 200) {
             session()->put('authenticated', time());
+            session()->put('forteBankSession', $response);
             return response()->json($response);
         } else {
             return response()->json([
@@ -545,6 +550,7 @@ class  CovidController extends Controller
     public function formDataOrder($array)
     {
         $this->kiasClient = session()->get('kiasClient');
+        $this->forteBankSession = session()->get('forteBankSession');
         $dataOrder = array([
             'code' => 200,
             'phone' => "+".$array['phone'],
@@ -554,10 +560,10 @@ class  CovidController extends Controller
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
             'dateEnd' => $array['dateEnd'],
-            'isn' => null,
-            'agentISN' => null,
-            'agentFio' => null,
-            'agentEmail' => null,
+            'isn' => $this->forteBankSession['ISN'] ?? null,
+            'agentISN' => $this->forteBankSession['agentISN'] ?? null,
+            'agentFio' => $this->forteBankSession['FIO'] ?? null,
+            'agentEmail' => $this->forteBankSession['email'] ?? null,
             'agrISN' => null,
             'subjects' => [
                 0 => [
