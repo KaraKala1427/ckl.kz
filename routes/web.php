@@ -5,6 +5,7 @@ use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CovidController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\EpayController;
+use App\Http\Controllers\ForteController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MigrateController;
 use App\Http\Controllers\SandBoxController;
@@ -38,19 +39,11 @@ Route::get('/curltest', [MailController::class, 'test']);
 
 Route::view('/program-covid','pages.program_covid')->name('program-covid');
 
-Route::post('/agent-login', [CovidController::class, 'forteLogin'])->name('forteLogin');
+Route::post('/agent-login', [ForteController::class, 'forteLogin'])->name('forteLogin');
 
 
 Route::group(['middleware' => ['web', 'custom_auth']], function () {
-    Route::get('/logout', function () {
-        if (session()->has('authenticated')) {
-
-            session()->pull('authenticated');
-        }
-        return redirect('agent-login');
-
-    });
-
+    Route::get('/covid/logout',[ForteController::class, 'forteLogout'])->name('forte-logout');
 });
 
 

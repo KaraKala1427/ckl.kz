@@ -501,25 +501,6 @@ class  CovidController extends Controller
         return $response;
     }
 
-    public function forteLogin(Request $request)
-    {
-        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/forte-bank/login', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "username" => $request->username,
-            "password" => $request->password
-        ])->json();
-
-        if ($response['code'] == 200) {
-            session()->put('authenticated', time());
-            session()->put('forteBankSession', $response);
-            return response()->json($response);
-        } else {
-            return response()->json([
-                'code' => 401,
-                'result' => false
-            ]);
-        }
-    }
 
     public function agrCalculate(Order $order)
     {

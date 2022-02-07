@@ -25,7 +25,7 @@
                         <li><a href="{{ route('covid') }}" data-link="live_page"
                                class="link nav__item nav__item--tab active">{{ __('navbar.mf26')}}</a></li>
                         @if(session()->has('authenticated'))
-                        <li><a href="/logout" data-link="live_page"
+                        <li><a href="{{route('forte-logout')}}" data-link="live_page"
                                class="link nav__item nav__item--tab active">Выйти</a></li>
                         @endif
                     </ul>
