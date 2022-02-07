@@ -33,6 +33,6 @@ class ForteController extends Controller
             session()->pull('authenticated');
             session()->pull('forteBankSession');
         }
-        return redirect(route('forteLogin'));
+        return redirect(route('agent.login'));
     }
 }

@@ -166,7 +166,7 @@
                         <fieldset class="field-set col col--full">
                             <label class="field-set__label"></label>
                             <label class="checkbox">
-                                <input type="checkbox" id="agreeWithData" value="yes">
+                                <input type="checkbox" id="agreeWithEmail" value="yes">
                                 <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$dataUrl['agentEmail'] ?? ''}}</span>
                             </label>
                         </fieldset>
@@ -223,7 +223,6 @@
         $(document).ready(function () {
             let wrongAttempts = @json($wrongAttempts ?? '');
             let verified = @json($verified ?? '') === true ? true : false;
-            let forteBankSession = @json($forteBankSession ?? '');
             if (verified) {
                 $('.codedivs').hide();
                 $(".sendLink").hide();
@@ -402,7 +401,7 @@
         }
 
         $(document).on("click", "#paymentButton", function() {
-
+            let agentEmail = @json($dataUrl['agentEmail'] ?? '');
             var check = '';
             let allowedDate = @json($allowedDate ?? '');
             if(!$("#agreeWithRule").is(":checked")) {
@@ -413,6 +412,9 @@
             }
             if(!$("#agreeWithData").is(":checked")) {
                 check += '-Пожалуйста, подтвердите корректность введенных данных<br/>';
+            }
+            if(!$("#agreeWithEmail").is(":checked")) {
+                check += '-Пожалуйста, подтвердите согласие на отправку полиса на почту ' + agentEmail + '<br/>';
             }
             if(allowedDate != 'true')
             {
