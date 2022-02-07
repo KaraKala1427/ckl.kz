@@ -56,10 +56,9 @@ class  CovidController extends Controller
                     return view('pages.covid',compact('dataUrl','premiumSum'));
                 }
                 elseif ($step == 2 && $urlStep == $step){
-                    $forteBankSession  = $this->forteBankSession;
-                    if(($forteBankSession['code'] ?? '') == 200)
+                    if(!is_null($dataUrl['agentISN'] ?? null))
                         $verified = true;
-                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts','allowedDate','forteBankSession'));
+                    return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts','allowedDate'));
                 }
                 return redirect()->route('covid',['productOrderId'=> $order_id, 'hash' => $hash, 'step' => 1]);
             }

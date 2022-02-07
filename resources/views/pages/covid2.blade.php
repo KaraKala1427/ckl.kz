@@ -67,15 +67,17 @@
                             <b>Email:</b>
                             {{$dataUrl['email'] ?? ''}}
                         </p>
-{{--                        <p>--}}
-{{--                            <b>Номер телефона:</b>--}}
-{{--                            {{$dataUrl['phone'] ?? ''}}--}}
-{{--                        </p>--}}
+                        @if($dataUrl['agentISN'] != null)
+                            <p>
+                                <b>Номер телефона:</b>
+                                {{$dataUrl['phone'] ?? ''}}
+                            </p>
+                        @endif
                     </div>
                     <div class="details__total"><span class="text-grey">Сумма к оплате: </span><span class="premium">{{$order->premium_sum}}</span>
                         тг
                     </div>
-                    @if(($forteBankSession['code'] ?? '') != 200)
+                    @if($dataUrl['agentISN'] == null)
                     <div class="grid">
                         <div class="col col--6-12 teldiv">
                             <label for="phone" class="field-set__label NumpadInputMaster">Для перехода к оплате
@@ -160,12 +162,12 @@
                                 <span class="checkbox__label">Подтверждаю корректность введенных данных</span>
                             </label>
                         </fieldset>
-                        @if(($forteBankSession['code'] ?? '') == 200)
+                        @if(($dataUrl['agentISN']) != null)
                         <fieldset class="field-set col col--full">
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithData" value="yes">
-                                <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$forteBankSession['email'] ?? ''}}</span>
+                                <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$dataUrl['agentEmail'] ?? ''}}</span>
                             </label>
                         </fieldset>
                         @endif
