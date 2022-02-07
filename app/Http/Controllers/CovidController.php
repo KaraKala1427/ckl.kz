@@ -48,16 +48,16 @@ class  CovidController extends Controller
                 $premiumSum = $order->premium_sum;
                 $step  = $order->step;
                 $dataUrl = json_decode($order->order_data,true)[0];
+                $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
+                $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
+                $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
+                $allowedDate  = $this->covidService->IsAllowedDate($order);
                 if ($urlStep == 1){
                     return view('pages.covid',compact('dataUrl','premiumSum'));
                 }
                 elseif ($step == 2 && $urlStep == $step){
-                    $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
-                    $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified' ;
-                    $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
-                    $allowedDate  = $this->covidService->IsAllowedDate($order);
                     $forteBankSession  = $this->forteBankSession;
-                    if($forteBankSession['code'] == 200)
+                    if(($forteBankSession['code'] ?? '') == 200)
                         $verified = true;
                     return view('pages.covid2',compact('dataUrl', 'order','hash','order_id','timeLimitReached','verified','wrongAttempts','allowedDate','forteBankSession'));
                 }

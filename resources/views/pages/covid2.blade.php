@@ -160,12 +160,12 @@
                                 <span class="checkbox__label">Подтверждаю корректность введенных данных</span>
                             </label>
                         </fieldset>
-                        @if(($forteBankSession['code'] ?? '') != 200)
+                        @if(($forteBankSession['code'] ?? '') == 200)
                         <fieldset class="field-set col col--full">
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithData" value="yes">
-                                <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$forteBankSession['email']}}</span>
+                                <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$forteBankSession['email'] ?? ''}}</span>
                             </label>
                         </fieldset>
                         @endif
@@ -201,10 +201,10 @@
     <script type="text/javascript" src="https://test-epay.homebank.kz/payform/payment-api.js"></script>
     <script>
 
-        $('.premium').text((i, text) => {
-            const [premium] = text.split(' ');
-            return `${(+premium).toLocaleString('ru-RU')}`;
-        });
+        // $('.premium').text((i, text) => {
+        //     const [premium] = text.split(' ');
+        //     return `${(+premium).toLocaleString('ru-RU')}`;
+        // });
 
         function showError(text) {
             $('#modalText').html(text);
