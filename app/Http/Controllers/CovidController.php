@@ -305,6 +305,8 @@ class  CovidController extends Controller
             }
             $this->setAgrRole($subjISN, $order, "insurer");
             $this->setAgrRole($subjISN, $order, "beneficiary");
+            $this->setAgrRole($dataOrder['agentISN'], $order, "agent");
+            $this->setAgrRole($dataOrder['operatorISN'], $order, "operator");
             $this->setAgrClause($order->agr_isn);
 
             $responseAttributes = $this->setAttributes($subjISN, $order);
@@ -364,7 +366,7 @@ class  CovidController extends Controller
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setClient',[
             "token"     => "wesvk345sQWedva55sfsd*g",
             "iin"       => $orderDataUser['iin'],
-            "fisrtName" => $orderDataUser['first_name'],
+            "firstName" => $orderDataUser['first_name'],
             "lastName"  => $orderDataUser['last_name'],
             "middleName"  => $orderDataUser['patronymic_name'],
             "resident"  => "Y",
@@ -532,7 +534,6 @@ class  CovidController extends Controller
     public function formDataOrder($array)
     {
         $this->kiasClient = session()->get('kiasClient');
-        $this->forteBankSession = session()->get('forteBankSession');
         $dataOrder = array([
             'code'            => 200,
             'phone'           => "+".$array['phone'],
@@ -542,11 +543,11 @@ class  CovidController extends Controller
             'limitSum'        => $array['limitSum'],
             'dateBeg'         => $array['dateBeg'],
             'dateEnd'         => $array['dateEnd'],
-            'isn'             => session()->get('forteBankSession')['ISN'] ?? null,
-            'agentISN'        => session()->get('forteBankSession')['AGENTISN'] ?? null,
-            'agentName'       => session()->get('forteBankSession')['AGENTNAME'] ?? null,
-            'agentFio'        => session()->get('forteBankSession')['FULLNAME'] ?? null,
-            'agentEmail'      => session()->get('forteBankSession')['USERMAIL'] ?? null,
+            'operatorISN'     => session()->get('forteBankSession')['agent']['ISN'] ?? null,
+            'agentISN'        => session()->get('forteBankSession')['agent']['AGENTISN'] ?? null,
+            'agentName'       => session()->get('forteBankSession')['agent']['AGENTNAME'] ?? null,
+            'agentFio'        => session()->get('forteBankSession')['agent']['FULLNAME'] ?? null,
+            'agentEmail'      => session()->get('forteBankSession')['agent']['USERMAIL'] ?? null,
             'agrISN'          => null,
             'subjects' => [
                 0 => [

@@ -37,15 +37,6 @@ Route::get('/linkstorage', function () {
 Route::get('/curltest', [MailController::class, 'test']);
 
 
-Route::view('/program-covid','pages.program_covid')->name('program-covid');
-
-Route::post('/agent-login', [ForteController::class, 'forteLogin'])->name('forteLogin');
-
-
-Route::group(['middleware' => ['web', 'custom_auth']], function () {
-    Route::get('/covid/logout',[ForteController::class, 'forteLogout'])->name('forte-logout');
-});
-
 
 Auth::routes();
 
@@ -145,12 +136,18 @@ Route::group([
 //    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
     Route::get('/covid/success-payment', [CovidController::class, 'successPaymentPage'])->name('covid.getResult');
     Route::get('/covid/failure-payment', [EpayController::class, 'failurePayment'])->name('covid.failure-payment');
+    Route::view('/program-covid','pages.program_covid')->name('program-covid');
+    Route::view('/covid/agent-login','pages.agent_login')->name('agent.login');
 
 
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
     Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
-    Route::view('/covid/agent-login','pages.agent_login')->name('agent.login');
+
+    Route::post('/covid/agent-login', [ForteController::class, 'forteLogin'])->name('forteLogin');
+    Route::group(['middleware' => ['web', 'custom_auth']], function () {
+        Route::get('/covid/logout',[ForteController::class, 'forteLogout'])->name('forte-logout');
+    });
 });
 
 Route::group([

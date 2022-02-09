@@ -44,7 +44,7 @@ class EnsOrderHelper
 
     public static function identifySexByIIN($iin)
     {
-        $sexIndex = (int)$iin[7];
+        $sexIndex = (int)$iin[6];
         if($sexIndex % 2 == 0) return 'Ж';
         else return 'М';
     }
