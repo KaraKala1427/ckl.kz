@@ -26,7 +26,7 @@
                                class="link nav__item nav__item--tab active">{{ __('navbar.mf26')}}</a></li>
                         @if(session()->has('authenticated'))
                         <li><a href="{{route('forte-logout')}}" data-link="live_page"
-                               class="link nav__item nav__item--tab active">Выйти</a></li>
+                               class="link nav__item nav__item--tab active">Выход</a></li>
                         @endif
                     </ul>
                 </nav>
@@ -566,7 +566,7 @@
                     <div  id="sendLinkShow" class="col col--6-12" style="display:none;">
                         <button onclick="" id="sendLink"
                                 class="button button--prime">
-                         Отравить ссылку
+                         Отправить ссылку
                         </button>
                     </div>
                 @else
