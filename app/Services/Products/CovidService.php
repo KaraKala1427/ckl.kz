@@ -211,7 +211,6 @@ class CovidService
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd']
         ];
-        dd($email_array, $order->first_name, $order->last_name, $order->patronymic_name, $order);
         MailController::sendOrderToEmail($email_array);
         $order->email_calculation_sent = 'true';
         $order->save();

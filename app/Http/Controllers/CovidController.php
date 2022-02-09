@@ -525,6 +525,7 @@ class  CovidController extends Controller
         $order->iin = $array['iin'];
         $order->first_name = $array['firstName'];
         $order->last_name = $array['lastName'];
+        $order->patronymic_name = $array['patronymicName'];
         $order->phone = "+".$array['phone'];
         $order->email = $array['email'];
         $order->order_data = json_encode($dataOrder);
