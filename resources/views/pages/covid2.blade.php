@@ -145,6 +145,7 @@
 
                                     @endif" style="text-decoration: underline;" target="_blank">Условиями</a> и <a
                                         href="https://ckl.kz/files/rules/sj_covid_rules.pdf"
+                                        target="_blank"
                                         style="text-decoration: underline;">Правилами</a> страхования ознакомлен»</span>
                             </label>
                         </fieldset>
@@ -416,8 +417,11 @@
             if(!$("#agreeWithData").is(":checked")) {
                 check += '-Пожалуйста, подтвердите корректность введенных данных<br/>';
             }
-            if(!$("#agreeWithEmail").is(":checked")) {
-                check += '-Пожалуйста, подтвердите согласие на отправку полиса на почту ' + agentEmail + '<br/>';
+
+            if(agentEmail != ''){
+                if(!$("#agreeWithEmail").is(":checked")) {
+                    check += '-Пожалуйста, подтвердите согласие на отправку полиса на почту ' + agentEmail + '<br/>';
+                }
             }
             if(allowedDate != 'true')
             {

@@ -9,7 +9,7 @@ class ForteController extends Controller
 {
     public function forteLogin(Request $request)
     {
-        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/forte-bank/login', [
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/forte-bank/login-real', [
             "token" => "wesvk345sQWedva55sfsd*g",
             "username" => $request->username,
             "password" => $request->password
