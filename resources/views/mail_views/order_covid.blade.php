@@ -1,4 +1,7 @@
 <p>Номер заказа          : {{$order_id}}</p>
+@if($agentFullName != null)
+    <p>Оператор ввода    : {{$agentFullName}}</p>
+@endif
 <p>ФИО                   : {{$last_name}} {{$first_name}} {{$middle_name}} </p>
 <p>ИИН                   : {{$iin}}</p>
 <p>Номер                 : {{$phone}}</p>

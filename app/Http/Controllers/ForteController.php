@@ -17,13 +17,12 @@ class ForteController extends Controller
 
         if ($response['code'] == 200) {
             session()->put('authenticated', time());
-            dd($response['agent']);
             session()->put('forteBankSession', $response);
             return response()->json($response);
         } else {
             return response()->json([
                 'code' => 401,
-                'result' => false
+                'error' => $response['error']
             ]);
         }
     }
