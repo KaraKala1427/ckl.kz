@@ -644,7 +644,6 @@
 
                 $("#sendOrder").prop("disabled", false);
 
-
             });
 
             if ($('.email-field').css('display') == 'none'){
@@ -825,11 +824,13 @@
                         success: await function (data) {
                             $('#overLoader').hide();
                             if (data.code == 200) {
+                                $("#sendLink").prop("disabled", true);
                                 window.location.href = url;
                             }
                         },
                         failure: function () {
-                            showError("Неизвестная ошибка");
+                            showError("При отправке sms, возникла ошибка, попробуйте позже!");
+                            $("#sendLink").prop("disabled", false);
                         }
                     });
                 });

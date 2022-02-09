@@ -235,10 +235,12 @@ class  CovidController extends Controller
         else $order = new Order();
         $this->saveOrder($order, $array, $dataOrder);
         if($this->startOrNot($array['checkboxes'])){
+            $errorLink = '<a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">« Kommesk.kz »</a>';
             return response()->json([
                 'code' => 422,
-                'error' => "К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на https://kommesk.kz/ns.html"
+                'error' => "К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на $errorLink"
             ]);
+
         }
         $responseSubjISN = $this->setSubject($order);
         if($responseSubjISN['code'] != 200) {

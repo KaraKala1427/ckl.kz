@@ -2,6 +2,6 @@
 
 @section('content')
     <div>
-        <h1>Отлонено! (( </h1>
+        <h1>Оплата при покупке не прошла ):</h1>
     </div>
 @endsection

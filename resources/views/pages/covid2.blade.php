@@ -28,7 +28,7 @@
                 <div class="calculator__block bg-grey details">
                     <div class="article__text">
                         <p style="font-size: larger">
-                            <b>«Страхование жизни на случай заболевания COVID-19» <span class="premium">{{$order->premium_sum}}</span> тенге</b>
+                            <b>«Страхование жизни на случай заболевания COVID-19» <span class="premium">@if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span> тенге</b>
                         </p>
                         <p>
                             <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
@@ -74,7 +74,8 @@
                             </p>
                         @endif
                     </div>
-                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span><span class="premium">{{$order->premium_sum}}</span>
+                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span><span class="premium">
+                            @if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span>
                         тг
                     </div>
                     @if($dataUrl['agentISN'] == null)
@@ -108,12 +109,14 @@
                     </div>
                     @endif
                 <div id="step3" style="display: none">
-                    <h3 class="calculator__title premium">Номер заказа: {{$order_id}}<br/>К оплате: <span class="premium">{{$order->premium_sum}}</span> ₸
+                    <h3 class="calculator__title premium">Номер заказа: {{$order_id}}<br/>К оплате: <span class="premium">
+                             @if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span> ₸
                     </h3>
                     <div class="delivery-disq text-grey">
                         <p>
-                            После нажатия на кнопку «Оплатить» вы будете направлены на страницу одного из наших
-                            партнерских платежных ресурсов, для оплаты страхового полиса. </p>
+                            После нажатия на кнопку «Оплатить» вы будете направлены на страницу
+                            одного из наших партнерских платежных ресурсов, для оплаты
+                            страхового полиса.</p>
                         <p>
                             Безопасность операции гарантирует банк. Мы никак не участвуем в процессе оплаты, не видим и
                             не сохраняем ваши платежные данные (номер карточки и пр.) </p>
@@ -150,7 +153,7 @@
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithPolicy" value="yes">
                                 <span class="checkbox__label">Я согласен на обработку <a
-                                        href="{{asset('images/files/rules/policy.pdf')}}"
+                                        href="https://ckl.kz/files/rules/soglasye_na_obrabotky_dan.pdf"
                                         target="_blank"
                                         style="text-decoration: underline;">персональных данных</a> </span>
                             </label>
