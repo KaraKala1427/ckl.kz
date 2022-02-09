@@ -620,6 +620,14 @@
     <script type="text/javascript">
 
 
+        // возврат success в формате json через модальное окно
+
+        function showSuccess(text) {
+            $('#modalTextSuccess').html(text);
+            $('#modalSuccess').modal('show');
+        }
+
+
         // возврат оишбок в формате json через модальное окно
 
         function showError(text) {
@@ -824,6 +832,7 @@
                         success: await function (data) {
                             $('#overLoader').hide();
                             if (data.code == 200) {
+                                showSuccess("Ссылка на оплату успешно отправлена на номер клиента");
                                 $("#sendLink").prop("disabled", true);
                                 window.location.href = url;
                             }
@@ -1397,6 +1406,24 @@
                 </div>
                 <div class="modal-body">
                     <p id="modalText" style="color: crimson;"></p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <p id="modalTextSuccess" style="color: greenyellow;"></p>
                 </div>
                 <div class="modal-footer">
                 </div>
