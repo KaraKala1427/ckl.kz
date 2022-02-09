@@ -221,6 +221,8 @@ class  CovidController extends Controller
 
     public function setOrder(Request $request)
     {
+        if (!$request->session()->has('kiasClient'))
+            $this->getClient($request);
         $array = $request->all();
         $dataOrder = $this->formDataOrder($array);
         if(isset($array['order_id']) && isset($array['hash']) && $this->checkHash($array['order_id'], $array['hash'])){
