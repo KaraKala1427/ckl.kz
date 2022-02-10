@@ -198,7 +198,8 @@
 
                 <br/>
                 <br/>
-                <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">Предыдущий шаг
+                <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">
+                    <a href="">Предыдущий шаг</a>
                 </button>
             </div>
         </div>
