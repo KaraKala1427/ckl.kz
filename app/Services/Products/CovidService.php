@@ -365,7 +365,7 @@ class CovidService
 
     public function sendSmsLinkToPhone($phone, $shortLink)
     {
-        $text = "Для оплаты вашего договора перейдите по ссылке url $shortLink";
+        $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
         $response = Http::withOptions(['verify' => false])->get('https://www2.smsc.kz/sys/send.php', [
             "fmt" => "3",
             "login" => "CKL_KZ",
