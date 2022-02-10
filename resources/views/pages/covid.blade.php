@@ -834,7 +834,6 @@
                             if (data.code == 200) {
                                 showSuccess("Ссылка на оплату успешно отправлена на номер клиента");
                                 $("#sendLink").prop("disabled", true);
-                                window.location.href = url;
                             }
                         },
                         failure: function () {
