@@ -696,7 +696,7 @@ class  CovidController extends Controller
             $order->step = $urlStep;
             $order->save();
             $result = $this->covidService->sendSmsLinkToPhone($phone, $url);
-            if ($result['success']) {
+            if ($result['code'] == 200) {
                 return response()->json([
                     'code' => 200,
                     'success' => true

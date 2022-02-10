@@ -373,6 +373,8 @@ class CovidService
             "phones" => "+$phone",
             "mes" => $text,
         ])->json();
+        if (key_exists('id',$response))
+            $response['code'] = 200;
         return $response;
     }
 
