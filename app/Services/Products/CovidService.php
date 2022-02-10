@@ -210,7 +210,8 @@ class CovidService
             'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd'],
-            'agentFullName' => $order_data['agentFio'] ?? null
+            'agentFullName' => $order_data['agentFio'] ?? null,
+            'agentName' => $order_data['agentName'] ?? null
         ];
         MailController::sendOrderToEmail($email_array);
         $order->email_calculation_sent = 'true';
@@ -234,7 +235,8 @@ class CovidService
             'programISN' => $order_data['programISN'],
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd'],
-            'agentFullName' => $order_data['agentFio'] ?? null
+            'agentFullName' => $order_data['agentFio'] ?? null,
+            'agentName' => $order_data['agentName'] ?? null
         ];
         MailController::sendOrderPaidEmail($email_array);
     }

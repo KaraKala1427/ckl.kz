@@ -1,4 +1,7 @@
 <p>Номер заказа          : {{$order_id}}</p>
+@if($agentName != null)
+    <p>Агент             : {{$agentName}}</p>
+@endif
 @if($agentFullName != null)
     <p>Оператор ввода    : {{$agentFullName}}</p>
 @endif
