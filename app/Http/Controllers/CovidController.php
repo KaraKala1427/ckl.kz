@@ -685,7 +685,7 @@ class  CovidController extends Controller
 
 
 
-    public function getShortLink($url)
+    public function getShortLink($url, $order_id = null, $hash = null)
 
     {
         $ch = curl_init();
@@ -720,7 +720,7 @@ class  CovidController extends Controller
             $order = Order::findOrFail($order_id);
             $order->step = $urlStep;
             $order->save();
-            $shortLink = $this->getShortLink($url);
+            $shortLink = $this->getShortLink($url, $order_id, $hash);
             $result = $this->covidService->sendSmsLinkToPhone($phone, $shortLink);
             if ($result['code'] == 200) {
                 return response()->json([
