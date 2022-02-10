@@ -53,6 +53,7 @@ class  CovidController extends Controller
                 $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
                 $allowedDate  = $this->covidService->IsAllowedDate($order);
                 if ($urlStep == 1){
+
                     return view('pages.covid',compact('dataUrl','premiumSum'));
                 }
                 elseif ($step == 2 && $urlStep == $step){
@@ -694,8 +695,17 @@ class  CovidController extends Controller
             $order = Order::findOrFail($order_id);
             $order->step = $urlStep;
             $order->save();
-
-            return $this->covidService->sendSmsLinkToPhone($phone, $url);
+            $result = $this->covidService->sendSmsLinkToPhone($phone, $url);
+            if ($result['success']) {
+                return response()->json([
+                    'code' => 200,
+                    'success' => true
+                ]);
+            }
+            return response()->json([
+                'code' => 400,
+                'success' => false,
+            ]);
 
         }
     }
