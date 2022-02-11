@@ -13,6 +13,7 @@
 
         var hostname = window.location.hostname;
 
+        console.log("ajax begin");
         $.ajax({
             type: "POST",
             url: "{{route('covid.checkOrderStatus')}}",
@@ -26,6 +27,7 @@
                 $('#overLoader').hide();
                 if (data.success == true) {
 
+                    console.log("URAAAAAAAAA");
                     window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id ?? ''}} +"&hash=" + '{{$hash ?? ''}}' + "&reloaded=1";
 
                 }
@@ -38,6 +40,8 @@
     intervalId = setInterval(timerDecrement, 1000);
 
     function timerDecrement() {
+
+        console.log("TIMECHECK");
         const newTime = time.text() - 1;
 
         time.text(newTime);
@@ -45,6 +49,8 @@
         if(newTime % 5 === 0){
 
             checkOrderStatus();
+
+            console.log("CECHK PROWEL");
         }
 
         if (newTime === 0) {
@@ -53,6 +59,7 @@
 
             window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id}} +"&hash=" + '{{$hash}}' + "&reloaded=1";
 
+            console.log("CECHK PROWEL1");
         }
     }
 
