@@ -43,7 +43,7 @@
 
     function timerDecrement() {
 
-        var time = $('.seconds');
+        var time = $('#seconds');
 
         console.log(time.text());
         console.log("TIMECHECK");
@@ -55,7 +55,6 @@
 
             checkOrderStatus();
 
-            console.log("CECHK PROWEL");
         }
 
         if (newTime === 0) {
