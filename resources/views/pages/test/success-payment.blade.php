@@ -35,15 +35,13 @@
 
     <script>
 
-        (function () {
-            if (window.localStorage) {
-                if (!localStorage.getItem('firstLoad')) {
-                    localStorage['firstLoad'] = true;
-                    window.location.reload();
-                } else
-                    localStorage.removeItem('firstLoad');
-            }
-        })();
+
+        if (localStorage.getItem("reload{{$order->id ?? ''}}") === "false") {
+            localStorage.removeItem("reload");
+        } else {
+            localStorage.setItem("reload{{$order->id ?? ''}}", "false");
+            window.location = window.location;
+        }
 
 
     </script>
