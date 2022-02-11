@@ -123,8 +123,7 @@ class MailController extends Controller
     public static function sendOrderToEmail($data)
     {
         Mail::send('mail_views.order_covid', $data, function ($message) use ($data) {
-            $message->to('ernarerbol027@gmail.com')
-                ->cc('r.pomogalov@kommesk-omir.kz')
+            $message->to('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
                 ->subject($data['order_id']." Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
@@ -135,8 +134,7 @@ class MailController extends Controller
     public static function sendOrderPaidEmail($data)
     {
         Mail::send('mail_views.paid_order', $data, function ($message) use ($data) {
-            $message->to('ernarerbol027@gmail.com')
-                ->cc('r.pomogalov@kommesk-omir.kz')
+            $message->to('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
                 ->subject($data['order_id']." ОПЛАЧЕН Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
@@ -147,7 +145,7 @@ class MailController extends Controller
     public static function sendOrderPaidEmailFail($data)
     {
         Mail::send('mail_views.paid_order_fail', $data, function ($message) use ($data) {
-            $message->to('ernarerbol027@gmail.com')
+            $message->to('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
                 ->subject("ОШИБКА ".$data['order_id']." Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
