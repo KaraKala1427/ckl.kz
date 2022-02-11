@@ -36,14 +36,19 @@
         });
     }
 
-    const time = $('.seconds');
+
     intervalId = setInterval(timerDecrement, 1000);
+
+
 
     function timerDecrement() {
 
+        var time = $('.seconds');
+
+        console.log(time.text());
         console.log("TIMECHECK");
         const newTime = time.text() - 1;
-
+        console.log(newTime);
         time.text(newTime);
 
         if(newTime % 5 === 0){
