@@ -42,6 +42,11 @@ class EpayController extends Controller
         return view('pages.test.epay_redirect')->with(['auth' => session('auth'), 'order_id' => session('order_id'), 'amount' => session('amount')]);
     }
 
+    public function successPayment()
+    {
+        return view('pages.test.success-payment');
+    }
+
     public function failurePayment()
     {
         return view('pages.test.failure-payment');
