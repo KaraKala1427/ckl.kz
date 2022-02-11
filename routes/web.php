@@ -141,6 +141,7 @@ Route::group([
     Route::view('/covid/agent-login','pages.agent_login')->name('agent.login');
 
 
+
     Route::get('/checkpolicy', [CaptchaController::class, 'index'])->name('checkpolicy');
     Route::get('/captcha-validation', [CaptchaController::class, 'capthcaFormValidate']);
     Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
