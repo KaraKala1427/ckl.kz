@@ -664,13 +664,13 @@ class  CovidController extends Controller
     {
         $order_id = $request->productOrderId;
         $hash = $request->hash;
-        $reloaded = $request->reloaded;
+        $reloaded = (int)$request->reloaded;
         if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
             $order = Order::findOrFail($order_id);
             if(($reloaded != 1)) {
                 return view('pages.test.preloader', compact('hash', 'order_id'));
             }
-            if ($order->status == Order::STATUS_ACCEPTED) {
+            if ($order->status == Order::STATUS_ACCEPTED && $reloaded == 1) {
                 $dataUrl = json_decode($order->order_data, true)[0];
                 return view('pages.test.success-payment', compact('dataUrl', 'order'));
             } elseif ($order->status == Order::STATUS_IN_PROCESS) {

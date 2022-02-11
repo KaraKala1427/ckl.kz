@@ -6,11 +6,11 @@
 
 
     $('#overLoader').show();
-    setTimeout(function () {
+    window.setTimeout(function () {
 
         var hostname = window.location.hostname;
 
-        window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id}} +"&hash=" + '{{$hash}}';
+        window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id}} +"&hash=" + '{{$hash}}' + "&reloaded=1";
 
     }, 15000);
 
