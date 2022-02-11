@@ -670,6 +670,7 @@ class  CovidController extends Controller
                 $dataUrl = json_decode($order->order_data, true)[0];
                 return view('pages.test.success-payment', compact('dataUrl', 'order'));
             } elseif ($order->status == Order::STATUS_IN_PROCESS) {
+                dd($hash);
                 return view('pages.test.not_accepted');
             }
         } else {
