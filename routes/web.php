@@ -134,7 +134,7 @@ Route::group([
     Route::post('/covid/getShortLink', [CovidController::class, 'getShortLink']);
 
     Route::get('/covid/epay-redirect', [EpayController::class, 'epayRedirect'])->name('covid.epay-redirect');
-//    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
+    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
     Route::get('/covid/success-payment', [CovidController::class, 'successPaymentPage'])->name('covid.getResult');
     Route::get('/covid/failure-payment', [EpayController::class, 'failurePayment'])->name('covid.failure-payment');
     Route::view('/program-covid','pages.program_covid')->name('program-covid');
