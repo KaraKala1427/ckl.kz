@@ -24,19 +24,6 @@
         }
     </style>
 
-
-    <script>
-
-
-        if (localStorage.getItem("reload{{$order->id ?? ''}}") === "false") {
-            localStorage.removeItem("reload");
-        } else {
-            localStorage.setItem("reload{{$order->id ?? ''}}", "false");
-            window.location = window.location;
-        }
-
-    </script>
-
     </main>
 
 @endsection
