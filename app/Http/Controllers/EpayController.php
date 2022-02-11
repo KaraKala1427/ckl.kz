@@ -66,19 +66,19 @@ class EpayController extends Controller
             Log::channel('payment')->info("Status: {$status}");
             if ($data['invoiceId'] == $statusArray['invoiceId'] && $data['amount'] == $statusArray['amount']) {
                 $this->covidService->savePostLink($orderId, $status, $response);
-                $resultStatusKias = $this->covidService->setAgrStatus($orderId);
-                if($resultStatusKias['code'] == 200){
-                    $responseSaveEsbd = $this->covidService->saveAgrToEsbd($orderId);
-                    if($responseSaveEsbd['code'] == 200){
+                $responseSaveEsbd = $this->covidService->saveAgrToEsbd($orderId);
+                if($responseSaveEsbd['code'] == 200){
+                    $resultStatusKias = $this->covidService->setAgrStatus($orderId);
+                    if($resultStatusKias['code'] == 200){
                         $policyResult = $this->covidService->savePolicyResult($orderId, $this->covidService->getAgrId($orderId));
                         if($policyResult != 'false'){
                             $this->covidService->sendOrderPaidEmailSuccess($this->covidService->getById($orderId));
                         }
                         else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Не записался номер договора");
                     }
-                    else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не сел в ЕСБД");
+                    else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не подписался");
                 }
-                else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не подписался");
+                else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не сел в ЕСБД");
 
             }
         }
