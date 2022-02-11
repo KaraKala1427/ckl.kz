@@ -1,7 +1,7 @@
 @include('mini_parts.overloader')
 
 
-<h1 id="seconds"><span>60</span>
+<h1><span id="seconds">60</span>
     секунд
 </h1>
 
