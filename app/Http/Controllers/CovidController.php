@@ -684,6 +684,31 @@ class  CovidController extends Controller
     }
 
 
+
+    public function getShortLink($url)
+
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://n9.kz/api/4b2d9d75e784c2bcd0eab2a6c9163163/create/short_link");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "url=" . urlencode($url));
+
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        $arr = json_decode($server_output, true);
+
+        curl_close($ch);
+        if (isset($arr['code']) and trim($arr['code']) != '') {
+            return 'https://n9.kz/' . $arr['code'];
+        } else {
+            return $url;
+        }
+
+    }
+
     public function sendSmsLinkToPhone(Request $request)
     {
         $phone = $request->phone;
@@ -695,7 +720,8 @@ class  CovidController extends Controller
             $order = Order::findOrFail($order_id);
             $order->step = $urlStep;
             $order->save();
-            $result = $this->covidService->sendSmsLinkToPhone($phone, $url);
+            $shortLink = $this->getShortLink($url);
+            $result = $this->covidService->sendSmsLinkToPhone($phone, $shortLink);
             if ($result['code'] == 200) {
                 return response()->json([
                     'code' => 200,
@@ -709,6 +735,5 @@ class  CovidController extends Controller
 
         }
     }
-
 }
 

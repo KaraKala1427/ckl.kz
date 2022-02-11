@@ -599,6 +599,7 @@
         </div>
     </div>
 
+
     <style>
         .removejust {
             display: none;
@@ -645,12 +646,14 @@
 
 
         $(document).ready(function () {
+
             $('.input-check').on("change keypress", function () {
 
                 $("#nextStepShow").hide();
                 $("#sendLinkShow").hide();
 
                 $("#sendOrder").prop("disabled", false);
+                $("#sendLink").prop("disabled", false);
 
             });
 
@@ -834,7 +837,6 @@
                             if (data.code == 200) {
                                 showSuccess("Ссылка на оплату успешно отправлена на номер клиента");
                                 $("#sendLink").prop("disabled", true);
-                                window.location.href = url;
                             }
                         },
                         failure: function () {
