@@ -333,8 +333,8 @@ class  CovidController extends Controller
                     ]);
                 }
                 if($responseCalc['code'] == 200){
-                    if($order->email_calculation_sent != 'true')
-                        $this->covidService->sendOrderEmail($order);
+                        if($order->email_calculation_sent != 'true')
+                            $this->covidService->sendOrderEmail($order);
 
                     $hash = md5($order->id."mySuperPassword123");
                     $data = [
@@ -664,8 +664,12 @@ class  CovidController extends Controller
     {
         $order_id = $request->productOrderId;
         $hash = $request->hash;
+        $reloaded = $request->reloaded;
         if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
             $order = Order::findOrFail($order_id);
+            if(($reloaded != 1)) {
+                return view('pages.test.preloader', compact('hash', 'order_id'));
+            }
             if ($order->status == Order::STATUS_ACCEPTED) {
                 $dataUrl = json_decode($order->order_data, true)[0];
                 return view('pages.test.success-payment', compact('dataUrl', 'order'));

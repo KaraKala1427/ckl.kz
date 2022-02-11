@@ -13,9 +13,7 @@
                             </div>
                         @endif
 
-                        <h1>Привет Вася Пупкин</h1>
 
-                            <a href="/logout">Logout</a>
                     </div>
                 </div>
             </div>
