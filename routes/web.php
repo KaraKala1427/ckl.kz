@@ -132,6 +132,7 @@ Route::group([
     Route::post('/covid/sendSmsToPhone', [CovidController::class, 'sendSmsToPhone']);
     Route::post('/covid/setAgrStatus', [CovidController::class, 'setAgrStatus']);
     Route::post('/covid/getShortLink', [CovidController::class, 'getShortLink']);
+    Route::post('/covid/checkOrderStatus', [CovidController::class, 'checkOrderStatus'])->name('covid.checkOrderStatus');
 
     Route::get('/covid/epay-redirect', [EpayController::class, 'epayRedirect'])->name('covid.epay-redirect');
 //    Route::get('/covid/success-payment', [EpayController::class, 'successPayment'])->name('covid.success-payment');
