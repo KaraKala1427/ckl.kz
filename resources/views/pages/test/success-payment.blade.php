@@ -3,17 +3,7 @@
 
 @section('content')
 
-    @if(!empty($order->email))
-
-        <h3><b>Оплата прошла успешно. Поздравляем с приобретением страховой защиты.</b></h3>
-        <h3>Договор №{{ $order->policy_result }} отправлен на Ваш электронный {{ $order->email }}.</h3>
-
-    @else
-
-        <h3><b>Оплата прошла успешно. Поздравляем с приобретением страховой защиты.</b></h3>
-        <h3>Договор №{{ $order->policy_result }}</h3>
-
-    @endif
+    <h1>hello world</h1>
 
     <style>
         .removejust {
