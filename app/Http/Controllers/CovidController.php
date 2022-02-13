@@ -708,12 +708,12 @@ class  CovidController extends Controller
 
     public function checkOrderStatus(Request $request)
     {
-
         $order_id = $request->productOrderId;
         $hash = $request->hash;
+        $reloaded = (int)$request->reloaded;
         if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
             $order = Order::findOrFail($order_id);
-            if ($order->status == Order::STATUS_ACCEPTED) {
+            if ($order->status == Order::STATUS_ACCEPTED && $reloaded == 1){
                 return response()->json([
                     'code' => 200,
                     'success' => true
