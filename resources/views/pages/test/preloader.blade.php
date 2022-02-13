@@ -9,11 +9,12 @@
 <script type="text/javascript">
 
 
+    $('#overLoader').show();
+
     function checkOrderStatus() {
 
         var hostname = window.location.hostname;
 
-        console.log("ajax begin");
         $.ajax({
             type: "POST",
             url: "{{route('covid.checkOrderStatus')}}",
@@ -24,10 +25,8 @@
             },
 
             success: function (data) {
-                $('#overLoader').hide();
                 if (data.success == true) {
 
-                    console.log("URAAAAAAAAA");
                     window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id ?? ''}} +"&hash=" + '{{$hash ?? ''}}' + "&reloaded=1";
 
                 }
@@ -36,22 +35,16 @@
         });
     }
 
-
     intervalId = setInterval(timerDecrement, 1000);
-
-
 
     function timerDecrement() {
 
         var time = $('#seconds');
 
-        console.log(time.text());
-        console.log("TIMECHECK");
         const newTime = time.text() - 1;
-        console.log(newTime);
         time.text(newTime);
 
-        if(newTime % 5 === 0){
+        if (newTime % 5 === 0) {
 
             checkOrderStatus();
 
@@ -63,13 +56,8 @@
 
             window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id}} +"&hash=" + '{{$hash}}' + "&reloaded=1";
 
-            console.log("CECHK PROWEL1");
         }
     }
-
-
-    $('#overLoader').show();
-
 
 </script>
 
