@@ -710,10 +710,9 @@ class  CovidController extends Controller
     {
         $order_id = $request->productOrderId;
         $hash = $request->hash;
-        $reloaded = (int)$request->reloaded;
         if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
             $order = Order::findOrFail($order_id);
-            if ($order->status == Order::STATUS_ACCEPTED && $reloaded == 1){
+            if ($order->status == Order::STATUS_ACCEPTED){
                 return response()->json([
                     'code' => 200,
                     'success' => true
