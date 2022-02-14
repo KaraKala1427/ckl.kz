@@ -321,5 +321,10 @@ class AdminController extends Controller
         return $path;
     }
 
+    public function getOrderListPage()
+    {
+        $menu = Menu::where('level', 0)->get();
+        return view('admin.orders',compact('menu'));
+    }
 
 }

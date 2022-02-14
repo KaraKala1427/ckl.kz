@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApiConnectController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CovidController;
@@ -178,7 +179,9 @@ Route::group([
     Route::delete('/{link}/{id}/', [App\Http\Controllers\AdminController::class, 'destroy'])->name('Del');
 
     Route::put('/edd/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('itemUpdate');
-    Route::put('/edd/{id}/thumb', [App\Http\Controllers\AdminController::class, 'thumbUpdate'])->name('thumbUpdate');
+    Route::put('/edd/{id}/thumb', [AdminController::class, 'thumbUpdate'])->name('thumbUpdate');
     Route::post('/insertThumb', [App\Http\Controllers\AdminController::class, 'postThumb'])->name('insertThumb');
     Route::post('/edd/{id}/update-plug', [App\Http\Controllers\AdminController::class, 'postPlug'])->name('plug-covid-post');
+
+    Route::get('/orders',[AdminController::class, 'getOrderListPage'])->name('get-order-list');
 });
