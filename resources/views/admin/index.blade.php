@@ -53,12 +53,12 @@
                                             <a href="{{route('admin.thumb.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
-                                        @elseif($article->raz == 'link111')
-                                            <a href="{{route('admin.plug-covid', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
-                                                <i class="tim-icons icon-settings"></i>
-                                            </a>
                                         @elseif($article->raz == 'link111' && $article->razid == 112)
                                             <a href="{{route('admin.get-order-list', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
+                                                <i class="tim-icons icon-settings"></i>
+                                            </a>
+                                        @elseif($article->raz == 'link111')
+                                            <a href="{{route('admin.plug-covid', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
                                         @endif

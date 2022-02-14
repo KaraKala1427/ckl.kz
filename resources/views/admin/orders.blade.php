@@ -14,7 +14,7 @@
                 <div class="card-header">
                 </div>
                 <div class="card-body">
-                    Че там
+                    @dd($orders)
                 </div>
 
             </div>

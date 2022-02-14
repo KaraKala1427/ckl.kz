@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Menu;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -324,7 +325,8 @@ class AdminController extends Controller
     public function getOrderListPage()
     {
         $menu = Menu::where('level', 0)->get();
-        return view('admin.orders',compact('menu'));
+        $orders = Order::where('created_at', '>=', Carbon::now()->subDays(2)->toDateTimeString())->get();
+        return view('admin.orders',compact('menu','orders'));
     }
 
 }
