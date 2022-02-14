@@ -326,7 +326,12 @@ class AdminController extends Controller
     {
         $menu = Menu::where('level', 0)->get();
         $orders = Order::where('created_at', '>=', Carbon::now()->subDays(2)->toDateTimeString())->get();
-        return view('admin.orders',compact('menu','orders'));
+        $count = $orders->count();
+        $paidCount = $orders->where('postlink','!=',null)->count();
+        $acceptedCount = $orders->where('status','accepted')->count();
+        $inProcessCount = $orders->where('status','in_process')->count();
+
+        return view('admin.orders',compact('menu','orders', 'count', 'paidCount','acceptedCount','inProcessCount'));
     }
 
 }

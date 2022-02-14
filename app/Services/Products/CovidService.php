@@ -286,11 +286,14 @@ class CovidService
             "status"   => 'П'
         ])->json();
 
+        return $response;
+    }
+
+    public function setStatusAccepted($orderId)
+    {
         $order = Order::findOrFail($orderId);
         $order->status = Order::STATUS_ACCEPTED;
         $order->save();
-
-        return $response;
     }
 
     public function getAgrId($orderId)
