@@ -107,6 +107,12 @@ class CovidService
         return $data[$param];
     }
 
+    public function checkIfByAgent(Order $order, $key = 0)
+    {
+        $data = json_decode($order->order_data, true)[$key];
+        return isset($data['agentISN']);
+    }
+
     public function getFieldData($order_id, $param = null)
     {
         try {

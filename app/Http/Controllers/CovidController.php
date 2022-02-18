@@ -51,14 +51,14 @@ class  CovidController extends Controller
                 $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
                 $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified';
                 $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
-                if($this->covidService->IsAllowedDate($order))
+                if(!$this->covidService->IsAllowedDate($order))
                     $this->clearDate($order);
                 if ($urlStep == 1) {
                     return view('pages.covid', compact('dataUrl', 'premiumSum'));
                 } elseif ($step == 2 && $urlStep == $step) {
                     if (!is_null($dataUrl['agentISN'] ?? null))
                         $verified = true;
-                    return view('pages.covid2', compact('dataUrl', 'order', 'hash', 'order_id', 'timeLimitReached', 'verified', 'wrongAttempts', 'allowedDate'));
+                    return view('pages.covid2', compact('dataUrl', 'order', 'hash', 'order_id', 'timeLimitReached', 'verified', 'wrongAttempts'));
                 }
                 return redirect()->route('covid', ['productOrderId' => $order_id, 'hash' => $hash, 'step' => 1]);
             } catch (ModelNotFoundException $exception) {
@@ -205,7 +205,6 @@ class  CovidController extends Controller
         if (!$request->session()->has('kiasClient'))
             $this->getClient($request);
         $array = $request->all();
-        $dataOrder = $this->formDataOrder($array);
         if (isset($array['order_id']) && isset($array['hash']) && $this->checkHash($array['order_id'], $array['hash'])) {
             try {
                 $order = Order::findOrFail($array['order_id']);
@@ -213,6 +212,7 @@ class  CovidController extends Controller
                 $order = new Order();
             }
         } else $order = new Order();
+        $dataOrder = $this->formDataOrder($array, $order);
         $this->saveOrder($order, $array, $dataOrder);
         if ($this->startOrNot($array['checkboxes'])) {
             $errorLink = '<a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">« Kommesk.kz »</a>';
@@ -511,9 +511,18 @@ class  CovidController extends Controller
         return $order->save();
     }
 
-    public function formDataOrder($array)
+    public function formDataOrder($array, Order $order)
     {
         $this->kiasClient = session()->get('kiasClient');
+        if (session()->has('forteBankSession'))
+            $this->forteBankSession = session()->get('forteBankSession')['agent'];
+        elseif ($this->covidService->checkIfByAgent($order)){
+            $this->forteBankSession['ISN'] = $this->covidService->getFieldOrderData($order, 'operatorISN');
+            $this->forteBankSession['AGENTISN'] = $this->covidService->getFieldOrderData($order, 'agentISN');
+            $this->forteBankSession['AGENTNAME'] = $this->covidService->getFieldOrderData($order, 'agentName');
+            $this->forteBankSession['FULLNAME'] = $this->covidService->getFieldOrderData($order, 'agentFio');
+            $this->forteBankSession['USERMAIL'] = $this->covidService->getFieldOrderData($order, 'agentEmail');
+        }
         $dataOrder = array([
             'code' => 200,
             'phone' => "+" . $array['phone'],
@@ -523,11 +532,11 @@ class  CovidController extends Controller
             'limitSum' => $array['limitSum'],
             'dateBeg' => $array['dateBeg'],
             'dateEnd' => $array['dateEnd'],
-            'operatorISN' => session()->get('forteBankSession')['agent']['ISN'] ?? null,
-            'agentISN' => session()->get('forteBankSession')['agent']['AGENTISN'] ?? null,
-            'agentName' => session()->get('forteBankSession')['agent']['AGENTNAME'] ?? null,
-            'agentFio' => session()->get('forteBankSession')['agent']['FULLNAME'] ?? null,
-            'agentEmail' => session()->get('forteBankSession')['agent']['USERMAIL'] ?? null,
+            'operatorISN' => $this->forteBankSession['ISN'] ?? null,
+            'agentISN' => $this->forteBankSession['AGENTISN'] ?? null,
+            'agentName' => $this->forteBankSession['AGENTNAME'] ?? null,
+            'agentFio' => $this->forteBankSession['FULLNAME'] ?? null,
+            'agentEmail' => $this->forteBankSession['USERMAIL'] ?? null,
             'agrISN' => null,
             'subjects' => [
                 0 => [
