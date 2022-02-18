@@ -51,9 +51,9 @@ class  CovidController extends Controller
                 $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
                 $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified';
                 $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
-                $allowedDate = $this->covidService->IsAllowedDate($order);
+                if($this->covidService->IsAllowedDate($order))
+                    $this->clearDate($order);
                 if ($urlStep == 1) {
-
                     return view('pages.covid', compact('dataUrl', 'premiumSum'));
                 } elseif ($step == 2 && $urlStep == $step) {
                     if (!is_null($dataUrl['agentISN'] ?? null))
@@ -118,33 +118,15 @@ class  CovidController extends Controller
         return view('pages.covid');
     }
 
-    public function prevStep(Request $request)
+    public function clearDate(Order $order)
     {
-        $order_id = $request->productOrderId;
-        $hash = $request->hash;
-        $urlStep = $request->step;
-        $clearDate = $request->clearDate;
-        if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
-            try {
-                $order = Order::findOrFail($order_id);
-                $dataUrl = json_decode($order->order_data, true);
-                if ($urlStep == 1 && $clearDate == 1) {
-                    $order->agr_isn = '';
-                    $dataUrl[0]['agrISN'] = '';
-                    $dataUrl[0]['dateBeg'] = '';
-                    $dataUrl[0]['dateEnd'] = '';
-                    $order->order_data = json_encode($dataUrl);
-                    $order->save();
-                }
-                return response()->json([
-                    'code' => 200,
-                    'step' => 1
-                ]);
-            } catch (ModelNotFoundException $exception) {
-                return view('pages.covid');
-            }
-        }
-        return view('pages.covid');
+        $dataUrl = json_decode($order->order_data, true);
+        $order->agr_isn = '';
+        $dataUrl[0]['agrISN'] = '';
+        $dataUrl[0]['dateBeg'] = '';
+        $dataUrl[0]['dateEnd'] = '';
+        $order->order_data = json_encode($dataUrl);
+        $order->save();
     }
 
     public function sendSms(Request $request)

@@ -199,7 +199,7 @@
                 <br/>
                 <br/>
                 <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">
-                    <a href="">Предыдущий шаг</a>
+                    <a href="/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1">Предыдущий шаг</a>
                 </button>
             </div>
         </div>
@@ -259,38 +259,41 @@
             }
 
         });
-        $(document).on("click", "#prevStep", async function () {
-            let allowedDate = @json($allowedDate ?? '');
-            let clearDate;
-            if (allowedDate == 'true') clearDate = 0;
-            else clearDate = 1;
-            $.ajax({
-                type: "POST",
-                url: "{{route('covid.prevStep')}}",
-                data: {
-                    step: 1,
-                    clearDate: clearDate,
-                    productOrderId: {{$order_id}},
-                    hash: "{{$hash}}",
-                    _token: '{{csrf_token()}}'
-                },
+        {{--$(document).on("click", "#prevStep", async function () {--}}
+        {{--    window.location.href = "/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1";--}}
+            {{--let allowedDate = @json($allowedDate ?? '');--}}
+            {{--let clearDate;--}}
+            {{--if (allowedDate == 'true') clearDate = 0;--}}
+            {{--else clearDate = 1;--}}
+            {{--$.ajax({--}}
+            {{--    type: "POST",--}}
+            {{--    url: "{{route('covid.prevStep')}}",--}}
+            {{--    data: {--}}
+            {{--        step: 1,--}}
+            {{--        clearDate: clearDate,--}}
+            {{--        productOrderId: {{$order_id}},--}}
+            {{--        hash: "{{$hash}}",--}}
+            {{--        _token: '{{csrf_token()}}'--}}
+            {{--    },--}}
 
-                beforeSend: function () {
-                    $('#overLoader').show();
-                },
+            {{--    beforeSend: function () {--}}
+            {{--        $('#overLoader').show();--}}
+            {{--    },--}}
 
-                success: await function (data) {
-                    $('#overLoader').hide();
-                    if (data.code == 200) {
-                        window.location.href = "/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1";
-                    }
-                },
-                failure: function () {
-                    showError("Неизвестная ошибка");
-                }
-            });
+            {{--    success: await function (data) {--}}
+            {{--        $('#overLoader').hide();--}}
+            {{--        alert(1);--}}
+            {{--        if (data.code == 200) {--}}
+            {{--            alert(2);--}}
+            {{--            window.location.href = "/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1";--}}
+            {{--        }--}}
+            {{--    },--}}
+            {{--    failure: function () {--}}
+            {{--        showError("Неизвестная ошибка");--}}
+            {{--    }--}}
+            {{--});--}}
 
-        });
+        // });
 
         async function sendSMS() {
             var phone = $('#phone').val().replace(/\D/g, '');
