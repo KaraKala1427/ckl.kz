@@ -70,21 +70,28 @@ class  CovidController extends Controller
 
     public function getClient(Request $request)
     {
-        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getClient', [
-            'token' => "wesvk345sQWedva55sfsd*g",
-            'iin' => $request->iin
-        ])->json();
-        if ($response['code'] == 404) {
+        try {
+            $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getClient', [
+                'token' => "wesvk345sQWedva55sfsd*g",
+                'iin' => $request->iin
+            ])->json();
+            if ($response['code'] == 404) {
+                return response()->json($response);
+            }
+            if (!$this->covidService->isAllowedAge($response['client']['Born'])) {
+                $response['code'] = 406;
+                return response()->json($response);
+            }
+            $this->kiasClient = $response['client'];
+            session()->put('kiasClient', $response['client']);
+            $response = EnsOrderHelper::secret($response);
             return response()->json($response);
         }
-        if (!$this->covidService->isAllowedAge($response['client']['Born'])) {
-            $response['code'] = 406;
+        catch (\Exception $e)
+        {
+            $response['code'] == 500;
             return response()->json($response);
         }
-        $this->kiasClient = $response['client'];
-        session()->put('kiasClient', $response['client']);
-        $response = EnsOrderHelper::secret($response);
-        return response()->json($response);
     }
 
     public function nextStep(Request $request)
