@@ -12,6 +12,7 @@ use App\Repositories\PhoneRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CovidService
 {
@@ -284,15 +285,21 @@ class CovidService
 
     public function setAgrStatus($orderId)
     {
-        $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+        try {
+            $agrIsn = $this->getFieldData($orderId, 'agr_isn');
 
-        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/set-agr-status',[
-            "token"    => "wesvk345sQWedva55sfsd*g",
-            "agrISN"   => $agrIsn,
-            "status"   => 'П'
-        ])->json();
+            $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/set-agr-status',[
+                "token"    => "wesvk345sQWedva55sfsd*g",
+                "agrISN"   => $agrIsn,
+                "status"   => 'П'
+            ])->json();
 
-        return $response;
+            return $response;
+        }
+        catch (\Exception $e) {
+            Log::info("Не подписался договор, ошибка : {$e->getMessage()}");
+            return ['code' => 500];
+        }
     }
 
     public function setStatusAccepted($orderId)
