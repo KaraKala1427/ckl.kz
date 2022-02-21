@@ -57,7 +57,7 @@
                            type="" name="iin" value="{{$dataUrl['subjects'][0]['user']['iin'] ?? ''}}"
                            maxlength="12" onkeyup="showOrHideBlock('iin_error','iin')">
                     <strong><small id="iin_error" class="form-text text-" style="display: none; color: crimson">
-                            Вы не указали ваш иин</small></strong>
+                           Поле иин не заполнено</small></strong>
                 </fieldset>
             </div>
         </div>
@@ -73,7 +73,7 @@
                        onkeyup="showOrHideBlock('firstName_error','firstName')"
                        value="{{$dataUrl['subjects'][0]['user']['first_name'] ?? ''}}">
                 <strong><small id="firstName_error" class="form-text text-" style="display: none; color: crimson">
-                        Вы не указали ваше имя</small></strong>
+                        Поле имя не заполнено</small></strong>
             </fieldset>
 
             <!-- Фамилия -->
@@ -84,7 +84,7 @@
                        name="lastName" id="lastName" value="{{$dataUrl['subjects'][0]['user']['last_name'] ?? ''}}"
                        onkeyup="showOrHideBlock('lastName_error','lastName')">
                 <strong><small id="lastName_error" class="form-text text-" style="display: none; color: crimson">
-                        Вы не указали вашу фамилию</small></strong>
+                        Поле фамилия не заполнено</small></strong>
             </fieldset>
 
             <!-- Отчество -->
@@ -97,7 +97,7 @@
                        value="{{$dataUrl['subjects'][0]['user']['patronymic_name'] ?? ''}}">
                 <strong><small id="patronymicName_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Вы не указали ваше отчество</small></strong>
+                        Поле отчество не заполнено</small></strong>
             </fieldset>
 
             <!-- Дата рождения -->
@@ -109,9 +109,8 @@
                        onkeyup="showOrHideBlock('born_error','born')"
                        value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
                 <strong><small id="born_error" class="form-text text-" style="display: none; color: crimson">
-                        Вы не указали дату рождения</small></strong>
+                        Поле дата рождения не заполнено</small></strong>
             </fieldset>
-
         </div>
 
         <div class="grid">
@@ -151,7 +150,7 @@
                        value="{{$dataUrl['subjects'][0]['user']['document_number'] ?? ''}}">
                 <strong><small id="documentNumber_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Вы не указали номер документа</small></strong>
+                        Поле номер документа не заполнено</small></strong>
             </fieldset>
 
             <!-- Дата выдачи документа -->
@@ -164,7 +163,7 @@
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}" autocomplete="off">
                 <strong><small id="documentGivedDate_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Вы не указали когда выдан</small></strong>
+                        Поле когда выдан не заполнено</small></strong>
             </fieldset>
 
             <!-- Кем выдан -->
@@ -177,7 +176,7 @@
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_by'] ?? ''}}" autocomplete="off">
                 <strong><small id="documentGivedBy_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Вы не указали кем выдан</small></strong>
+                       Поле кем выдан не заполнено</small></strong>
             </fieldset>
         </div>
 
@@ -187,7 +186,7 @@
 
             <fieldset class="field-set col col--4-12">
                 <label class="field-set__label"></label>
-                <label class="checkbox">
+                <label class="checkbox wrongCheckBox" id="insuredInsurerChBox">
                     <input type="checkbox" name="insuredInsurer" id="insuredInsurer" value="yes"
                            class="checkbox-cov"
                            checked="checked" disabled>
@@ -199,8 +198,8 @@
 
             <fieldset class="field-set col col--6-12">
                 <label class="field-set__label"></label>
-                <label class="checkbox">
-                    <input type="checkbox" name="notResidentUSA" id="notResidentUSA" value="no" class="checkbox-cov"
+                <label class="checkbox wrongCheckBox" id="notResidentUsaChBox">
+                    <input type="checkbox" name="notResidentUSA" id="notResidentUSA"  value="no" class="checkbox-cov"
                            checked="checked" disabled>
                     <span
                         class="checkbox__label">Застрахованный  НЕ является  резидентом США/гражданином США</span>
@@ -429,7 +428,7 @@
                        onkeypress="showBlock3() "
                        value="{{$dataUrl['phone'] ?? ''}}">
                 <strong><small id="phone_error" class="form-text text-" style="display: none; color: crimson">
-                        Вы не указали телефон</small></strong>
+                     Поле телефон не заполнено</small></strong>
             </fieldset>
 
             <!-- E-Mail -->
@@ -448,9 +447,12 @@
         </div>
     </div>
 
+    @if(session()->has('authenticated'))
 
+        <!-- Если пользователь форте, анкету не показываем, сразу показываем кнопку рассчета -->
 
-    <!-- Анкета -->  <!-- Анкета -->  <!-- Анкета -->
+    @else
+        <!-- Анкета -->  <!-- Анкета -->  <!-- Анкета -->
 
     <div class="calculator__section calculator__section--special badkasko" id="block3" style="display:{{$dataUrl['subjects'][0]['user']['iin'] ?? 'none'}}">
         <div class="calculator__block calculator__block--special">
@@ -545,6 +547,7 @@
         </div>
     </div>
 
+    @endif
 
     <div class="calculator__section" id="calculateSum"
          style="display:{{$dataUrl['subjects'][0]['user']['iin'] ?? 'none'}}">
@@ -599,7 +602,6 @@
         </div>
     </div>
 
-
     <style>
         .removejust {
             display: none;
@@ -614,35 +616,43 @@
         }
     </style>
 
+
     <!-- Начало Скрипта -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
     <script src="https://unpkg.com/imask"></script>
     <script type="text/javascript">
 
 
-        // возврат success в формате json через модальное окно
+        function wrongCheckBoxModal(text) {
 
-        function showSuccess(text) {
-            $('#modalTextSuccess').html(text);
-            $('#modalSuccess').modal('show');
+            $('#modalTextCheckBox').html(text);
+            $('#modalCheckBox').modal('show');
+
         }
 
+       // возврат success в формате json через модальное окно
 
-        // возврат оишбок в формате json через модальное окно
+       function showSuccess(text) {
+           $('#modalTextSuccess').html(text);
+           $('#modalSuccess').modal('show');
+       }
 
-        function showError(text) {
-            $('#modalText').html(text);
-            $('#modalError').modal('show');
-        }
 
-        // функция для скрытия ошибок после заполения поля
+       // возврат оишбок в формате json через модальное окно
 
-        function showOrHideBlock(errorBlock, manipulationBlock) {
-            $('#' + errorBlock).hide();
-        }
+       function showError(text) {
+           $('#modalText').html(text);
+           $('#modalError').modal('show');
+       }
 
-        //
+       // функция для скрытия ошибок после заполения поля
+
+       function showOrHideBlock(errorBlock, manipulationBlock) {
+           $('#' + errorBlock).hide();
+       }
+
+
 
 
         $(document).ready(function () {
@@ -723,7 +733,7 @@
 
             function isEmail(email) {
                 if ((email) == '') {
-                    $("#email_error").html(" Вы не указали email").show();
+                    $("#email_error").html("Поле email не заполнено").show();
                     return false;
                 }
                 var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -739,7 +749,7 @@
 
             function isPhone(phone) {
                 if ((phone) == '') {
-                    $("#phone_error").html("Вы не указали телефон").show();
+                    $("#phone_error").html("Поле телефон не заполнено").show();
                     return false;
                 }
                 if (phone.length < 11) {
@@ -749,6 +759,24 @@
                     return true;
                 }
             }
+
+
+            $(document).on("click", ".wrongCheckBox", function () {
+
+                var checkBoxLabelId = $(this).attr('id')
+                var textModal = '';
+
+                if (checkBoxLabelId === 'insuredInsurerChBox') {
+                    textModal = '«По условиям страхования Застрахованный является Страхователем. К сожалению, принесоблюденеии этого условия договор не может быть заключен.»';
+                }
+
+                if (checkBoxLabelId === 'notResidentUsaChBox') {
+                    textModal = '«По условиям страхования Застрахованный является гражданином Республики Казахстан.К сожалению, при несоблюденеии этого условия договор не может быть заключен.»';
+                }
+
+                wrongCheckBoxModal(textModal);
+
+            });
 
             // Маска для поля phone
 
@@ -1400,38 +1428,7 @@
 
     <!-- Button trigger modal -->
 
-    <div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                    <p id="modalText" style="color: crimson;"></p>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                    <p id="modalTextSuccess" style="color: greenyellow;"></p>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('mini_parts.covid_modal')
 
     </main>
 

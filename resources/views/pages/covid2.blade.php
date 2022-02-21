@@ -177,6 +177,26 @@
                         @endif
                     </div>
 
+                    <fieldset class="field-set col col--full">
+                        <label class="field-set__label"></label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="agreeWithFailureDiseases" value="yes">
+                            <span class="checkbox__label">«Подтверждаю отсутствие указанных <a href="#" data-bs-toggle="modal" data-bs-target="#CheckBoxWithTableSick" style="text-decoration: underline;">заболеваний/состояний</a>».</span>
+                        </label>
+                    </fieldset>
+
+                    <fieldset class="field-set col col--full">
+                        <label class="field-set__label"></label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="agreeWithBeneficiary" value="yes">
+                            <span class="checkbox__label">«Выгодоприобреталем в случае смерти являются наследники в соответсвии с
+                                законодательством РК»
+                            </span>
+                        </label>
+                    </fieldset>
+
+
+
                     <button class="button button--prime" id="paymentButton">Оплатить</button>
                     <form action="https://epay.kkb.kz/jsp/process/logon.jsp" method="post">
                         <input type="hidden" name="Signed_Order_B64"
@@ -208,10 +228,10 @@
     <script type="text/javascript" src="https://test-epay.homebank.kz/payform/payment-api.js"></script>
     <script>
 
-        // $('.premium').text((i, text) => {
-        //     const [premium] = text.split(' ');
-        //     return `${(+premium).toLocaleString('ru-RU')}`;
-        // });
+//        $('.premium').text((i, text) => {
+//            const [premium] = text.split(' ');
+//            return `${(+premium).toLocaleString('ru-RU')}`;
+//        });
 
         function showError(text) {
             $('#modalText').html(text);
@@ -377,6 +397,7 @@
             let agentEmail = @json($dataUrl['agentEmail'] ?? '');
             var check = '';
             let allowedDate = @json($allowedDate ?? '');
+
             if(!$("#agreeWithRule").is(":checked")) {
                 check += '-Пожалуйста, ознакомьтесь с Правилами страхования<br/>';
             }
@@ -385,6 +406,18 @@
             }
             if(!$("#agreeWithData").is(":checked")) {
                 check += '-Пожалуйста, подтвердите корректность введенных данных<br/>';
+            }
+
+            if(!$("#agreeWithBeneficiary").is(":checked")) {
+                check += '-Пожалуйста, подтвердите выбор Выгодоприобретателя<br/>';
+            }
+
+            if (!$("#agreeWithFailureDiseases").is(":checked") && $("#agreeWithRule").is(":checked") && $("#agreeWithBeneficiary").is(":checked")
+                && $("#agreeWithData").is(":checked") && $("#agreeWithPolicy").is(":checked")) {
+                check += '-«К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">« Kommesk.kz »</a>.<br/>';
+
+            } else if (!$("#agreeWithFailureDiseases").is(":checked")) {
+                check += '-Пожалуйста, подтвердите отсутствие указанных заболеваний/состояний<br/>';
             }
 
             if(agentEmail != ''){
@@ -443,22 +476,11 @@
 
 
     </script>
+
     <!-- Button trigger modal -->
 
-    <div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                    <p id="modalText" style="color: red;"></p>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
+        @include('mini_parts.covid2_modal')
+
     <style>
         .removejust {
             display: none;
