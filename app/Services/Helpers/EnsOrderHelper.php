@@ -29,6 +29,8 @@ class EnsOrderHelper
             case '8':
                 $docClassName = 'Служебный паспорт Республики Казахстан';
                 break;
+            default:
+                $docClassName = null;
         }
         return $docClassName;
     }
