@@ -288,8 +288,10 @@ class  CovidController extends Controller
             if (!is_null($dataOrder[0]['agentISN'])) {
                 $this->setAgrRole($dataOrder[0]['agentISN'], $order, "agent");
                 $this->setAgrRole($dataOrder[0]['operatorISN'], $order, "operator");
+                $this->setAgrClause($order->agr_isn, 'agent');
             }
-            $this->setAgrClause($order->agr_isn);
+            else
+                $this->setAgrClause($order->agr_isn, 'direct');
 
             $responseAttributes = $this->setAttributes($subjISN, $order);
             if ($responseAttributes['data'] == 'ok') {
@@ -475,11 +477,12 @@ class  CovidController extends Controller
         return $response;
     }
 
-    public function setAgrClause($agrISN)
+    public function setAgrClause($agrISN, $channel)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrClause', [
             "token" => "wesvk345sQWedva55sfsd*g",
-            "agrISN" => $agrISN
+            "agrISN" => $agrISN,
+            "channel" => $channel
         ])->json();
 
         return $response;
