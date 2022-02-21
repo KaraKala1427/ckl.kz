@@ -315,10 +315,17 @@ class CovidService
 
     public function savePostLink($id, $status, $response)
     {
-        $order = Order::findOrFail($id);
-        $order->status = Order::STATUS_IN_PROCESS;
-        $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
-        $order->save();
+        try {
+            $order = Order::findOrFail($id);
+            $order->status = Order::STATUS_IN_PROCESS;
+            $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
+            $order->save();
+            return 200;
+        }
+        catch (\Exception $e)
+        {
+            return 'Postlink не сохранился и статус на in_process не поменялся '.$e->getMessage();
+        }
     }
 
     public function savePolicyResult($id, $array)

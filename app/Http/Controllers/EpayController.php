@@ -65,23 +65,26 @@ class EpayController extends Controller
             $orderId = (int)$statusArray['invoiceId'];
             Log::channel('payment')->info("Status: {$status}");
             if ($data['invoiceId'] == $statusArray['invoiceId'] && $data['amount'] == $statusArray['amount']) {
-                $this->covidService->savePostLink($orderId, $status, $response);
-                $responseSaveEsbd = $this->covidService->saveAgrToEsbd($orderId);
-                if($responseSaveEsbd['code'] == 200){
-                    $resultStatusKias = $this->covidService->setAgrStatus($orderId);
-                    if($resultStatusKias['code'] == 200){
-                        $this->covidService->setStatusAccepted($orderId);
-                        $policyResult = $this->covidService->savePolicyResult($orderId, $this->covidService->getAgrId($orderId));
-                        if($policyResult != 'false'){
-                            $this->covidService->sendOrderPaidEmailSuccess($this->covidService->getById($orderId));
+                $responseSavePostLink = $this->covidService->savePostLink($orderId, $status, $response);
+                if ($responseSavePostLink == 200){
+                    $responseSaveEsbd = $this->covidService->saveAgrToEsbd($orderId);
+                    if($responseSaveEsbd['code'] == 200){
+                        $resultStatusKias = $this->covidService->setAgrStatus($orderId);
+                        if($resultStatusKias['code'] == 200){
+                            $this->covidService->setStatusAccepted($orderId);
+                            $policyResult = $this->covidService->savePolicyResult($orderId, $this->covidService->getAgrId($orderId));
+                            if($policyResult != 'false'){
+                                $this->covidService->sendOrderPaidEmailSuccess($this->covidService->getById($orderId));
+                            }
+                            else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Не записался номер договора");
                         }
-                        else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Не записался номер договора");
+                        else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не подписался");
                     }
-                    else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не подписался");
+                    else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не сел в ЕСБД");
                 }
-                else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Договор не сел в ЕСБД");
-
+                else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), $responseSavePostLink);
             }
+            else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Оплата не села");
         }
         catch (\Exception $e){
             Log::debug("PaymentResponse/SaveAgrToEsbd/setAgrStatus failed ".$e->getMessage()." Code: ".$e->getCode()." Line: ".$e->getLine());
