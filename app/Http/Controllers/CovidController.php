@@ -51,14 +51,15 @@ class  CovidController extends Controller
                 $timeLimitReached = $this->covidService->getTimeIfLimitReached($order_id);
                 $verified = $this->covidService->isVerified($order_id) ? true : 'notVerified';
                 $wrongAttempts = $this->covidService->getWrongAttempts($order_id);
-                if(!$this->covidService->IsAllowedDate($order))
+                $allowedDate = $this->covidService->IsAllowedDate($order);
+                if(!$allowedDate)
                     $this->clearDate($order);
                 if ($urlStep == 1) {
                     return view('pages.covid', compact('dataUrl', 'premiumSum'));
                 } elseif ($step == 2 && $urlStep == $step) {
                     if (!is_null($dataUrl['agentISN'] ?? null))
                         $verified = true;
-                    return view('pages.covid2', compact('dataUrl', 'order', 'hash', 'order_id', 'timeLimitReached', 'verified', 'wrongAttempts'));
+                    return view('pages.covid2', compact('dataUrl', 'order', 'hash', 'order_id', 'timeLimitReached', 'verified', 'wrongAttempts', 'allowedDate'));
                 }
                 return redirect()->route('covid', ['productOrderId' => $order_id, 'hash' => $hash, 'step' => 1]);
             } catch (ModelNotFoundException $exception) {
