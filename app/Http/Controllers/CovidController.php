@@ -554,7 +554,7 @@ class  CovidController extends Controller
                         'document_gived_date' => $this->kiasClient['DOCUMENT_GIVED_DATE'] ?? null,
                         'document_number' => $this->kiasClient['DOCUMENT_NUMBER'] ?? null,
                         'document_gived_by' => $this->kiasClient['DOCUMENT_GIVED_BY'] ?? null,
-                        'document_class_name' => EnsOrderHelper::convertDocCLassName($this->kiasClient['DOCUMENT_TYPE_ID']),
+                        'document_class_name' => EnsOrderHelper::convertDocCLassName($this->kiasClient['DOCUMENT_TYPE_ID'] ?? null),
                     ],
                     'user' => [
                         'subjISN' => null,
