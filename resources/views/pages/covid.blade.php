@@ -68,7 +68,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderfirstName" class="field-set__label checkList">Имя </label>
-                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text" name="firstName"
+                <input class="field datas keyboardInput agentData1 input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" type="text" name="firstName"
                        id="firstName"
                        onkeyup="showOrHideBlock('firstName_error','firstName')"
                        value="{{$dataUrl['subjects'][0]['user']['first_name'] ?? ''}}">
@@ -91,7 +91,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="patronymicName" class="field-set__label checkList">Отчество</label>
-                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text"
+                <input class="field datas keyboardInput agentData1 input-check clearFields"  onchange="showBlock1()" onkeypress="showBlock1()" type="text"
                        name="patronymicName" id="patronymicName"
                        onkeyup="showOrHideBlock('patronymicName_error','patronymicName')"
                        value="{{$dataUrl['subjects'][0]['user']['patronymic_name'] ?? ''}}">
@@ -104,7 +104,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderDocDate" class="field-set__label checkList">Дата рождения </label>
-                <input class="field field--date datas edate input-check clearFields" id="born" type="tel"
+                <input class="field field--date datas edate input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" id="born" type="tel"
                        name="born" maxlength="10" placeholder="dd.mm.yyyy"
                        onkeyup="showOrHideBlock('born_error','born')"
                        value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
@@ -119,7 +119,7 @@
                 <div id="doctypeField">
                     <label for="orderBenefit" class="field-set__label checkList">Тип документа </label>
                     <select name="documentTypeId" id="documentTypeId" tabindex="-1"
-                            class="benefits datas agentData1 field input-check clearFields"  onkeyup="showOrHideBlock('documentTypeId_error','documentTypeId')">
+                            class="benefits datas agentData1 field input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()"  onkeyup="showOrHideBlock('documentTypeId_error','documentTypeId')">
                         <option value="documentTypeId-empty">--</option>
                         <option
                             value="1" {{ 'Удостоверение личности гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>
@@ -145,7 +145,7 @@
             <fieldset class="field-set col col--3-12">
                 <label for="orderDocNumber" class="field-set__label checkList">
                     Номер документа </label>
-                <input class="field field-- datas input-check clearFields" id="documentNumber" type="text" name="documentNumber"
+                <input class="field field-- datas input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" id="documentNumber" type="text" name="documentNumber"
                        onkeyup="showOrHideBlock('documentNumber_error','documentNumber')"
                        value="{{$dataUrl['subjects'][0]['user']['document_number'] ?? ''}}">
                 <strong><small id="documentNumber_error" class="form-text text-"
@@ -157,7 +157,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="documentGivedDate" class="field-set__label checkList">Дата выдачи документа </label>
-                <input class="field field--date datas edate input-check clearFields" id="documentGivedDate"
+                <input class="field field--date datas edate input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" id="documentGivedDate"
                        name="documentGivedDate" maxlength="10" placeholder="dd.mm.yyyy"
                        onkeyup="showOrHideBlock('documentGivedDate_error','documentGivedDate')"
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}" autocomplete="off">
@@ -170,7 +170,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderdocumentGivedBy" class="field-set__label checkList">Кем выдан </label>
-                <input class="field datas keyboardInput agentData1 input-check clearFields" id="documentGivedBy" type="text"
+                <input class="field datas keyboardInput agentData1 input-check clearFields"  onchange="showBlock1()" onkeypress="showBlock1()"id="documentGivedBy" type="text"
                        name="documentGivedBy" maxlength="10"
                        onkeyup="showOrHideBlock('documentGivedBy_error','documentGivedBy')"
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_by'] ?? ''}}" autocomplete="off">
@@ -1145,8 +1145,8 @@
                                 $("#block2").hide();
                                 $("#block3").hide();
                                 $("#calculateSum").hide();
-                            }
-                            else if (data.code === 406){
+
+                            }else if (data.code === 406){
                                 showError("На страхование принимаются лица НЕ старше 65 лет на момент заключения Договора");
                                 $("#block1").hide();
                                 $("#block2").hide();
@@ -1162,6 +1162,50 @@
                 });
             }
         });
+
+
+        function showBlock1() {
+
+            var firstName = $("#firstName").val();
+            var patronymicName = $("#patronymicName").val();
+            var born = $("#born").val();
+            var documentGivedDate = $("#documentGivedDate").val();
+            var documentNumber = $("#documentNumber").val();
+            var documentGivedBy = $("#documentGivedBy").val();
+            var documentTypeId = $("#documentTypeId").val();
+
+            let a = false;
+
+            if (firstName == '') {
+                a = true;
+            }
+
+            if (patronymicName == '') {
+                a = true;
+            }
+
+            if (born == '') {
+                a = true;
+            }
+
+            if (documentGivedDate == '') {
+                a = true;
+            }
+
+            if (documentNumber == '') {
+                a = true;
+            }
+            if (documentGivedBy == '') {
+                a = true;
+            }
+            if (documentTypeId == '') {
+                a = true;
+            }
+
+            if (a) return false;
+            $("#block1").show();
+        }
+
 
         // Show block 2
 
