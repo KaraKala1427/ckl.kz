@@ -91,7 +91,7 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="patronymicName" class="field-set__label checkList">Отчество</label>
-                <input class="field datas keyboardInput agentData1 input-check clearFields"  onchange="showBlock1()" onkeypress="showBlock1()" type="text"
+                <input class="field datas keyboardInput agentData1 input-check clearFields"  type="text"
                        name="patronymicName" id="patronymicName"
                        onkeyup="showOrHideBlock('patronymicName_error','patronymicName')"
                        value="{{$dataUrl['subjects'][0]['user']['patronymic_name'] ?? ''}}">
@@ -1167,7 +1167,6 @@
         function showBlock1() {
 
             var firstName = $("#firstName").val();
-            var patronymicName = $("#patronymicName").val();
             var born = $("#born").val();
             var documentGivedDate = $("#documentGivedDate").val();
             var documentNumber = $("#documentNumber").val();
@@ -1177,10 +1176,6 @@
             let a = false;
 
             if (firstName == '') {
-                a = true;
-            }
-
-            if (patronymicName == '') {
                 a = true;
             }
 
