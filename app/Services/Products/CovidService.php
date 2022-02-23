@@ -297,7 +297,8 @@ class CovidService
             return $response;
         }
         catch (\Exception $e) {
-            Log::info("Не подписался договор, ошибка : {$e->getMessage()}");
+            $message = $e->getMessage();
+            Log::debug("Не подписался договор, ошибка : " . $message);
             return ['code' => 500];
         }
     }

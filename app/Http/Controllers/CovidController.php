@@ -291,7 +291,7 @@ class  CovidController extends Controller
                 $this->setAgrClause($order->agr_isn, 'agent');
             }
             else
-                $this->setAgrClause($order->agr_isn, 'agent');
+                $this->setAgrClause($order->agr_isn, 'direct');
 
             $responseAttributes = $this->setAttributes($subjISN, $order);
             if ($responseAttributes['data'] == 'ok') {
