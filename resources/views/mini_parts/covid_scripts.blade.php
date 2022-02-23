@@ -493,7 +493,16 @@
                     window.getClient = false;
                     $('#overLoader').hide()
                     if (data.code == 200) {
-                        data = data.client;
+                        if(Array.isArray(data.client)){
+                            var filteredData = data.client.filter(function (i){
+                                return i.verify_bool == "1"
+                            });
+                            if (filteredData.length > 0)
+                                data = filteredData[0];
+                            else data = data.client[0];
+                        }
+                        else data = data.client;
+
                         $("#lastName").val(data.Last_Name);
                         $("#firstName").val(data.First_Name);
                         $("#patronymicName").val(data.Middle_Name);

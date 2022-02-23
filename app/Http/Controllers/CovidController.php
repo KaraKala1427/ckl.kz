@@ -674,7 +674,6 @@ class  CovidController extends Controller
 
 
     public function getShortLink($url)
-
     {
         return $this->covidService->getShortLink($url);
 
