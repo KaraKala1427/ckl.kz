@@ -62,6 +62,7 @@ class EpayController extends Controller
             $invoiceId = $data['invoiceId'] ?? 'emptyID';
             $order_status = $this->covidService->checkStatus($invoiceId);
             if ($order_status == 'accepted'){
+                Log::channel('payment')->info("Договор уже подписан, но все равно в постлинк стучатся");
                 return response()->json([
                     'message' => 'postlink уже было отработан'
                 ]);

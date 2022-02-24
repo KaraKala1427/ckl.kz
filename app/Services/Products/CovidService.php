@@ -339,7 +339,7 @@ class CovidService
             $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
             $meok = $this->setMeok($order);
             $order->save();
-            return ['code' => 200, 'meok' => $meok];
+            return ['code' => 200, 'meok' => $meok['result']];
         }
         catch (\Exception $e)
         {
