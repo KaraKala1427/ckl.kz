@@ -225,7 +225,7 @@ class CovidService
         $order->save();
     }
 
-    public function sendOrderPaidEmailSuccess(Order $order)
+    public function sendOrderPaidEmailSuccess(Order $order, $message)
     {
         $order_data = json_decode($order->order_data,true)[0];
         $email_array = [
@@ -243,7 +243,8 @@ class CovidService
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd'],
             'agentFullName' => $order_data['agentFio'] ?? null,
-            'agentName' => $order_data['agentName'] ?? null
+            'agentName' => $order_data['agentName'] ?? null,
+            'meok'    => $message
         ];
         MailController::sendOrderPaidEmail($email_array);
     }
@@ -330,8 +331,9 @@ class CovidService
             $order = Order::findOrFail($id);
             $order->status = Order::STATUS_IN_PROCESS;
             $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
+            $meok = $this->setMeok($order);
             $order->save();
-            return 200;
+            return ['code' => 200, 'meok' => $meok];
         }
         catch (\Exception $e)
         {
@@ -339,6 +341,17 @@ class CovidService
         }
     }
 
+    public function setMeok(Order $order)
+    {
+        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setMeok',[
+            "token"    => "wesvk345sQWedva55sfsd*g",
+            "agr_isn"  => $order->agr_isn,
+            "payment"  => $order->premium_sum,
+            "order_id" => $order->id
+        ])->json();
+
+        return $response;
+    }
     public function savePolicyResult($id, $array)
     {
         try {
