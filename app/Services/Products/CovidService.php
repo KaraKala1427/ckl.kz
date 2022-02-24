@@ -349,14 +349,21 @@ class CovidService
 
     public function setMeok(Order $order)
     {
-        $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setMeok',[
-            "token"    => "wesvk345sQWedva55sfsd*g",
-            "agr_isn"  => $order->agr_isn,
-            "payment"  => $order->premium_sum,
-            "order_id" => $order->id
-        ])->json();
+        try {
+            $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setMeok',[
+                "token"    => "wesvk345sQWedva55sfsd*g",
+                "agr_isn"  => $order->agr_isn,
+                "payment"  => $order->premium_sum,
+                "order_id" => (string)$order->id
+            ])->json();
 
-        return $response;
+            return $response;
+        }
+        catch (\Exception $exception)
+        {
+            $error = $exception->getMessage();
+            Log::channel('payment')->info("Meok: ".$error);
+        }
     }
     public function savePolicyResult($id, $array)
     {
