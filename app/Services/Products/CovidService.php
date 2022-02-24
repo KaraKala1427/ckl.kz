@@ -299,7 +299,10 @@ class CovidService
         catch (\Exception $e) {
             $message = $e->getMessage();
             Log::debug("Не подписался договор, ошибка : " . $message);
-            return ['code' => 500];
+            return [
+                'code' => 500,
+                'error' => $message
+            ];
         }
     }
 

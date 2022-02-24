@@ -55,6 +55,7 @@ class EpayController extends Controller
     public function paymentResponse(Request $request)
     {
         try {
+            Log::channel('payment')->info("в Postlink постучались");
             $response = $request->getContent();
             $data = $request->toArray();
             Log::channel('payment')->info("Postlink: {$response}");
@@ -85,6 +86,10 @@ class EpayController extends Controller
                 else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), $responseSavePostLink);
             }
             else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Оплата не села");
+
+            return response()->json([
+                'message' => 'в postlink достучался'
+            ]);
         }
         catch (\Exception $e){
             Log::debug("PaymentResponse/SaveAgrToEsbd/setAgrStatus failed ".$e->getMessage()." Code: ".$e->getCode()." Line: ".$e->getLine());

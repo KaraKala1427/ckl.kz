@@ -289,11 +289,12 @@ class  CovidController extends Controller
                 $this->setAgrRole($dataOrder[0]['agentISN'], $order, "agent");
                 $this->setAgrRole($dataOrder[0]['operatorISN'], $order, "operator");
                 $this->setAgrClause($order->agr_isn, 'agent');
+                $responseAttributes = $this->setAttributes($subjISN, $order, 'agent');
             }
-            else
+            else{
                 $this->setAgrClause($order->agr_isn, 'direct');
-
-            $responseAttributes = $this->setAttributes($subjISN, $order);
+                $responseAttributes = $this->setAttributes($subjISN, $order, 'direct');
+            }
             if ($responseAttributes['data'] == 'ok') {
                 $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
                 if ($responseCond['code'] != 200) {
@@ -450,8 +451,9 @@ class  CovidController extends Controller
         return $response;
     }
 
-    public function setAttributes($subjISN, Order $order)
+    public function setAttributes($subjISN, Order $order, $channel)
     {
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAllAttribute', [
             "token" => "wesvk345sQWedva55sfsd*g",
             "subjISN" => $subjISN,
@@ -460,7 +462,8 @@ class  CovidController extends Controller
             "phone" => $this->getFieldOrderData($order, 'phone'),
             "programISN" => (int)$this->getFieldOrderData($order, 'programISN'),
             "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
-            "order_id" => (string)$order->id
+            "order_id" => (string)$order->id,
+            "channel" => $channel
         ])->json();
         return $response;
     }
