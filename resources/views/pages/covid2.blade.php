@@ -28,7 +28,7 @@
                 <div class="calculator__block bg-grey details">
                     <div class="article__text">
                         <p style="font-size: larger">
-                            <b>«Страхование жизни на случай заболевания COVID-19» <span class="premium">@if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span> тенге</b>
+                            <b>Страхование жизни на случай заболевания COVID-19 <span class="premium">@if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span> тенге</b>
                         </p>
                         <p>
                             <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
@@ -146,7 +146,7 @@
                                     @endif" style="text-decoration: underline;" target="_blank">Условиями</a> и <a
                                         href="https://ckl.kz/files/rules/sj_covid_rules.pdf"
                                         target="_blank"
-                                        style="text-decoration: underline;">Правилами</a> страхования ознакомлен»</span>
+                                        style="text-decoration: underline;">Правилами</a> страхования ознакомлен</span>
                             </label>
                         </fieldset>
                         <fieldset class="field-set col col--full">
@@ -176,7 +176,7 @@
                         </fieldset>
                         @endif
                     </div>
-
+                    @if(($dataUrl['agentISN']) != null)
                     <fieldset class="field-set col col--full">
                         <label class="field-set__label"></label>
                         <label class="checkbox">
@@ -184,7 +184,9 @@
                             <span class="checkbox__label">«Подтверждаю отсутствие указанных <a href="#" data-bs-toggle="modal" data-bs-target="#CheckBoxWithTableSick" style="text-decoration: underline;">заболеваний/состояний</a>».</span>
                         </label>
                     </fieldset>
+                    @endif
 
+                    @if(($dataUrl['agentISN']) != null)
                     <fieldset class="field-set col col--full">
                         <label class="field-set__label"></label>
                         <label class="checkbox">
@@ -194,8 +196,7 @@
                             </span>
                         </label>
                     </fieldset>
-
-
+                    @endif
 
                     <button class="button button--prime" id="paymentButton">Оплатить</button>
                     <form action="https://epay.kkb.kz/jsp/process/logon.jsp" method="post">
@@ -414,7 +415,7 @@
 
             if (!$("#agreeWithFailureDiseases").is(":checked") && $("#agreeWithRule").is(":checked") && $("#agreeWithBeneficiary").is(":checked")
                 && $("#agreeWithData").is(":checked") && $("#agreeWithPolicy").is(":checked")) {
-                check += '-«К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">« Kommesk.kz »</a>.<br/>';
+                check += '-К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>.<br/>';
 
             } else if (!$("#agreeWithFailureDiseases").is(":checked")) {
                 check += '-Пожалуйста, подтвердите отсутствие указанных заболеваний/состояний<br/>';
