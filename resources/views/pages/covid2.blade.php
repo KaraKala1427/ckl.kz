@@ -409,23 +409,23 @@
                 check += '-Пожалуйста, подтвердите корректность введенных данных<br/>';
             }
 
-            if(!$("#agreeWithBeneficiary").is(":checked")) {
-                check += '-Пожалуйста, подтвердите выбор Выгодоприобретателя<br/>';
-            }
-
-            if (!$("#agreeWithFailureDiseases").is(":checked") && $("#agreeWithRule").is(":checked") && $("#agreeWithBeneficiary").is(":checked")
-                && $("#agreeWithData").is(":checked") && $("#agreeWithPolicy").is(":checked")) {
-                check += '-К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>.<br/>';
-
-            } else if (!$("#agreeWithFailureDiseases").is(":checked")) {
-                check += '-Пожалуйста, подтвердите отсутствие указанных заболеваний/состояний<br/>';
-            }
-
             if(agentEmail != ''){
+                if(!$("#agreeWithBeneficiary").is(":checked")) {
+                    check += '-Пожалуйста, подтвердите выбор Выгодоприобретателя<br/>';
+                }
                 if(!$("#agreeWithEmail").is(":checked")) {
                     check += '-Пожалуйста, подтвердите согласие на отправку полиса на почту ' + agentEmail + '<br/>';
                 }
+
+                if (!$("#agreeWithFailureDiseases").is(":checked") && $("#agreeWithRule").is(":checked") && $("#agreeWithBeneficiary").is(":checked")
+                    && $("#agreeWithData").is(":checked") && $("#agreeWithPolicy").is(":checked")) {
+                    check += '-К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>.<br/>';
+
+                } else if (!$("#agreeWithFailureDiseases").is(":checked")) {
+                    check += '-Пожалуйста, подтвердите отсутствие указанных заболеваний/состояний<br/>';
+                }
             }
+
             if(allowedDate != 'true')
             {
                 check += 'Дата начала действия договора должна быть минимум на 7 дней больше текущей. Пожалуйста перейдите на предыдущий шаг';

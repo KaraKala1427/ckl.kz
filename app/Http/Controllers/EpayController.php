@@ -60,6 +60,12 @@ class EpayController extends Controller
             $data = $request->toArray();
             Log::channel('payment')->info("Postlink: {$response}");
             $invoiceId = $data['invoiceId'] ?? 'emptyID';
+            $order_status = $this->covidService->checkStatus($invoiceId);
+            if ($order_status == 'accepted'){
+                return response()->json([
+                    'message' => 'postlink уже было отработан'
+                ]);
+            }
             $auth = json_encode($this->statusAuth());
             $status = json_encode($this->getStatus($auth, $invoiceId));
             $statusArray = json_decode($status,true);

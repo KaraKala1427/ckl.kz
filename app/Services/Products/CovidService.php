@@ -284,6 +284,12 @@ class CovidService
         return $response;
     }
 
+    public function checkStatus($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        return $order->status;
+    }
+
     public function setAgrStatus($orderId)
     {
         try {
