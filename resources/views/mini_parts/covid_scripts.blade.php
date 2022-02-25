@@ -304,7 +304,7 @@
                     let a = false;
                     let scrollToElement = false; //До какого элемента скроллить, если false - скролла не будет
 
-                    if (iin == '' && iin.length !== 12) {
+                    if (iin == '' && iin.length === 12) {
                         const iinErrorId = "#iin";
                         $("#iin_error").show();
                         scrollToElement = scrollToElement === false ? iinErrorId : scrollToElement;
