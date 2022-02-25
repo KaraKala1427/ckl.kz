@@ -220,9 +220,9 @@ return [
 
     'notification_isn_898831' => 'БДСБ дан хабарлама',
 
-    'notification_isn_898841' => 'Сентрас Коммеск Life ұсынған хабарламалар+ БДСБ электрондық поштасы',
+    'notification_isn_898841' => 'Сентрас Коммеск Life ұсынған хабарламалар + БДСБ электрондық поштасы',
 
-    'notification_isn_898851' => 'Сентрас Коммеск Life ұсынған хабарламалар+ БДСБ-ның хабарламалары',
+    'notification_isn_898851' => 'Сентрас Коммеск Life ұсынған хабарламалар + БДСБ-ның хабарламалары',
 
     'text_insurance_contract' => 'Сақтандыру шарты сақтандыру жасалған күннен бастап 7 күнтізбелік күн өткен соң күшіне енеді',
 
@@ -260,7 +260,7 @@ return [
 
     'dateBeg_error' => 'Сіз күнді енгізбедіңіз',
 
-    'payment_successfully' => '"<div class="modal-body">Төлем сәтті өтті!<br></br>Түбіртекті басып шығару үшін түймесін басыңыз <p> <a href="kommesk/kz/eogpo_print.html">басып шығару</a></p></div>"',
+    'payment_successfully' => '<div class="modal-body">Төлем сәтті өтті!<br></br>Түбіртекті басып шығару үшін түймесін басыңыз <p> <a href="kommesk/kz/eogpo_print.html">басып шығару</a></p></div>',
 
     'pay_the_policy_online' => 'Полисті онлайн төлеу',
 
@@ -312,7 +312,7 @@ return [
 
     'allowed_date' => 'Келісімшарттың басталу күні ағымдағы күннен кемінде 7 күн бұрын болуы керек. Алдыңғы қадамға өтіңіз',
 
-    'agree_with_failure_diseases_all' => '"Өкінішке орай сақтандыру шарттарындағы шектеулерге байланысты сізді сақтандыруға қабылдай алмаймыз. Сіз бізден басқа сақтандыру бағдарламасын таңдай аласыз немесе таңдау үшін <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>"',
+    'agree_with_failure_diseases_all' => 'Өкінішке орай сақтандыру шарттарындағы шектеулерге байланысты сізді сақтандыруға қабылдай алмаймыз. Сіз бізден басқа сақтандыру бағдарламасын таңдай аласыз немесе таңдау үшін  <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>',
 
     'covid_try_again' => 'Тағы да қайталап көріңіз',
 
