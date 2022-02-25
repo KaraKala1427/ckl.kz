@@ -12,7 +12,7 @@
                         указали как вас зовут</small></strong>
             </fieldset>
 
-            <fieldset class="field-set col col--1-2" style="">
+            <fieldset class="field-set col col--full" style="">
                 <label class="field-set__label">{{ __('navbar.bc5')}}</label>
                 <input type="tel" class="field tel-masked" id="phone-input1"
                        onkeyup="showOrHideBlock('phone_error1','phone-input1')" name="phone" placeholder="">
@@ -21,18 +21,18 @@
             </fieldset>
 
 
-            <fieldset class="field-set col col--1-2" style="false">
-                <label class="field-set__label">Эл. почта</label>
-                <input type="email" class="field" name="email1" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">
+{{--            <fieldset class="field-set col col--1-2" style="false">--}}
+{{--                <label class="field-set__label">Эл. почта</label>--}}
+{{--                <input type="email" class="field" name="email1" id="email1" onkeyup="showOrHideBlock('email_error1','email1')">--}}
 
-                <strong> <small id="email_error1" class="form-text text-"
-                                style=" display: none; color: crimson">Неправильный формат почты</small></strong>
-            </fieldset>
+{{--                <strong> <small id="email_error1" class="form-text text-"--}}
+{{--                                style=" display: none; color: crimson">Неправильный формат почты</small></strong>--}}
+{{--            </fieldset>--}}
 
 
-            <fieldset class="field-set col col--full" style="false">
-                <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea>
-            </fieldset>
+{{--            <fieldset class="field-set col col--full" style="false">--}}
+{{--                <textarea class="field" name="qst" value="" id="qst" placeholder="Ваш вопрос" rows="5"></textarea>--}}
+{{--            </fieldset>--}}
 
             <style>
                 .localgrid {
@@ -80,10 +80,10 @@
                 function showOrHideBlock(errorBlock, manipulationBlock) {
                     $('#' + errorBlock).hide();
                 }
-                function validateEmail(email) {
-                    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    return re.test(email);
-                }
+                // function validateEmail(email) {
+                //     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                //     return re.test(email);
+                // }
 
 
                 //начало скрипта для раздела О компании под меню
@@ -128,13 +128,13 @@
                         event.preventDefault();
                         var fullname = $("#fullname1").val();
                         var phone = $("#phone-input1").val();
-                        var email = $('#email1').val();
-                        if(!validateEmail(email) && email.length !== 0) {
-                            $("#email_error1").show();
-                            return;
-                        }
+                        // var email = $('#email1').val();
+                        // if(!validateEmail(email) && email.length !== 0) {
+                        //     $("#email_error1").show();
+                        //     return;
+                        // }
                         var frompage = $('#frompage').val();
-                        var qst = $('#qst').val();
+                        // var qst = $('#qst').val();
 
                         $.ajax({
                             url: "/sendhtmlmail",
@@ -142,8 +142,8 @@
                             data: {
                                 fullname: fullname,
                                 phone: phone,
-                                email: email,
-                                qst: qst,
+                                // email: email,
+                                // qst: qst,
                                 frompage: frompage,
                             },
                             beforeSend: function () {
@@ -158,24 +158,24 @@
                                     $("#phone_error1").show();
                                     a = true;
                                 }
-                                function validate() {
-                                    const $result = $("#result");
-                                    const email = $("#email1").val();
-                                    $result.text("");
+                                // function validate() {
+                                //     const $result = $("#result");
+                                //     const email = $("#email1").val();
+                                //     $result.text("");
+                                //
+                                //     if (validateEmail(email)) {
+                                //         console.log('asd');
+                                //         $result.text(email + " is valid :)");
+                                //         $result.css("color", "green");
+                                //     } else {
+                                //         console.log('false');
+                                //         $result.text(email + " is not valid :(");
+                                //         $result.css("color", "red");
+                                //     }
+                                //     return false;
+                                // }
 
-                                    if (validateEmail(email)) {
-                                        console.log('asd');
-                                        $result.text(email + " is valid :)");
-                                        $result.css("color", "green");
-                                    } else {
-                                        console.log('false');
-                                        $result.text(email + " is not valid :(");
-                                        $result.css("color", "red");
-                                    }
-                                    return false;
-                                }
-
-                                $("#email1").on("input", validate);
+                                // $("#email1").on("input", validate);
                                 if (a) return false;
 
                                 $loading.show();
@@ -190,7 +190,7 @@
                             },
                             success: function (data) {
                                 if (data == 'true') {
-                                    $(".callb1").html('<h3 style="color:springgreen">Ваше сообщение отправлено!</h3>');
+                                    $(".callb1").html('<h3 style="color:springgreen">{{__('navbar.success-callback-mail')}}</h3>');
                                     dataLayer.push({'event': 'callback_sent'});
                                     $('#feedbackModal1').css('max-height', '155px');
                                 } else {

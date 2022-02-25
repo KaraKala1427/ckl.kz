@@ -5,13 +5,13 @@
 
     @if(!empty($order->email))
 
-        <h3><b>Оплата прошла успешно. Поздравляем с приобретением страховой защиты.</b></h3>
-        <h3>Договор №{{ $order->policy_result }} отправлен на Ваш электронный {{ $order->email }}.</h3>
+        <h3><b>{{__('navbar.success_payment_halyk')}}</b></h3>
+        <h3>{{__('navbar.contract')}} №{{ $order->policy_result }} {{__('navbar.sent_on_your_email')}} {{ $order->email }}.</h3>
 
     @else
 
-        <h3><b>Оплата прошла успешно. Поздравляем с приобретением страховой защиты.</b></h3>
-        <h3>Договор №{{ $order->policy_result }}</h3>
+        <h3><b>{{__('navbar.success_payment_halyk')}}</b></h3>
+        <h3>{{__('navbar.contract')}} №{{ $order->policy_result }}</h3>
 
     @endif
 

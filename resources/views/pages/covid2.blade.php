@@ -13,117 +13,109 @@
                             <div class="modal-header">
                                 <h3 class="modal-title"></h3>
                             </div>
-                            <div class="modal-body">Оплата прошла успешно!<br></br>Чтобы распечатать чек, нажмите на <p>
-                                    <a href="kommesk/kz/eogpo_print.html">печать</a></p></div>
+                            {{__('navbar.payment_successfully')}}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="calculator__block">
-                <h2 class="modal-title">Оплатить полис онлайн</h2>
-                <p style="display:none;">После нажатия на кнопку «Оплатить» Вы будете направлены на страницу системы
-                    EPay банка Халык, где сможете оплатить полис банковской картой. Безопасность операции гарантирует
-                    банк. Мы никак не учувствуем в процессе оплаты и не видим и не сохраняем ваши платежные данные
-                    (номер карточки и пр.)</p>
+                <h2 class="modal-title">{{__('navbar.pay_the_policy_online')}}</h2>
+                <p style="display:none;">{{__('navbar.covid_halyk_text')}}</p>
                 <div class="calculator__block bg-grey details">
                     <div class="article__text">
                         <p style="font-size: larger">
-                            <b>Страхование жизни на случай заболевания COVID-19 <span class="premium">@if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span> тенге</b>
+                            <b>{{__('navbar.covid_title_2')}}<span class="premium">@if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span>{{__('navbar.currency')}}</b>
                         </p>
                         <p>
-                            <b>Страхователь:</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
+                            <b>{{__('navbar.covid_insurant')}}</b> {{$order->last_name}} {{$order->first_name}} {{$order->patronymic_name}}
                         </p>
                         <p>
-                            <b>Период действия:</b> {{$dataUrl['dateBeg'] ?? ''}} - {{$dataUrl['dateEnd'] ?? ''}} </p>
+                            <b>{{__('navbar.covid_validity')}}</b> {{$dataUrl['dateBeg'] ?? ''}} - {{$dataUrl['dateEnd'] ?? ''}} </p>
                         <p>
-                            <b>Программа:</b>
+                            <b>{{__('navbar.program_isn')}}:</b>
                             @if(($dataUrl['programISN'] ?? '') == 898641)
-                                Программа 1
+                                {{__('navbar.programs_one')}}
                             @elseif(($dataUrl['programISN'] ?? '') == 898651)
-                                Программа 2
+                                {{__('navbar.programs_two')}}
                             @elseif(($dataUrl['programISN'] ?? '') == 898661)
-                                Программа 3
+                                {{__('navbar.programs_three')}}
                             @endif
                         </p>
                         <p>
-                            <b>Страховая сумма:</b>
-                            {{$dataUrl['limitSum'] ?? ''}} тенге
+                            <b>{{__('navbar.limitSum')}}:</b>
+                            {{$dataUrl['limitSum'] ?? ''}} {{__('navbar.currency')}}
                         </p>
                         <p>
-                            <b>Способ уведомления:</b>
+                            <b>{{__('navbar.notification_isn')}}:</b>
                             @if(($dataUrl['notificationISN'] ?? '') == 898811)
-                                Email от Сентрас Коммеск Life + Email от ЕСБД
+                                 {{__('navbar.notification_isn_898811')}}
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898821)
-                                Email от Сентрас Коммеск Life + SMS от ЕСБД
+                                {{__('navbar.notification_isn_898821')}}
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898831)
-                                SMS от ЕСБД
+                                {{__('navbar.notification_isn_898831')}}
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898841)
-                                SMS от Сентрас Коммеск Life + Email от ЕСБД
+                                {{__('navbar.notification_isn_898841')}}
                             @elseif(($dataUrl['notificationISN'] ?? '') == 898851)
-                                SMS от Сентрас Коммеск Life + SMS от ЕСБД
+                                {{__('navbar.notification_isn_898851')}}
                             @endif
                         </p>
                         <p>
-                            <b>Email:</b>
+                            <b>{{__('navbar.email')}}:</b>
                             {{$dataUrl['email'] ?? ''}}
                         </p>
                         @if($dataUrl['agentISN'] != null)
                             <p>
-                                <b>Номер телефона:</b>
+                                <b>{{__('navbar.phone')}}:</b>
                                 {{$dataUrl['phone'] ?? ''}}
                             </p>
                         @endif
                     </div>
-                    <div class="details__total"><span class="text-grey">Сумма к оплате: </span><span class="premium">
+                    <div class="details__total"><span class="text-grey">{{__('navbar.covid_amount_payable')}}</span><span class="premium">
                             @if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span>
                         тг
                     </div>
                     @if($dataUrl['agentISN'] == null)
                     <div class="grid">
                         <div class="col col--6-12 teldiv">
-                            <label for="phone" class="field-set__label NumpadInputMaster">Для перехода к оплате
-                                подтвердите
-                                свой номер телефона</label>
+                            <label for="phone" class="field-set__label NumpadInputMaster">
+                                {{__('navbar.covid_number_confirmation')}}</label>
                             <input type="tel" class="field interTel" id="phone" name="confirmTel"
                                    value="{{$dataUrl['phone'] ?? ''}}" disabled>
                         </div>
                         <div class="col col--6-12 telbuttondiv"><br/>
                             <button class="buttonSmsFirst button button--hollow" style="display: none"><a
                                     href="javascript:void(0)" onClick="sendSMS()"
-                                    class='sendLink'><b>Получить код проверки</b></a>
+                                    class='sendLink'><b>{{__('navbar.get_code_confirmation')}}</b></a>
                             </button>
-                            <span class='smswaiting' style='display:none;'>До повторной отправки  СМС осталось
-                            <span id='sec'></span> <span id="timeType">сек.</span></span>
+                            <span class='smswaiting' style='display:none;'>{{__('navbar.resending_sms')}}
+                            <span id='sec'></span> <span id="timeType">{{__('navbar.covid_seconds')}}</span></span>
                         </div>
 
                         <div class="col col--6-12 codedivs" style="display:none;">
                             <input type="text" class="field" id="code" value="" placeholder="Введите код" onkeyup="showOrHideBlock('code_error','code')">
                             <strong><small id="code_error" class="form-text text-" style="display: none; color: crimson">
-                                    Вы не указали код</small></strong>
+                                    {{__('navbar.covid_code_error')}}</small></strong>
                         </div>
                         <div class="col col--6-12 codedivs" style="display:none;">
                             <button class="buttonSmsSecond button button--hollow"><a href="javascript:void(0)"
-                                                                                     onClick="confirmcode()">Подтвердить</a>
+                                                                                     onClick="confirmcode()">{{__('navbar.confirm')}}</a>
                             </button>
                         </div>
                     </div>
                     @endif
                 <div id="step3" style="display: none">
-                    <h3 class="calculator__title premium">Номер заказа: {{$order_id}}<br/>К оплате: <span class="premium">
+                    <h3 class="calculator__title premium">{{__('navbar.covid_order_number')}} {{$order_id}}<br/>{{__('navbar.covid_to_pay')}}<span class="premium">
                              @if(($order->premium_sum ?? '') > 0) {{ number_format($order->premium_sum ?? '', 0, ',', ' ')}} @endif</span> ₸
                     </h3>
                     <div class="delivery-disq text-grey">
                         <p>
-                            После нажатия на кнопку «Оплатить» вы будете направлены на страницу
-                            одного из наших партнерских платежных ресурсов, для оплаты
-                            страхового полиса.</p>
+                            {{__('navbar.covid_description_halyk1')}}
+                        </p>
                         <p>
-                            Безопасность операции гарантирует банк. Мы никак не участвуем в процессе оплаты, не видим и
-                            не сохраняем ваши платежные данные (номер карточки и пр.) </p>
+                            {{__('navbar.covid_description_halyk2')}}
+                        </p>
                         <p style="font-weight:bold; color:red;">
-                            Для осуществления оплаты необходимо, чтобы Ваша банковская карта была открыта для
-                            интернет-транзакций. По этому вопросу Вы можете обратиться в банк, где была выпущена Ваша
-                            карта. </p>
+                            {{__('navbar.covid_description_halyk3')}} </p>
                     </div>
 
                     <pre></pre>
@@ -132,7 +124,7 @@
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithRule" value="yes">
-                                <span class="checkbox__label">«С  <a href="@if(($dataUrl['programISN'] ?? '') == 898641)
+                                <span class="checkbox__label">С  <a href="@if(($dataUrl['programISN'] ?? '') == 898641)
 
                                     {{ route('program-covid',[ 'id' =>'1'])}}
                                     @elseif(($dataUrl['programISN'] ?? '') == 898651)
@@ -143,27 +135,23 @@
 
                                     {{ route('program-covid',[ 'id' =>'3'])}}
 
-                                    @endif" style="text-decoration: underline;" target="_blank">Условиями</a> и <a
-                                        href="https://ckl.kz/files/rules/sj_covid_rules.pdf"
-                                        target="_blank"
-                                        style="text-decoration: underline;">Правилами</a> страхования ознакомлен</span>
+                                    @endif" style="text-decoration: underline;" target="_blank">
+                                           {!! __('navbar.terms_and_conditions_covid2') !!}
                             </label>
                         </fieldset>
                         <fieldset class="field-set col col--full">
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithPolicy" value="yes">
-                                <span class="checkbox__label">Я согласен на обработку <a
-                                        href="https://ckl.kz/files/rules/soglasye_na_obrabotky_dan.pdf"
-                                        target="_blank"
-                                        style="text-decoration: underline;">персональных данных</a> </span>
+                                <span class="checkbox__label">
+                                    {!! __('navbar.i_agree_personal_data_ch') !!}
                             </label>
                         </fieldset>
                         <fieldset class="field-set col col--full">
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithData" value="yes">
-                                <span class="checkbox__label">Подтверждаю корректность введенных данных</span>
+                                <span class="checkbox__label">{!! __('navbar.agree_correctly_data_ch') !!}</span>
                             </label>
                         </fieldset>
                         @if(($dataUrl['agentISN']) != null)
@@ -171,7 +159,7 @@
                             <label class="field-set__label"></label>
                             <label class="checkbox">
                                 <input type="checkbox" id="agreeWithEmail" value="yes">
-                                <span class="checkbox__label">Даю согласие на отправку полиса на почту {{$dataUrl['agentEmail'] ?? ''}}</span>
+                                <span class="checkbox__label">{{__('navbar.agree_email_process_ch')}} {{$dataUrl['agentEmail'] ?? ''}}</span>
                             </label>
                         </fieldset>
                         @endif
@@ -181,7 +169,7 @@
                         <label class="field-set__label"></label>
                         <label class="checkbox">
                             <input type="checkbox" id="agreeWithFailureDiseases" value="yes">
-                            <span class="checkbox__label">«Подтверждаю отсутствие указанных <a href="#" data-bs-toggle="modal" data-bs-target="#CheckBoxWithTableSick" style="text-decoration: underline;">заболеваний/состояний</a>».</span>
+                            <span class="checkbox__label">{!! ('navbar.agree_with_no_diseases_ch') !!}
                         </label>
                     </fieldset>
                     @endif
@@ -191,14 +179,12 @@
                         <label class="field-set__label"></label>
                         <label class="checkbox">
                             <input type="checkbox" id="agreeWithBeneficiary" value="yes">
-                            <span class="checkbox__label">«Выгодоприобреталем в случае смерти являются наследники в соответсвии с
-                                законодательством РК»
+                            <span class="checkbox__label">{!! ('navbar.agree_with_beneficiary_ch') !!}
                             </span>
                         </label>
                     </fieldset>
                     @endif
-
-                    <button class="button button--prime" id="paymentButton">Оплатить</button>
+                    <button class="button button--prime" id="paymentButton">{{__('navbar.payment_button_covid')}}</button>
                     <form action="https://epay.kkb.kz/jsp/process/logon.jsp" method="post">
                         <input type="hidden" name="Signed_Order_B64"
                                value="PGRvY3VtZW50PjxtZXJjaGFudCBjZXJ0X2lkPSJjMTgzYzZkZiIgbmFtZT0iS29tbWVzay1PbWlyIj48b3JkZXIgb3JkZXJfaWQ9IjQ3MjAwODIiIGFtb3VudD0iMTAyMDYiIGN1cnJlbmN5PSIzOTgiPjxkZXBhcnRtZW50IG1lcmNoYW50X2lkPSI5ODc0NTcwMSIgYW1vdW50PSIxMDIwNiIvPjwvb3JkZXI+PC9tZXJjaGFudD48bWVyY2hhbnRfc2lnbiB0eXBlPSJSU0EiPnBKNDdScFZCMkFWeitqcm5qZW5iYlJPdjFXSldzQ29PR013M2NnRVc1dWJNbEtKUFVJV1pGeWh2dXR5dUMySXVBcUtWUUhBL0tKRGVKZmJhbU9EaWxyR2pKK1dKSzhKejM0bWh2aEU4ckZtTUgwL2tESE9zMDVWUkdiNlhUdTFFV0g0UjdvcWRSajRBcnNDU1ZKVTZwLzZ5MURMdmRQanI0akQ0aVUzUTJKTT08L21lcmNoYW50X3NpZ24+PC9kb2N1bWVudD4=">
@@ -220,7 +206,7 @@
                 <br/>
                 <br/>
                 <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">
-                    <a href="/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1">Предыдущий шаг</a>
+                    <a href="/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1">{{__('navbar.covid_prev_step')}}</a>
                 </button>
             </div>
         </div>
@@ -304,14 +290,14 @@
                             initresendwait();
                         }
                         $('.codedivs').show();
-                    } else showError('Попробуйте еще раз');
+                    } else showError('{{__('navbar.covid_try_again')}}');
                 }
             });
         }
 
         function initresendwait(seconds, ddos = false, timeStep = 1000) {
             $(".buttonSmsFirst").hide();
-            $(".sendLink").html('Отправить смс повторно');
+            $(".sendLink").html('{{__('navbar.covid_send_sms_again')}}');
             $(".sendLink").hide();
             if (!ddos) {
                 $(".smswaiting, .codedivs").show();
@@ -366,9 +352,9 @@
                         $('#step3').show();
                     } else {
                         if (!data.limit_reached) {
-                            showError('Попробуйте еще раз');
+                            showError('{{__('navbar.covid_try_again')}}');
                         } else {
-                            showError('Вы исчерпали 3 попытки');
+                            showError('{{__('navbar.exhausted_the_limit')}}');
                             if (data.time_limit_reached != null) {
                                 $('.codedivs').hide();
                                 $(".sendLink").hide();
@@ -400,35 +386,35 @@
             let allowedDate = @json($allowedDate ?? '');
 
             if(!$("#agreeWithRule").is(":checked")) {
-                check += '-Пожалуйста, ознакомьтесь с Правилами страхования<br/>';
+                check += '{{__('navbar.agree_with_rule')}} <br/> ';
             }
             if(!$("#agreeWithPolicy").is(":checked")) {
-                check += '-Пожалуйста, подтвердите согласие на обработку персональных данных<br/>';
+                check += '{{__('navbar.agree_with_policy')}}<br/>';
             }
             if(!$("#agreeWithData").is(":checked")) {
-                check += '-Пожалуйста, подтвердите корректность введенных данных<br/>';
+                check += '{{__('navbar.agree_with_data')}}<br/>';
             }
 
             if(agentEmail != ''){
                 if(!$("#agreeWithBeneficiary").is(":checked")) {
-                    check += '-Пожалуйста, подтвердите выбор Выгодоприобретателя<br/>';
+                    check += '{{__('navbar.agree_with_beneficiary')}}<br/>';
                 }
                 if(!$("#agreeWithEmail").is(":checked")) {
-                    check += '-Пожалуйста, подтвердите согласие на отправку полиса на почту ' + agentEmail + '<br/>';
+                    check += '{{__('navbar.agree_with_email')}} ' + agentEmail + '<br/>';
                 }
 
                 if (!$("#agreeWithFailureDiseases").is(":checked") && $("#agreeWithRule").is(":checked") && $("#agreeWithBeneficiary").is(":checked")
                     && $("#agreeWithData").is(":checked") && $("#agreeWithPolicy").is(":checked")) {
-                    check += '-К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>.<br/>';
+                    check += '{{__('navbar.agree_with_failure_diseases_all')}}<br/>';
 
                 } else if (!$("#agreeWithFailureDiseases").is(":checked")) {
-                    check += '-Пожалуйста, подтвердите отсутствие указанных заболеваний/состояний<br/>';
+                    check += '{{__('navbar.agree_with_failure_diseases')}}<br/>';
                 }
             }
 
             if(allowedDate != 'true')
             {
-                check += 'Дата начала действия договора должна быть минимум на 7 дней больше текущей. Пожалуйста перейдите на предыдущий шаг';
+                check += '{{__('navbar.allowed_date')}}';
             }
             if(check.length > 0) {
                 showError(check);

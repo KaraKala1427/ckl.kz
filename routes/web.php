@@ -140,7 +140,7 @@ Route::group([
     Route::get('/covid/success-payment', [CovidController::class, 'successPaymentPage'])->name('covid.getResult');
     Route::get('/covid/failure-payment', [EpayController::class, 'failurePayment'])->name('covid.failure-payment');
     Route::view('/program-covid','pages.program_covid')->name('program-covid');
-    Route::view('/covid/agent-login','pages.agent_login')->name('agent.login');
+    Route::view('/agent-login','pages.agent_login')->name('agent.login');
 
 
 

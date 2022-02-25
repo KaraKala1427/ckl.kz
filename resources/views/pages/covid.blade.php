@@ -33,16 +33,17 @@
             </div>
         </div>
     </section>
+
     <br>
 
     <!-- form ksj covid -->
 
     <div class="calculator__block bg-grey entry agentBlock agentHasError" id="section1">
         @include('mini_parts.overloader')
-        <h3 class="calculator__title col--12-12 p-3">Ненакопительное (срочное) страхование жизни на случай заболевания COVID-19</h3>
+        <h3 class="calculator__title col--12-12 p-3">{{__('navbar.covid_title')}}</h3>
         <h3 class="calculator__title col--12-12 p-3">
-            Личные данные</h3>
-        @csrf
+            {{__('navbar.covid_personal_data')}}</h3>
+           @csrf
         <div class="grid">
             <div id="ajax"></div>
 
@@ -51,13 +52,13 @@
             <div class="col--12-12">
                 <fieldset class="field-set col col--6-12">
                     <label for="orderIIN" class="field-set__label checkList">
-                        ИИН
+                        {{__('navbar.iin')}}
                     </label>
                     <input class="field field datas iin" id="iin"
                            type="" name="iin" value="{{$dataUrl['subjects'][0]['user']['iin'] ?? ''}}"
                            maxlength="12" onkeyup="showOrHideBlock('iin_error','iin')">
                     <strong><small id="iin_error" class="form-text text-" style="display: none; color: crimson">
-                           Поле иин не заполнено</small></strong>
+                            {{__('navbar.iin_error ')}}</small></strong>
                 </fieldset>
             </div>
         </div>
@@ -67,49 +68,49 @@
             <!-- Имя -->
 
             <fieldset class="field-set col col--3-12">
-                <label for="orderfirstName" class="field-set__label checkList">Имя </label>
+                <label for="orderfirstName" class="field-set__label checkList">{{__('navbar.first_name')}}</label>
                 <input class="field datas keyboardInput agentData1 input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" type="text" name="firstName"
                        id="firstName"
                        onkeyup="showOrHideBlock('firstName_error','firstName')"
                        value="{{$dataUrl['subjects'][0]['user']['first_name'] ?? ''}}">
                 <strong><small id="firstName_error" class="form-text text-" style="display: none; color: crimson">
-                        Поле имя не заполнено</small></strong>
+                        {{__('navbar.first_name_error ')}}</small></strong>
             </fieldset>
 
             <!-- Фамилия -->
 
             <fieldset class="field-set col col--3-12 ">
-                <label for="orderlastName" class="field-set__label checkList">Фамилия </label>
+                <label for="orderlastName" class="field-set__label checkList">{{__('navbar.last_name')}} </label>
                 <input class="field datas keyboardInput agentData1 input-check clearFields" type="text"
                        name="lastName" id="lastName" value="{{$dataUrl['subjects'][0]['user']['last_name'] ?? ''}}"
                        onkeyup="showOrHideBlock('lastName_error','lastName')">
                 <strong><small id="lastName_error" class="form-text text-" style="display: none; color: crimson">
-                        Поле фамилия не заполнено</small></strong>
+                        {{__('navbar.last_name_error')}}</small></strong>
             </fieldset>
 
             <!-- Отчество -->
 
             <fieldset class="field-set col col--3-12">
-                <label for="patronymicName" class="field-set__label checkList">Отчество</label>
+                <label for="patronymicName" class="field-set__label checkList">{{__('navbar.patronymic')}}</label>
                 <input class="field datas keyboardInput agentData1 input-check clearFields"  type="text"
                        name="patronymicName" id="patronymicName"
                        onkeyup="showOrHideBlock('patronymicName_error','patronymicName')"
                        value="{{$dataUrl['subjects'][0]['user']['patronymic_name'] ?? ''}}">
                 <strong><small id="patronymicName_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Поле отчество не заполнено</small></strong>
+                        {{__('navbar.patronymic_name_error')}}</small></strong>
             </fieldset>
 
             <!-- Дата рождения -->
 
             <fieldset class="field-set col col--3-12">
-                <label for="orderDocDate" class="field-set__label checkList">Дата рождения </label>
+                <label for="orderDocDate" class="field-set__label checkList">{{__('navbar.born')}} </label>
                 <input class="field field--date datas edate input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" id="born" type="tel"
                        name="born" maxlength="10" placeholder="dd.mm.yyyy"
                        onkeyup="showOrHideBlock('born_error','born')"
                        value="{{$dataUrl['subjects'][0]['user']['born'] ?? ''}}" autocomplete="off">
                 <strong><small id="born_error" class="form-text text-" style="display: none; color: crimson">
-                        Поле дата рождения не заполнено</small></strong>
+                        {{__('navbar.born_error')}} </small></strong>
             </fieldset>
         </div>
 
@@ -117,26 +118,26 @@
             <!-- Тип документа -->
             <fieldset class="field-set col col--3-12" id="fieldDocType1">
                 <div id="doctypeField">
-                    <label for="orderBenefit" class="field-set__label checkList">Тип документа </label>
+                    <label for="orderBenefit" class="field-set__label checkList">{{__('navbar.document_type_id')}} </label>
                     <select name="documentTypeId" id="documentTypeId" tabindex="-1"
                             class="benefits datas agentData1 field input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()"  onkeyup="showOrHideBlock('documentTypeId_error','documentTypeId')">
                         <option value="documentTypeId-empty">--</option>
                         <option
                             value="1" {{ 'Удостоверение личности гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>
-                            Удостоверение личности гражданина Казахстана
+                            {{__('navbar.documentTypeId_udo')}}
                         </option>
                         <option
                             value="2" {{ 'Паспорт гражданина Казахстана' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>
-                            Паспорт гражданина Казахстана
+                            {{__('navbar.document_type_id_the_passport')}}
                         </option>
                         <option
                             value="4" {{ 'Вид на жительство' == ($dataUrl['subjects'][0]['user']['document_class_name'] ?? '') ? 'selected' : ''}}>
-                            Вид на жительство
+                            {{__('navbar.document_type_id_resident_card')}}
                         </option>
                     </select>
                     <strong><small id="documentTypeId_error" class="form-text text-"
                                    style="display: none; color: crimson">
-                            Вы не выбрали тип документа</small></strong>
+                            {{__('navbar.document_type_id_error')}}</small></strong>
                 </div>
             </fieldset>
 
@@ -144,39 +145,39 @@
 
             <fieldset class="field-set col col--3-12">
                 <label for="orderDocNumber" class="field-set__label checkList">
-                    Номер документа </label>
+                    {{__('navbar.document_number')}} </label>
                 <input class="field field-- datas input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" id="documentNumber" type="text" name="documentNumber"
                        onkeyup="showOrHideBlock('documentNumber_error','documentNumber')"
                        value="{{$dataUrl['subjects'][0]['user']['document_number'] ?? ''}}">
                 <strong><small id="documentNumber_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Поле номер документа не заполнено</small></strong>
+                        {{__('navbar.document_number_error')}} </small></strong>
             </fieldset>
 
             <!-- Дата выдачи документа -->
 
             <fieldset class="field-set col col--3-12">
-                <label for="documentGivedDate" class="field-set__label checkList">Дата выдачи документа </label>
+                <label for="documentGivedDate" class="field-set__label checkList">{{__('navbar.document_gived_date')}} </label>
                 <input class="field field--date datas edate input-check clearFields" onchange="showBlock1()" onkeypress="showBlock1()" id="documentGivedDate"
                        name="documentGivedDate" maxlength="10" placeholder="dd.mm.yyyy"
                        onkeyup="showOrHideBlock('documentGivedDate_error','documentGivedDate')"
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_date'] ?? ''}}" autocomplete="off">
                 <strong><small id="documentGivedDate_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Поле когда выдан не заполнено</small></strong>
+                        {{__('navbar.document_gived_date_error')}} </small></strong>
             </fieldset>
 
             <!-- Кем выдан -->
 
             <fieldset class="field-set col col--3-12">
-                <label for="orderdocumentGivedBy" class="field-set__label checkList">Кем выдан </label>
+                <label for="orderdocumentGivedBy" class="field-set__label checkList">{{__('navbar.document_gived_by')}} </label>
                 <input class="field datas keyboardInput agentData1 input-check clearFields"  onchange="showBlock1()" onkeypress="showBlock1()"id="documentGivedBy" type="text"
                        name="documentGivedBy" maxlength="10"
                        onkeyup="showOrHideBlock('documentGivedBy_error','documentGivedBy')"
                        value="{{$dataUrl['subjects'][0]['user']['document_gived_by'] ?? ''}}" autocomplete="off">
                 <strong><small id="documentGivedBy_error" class="form-text text-"
                                style="display: none; color: crimson">
-                       Поле кем выдан не заполнено</small></strong>
+                        {{__('navbar.document_gived_by_error')}} </small></strong>
             </fieldset>
         </div>
 
@@ -190,7 +191,7 @@
                     <input type="checkbox" name="insuredInsurer" id="insuredInsurer" value="yes"
                            class="checkbox-cov"
                            checked="checked" disabled>
-                    <span class="checkbox__label">Застрахованный является Страхователем</span>
+                    <span class="checkbox__label">{{__('navbar.insured_insurer')}}</span>
                 </label>
             </fieldset>
 
@@ -202,12 +203,10 @@
                     <input type="checkbox" name="notResidentUSA" id="notResidentUSA"  value="no" class="checkbox-cov"
                            checked="checked" disabled>
                     <span
-                        class="checkbox__label">Застрахованный  НЕ является  резидентом США/гражданином США</span>
+                        class="checkbox__label">{{__('navbar.not_resident_usa')}}</span>
                 </label>
             </fieldset>
-            <p class="p-3" style="margin-top: -25px;">«Выгодоприобретателем (-ями) (лицом, назначенным для получения
-                страховой выплаты по страховому случаю &quot;смерть Застрахованного&quot;) является (-ются) наследник
-                (-и) по Закону РК.».</p>
+            <p class="p-3" style="margin-top: -25px;">{{__('navbar.text_beneficiary')}}</p>
         </div>
 
 
@@ -217,27 +216,49 @@
 
             <fieldset class="field-set col col--6-12">
                 <div id="programField">
-                <label for="orderBenefit" class="field-set__label">Программа</label>
+                <label for="orderBenefit" class="field-set__label">{{__('navbar.program_isn')}}</label>
                 <select name="programISN" id="programISN" tabindex="-1" onchange="showBlock2()"
                         class="benefits datas agentData1 field input-check programIsn"  onkeyup="showOrHideBlock('programISN_error','programISN')">
-                    <option value="0" >--</option>
-                    <option value="898641" {{ 898641 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Программа
-                        1
+                    <option value="0">--</option>
+                    <option
+                        value="898641" {{ 898641 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>{{__('navbar.programs_one')}}
                     </option>
-                    <option value="898651" {{ 898651 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Программа
-                        2
+                    <option
+                        value="898651" {{ 898651 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>{{__('navbar.programs_two')}}
                     </option>
-                    <option value="898661" {{ 898661 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>Программа
-                        3
+                    <option
+                        value="898661" {{ 898661 == ($dataUrl['programISN'] ?? '') ? 'selected' : ''}}>{{__('navbar.programs_three')}}
                     </option>
                 </select>
                 <strong><small id="programISN_error" class="form-text text-"
                                style="display: none; color: crimson">
-                        Вы не выбрали программу</small></strong>
-                    <p id="programLink"><a href="{{ route('program-covid')}}" target="_blank">«Ознакомиться с полными условиями».</a></p>
-                    <p id="programLink1" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'1'])}}" target="_blank">«Ознакомиться с полными условиями по программе 1».</a></p>
-                    <p id="programLink2" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'2'])}}" target="_blank">«Ознакомиться с полными условиями по программе 2».</a></p>
-                    <p id="programLink3" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'3'])}}" target="_blank">«Ознакомиться с полными условиями по программе 3».</a></p>
+                           {{__('navbar.program_isn_error ')}}
+                       </small></strong>
+                    @if(App::getLocale()  === 'ru')
+                        <p id="programLink"><a href="{{ route('program-covid')}}" target="_blank">
+                                {{__('navbar.full_terms')}}</a></p>
+                        <p id="programLink1" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'1'])}}"
+                         target="_blank">{{__('navbar.full_terms_one')}}</a></p>
+                        <p id="programLink2" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'2'])}}"
+                         target="_blank"> {{__('navbar.full_terms_two')}}
+                                </a></p>
+                        <p id="programLink3" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'3'])}}"
+                         target="_blank"> {{__('navbar.full_terms_three')}}
+                                </a></p>
+                    @else
+                        <p id="programLink"><a href="{{ route('program-covid')}}" target="_blank">
+                                {{__('navbar.full_terms')}}</a></p>
+
+                        <p id="programLink1" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'1'])}}"
+                         target="_blank"> {{__('navbar.full_terms_one')}}
+                                </a></p>
+                        <p id="programLink2" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'2'])}}"
+                         target="_blank"> {{__('navbar.full_terms_two')}}
+                                </a></p>
+                        <p id="programLink3" style="display: none"><a href="{{ route('program-covid',[ 'id' =>'3'])}}"
+                         target="_blank"> {{__('navbar.full_terms_three')}}
+                                </a></p>
+                    @endif
                 </div>
             </fieldset>
 
@@ -245,14 +266,14 @@
 
             <fieldset class="field-set col col--6-12">
                 <label for="orderEmail" class="field-set__label checkList">
-                    Страховая сумма</label>
+                    {{__('navbar.limitSum')}}</label>
                 <input type="text" class="field datas keyboardInput agentData1 input-check" id="limitSum"
                        name="limitSum" disabled
                        value="{{$dataUrl['limitSum'] ?? ''}}">
             </fieldset>
 
             <!-- table programm 1 -->
-
+            @if(App::getLocale()  === 'ru')
             <table class="table table-bordered covid-program" style="display: none" id="program1">
                 <tbody>
                 <tr>
@@ -358,11 +379,19 @@
                 </tbody>
             </table>
 
+        @else
+
+            @include('mini_parts.program_1kz')
+            @include('mini_parts.program_2kz')
+            @include('mini_parts.program_3kz')
+
+        @endif
+
             <!-- Дата начала договора -->
 
             <fieldset class="field-set col col--6-12">
                 <div id="forAgrBeg">
-                    <h3 class="col--12-12">Дата начала договора</h3>
+                    <h3 class="col--12-12">  {{__('navbar.dateBeg')}}</h3>
                     <input class="field field--date edate dateBeg col--6-12 input-check dateBegChange" id="dateBeg" type="text"
                            name="dateBeg"
                            maxlength="10" placeholder="dd.mm.yyyy" onchange="showBlock2()" onkeypress="showBlock2()"
@@ -370,9 +399,8 @@
                            value="{{$dataUrl['dateBeg'] ?? ''}}" autocomplete="off">
                     <strong><small id="dateBeg_error" class="form-text text- dateBeg"
                                    style="display: none; color: crimson">
-                            Вы не указали дату</small></strong>
-                    <p>«Договор страхования начинает действовать по истечении 7 (семи)
-                        календарных дней с даты заключения договора страхования.»</p>
+                            {{__('navbar.dateBeg_error')}}</small></strong>
+                    <p>{{__('navbar.text_insurance_contract')}}</p>
                 </div>
             </fieldset>
 
@@ -380,7 +408,7 @@
             <!-- Дата окончания договора -->
 
             <fieldset class="field-set col col--6-12">
-                <h3 class="col--12-12">Дата окончания договора</h3>
+                <h3 class="col--12-12">{{__('navbar.dateEnd')}}</h3>
                 <input class="field col--6-12 edate dateEnd field--date input-check dateBegChange" id="dateEnd" type="text"
                        name="dateEnd"
                        maxlength="10" value="{{$dataUrl['dateEnd'] ?? ''}}" placeholder="dd.mm.yyyy"
@@ -397,38 +425,40 @@
                     class="benefits datas agentData1 field input-check sms" onchange="showBlock3()"
                     onkeyup="showOrHideBlock('notificationISN_error','notificationISN')" >
                     <option value="898821" {{ 898821 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
-                        Email от Сентрас Коммеск Life + SMS от ЕСБД
+                        {{__('navbar.notification_isn_898821')}}
                     </option>
                     <option value="898811" {{ 898811 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
-                        Email от Сентрас Коммеск Life + Email от ЕСБД
+                        {{__('navbar.notification_isn_898811')}}
                     </option>
-                    <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                        от ЕСБД
+                    <option value="898831" {{ 898831 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
+                        {{__('navbar.notification_isn_898831')}}
                     </option>
-                    <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                        от Сентрас Коммеск Life + Email от ЕСБД
+                    <option value="898841" {{ 898841 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
+                        {{__('navbar.notification_isn_898841')}}
                     </option>
-                    <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>SMS
-                        от Сентрас Коммеск Life + SMS от ЕСБД
+                    <option value="898851" {{ 898851 == ($dataUrl['notificationISN'] ?? '') ? 'selected' : ''}}>
+                        {{__('navbar.notification_isn_898851')}}
                     </option>
                 </select>
                 <strong><small id="notificationISN_error" class="form-text text-" style="display: none; color: crimson">
-                        Вы не выбрали способ уведомления</small></strong>
-                <p>«Просим указать куда направлять информацию о заключении договора страхования»</p>
+                        {{__('navbar.notification_isn_error')}}</small></strong>
+                <p>
+                    {{__('navbar.notification_isn_info')}}
+                </p>
             </fieldset>
 
             <!-- Мобильный номер -->
 
             <fieldset class="field-set col col--6-12" id="phone-field">
                 <label for="orderPhone" class="field-set__label checkList">
-                    Мобильный телефон </label>
+                    {{__('navbar.phone')}} </label>
                 <input type="tel" class="field interTel datas phone_number input-check" id="phone"
                        name="phone"
                        onkeyup="showOrHideBlock('phone_error','phone')" onchange="showBlock3()"
                        onkeypress="showBlock3() "
                        value="{{$dataUrl['phone'] ?? ''}}">
                 <strong><small id="phone_error" class="form-text text-" style="display: none; color: crimson">
-                     Поле телефон не заполнено</small></strong>
+                        {{__('navbar.phone_error')}} </small></strong>
             </fieldset>
 
             <!-- E-Mail -->
@@ -436,7 +466,7 @@
             <fieldset class="field-set col col--6-12 email-field" style="display:@if(($dataUrl['email'] ?? '') == '' && ($dataUrl['phone'] ?? '' < 0)) none  @else block  @endif;" >
 
                 <label for="orderEmail" class="field-set__label checkList">
-                    E-Mail </label>
+                    {{__('navbar.email')}}</label>
                 <input type="text" class="field datas keyboardInput agentData1 input-check" id="email" name="email"
                        onkeyup="showOrHideBlock('email_error','email')"  onchange="showBlock3()" onkeypress="showBlock3()"
                        value="{{$dataUrl['email'] ?? ''}}">
@@ -456,7 +486,7 @@
 
     <div class="calculator__section calculator__section--special badkasko" id="block3" style="display:{{$dataUrl['subjects'][0]['user']['iin'] ?? 'none'}}">
         <div class="calculator__block calculator__block--special">
-            <h3 class="calculator__title">Анкета</h3>
+            <h3 class="calculator__title">{{__('navbar.questionnaire')}}</h3>
             <div class="grid">
 
                 <!-- Имеет ли Застрахованный инвалидность? -->
@@ -469,7 +499,7 @@
 									<label for="hasInvalid" class="checkbox">
 									<input type="checkbox" class="checkbox-cov input-check" name="hasInvalid" value=""
                                            id="hasInvalid">
-                                        <span class="checkbox__label">Застрахованный имеет инвалидность.</span>
+                                        <span class="checkbox__label">{{__('navbar.has_invalid')}}</span>
                                     </label>
 								</label>
 							</h5>
@@ -486,7 +516,7 @@
 								<label for="hasPsycho" class="checkbox">
 									<input type="checkbox" name="hasPsycho" value="" id="hasPsycho"
                                            class="checkbox-cov input-check">
-                                    <span class="checkbox__label">Застрахованный стоит на учете в психоневрологическом диспансере.</span>
+                                    <span class="checkbox__label">{{__('navbar.has_psycho')}}</span>
                                 </label>
 							</h5>
 						</span>
@@ -502,7 +532,7 @@
 								<label for="hasSport" class="checkbox">
 									<input type="checkbox" name="hasSport" value="" id="hasSport"
                                            class="checkbox-cov input-check">
-                                    <span class="checkbox__label">Застрахованному диагностировались онкологические заболевания</span>
+                                    <span class="checkbox__label">{{__('navbar.has_sport')}}</span>
                                 </label>
 							</h5>
 						</span>
@@ -518,8 +548,7 @@
                 <label for="hasChronic" class="checkbox">
                     <input type="checkbox" name="hasChronic" value="" id="hasChronic" class="checkbox-cov input-check">
                     <span
-                        class="checkbox__label">Застрахованному проводились консультации/медицинское обследование/лечение по СПИД,
-ВИЧ.</span>
+                        class="checkbox__label">{{__('navbar.has_chronic')}}</span>
                 </label>
 							</h5>
 						</span>
@@ -536,8 +565,7 @@
                          <label for="hasCriminal" class="checkbox">
                      <input type="checkbox" name="hasCriminal" value="" id="hasCriminal" class="checkbox-cov input-check">
                     <span class="checkbox__label">
-                    Застрахованный является лицом, отбывающим наказание за совершение уголовных
-преступлений в учреждениях уголовно-исполнительной системы.
+                        {{__('navbar.has_criminal')}}
               </span>
                </label></h5>
                                 </span>
@@ -556,11 +584,11 @@
                 <div class="col col--6-12">
                     <button onclick="" id="sendOrder"
                             class="button button--prime">
-                        Рассчитать
+                        {{__('navbar.Calculate')}}
                     </button>
                     <div class="" style="display: @if(($premiumSum ?? '') > 0) block @else none @endif; font-weight: bold; margin-top: 13px;"
                         id="premiumWrapper">
-                        Итого: <span id="premium" class="premium"
+                        {{__('navbar.Total')}}<span id="premium" class="premium"
                                      style="font-size: larger;">@if(($premiumSum ?? '') > 0) {{ number_format($premiumSum ?? '', 0, ',', ' ')}} @endif</span> тг
                     </div>
                 </div>
@@ -569,14 +597,14 @@
                     <div  id="sendLinkShow" class="col col--6-12" style="display:none;">
                         <button onclick="" id="sendLink"
                                 class="button button--prime">
-                         Отправить ссылку
+                            {{__('navbar.send_link')}}
                         </button>
                     </div>
                 @else
                 <div  id="nextStepShow" class="col col--6-12" style="display:none;">
                     <button onclick="" id="nextStep"
                             class="button button--prime">
-                        Следующий шаг
+                        {{__('navbar.next_step')}}
                     </button>
                 </div>
                 @endif

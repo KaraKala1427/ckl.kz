@@ -111,12 +111,12 @@
 
         function isEmail(email) {
             if ((email) == '') {
-                $("#email_error").html("Поле email не заполнено").show();
+                $("#email_error").html('{{__('navbar.email_error')}}').show();
                 return false;
             }
             var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             if (!regex.test(email)) {
-                $("#email_error").html("Неверный формат почты").show();
+                $("#email_error").html('{{__('navbar.incorrectly_email')}}').show();
                 return false;
             } else {
                 return true;
@@ -127,11 +127,11 @@
 
         function isPhone(phone) {
             if ((phone) == '') {
-                $("#phone_error").html("Поле телефон не заполнено").show();
+                $("#phone_error").html('{{__('navbar.phone_error')}}').show();
                 return false;
             }
             if (phone.length < 11) {
-                $("#phone_error").html("Неправильно введен номер").show();
+                $("#phone_error").html('{{__('navbar.incorrectly_number')}}').show();
                 return false;
             } else {
                 return true;
@@ -145,11 +145,11 @@
             var textModal = '';
 
             if (checkBoxLabelId === 'insuredInsurerChBox') {
-                textModal = '«По условиям страхования Застрахованный является Страхователем. К сожалению, принесоблюденеии этого условия договор не может быть заключен.»';
+                textModal = '{{__('navbar.insured_insurer_ch_box')}}';
             }
 
             if (checkBoxLabelId === 'notResidentUsaChBox') {
-                textModal = '«По условиям страхования Застрахованный является гражданином Республики Казахстан.К сожалению, при несоблюденеии этого условия договор не может быть заключен.»';
+                textModal = '{{__('navbar.not_resident_usa_ch_box')}}';
             }
 
             wrongCheckBoxModal(textModal);
@@ -213,7 +213,7 @@
                         }
                     },
                     failure: function () {
-                        showError("Неизвестная ошибка");
+                        showError('{{__('navbar.covid_unknown_error')}}');
                     }
                 });
             });
@@ -241,12 +241,12 @@
                     success: await function (data) {
                         $('#overLoader').hide();
                         if (data.code == 200) {
-                            showSuccess("Ссылка на оплату успешно отправлена на номер клиента");
+                            showSuccess('{{__('navbar.covid_sms_success')}}');
                             $("#sendLink").prop("disabled", true);
                         }
                     },
                     failure: function () {
-                        showError("При отправке sms, возникла ошибка, попробуйте позже!");
+                        showError('{{__('navbar.covid_sms_error')}}');
                         $("#sendLink").prop("disabled", false);
                     }
                 });
@@ -527,21 +527,21 @@
 
                     } else {
                         if (data.code === 404) {
-                            showError("ИИН не найден в базе");
+                            showError('{{__('navbar.inn_not_found')}}');
                             $("#block1").hide();
                             $("#block2").hide();
                             $("#block3").hide();
                             $("#calculateSum").hide();
 
                         }else if (data.code === 406){
-                            showError("На страхование принимаются лица НЕ старше 65 лет на момент заключения Договора");
+                            showError('{{__('navbar.no_older_than_65_years')}}');
                             $("#block1").hide();
                             $("#block2").hide();
                             $("#block3").hide();
                             $("#calculateSum").hide();
                         }
                         else {
-                            showError("Ошибка доступа к серверу");
+                            showError('{{__('navbar.server_access_error')}}');
                         }
                         $('#overLoader').hide()
                     }
@@ -781,14 +781,14 @@
         var errors = '';
 
         if ($("#dateBeg").val() == '') {
-            $("#dateBeg_error").html('Заполните Дату' + $("#dateBeg").val()).show();
+            $("#dateBeg_error").html('{{__('navbar.dateBeg_error_empty_data')}}' + $("#dateBeg").val()).show();
             return false;
         }
 
         var regEx = /^([0-9]{2})\.([0-9]{2})\.([0-9]{4})$/;
 
         if (!regEx.test($("#dateBeg").val())) {
-            $("#dateBeg_error").html('Неверный формат даты').show();
+            $("#dateBeg_error").html('{{__('navbar.wrong_date_format')}}').show();
             return false;
         }
 
@@ -815,14 +815,11 @@
 
 
         if (dateBeg < nowDate) {
-            $("#dateBeg_error").show().html("Дата начала действия договора должна быть минимум на 7 дней " +
-                " больше текущей." +
-                " Пожалуйста, скорректируйте");
+            $("#dateBeg_error").show().html('{{__('navbar.dateBeg_error_seven_days')}}');
             $("#dateEnd").val("");
             return false;
         } else if (dateBeg > futureDate) {
-            $("#dateBeg_error").show().html("Максимальное количество дней ДО даты начала договора " +
-                "- 90 от текущей даты. Пожалуйста, скорректируйте");
+            $("#dateBeg_error").show().html('{{__('navbar.dateBeg_error_ninety_days')}}');
             $("#dateEnd").val("");
             return false;
         }

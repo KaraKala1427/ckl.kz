@@ -2,6 +2,6 @@
 
 @section('content')
     <div>
-        <h1>Оплата при покупке не прошла ):</h1>
+        <h1>{{__('navbar.failure_payment_halyk')}}</h1>
     </div>
 @endsection
