@@ -138,6 +138,19 @@
             }
         }
 
+        function isIin(iin) {
+            if ((iin) == '') {
+                $("#iin_error").html('{{__('navbar.iin_error')}}').show();
+                return false;
+            }
+            if (iin.length !== 12) {
+                $("#iin_error").html('{{__('navbar.iin_error')}}').show();
+                return false;
+            } else {
+                return true;
+            }
+        }
+
 
         $(document).on("click", ".wrongCheckBox", function () {
 
@@ -304,7 +317,7 @@
                     let a = false;
                     let scrollToElement = false; //До какого элемента скроллить, если false - скролла не будет
 
-                    if (iin == '') {
+                    if (isIin(iin) == false) {
                         const iinErrorId = "#iin";
                         $("#iin_error").show();
                         scrollToElement = scrollToElement === false ? iinErrorId : scrollToElement;
