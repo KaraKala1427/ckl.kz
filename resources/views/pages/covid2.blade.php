@@ -169,7 +169,7 @@
                         <label class="field-set__label"></label>
                         <label class="checkbox">
                             <input type="checkbox" id="agreeWithFailureDiseases" value="yes">
-                            <span class="checkbox__label">{!! ('navbar.agree_with_no_diseases_ch') !!}
+                            <span class="checkbox__label">{!! __('navbar.agree_with_no_diseases_ch') !!}
                         </label>
                     </fieldset>
                     @endif
@@ -179,7 +179,7 @@
                         <label class="field-set__label"></label>
                         <label class="checkbox">
                             <input type="checkbox" id="agreeWithBeneficiary" value="yes">
-                            <span class="checkbox__label">{!! ('navbar.agree_with_beneficiary_ch') !!}
+                            <span class="checkbox__label">{!! __('navbar.agree_with_beneficiary_ch') !!}
                             </span>
                         </label>
                     </fieldset>
