@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use GuzzleHttp\Client;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -216,10 +217,14 @@ class  CovidController extends Controller
         $dataOrder = $this->formDataOrder($array, $order);
         $this->saveOrder($order, $array, $dataOrder);
         if ($this->startOrNot($array['checkboxes'])) {
-            $errorLink = '<a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">« Kommesk.kz »</a>';
+            if ((App::getLocale() === 'ru')) {
+                $errorLink = 'К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>';
+            } else {
+                $errorLink = 'Өкінішке орай сақтандыру шарттарындағы шектеулерге байланысты сізді сақтандыруға қабылдай алмаймыз. Сіз бізден басқа сақтандыру бағдарламасын таңдай аласыз немесе таңдау үшін  <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>';
+            }
             return response()->json([
                 'code' => 422,
-                'error' => "К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на $errorLink"
+                'error' => "$errorLink"
             ]);
 
         }

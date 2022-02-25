@@ -11,6 +11,7 @@ use App\Models\Phone;
 use App\Repositories\PhoneRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -418,7 +419,11 @@ class CovidService
 
     public function sendSmsLinkToPhone($phone, $shortLink)
     {
-        $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
+        if ((App::getLocale() === 'ru')) {
+            $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
+        } else {
+            $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
+        }
         $response = Http::withOptions(['verify' => false])->get('https://www2.smsc.kz/sys/send.php', [
             "fmt" => "3",
             "login" => "CKL_KZ",
