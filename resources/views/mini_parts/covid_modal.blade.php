@@ -8,6 +8,7 @@
                 <p id="modalText" style="color: crimson;"></p>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
@@ -24,6 +25,7 @@
                 <p id="modalTextSuccess" style="color: greenyellow;"></p>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
@@ -41,6 +43,7 @@
                 <p id="modalTextCheckBox" style="color: crimson;"></p>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
