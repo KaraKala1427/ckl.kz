@@ -1,32 +1,31 @@
 <table class="table table-bordered covid-program" style="display: none" id="program3">
     <tbody>
     <tr>
-        <th>Период страхования</th>
-        <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+        <th>Сақтандыру кезені</th>
+        <td style="border: none;"><span style="font-weight: bold">12 ай</span></td>
     </tr>
     <tr>
-        <th>Условия</th>
-        <th>Программа 3 KZZZZ</th>
+        <th>Жалпы сақтандыру шарттары</th>
+        <th>3-ші бағдарлама</th>
     </tr>
     <tr>
-        <th>Общая страховая сумма</th>
+        <th>Жалпы сақтандыру сомасы</th>
         <td>3 000 000</td>
     </tr>
     <tr>
-        <th>Госпитализация</th>
+        <th>Ауруханаға жатқызу</th>
         <td>300 000</td>
     </tr>
     <tr>
-        <th>Смерть</th>
+        <th>Өлім</th>
         <td>2 700 000</td>
     </tr>
     <tr>
-        <th>Страховая премия</th>
+        <th>Сақтандыру сыйлықақысы</th>
         <td>26 100</td>
     </tr>
     <tr>
-        <th>Годовой тариф</th>
-
+        <th>Жылдық мөлшерлеме</th>
         <td>0,87%</td>
     </tr>
     </tbody>

@@ -31,33 +31,32 @@
 @else
 
     <tr>
-        <th>Период страхования</th>
-        <td style="border: none;"><span style="font-weight: bold"> 12 месяцев</span></td>
+        <th>Сақтандыру кезені</th>
+        <td style="border: none;"><span style="font-weight: bold">12 ай</span></td>
     </tr>
     <tr>
-        <th>Условия</th>
-        <th>Программа 2 KZZZZ</th>
+        <th>Жалпы сақтандыру шарттары</th>
+        <th>2-ші бағдарлама</th>
     </tr>
     <tr>
-        <th>Общая страховая сумма</th>
+        <th>Жалпы сақтандыру сомасы</th>
         <td>2 000 000</td>
     </tr>
     <tr>
-        <th>Госпитализация</th>
+        <th>Ауруханаға жатқызу</th>
         <td>200 000</td>
     </tr>
     <tr>
-        <th>Смерть</th>
+        <th>Өлім</th>
         <td>1 800 000</td>
     </tr>
     <tr>
-        <th>Страховая премия</th>
+        <th>Сақтандыру сыйлықақысы</th>
         <td>18 000</td>
     </tr>
     <tr>
-        <th>Годовой тариф</th>
+        <th>Жылдық мөлшерлеме</th>
         <td>0,90%</td>
     </tr>
-
 
 @endif

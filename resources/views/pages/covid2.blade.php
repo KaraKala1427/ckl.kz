@@ -405,7 +405,7 @@
 
                 if (!$("#agreeWithFailureDiseases").is(":checked") && $("#agreeWithRule").is(":checked") && $("#agreeWithBeneficiary").is(":checked")
                     && $("#agreeWithData").is(":checked") && $("#agreeWithPolicy").is(":checked")) {
-                    check += '{{__('navbar.agree_with_failure_diseases_all')}}<br/>';
+                    check += '{!! __('navbar.agree_with_failure_diseases_all') !!}<br/>';
 
                 } else if (!$("#agreeWithFailureDiseases").is(":checked")) {
                     check += '{{__('navbar.agree_with_failure_diseases')}}<br/>';
