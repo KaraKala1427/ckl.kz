@@ -290,7 +290,6 @@ class  CovidController extends Controller
             }
             $this->setAgrRole($subjISN, $order, "insurer");
             $this->setAgrRole($subjISN, $order, "beneficiary");
-            $this->setAgrRole(Order::ONLINE_CONSULTANT_ISN, $order, "operator");
             if (!is_null($dataOrder[0]['agentISN'])) {
                 $this->setAgrRole($dataOrder[0]['agentISN'], $order, "agent");
                 $this->setAgrRole($dataOrder[0]['operatorISN'], $order, "operator");
@@ -298,6 +297,7 @@ class  CovidController extends Controller
                 $responseAttributes = $this->setAttributes($subjISN, $order, 'agent');
             }
             else{
+                $this->setAgrRole(Order::ONLINE_CONSULTANT_ISN, $order, "operator");
                 $this->setAgrClause($order->agr_isn, 'direct');
                 $responseAttributes = $this->setAttributes($subjISN, $order, 'direct');
             }
@@ -459,7 +459,6 @@ class  CovidController extends Controller
 
     public function setAttributes($subjISN, Order $order, $channel)
     {
-
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAllAttribute', [
             "token" => "wesvk345sQWedva55sfsd*g",
             "subjISN" => $subjISN,
