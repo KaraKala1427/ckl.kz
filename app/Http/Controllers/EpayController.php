@@ -72,7 +72,7 @@ class EpayController extends Controller
             $statusArray = json_decode($status,true);
             $orderId = (int)$statusArray['invoiceId'];
             Log::channel('payment')->info("Status: {$status}");
-            if ($data['invoiceId'] == $statusArray['invoiceId'] && $data['amount'] == $statusArray['amount'] && $data['code'] = "ok" && $data['reason'] = "success") {
+            if ($data['invoiceId'] == $statusArray['invoiceId'] && $data['amount'] == $statusArray['amount'] && $data['code'] == "ok" && $data['reason'] ==  "success") {
                 $responseSavePostLink = $this->covidService->savePostLink($orderId, $status, $response);
                 if ($responseSavePostLink['code'] == 200){
                     $responseSaveEsbd = $this->covidService->saveAgrToEsbd($orderId);
