@@ -22,6 +22,5 @@
             display: none;
         }
     </style>
-
     </main>
 @endsection

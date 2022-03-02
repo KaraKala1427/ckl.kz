@@ -234,7 +234,8 @@
             $(document).on("click", "#sendLink", async function () {
                 var hostname = window.location.hostname;
 
-                const url = "https://" + hostname + "/covid?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + "&step=2";
+                // const url = "https://" + hostname + "/covid?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + "&step=2";
+                const url = "https://kommesk.kz/testforte.php?productOrderId=" + $("#order_id").val() + "&hash=" + $("#hash").val() + "&step=2";
                 $.ajax({
                     type: "POST",
                     url: "{{route('covid.sendSmsLinkToPhone')}}",

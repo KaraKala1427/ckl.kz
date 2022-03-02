@@ -23,15 +23,15 @@ class EpayController extends Controller
     {
         $order_id = (int)$request->order_id;
         $amount   = $this->covidService->getFieldData($order_id, 'premium_sum');
-        $auth = Http::asForm()->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
+        $auth = Http::asForm()->post('https://epay-oauth.homebank.kz/oauth2/token',[
             "grant_type"    => "client_credentials",
             "scope"         => "payment",
-            "client_id"     => "test",
-            "client_secret" => "yF587AV9Ms94qN2QShFzVR3vFnWkhjbAK3sG",
+            "client_id"     => "CKL.KZ",
+            "client_secret" => "b)TUCpd&3vOa&W&C",
             "invoiceID"     => (string)$order_id,
             "amount"        => (int)$amount,
             "currency"      => "KZT",
-            "terminal"      => "67e34d63-102f-4bd1-898e-370781d0074d"
+            "terminal"      => "6eddddad-df65-4aea-b7b1-d323340dce27"
         ])->json();
 
         return $auth;
@@ -106,11 +106,11 @@ class EpayController extends Controller
     public function statusAuth()
     {
         try {
-            $auth = Http::asForm()->post('https://testoauth.homebank.kz/epay2/oauth2/token',[
+            $auth = Http::asForm()->post('https://epay-oauth.homebank.kz/oauth2/token',[
                 "grant_type"    => "client_credentials",
                 "scope"         => "webapi usermanagement email_send verification statement statistics payment",
-                "client_id"     => "test",
-                "client_secret" => "yF587AV9Ms94qN2QShFzVR3vFnWkhjbAK3sG"
+                "client_id"     => "CKL.KZ",
+                "client_secret" => "b)TUCpd&3vOa&W&C"
             ])->json();
 
             return $auth;
@@ -125,7 +125,7 @@ class EpayController extends Controller
         try {
             $array = json_decode($auth,true);
             $token = $array['access_token'];
-            $status = Http::withToken($token)->get("https://testepay.homebank.kz/api/operation/$invoiceId")->json();
+            $status = Http::withToken($token)->get("https://epay-api.homebank.kz/operation/$invoiceId")->json();
             return $status;
         }
         catch (\Exception $e){

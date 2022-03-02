@@ -216,7 +216,7 @@
         </div>
         <div id='aj_result'></div>
     </div>
-    <script type="text/javascript" src="https://test-epay.homebank.kz/payform/payment-api.js"></script>
+    <script type="text/javascript" src="https://epay.homebank.kz/payform/payment-api.js"></script>
     <script>
 
 //        $('.premium').text((i, text) => {
@@ -448,8 +448,8 @@
                             failurePostLink: "https://" + hostname + "/api/epay/response",
                             language: "RU",
                             description: "Оплата в интернет магазине",
-                            accountId: "testuser1",
-                            terminal: "67e34d63-102f-4bd1-898e-370781d0074d",
+                            accountId: "98811611",
+                            terminal: "6eddddad-df65-4aea-b7b1-d323340dce27",
                             amount: amount,
                             currency: "KZT",
                             phone: "{{$dataUrl['phone'] ?? ''}}",

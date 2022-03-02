@@ -53,7 +53,7 @@
                                             <a href="{{route('admin.thumb.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
-                                        @elseif($article->raz == 'link112' && $article->razid == 112)
+                                        @elseif($article->raz == 'link112' && $article->orderid == 234)
                                             <a href="{{route('admin.get-order-list', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
