@@ -205,9 +205,13 @@
 
                 <br/>
                 <br/>
-                <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">
-                    <a href="/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1">{{__('navbar.covid_prev_step')}}</a>
-                </button>
+                    @if(($dataUrl['agentISN']) != null)
+
+                    @else
+                        <button class="button button--hollow" value="step1" name="prevStep" id="prevStep">
+                            <a href="/covid?productOrderId={{$order_id}}&hash={{$hash}}&step=1">{{__('navbar.covid_prev_step')}}</a>
+                        </button>
+                    @endif
             </div>
         </div>
         <div id='aj_result'></div>
