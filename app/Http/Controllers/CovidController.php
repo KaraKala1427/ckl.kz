@@ -290,6 +290,7 @@ class  CovidController extends Controller
             }
             $this->setAgrRole($subjISN, $order, "insurer");
             $this->setAgrRole($subjISN, $order, "beneficiary");
+            $this->setAgrRole(Order::ONLINE_CONSULTANT_ISN, $order, "operator");
             if (!is_null($dataOrder[0]['agentISN'])) {
                 $this->setAgrRole($dataOrder[0]['agentISN'], $order, "agent");
                 $this->setAgrRole($dataOrder[0]['operatorISN'], $order, "operator");
