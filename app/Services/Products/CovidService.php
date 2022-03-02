@@ -400,7 +400,7 @@ class CovidService
 
     public function checkServerOnline()
     {
-        $article = Article::where('raz', 'link111')->get()->first();
+        $article = Article::where('raz', 'link112')->get()->first();
         if($article->show_image_in_text == 'on')
             return $article->show_thumb;
         return 'true';
