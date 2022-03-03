@@ -43,6 +43,7 @@ class  CovidController extends Controller
         $order_id = $request->productOrderId;
         $hash = $request->hash;
         $urlStep = $request->step;
+        $reloaded = (int)$request->reloaded;
         if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
             try {
                 $order = Order::findOrFail($order_id);
@@ -58,7 +59,7 @@ class  CovidController extends Controller
                 if ($urlStep == 1) {
                     return view('pages.covid', compact('dataUrl', 'premiumSum'));
                 }elseif($order->status == Order::STATUS_ACCEPTED){
-                    return redirect()->route('covid.getResult', ['productOrderId' => $order_id, 'hash' => $hash]);
+                    return redirect()->route('covid.getResult', ['productOrderId' => $order_id, 'hash' => $hash, $reloaded => 'reloaded=1']);
                 }elseif ($step == 2 && $urlStep == $step) {
                     if (!is_null($dataUrl['agentISN'] ?? null))
                         $verified = true;
