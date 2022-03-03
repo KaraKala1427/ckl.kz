@@ -65,6 +65,17 @@
 
         <div class="grid">
 
+            <!-- Фамилия -->
+
+            <fieldset class="field-set col col--3-12 ">
+                <label for="orderlastName" class="field-set__label checkList">{{__('navbar.last_name')}} </label>
+                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text"
+                       name="lastName" id="lastName" value="{{$dataUrl['subjects'][0]['user']['last_name'] ?? ''}}"
+                       onkeyup="showOrHideBlock('lastName_error','lastName')">
+                <strong><small id="lastName_error" class="form-text text-" style="display: none; color: crimson">
+                        {{__('navbar.last_name_error')}}</small></strong>
+            </fieldset>
+
             <!-- Имя -->
 
             <fieldset class="field-set col col--3-12">
@@ -77,16 +88,6 @@
                         {{__('navbar.first_name_error ')}}</small></strong>
             </fieldset>
 
-            <!-- Фамилия -->
-
-            <fieldset class="field-set col col--3-12 ">
-                <label for="orderlastName" class="field-set__label checkList">{{__('navbar.last_name')}} </label>
-                <input class="field datas keyboardInput agentData1 input-check clearFields" type="text"
-                       name="lastName" id="lastName" value="{{$dataUrl['subjects'][0]['user']['last_name'] ?? ''}}"
-                       onkeyup="showOrHideBlock('lastName_error','lastName')">
-                <strong><small id="lastName_error" class="form-text text-" style="display: none; color: crimson">
-                        {{__('navbar.last_name_error')}}</small></strong>
-            </fieldset>
 
             <!-- Отчество -->
 
