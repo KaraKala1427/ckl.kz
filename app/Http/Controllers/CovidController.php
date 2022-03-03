@@ -57,7 +57,9 @@ class  CovidController extends Controller
                     $this->clearDate($order);
                 if ($urlStep == 1) {
                     return view('pages.covid', compact('dataUrl', 'premiumSum'));
-                } elseif ($step == 2 && $urlStep == $step) {
+                }elseif($order->status == Order::STATUS_ACCEPTED){
+                    return redirect()->route('covid.getResult', ['productOrderId' => $order_id, 'hash' => $hash]);
+                }elseif ($step == 2 && $urlStep == $step) {
                     if (!is_null($dataUrl['agentISN'] ?? null))
                         $verified = true;
                     return view('pages.covid2', compact('dataUrl', 'order', 'hash', 'order_id', 'timeLimitReached', 'verified', 'wrongAttempts', 'allowedDate'));
@@ -111,7 +113,7 @@ class  CovidController extends Controller
                     return response()->json([
                         'code' => 200
                     ]);
-                }
+                 }
                 return view('pages.covid', compact('dataUrl'));
             } catch (ModelNotFoundException $exception) {
                 return view('pages.covid');
