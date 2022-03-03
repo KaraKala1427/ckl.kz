@@ -125,7 +125,6 @@ class MailController extends Controller
         Mail::send('mail_views.order_covid', $data, function ($message) use ($data) {
             $message->to('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
-                ->cc('ernarerbol027@gmail.com')
                 ->subject($data['order_id']." Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
@@ -137,7 +136,6 @@ class MailController extends Controller
         Mail::send('mail_views.paid_order', $data, function ($message) use ($data) {
             $message->to('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
-                ->cc('ernarerbol027@gmail.com')
                 ->subject($data['order_id']." ОПЛАЧЕН Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });
@@ -149,7 +147,6 @@ class MailController extends Controller
         Mail::send('mail_views.paid_order_fail', $data, function ($message) use ($data) {
             $message->to('r.pomogalov@kommesk-omir.kz')
                 ->cc('yu.petrova@ckl.kz')
-                ->cc('ernarerbol027@gmail.com')
                 ->subject("ОШИБКА ".$data['order_id']." Е-Полис «СЖ-ковид»");
             $message->from('y.yerboluly@kommesk-omir.kz', 'ckl.kz');
         });

@@ -82,7 +82,7 @@ class EpayController extends Controller
                             $this->covidService->setStatusAccepted($orderId);
                             $policyResult = $this->covidService->savePolicyResult($orderId, $this->covidService->getAgrId($orderId));
                             if($policyResult != 'false'){
-                                $this->covidService->sendOrderPaidEmailSuccess($this->covidService->getById($orderId), $responseSavePostLink['meok']);
+                                $this->covidService->sendOrderPaidEmailSuccess($this->covidService->getById($orderId), $resultStatusKias['meok']);
                             }
                             else $this->covidService->sendOrderPaidEmailFail($this->covidService->getById($orderId), "Не записался номер договора");
                         }

@@ -302,6 +302,8 @@ class CovidService
                 "status"   => 'П'
             ])->json();
 
+            $meok = $this->setMeok($this->getById($orderId));
+            $response['meok'] = $meok;
             return $response;
         }
         catch (\Exception $e) {
@@ -338,9 +340,8 @@ class CovidService
             $order = Order::findOrFail($id);
             $order->status = Order::STATUS_IN_PROCESS;
             $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
-            $meok = $this->setMeok($order);
             $order->save();
-            return ['code' => 200, 'meok' => $meok['result']];
+            return ['code' => 200];
         }
         catch (\Exception $e)
         {
