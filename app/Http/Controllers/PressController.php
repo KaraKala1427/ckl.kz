@@ -40,7 +40,7 @@ class PressController extends Controller
     }
 
     public function press_by_year($year ){
-        $years = Menu::where('level', 22)->orderBy('id')->get()->pluck('name_ru');
+        $years = Menu::where('level', 22)->orderBy('id', 'desc')->get()->pluck('name_ru');
         $id_years = Menu::where('level', 22)->where('name_ru',$year)->get()->pluck('id');
         $articles = Article::whereIn('razid',$id_years)
             ->orderBy('id','desc')
