@@ -71,9 +71,12 @@ class  CovidController extends Controller
 
     public function getClient(Request $request)
     {
+        $authcode = Order::AUTH_CODE;
+        $signature = $this->covidService->generate($request->all(), $authcode);
         try {
             $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getClient', [
-                'token' => "wesvk345sQWedva55sfsd*g",
+                'signature' => $signature,
+                'partner_id' => 12,
                 'iin' => $request->iin
             ])->json();
             if ($response['code'] == 404) {
@@ -441,8 +444,9 @@ class  CovidController extends Controller
 
     public function setAgrRole($subjISN, Order $order, $who)
     {
+        $signature = md5();
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrRole', [
-            "token" => "wesvk345sQWedva55sfsd*g",
+            "signature" => $signature,
             "subjISN" => $subjISN,
             "agrISN" => $order->agr_isn,
             "role" => $who,

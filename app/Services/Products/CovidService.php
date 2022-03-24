@@ -385,7 +385,6 @@ class CovidService
         return false;
     }
 
-
     public function sendSmsLinkToPhone($phone, $shortLink)
     {
         $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
@@ -423,5 +422,11 @@ class CovidService
         }
     }
 
+    public function generate($data, $authCode)
+    {
+        ksort($data);
+        $data[] = $authCode;
+        return md5(implode(';', $data));
+    }
 
 }
