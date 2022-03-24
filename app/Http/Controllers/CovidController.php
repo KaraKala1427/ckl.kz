@@ -76,8 +76,9 @@ class  CovidController extends Controller
     public function getClient(Request $request)
     {
         $authcode = Order::AUTH_CODE;
-        dd($request->all());
-        $signature = $this->covidService->generate($request->all(), $authcode);
+        $data = $request->all();
+        unset($data['_token']);
+        $signature = $this->covidService->generate($data, $authcode);
         try {
             $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getClient', [
                 'signature' => $signature,
