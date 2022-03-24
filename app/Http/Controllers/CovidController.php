@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use GuzzleHttp\Client;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -42,6 +43,7 @@ class  CovidController extends Controller
         $order_id = $request->productOrderId;
         $hash = $request->hash;
         $urlStep = $request->step;
+        $reloaded = (int)$request->reloaded;
         if ($order_id != null && $hash != null && $this->checkHash($order_id, $hash)) {
             try {
                 $order = Order::findOrFail($order_id);
@@ -56,7 +58,9 @@ class  CovidController extends Controller
                     $this->clearDate($order);
                 if ($urlStep == 1) {
                     return view('pages.covid', compact('dataUrl', 'premiumSum'));
-                } elseif ($step == 2 && $urlStep == $step) {
+                }elseif($order->status == Order::STATUS_ACCEPTED){
+                    return redirect()->route('covid.getResult', ['productOrderId' => $order_id, 'hash' => $hash, $reloaded => 'reloaded=1']);
+                }elseif ($step == 2 && $urlStep == $step) {
                     if (!is_null($dataUrl['agentISN'] ?? null))
                         $verified = true;
                     return view('pages.covid2', compact('dataUrl', 'order', 'hash', 'order_id', 'timeLimitReached', 'verified', 'wrongAttempts', 'allowedDate'));
@@ -113,7 +117,7 @@ class  CovidController extends Controller
                     return response()->json([
                         'code' => 200
                     ]);
-                }
+                 }
                 return view('pages.covid', compact('dataUrl'));
             } catch (ModelNotFoundException $exception) {
                 return view('pages.covid');
@@ -219,10 +223,14 @@ class  CovidController extends Controller
         $dataOrder = $this->formDataOrder($array, $order);
         $this->saveOrder($order, $array, $dataOrder);
         if ($this->startOrNot($array['checkboxes'])) {
-            $errorLink = '<a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">« Kommesk.kz »</a>';
+            if ((App::getLocale() === 'ru')) {
+                $errorLink = 'К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>';
+            } else {
+                $errorLink = 'Өкінішке орай сақтандыру шарттарындағы шектеулерге байланысты сізді сақтандыруға қабылдай алмаймыз. Сіз бізден басқа сақтандыру бағдарламасын таңдай аласыз немесе таңдау үшін  <a href="https://kommesk.kz/ns.html" style="color: #00abcd; text-decoration: underline" target="_blank">Kommesk.kz</a>';
+            }
             return response()->json([
                 'code' => 422,
-                'error' => "К сожалению, мы не можем принять Вас на страхование из-за ограничений по условиям страхования. Вы можете выбрать у нас другую программу страхования или пройти для выбора программы на $errorLink"
+                'error' => "$errorLink"
             ]);
 
         }
@@ -292,11 +300,13 @@ class  CovidController extends Controller
                 $this->setAgrRole($dataOrder[0]['agentISN'], $order, "agent");
                 $this->setAgrRole($dataOrder[0]['operatorISN'], $order, "operator");
                 $this->setAgrClause($order->agr_isn, 'agent');
+                $responseAttributes = $this->setAttributes($subjISN, $order, 'agent');
             }
-            else
-                $this->setAgrClause($order->agr_isn, 'agent');
-
-            $responseAttributes = $this->setAttributes($subjISN, $order);
+            else{
+                $this->setAgrRole(Order::ONLINE_CONSULTANT_ISN, $order, "operator");
+                $this->setAgrClause($order->agr_isn, 'direct');
+                $responseAttributes = $this->setAttributes($subjISN, $order, 'direct');
+            }
             if ($responseAttributes['data'] == 'ok') {
                 $responseCond = $this->setAgrCond($responseObj['obj_isn'], $order->agr_isn, self::getLimitSum($order));
                 if ($responseCond['code'] != 200) {
@@ -454,7 +464,7 @@ class  CovidController extends Controller
         return $response;
     }
 
-    public function setAttributes($subjISN, Order $order)
+    public function setAttributes($subjISN, Order $order, $channel)
     {
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAllAttribute', [
             "token" => "wesvk345sQWedva55sfsd*g",
@@ -464,7 +474,8 @@ class  CovidController extends Controller
             "phone" => $this->getFieldOrderData($order, 'phone'),
             "programISN" => (int)$this->getFieldOrderData($order, 'programISN'),
             "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
-            "order_id" => (string)$order->id
+            "order_id" => (string)$order->id,
+            "channel" => $channel
         ])->json();
         return $response;
     }
@@ -678,7 +689,6 @@ class  CovidController extends Controller
 
 
     public function getShortLink($url)
-
     {
         return $this->covidService->getShortLink($url);
 

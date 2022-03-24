@@ -11,6 +11,7 @@ use App\Models\Phone;
 use App\Repositories\PhoneRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -225,7 +226,7 @@ class CovidService
         $order->save();
     }
 
-    public function sendOrderPaidEmailSuccess(Order $order)
+    public function sendOrderPaidEmailSuccess(Order $order, $message)
     {
         $order_data = json_decode($order->order_data,true)[0];
         $email_array = [
@@ -243,7 +244,8 @@ class CovidService
             'date_start' => $order_data['dateBeg'],
             'date_end' => $order_data['dateEnd'],
             'agentFullName' => $order_data['agentFio'] ?? null,
-            'agentName' => $order_data['agentName'] ?? null
+            'agentName' => $order_data['agentName'] ?? null,
+            'meok'    => $message
         ];
         MailController::sendOrderPaidEmail($email_array);
     }
@@ -283,6 +285,12 @@ class CovidService
         return $response;
     }
 
+    public function checkStatus($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        return $order->status;
+    }
+
     public function setAgrStatus($orderId)
     {
         try {
@@ -294,11 +302,17 @@ class CovidService
                 "status"   => 'П'
             ])->json();
 
+            $meok = $this->setMeok($this->getById($orderId));
+            $response['meok'] = $meok;
             return $response;
         }
         catch (\Exception $e) {
-            Log::info("Не подписался договор, ошибка : {$e->getMessage()}");
-            return ['code' => 500];
+            $message = $e->getMessage();
+            Log::debug("Не подписался договор, ошибка : " . $message);
+            return [
+                'code' => 500,
+                'error' => $message
+            ];
         }
     }
 
@@ -327,7 +341,7 @@ class CovidService
             $order->status = Order::STATUS_IN_PROCESS;
             $order->postlink = $response.PHP_EOL."-----------".PHP_EOL.$status;
             $order->save();
-            return 200;
+            return ['code' => 200];
         }
         catch (\Exception $e)
         {
@@ -335,6 +349,24 @@ class CovidService
         }
     }
 
+    public function setMeok(Order $order)
+    {
+        try {
+            $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setMeok',[
+                "token"    => "wesvk345sQWedva55sfsd*g",
+                "agr_isn"  => $order->agr_isn,
+                "payment"  => $order->premium_sum,
+                "order_id" => (string)$order->id
+            ])->json();
+
+            return $response;
+        }
+        catch (\Exception $exception)
+        {
+            $error = $exception->getMessage();
+            Log::channel('payment')->info("Meok: ".$error);
+        }
+    }
     public function savePolicyResult($id, $array)
     {
         try {
@@ -369,7 +401,7 @@ class CovidService
 
     public function checkServerOnline()
     {
-        $article = Article::where('raz', 'link111')->get()->first();
+        $article = Article::where('raz', 'link112')->get()->first();
         if($article->show_image_in_text == 'on')
             return $article->show_thumb;
         return 'true';
@@ -387,7 +419,11 @@ class CovidService
 
     public function sendSmsLinkToPhone($phone, $shortLink)
     {
-        $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
+        if ((App::getLocale() === 'ru')) {
+            $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
+        } else {
+            $text = "Для оплаты вашего договора перейдите по ссылке $shortLink";
+        }
         $response = Http::withOptions(['verify' => false])->get('https://www2.smsc.kz/sys/send.php', [
             "fmt" => "3",
             "login" => "CKL_KZ",

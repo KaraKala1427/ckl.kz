@@ -15,6 +15,9 @@ class Order extends Model
     public const STATUS_CALCULATED = 'calculated';
 
 
+    public const ONLINE_CONSULTANT_ISN = 23232;
+
+
     use HasFactory;
     protected $fillable = [
         'iin',

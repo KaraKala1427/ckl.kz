@@ -45,7 +45,7 @@
                                     <td>{{$article->dat}}</td>
                                     {{--                                <td class="text-right"></td>--}}
                                     <td class="td-actions text-right">
-                                        @if($article->raz != 'link110' && $article->raz != 'link111')
+                                        @if($article->raz != 'link110' && $article->raz != 'link112')
                                         <a href="{{route('admin.one.menu.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                             <i class="tim-icons icon-settings"></i>
                                         </a>
@@ -53,17 +53,17 @@
                                             <a href="{{route('admin.thumb.edit', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
-                                        @elseif($article->raz == 'link111' && $article->razid == 112)
+                                        @elseif($article->raz == 'link112' && $article->orderid == 234)
                                             <a href="{{route('admin.get-order-list', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
-                                        @elseif($article->raz == 'link111')
+                                        @elseif($article->raz == 'link112')
                                             <a href="{{route('admin.plug-covid', ["link"=>$article->raz,'id'=>$article->id])}}" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
                                                 <i class="tim-icons icon-settings"></i>
                                             </a>
                                         @endif
 
-                                        @if($article->raz != 'link111')
+                                        @if($article->raz != 'link112')
                                         <form method="post" action="{{url('/admin/link/' . $article->id)}}">
 
                                             @csrf

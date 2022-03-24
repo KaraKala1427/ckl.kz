@@ -1,8 +1,7 @@
 @include('mini_parts.overloader')
 
 
-<h1  align="center" style="color: red"><span id="seconds">60</span>
-    секунд
+<h1 align="center" style="color: red"><span id="seconds">60</span>
 </h1>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -27,7 +26,7 @@
             success: function (data) {
                 if (data.success == true) {
 
-                    window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id ?? ''}} +"&hash=" + '{{$hash ?? ''}}' + "&reloaded=1";
+                    window.location.href = "https://" + hostname + "/covid/success-payment/?productOrderId=" + {{$order_id}} +"&hash=" + '{{$hash}}' + "&reloaded=1";
 
                 }
             },
