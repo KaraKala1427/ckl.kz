@@ -275,11 +275,13 @@ class CovidService
 
     public function saveAgrToEsbd($orderId)
     {
-        $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+        $data['agrISN'] = $this->getFieldData($orderId, 'agr_isn');
+        $signature = $this->covidService->generateSignature($data);
 
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/save-agr-to-esbd',[
-            "token"     => "wesvk345sQWedva55sfsd*g",
-            "agrISN"   => $agrIsn
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "agrISN"   => $data['agrISN']
         ])->json();
 
         return $response;
@@ -294,12 +296,16 @@ class CovidService
     public function setAgrStatus($orderId)
     {
         try {
-            $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+            $data['agrISN'] = $this->getFieldData($orderId, 'agr_isn');
+            $data['status'] = 'П';
+
+            $signature = $this->covidService->generateSignature($data);
 
             $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/set-agr-status',[
-                "token"    => "wesvk345sQWedva55sfsd*g",
-                "agrISN"   => $agrIsn,
-                "status"   => 'П'
+                "partner_id" => 12,
+                "signature"  => $signature,
+                "agrISN"   => $data['agrISN'],
+                "status"   => $data['status']
             ])->json();
 
             $meok = $this->setMeok($this->getById($orderId));
@@ -325,10 +331,14 @@ class CovidService
 
     public function getAgrId($orderId)
     {
-        $agrIsn = $this->getFieldData($orderId, 'agr_isn');
+        $data['agr_isn'] = $this->getFieldData($orderId, 'agr_isn');
+
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/get-agr-id',[
-            "token"    => "wesvk345sQWedva55sfsd*g",
-            "agr_isn"   => $agrIsn
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "agr_isn"   => $data['agr_isn']
         ])->json();
 
         return $response;
@@ -352,11 +362,18 @@ class CovidService
     public function setMeok(Order $order)
     {
         try {
+            $data['agr_isn'] = $order->agr_isn;
+            $data['payment'] = $order->premium_sum;
+            $data['order_id'] = (string)$order->id;
+
+            $signature = $this->covidService->generateSignature($data);
+
             $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setMeok',[
-                "token"    => "wesvk345sQWedva55sfsd*g",
-                "agr_isn"  => $order->agr_isn,
-                "payment"  => $order->premium_sum,
-                "order_id" => (string)$order->id
+                "partner_id" => 12,
+                "signature"  => $signature,
+                "agr_isn"  => $data['agr_isn'],
+                "payment"  => $data['payment'],
+                "order_id" => $data['order_id']
             ])->json();
 
             return $response;
@@ -458,8 +475,9 @@ class CovidService
         }
     }
 
-    public function generate($data, $authCode)
+    public function generateSignature($data)
     {
+        $authCode = Order::AUTH_CODE;
         ksort($data);
         $data[] = $authCode;
         return md5(implode(';', $data));

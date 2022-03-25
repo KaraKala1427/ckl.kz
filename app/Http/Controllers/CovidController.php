@@ -78,12 +78,12 @@ class  CovidController extends Controller
         $authcode = Order::AUTH_CODE;
         $data = $request->all();
         unset($data['_token']);
-        $signature = $this->covidService->generate($data, $authcode);
+        $signature = $this->covidService->generateSignature($data, $authcode);
         try {
             $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getClient', [
-                'signature' => $signature,
+                'signature'  => $signature,
                 'partner_id' => 12,
-                'iin' => $request->iin
+                'iin'        => $request->iin
             ])->json();
             if ($response['code'] == 404) {
                 return response()->json($response);
@@ -358,18 +358,29 @@ class  CovidController extends Controller
 
     public function setSubject(Order $order)
     {
-        $orderDataUser = $this->getFieldOrderData($order, 'subjects')[0]['user'];
+        $orderDataUser      = $this->getFieldOrderData($order, 'subjects')[0]['user'];
+        $data['iin']        =  $orderDataUser['iin'];
+        $data['firstName']  =  $orderDataUser['first_name'];
+        $data['lastName']   =  $orderDataUser['last_name'];
+        $data['middleName'] =  $orderDataUser['patronymic_name'];
+        $data['resident']   =  "Y";
+        $data['juridical']  =  "N";
+        $data['sex']        =  EnsOrderHelper::identifySexByIIN($orderDataUser['iin']);
+        $data['birthDay']   =  $orderDataUser['born'];
+
+        $signature = $this->covidService->generateSignature($data);
 
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setClient', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "iin" => $orderDataUser['iin'],
-            "firstName" => $orderDataUser['first_name'],
-            "lastName" => $orderDataUser['last_name'],
-            "middleName" => $orderDataUser['patronymic_name'],
-            "resident" => "Y",
-            "juridical" => "N",
-            "sex" => EnsOrderHelper::identifySexByIIN($orderDataUser['iin']),
-            "birthDay" => $orderDataUser['born']
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "iin"        => $data['iin'],
+            "firstName"  => $data['firstName'],
+            "lastName"   => $data['lastName'],
+            "middleName" => $data['middleName'],
+            "resident"   => $data['resident'],
+            "juridical"  => $data['juridical'],
+            "sex"        => $data['sex'],
+            "birthDay"   => $data['birthDay']
         ]);
         return $response;
     }
@@ -377,39 +388,63 @@ class  CovidController extends Controller
     public function setDocs($subjISN, Order $order)
     {
         $subjectDocs = $this->getFinalSubject($order);
+
+        $data['subjISN']      = $subjISN;
+        $data['docClassName'] = $subjectDocs['document_class_name'];
+        $data['docNo']        = $subjectDocs['document_number'];
+        $data['docIssuedBy']  = $subjectDocs['document_gived_by'];
+        $data['docDateBeg']   = $subjectDocs['document_gived_date'];
+
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setSubjDocs', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "subjISN" => $subjISN,
-            "docClassName" => $subjectDocs['document_class_name'],
-            "docNo" => $subjectDocs['document_number'],
-            "docIssuedBy" => $subjectDocs['document_gived_by'],
-            "docDateBeg" => $subjectDocs['document_gived_date'],
+            "partner_id"   => 12,
+            "signature"    => $signature,
+            "subjISN"      => $data['subjISN'],
+            "docClassName" => $data['docClassName'],
+            "docNo"        => $data['docNo'],
+            "docIssuedBy"  => $data['docIssuedBy'],
+            "docDateBeg"   => $data['docDateBeg'],
         ])->json();
         return $response;
     }
 
     public function setSubjectESBD($subjISN)
     {
+        $data['subjISN'] = $subjISN;
+        $signature       = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setSubjToEsbd', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "subjISN" => $subjISN
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "subjISN"    => $data['subjISN']
         ])->json();
         return $response;
     }
 
     public function setAgreement($subjISN, $dateBeg, $dateEnd, Order $order)
     {
+        $data['subjISN']   = $subjISN;
+        $data['agrBeg']    = $dateBeg;
+        $data['agrEnd']    = $dateEnd;
+        $data['systemISN'] = 624841;
+
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgreement', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "subjISN" => $subjISN,
-            "agrBeg" => $dateBeg,
-            "agrEnd" => $dateEnd,
-            "systemISN" => 624841
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "subjISN"    => $data['subjISN'],
+            "agrBeg"     => $data['agrBeg'],
+            "agrEnd"     => $data['agrEnd'],
+            "systemISN"  => $data['systemISN']
         ])->json();
         if ($response['code'] == 200) {
             $order->agr_isn = $response['agr_isn'];
+
             $dataOrder = json_decode($order->order_data, true);
             $dataOrder[0]['agrISN'] = $response['agr_isn'];
+
             $order->order_data = json_encode($dataOrder);
             $order->save();
         }
@@ -418,12 +453,19 @@ class  CovidController extends Controller
 
     public function updateAgreement($subjISN, Order $order, $dateBeg, $dateEnd)
     {
+        $data['subjISN'] = $subjISN;
+        $data['agrISN']  = $order->agr_isn;
+        $data['agrBeg']  = $dateBeg;
+        $data['agrEnd']  = $dateEnd;
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/updateAgreement', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "subjISN" => $subjISN,
-            "agrISN" => $order->agr_isn,
-            "agrBeg" => $dateBeg,
-            "agrEnd" => $dateEnd
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "subjISN"    => $data['subjISN'],
+            "agrISN"     => $data['agrISN'],
+            "agrBeg"     => $data['agrBeg'],
+            "agrEnd"     => $data['agrEnd']
         ])->json();
 
         $dataOrder = json_decode($order->order_data, true);
@@ -435,9 +477,12 @@ class  CovidController extends Controller
 
     public function clearAgreement($agr_isn)
     {
+        $data['agrISN'] = $agr_isn;
+        $signature = $this->covidService->generateSignature($data);
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/clearAgreement', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "agrISN" => $agr_isn
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "agrISN"     => $data['agrISN']
         ])->json();
         return $response;
     }
@@ -445,50 +490,78 @@ class  CovidController extends Controller
     public function setAgrObj($subjISN, Order $order)
     {
         $orderDataUser = $this->getFieldOrderData($order, 'subjects')[0]['user'];
+
+        $data['subjISN'] = $subjISN;
+        $data['agrISN']  = $order->agr_isn;
+        $data['objName'] = $orderDataUser['last_name'] . " " . $orderDataUser['first_name'];
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrObject', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "subjISN" => $subjISN,
-            "agrISN" => $order->agr_isn,
-            "objName" => $orderDataUser['last_name'] . " " . $orderDataUser['first_name'],
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "subjISN"    => $data['subjISN'],
+            "agrISN"     => $data['agrISN'],
+            "objName"    => $data['objName']
         ])->json();
         return $response;
     }
 
     public function setAgrRole($subjISN, Order $order, $who)
     {
-        $signature = md5();
+        $data['subjISN'] = $subjISN;
+        $data['agrISN']  = $order->agr_isn;
+        $data['role']    = $who;
+        $signature = $this->covidService->generateSignature($data);
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrRole', [
-            "signature" => $signature,
-            "subjISN" => $subjISN,
-            "agrISN" => $order->agr_isn,
-            "role" => $who,
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "subjISN"    => $data['subjISN'],
+            "agrISN"     => $data['agrISN'],
+            "role"       => $data['role'],
         ])->json();
         return $response;
     }
 
     public function setAttributes($subjISN, Order $order, $channel)
     {
+        $data['subjISN'] = $subjISN;
+        $data['agrISN'] = $this->getFieldOrderData($order, 'agrISN');
+        $data['email'] = $this->getFieldOrderData($order, 'email');
+        $data['phone'] = $this->getFieldOrderData($order, 'phone');
+        $data['programISN'] = (int)$this->getFieldOrderData($order, 'programISN');
+        $data['notificationISN'] = (int)$this->getFieldOrderData($order, 'notificationISN');
+        $data['order_id'] = (string)$order->id;
+        $data['channel'] = $channel;
+
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAllAttribute', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "subjISN" => $subjISN,
-            "agrISN" => $this->getFieldOrderData($order, 'agrISN'),
-            "email" => $this->getFieldOrderData($order, 'email'),
-            "phone" => $this->getFieldOrderData($order, 'phone'),
-            "programISN" => (int)$this->getFieldOrderData($order, 'programISN'),
-            "notificationISN" => (int)$this->getFieldOrderData($order, 'notificationISN'),
-            "order_id" => (string)$order->id,
-            "channel" => $channel
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "subjISN" => $data['subjISN'],
+            "agrISN" => $data['agrISN'],
+            "email" => $data['email'],
+            "phone" => $data['phone'],
+            "programISN" => $data['programISN'],
+            "notificationISN" => $data['notificationISN'],
+            "order_id" => $data['order_id'],
+            "channel" => $data['channel']
         ])->json();
         return $response;
     }
 
     public function setAgrCond($objISN, $agrISN, $limitSum)
     {
+        $data['agrISN'] = $agrISN;
+        $data['objISN'] = $objISN;
+        $data['limitSum'] = (int)$limitSum;
+        $signature = $this->covidService->generateSignature($data);
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrCondition', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "agrISN" => $agrISN,
-            "objISN" => $objISN,
-            "limitSum" => (int)$limitSum
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "agrISN"     => $data['agrISN'],
+            "objISN"     => $data['objISN'],
+            "limitSum"   => $data['limitSum']
         ])->json();
 
         return $response;
@@ -496,10 +569,14 @@ class  CovidController extends Controller
 
     public function setAgrClause($agrISN, $channel)
     {
+        $data['agrISN'] = $agrISN;
+        $data['channel'] = $channel;
+        $signature = $this->covidService->generateSignature($data);
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/setAgrClause', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "agrISN" => $agrISN,
-            "channel" => $channel
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "agrISN"     => $data['agrISN'],
+            "channel"    => $data['channel']
         ])->json();
 
         return $response;
@@ -508,9 +585,12 @@ class  CovidController extends Controller
 
     public function agrCalculate(Order $order)
     {
+        $data['agrISN'] = $order->agr_isn;
+        $signature = $this->covidService->generateSignature($data);
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/agrCalculate', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "agrISN" => $order->agr_isn
+            "partner_id" => 12,
+            "signature"  => $signature,
+            "agrISN"     => $data['agrISN']
         ])->json();
         if ($response['code'] == 200) {
             $order->premium_sum = $response['premium'];
@@ -643,10 +723,15 @@ class  CovidController extends Controller
 
     public function saveXmlInAndOut($xmlIsn, Order $order, $requestParam)
     {
+        $data['xmlIsn'] = $xmlIsn;
+        $signature = $this->covidService->generateSignature($data);
+
         $response = Http::withOptions(['verify' => false])->post('https://connect.cic.kz/centras/ckl/getXmlInfo', [
-            "token" => "wesvk345sQWedva55sfsd*g",
-            "xmlIsn" => $xmlIsn,
+            "partner_id"   => 12,
+            "signature"    => $signature,
+            "xmlIsn"       => $data['xmlIsn'],
         ])->json();
+
         if ($response['code'] == 200) {
             $order->xml_in .= PHP_EOL . PHP_EOL . " -------------------- $requestParam" . PHP_EOL . $response['result_cursor'][0]['XMLIN'];
             $order->xml_out .= PHP_EOL . PHP_EOL . " -------------------- $requestParam" . PHP_EOL . $response['result_cursor'][0]['XMLOUT'];
