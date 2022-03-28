@@ -1,4 +1,4 @@
-6<?php
+<?php
 
 return [
     "curentlang" => "",
@@ -214,7 +214,7 @@ return [
     "covid_try_again" => 'Попробуйте еще раз',
     "covid_send_sms_again" => 'Отправить смс повторно',
     "exhausted_the_limit" => 'Вы исчерпали 3 попытки',
-    "terms_and_conditions_covid2" => 'Условиями</a> и <a href="{{ asset(\'files/rules/sj_covid_rules.pdf\') }}" target="_blank" style="text-decoration: underline;">Правилами</a> страхования ознакомлен</span>',
+    "terms_and_conditions_covid2" => 'Условиями</a> и <a href="https://ckl.kz/files/rules/sj_covid_rules.pdf" target="_blank" style="text-decoration: underline;">Правилами</a> страхования ознакомлен</span>',
     "covid_prev_step" => 'Предыдущий шаг',
     "payment_button_covid" => 'Оплатить',
     "i_agree_personal_data_ch" => 'Я согласен на обработку <a href="https://ckl.kz/files/rules/soglasye_na_obrabotky_dan.pdf" target="_blank" style="text-decoration: underline;"> персональных данных</a> </span>',
